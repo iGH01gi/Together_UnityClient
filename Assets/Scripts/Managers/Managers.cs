@@ -8,9 +8,9 @@ public class Managers : MonoBehaviour
     static Managers Instance {get { Init(); return _instance; } } 
     
     ResourceManager _resource = new ResourceManager();
-    
-    /*
     UIManager _ui = new UIManager();
+    /*
+    
     SceneManagerEx _scene = new SceneManagerEx();
     PoolManager _pool = new PoolManager();
     DataManager _data = new DataManager();
@@ -18,10 +18,9 @@ public class Managers : MonoBehaviour
     */
     
     public static  ResourceManager Resource { get { return Instance._resource;} }
-    
+    public static UIManager UI { get { return Instance._ui; } }
     
     /*
-     public static UIManager UI { get { return Instance._ui; } }
     public static SceneManagerEx Scene { get { return Instance._scene; } }
     public static PoolManager Pool { get { return Instance._pool; } }
     public static DataManager Data { get { return Instance._data; } }
