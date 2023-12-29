@@ -9,9 +9,9 @@ public class Managers : MonoBehaviour
     
     ResourceManager _resource = new ResourceManager();
     UIManager _ui = new UIManager();
+    SceneManagerEx _scene = new SceneManagerEx();
     /*
     
-    SceneManagerEx _scene = new SceneManagerEx();
     PoolManager _pool = new PoolManager();
     DataManager _data = new DataManager();
     SoundManager _sound = new SoundManager();
@@ -19,9 +19,9 @@ public class Managers : MonoBehaviour
     
     public static  ResourceManager Resource { get { return Instance._resource;} }
     public static UIManager UI { get { return Instance._ui; } }
-    
-    /*
     public static SceneManagerEx Scene { get { return Instance._scene; } }
+    /*
+    
     public static PoolManager Pool { get { return Instance._pool; } }
     public static DataManager Data { get { return Instance._data; } }
     
@@ -59,8 +59,8 @@ public class Managers : MonoBehaviour
     public static void Clear()
     {
         //Sound.Clear();
-        //Scene.Clear();
-        //UI.Clear();
+        Scene.Clear();
+        UI.Clear();
         //Pool.Clear();
     }
     
