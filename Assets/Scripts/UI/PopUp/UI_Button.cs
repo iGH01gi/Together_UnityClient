@@ -8,7 +8,6 @@ using Object = UnityEngine.Object;
 
 public class UI_Button : UI_Popup
 {
-    private Dictionary<Type, UnityEngine.Object[]> _objects = new Dictionary<Type, Object[]>();
     enum Buttons
     {
         //List of Buttons by Name
