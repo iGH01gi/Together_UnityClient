@@ -5,43 +5,38 @@ using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.Serialization;
-using UnityEngine.InputSystem;
 
 public class PlayerMovement : MonoBehaviour
 {
+    public static bool _playerIsMoving;
     //probably should be stored elsewhere later
-    public float _walkSpeed = 0.04f;
-    public float _runSpeed = 0.06f;
+    public float _walkSpeed = 0.02f;
+    public float _runSpeed = 0.03f;
     private Animator _anim;
     private float timeCount = 0;
-    private float slerpFactor = 0.01f;
+    private float slerpFactor = 0.1f;
 
     private Vector2 moveInput;
 
     private void Start()
     {
         _anim = transform.GetChild(1).GetComponent<Animator>();
+        _playerIsMoving = false;
     }
 
     private void Update()
     {
         if (moveInput!= Vector2.zero)
         {
-            /*
-            if (Input.GetKeyDown("Run"))
-            {
-                _anim.SetBool("isRunning", true);
-                Move(_runSpeed);
-            }
-            else
-            {
-            */
+            _playerIsMoving = true;   
+            
+
                 _anim.SetBool("isWalking", true);
                 Move(_walkSpeed);
-            
         }
         else
         {
+            _playerIsMoving = false;
             _anim.SetBool("isRunning", false);
             _anim.SetBool("isWalking",false);
         }
@@ -56,7 +51,7 @@ public class PlayerMovement : MonoBehaviour
 
     private void LookDirection(float angle)
     {
-        timeCount = timeCount + (Time.deltaTime * slerpFactor);
+        timeCount += (Time.deltaTime * slerpFactor);
         transform.GetChild(1).transform.localRotation = Quaternion.Slerp(transform.GetChild(1).transform.localRotation,Quaternion.AngleAxis(angle, Vector3.up),timeCount);
     }
 

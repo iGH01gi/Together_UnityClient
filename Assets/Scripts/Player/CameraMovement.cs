@@ -12,11 +12,7 @@ public class CameraMovement : MonoBehaviour
     
     private Vector3 _playerPos;
     private float rotationX = 0f;
-    
-    private void Start()
-    {
-        
-    }
+
 
     private void Update()
     {
@@ -27,7 +23,12 @@ public class CameraMovement : MonoBehaviour
         rotationX = Mathf.Clamp(rotationX, -70f, minViewDistance);
         
         transform.GetChild(0).transform.localRotation = Quaternion.Euler(rotationX,0f,0f);
-        transform.Rotate(3f*mouseX*Vector3.up);
+        transform.Rotate(3f * mouseX * Vector3.up);
+        if (!PlayerMovement._playerIsMoving)
+        {
+            transform.GetChild(1).transform.Rotate(3f * -mouseX * Vector3.up);
+        }
+
     }
     
     /*
@@ -36,6 +37,7 @@ public class CameraMovement : MonoBehaviour
      .
      .
      Using RotateAround
+     
      transform.RotateAround(_playerPos,Vector3.up, mouseX);
         Vector3 newPos = new Vector3(_playerPos.x-transform.position.x,transform.position.y,_playerPos.z-transform.position.z);
         Vector3 q = Quaternion.LookRotation(newPos).eulerAngles;
