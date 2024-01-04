@@ -26,4 +26,12 @@ public class Define
         Effect,
         MaxCount,
     }
+
+    public enum PlayerAction
+    {
+        Idle,
+        Run,
+        Walk,
+        Jump,
+    }
 }

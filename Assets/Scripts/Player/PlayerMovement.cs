@@ -12,33 +12,45 @@ public class PlayerMovement : MonoBehaviour
     //probably should be stored elsewhere later
     public float _walkSpeed = 0.02f;
     public float _runSpeed = 0.03f;
-    private Animator _anim;
+    private PlayerAnimController _anim;
     private float timeCount = 0;
-    private float slerpFactor = 0.1f;
+    private float slerpFactor = 0.01f;
 
     private Vector2 moveInput;
+    private float runInput;
+    private float jumpInput;
 
     private void Start()
     {
-        _anim = transform.GetChild(1).GetComponent<Animator>();
+        _anim = transform.GetChild(1).GetComponent<PlayerAnimController>();
         _playerIsMoving = false;
     }
 
     private void Update()
     {
+        if (jumpInput > 0)
+        {
+            _anim.PlayAnim(Define.PlayerAction.Jump);
+        }
+
         if (moveInput!= Vector2.zero)
         {
-            _playerIsMoving = true;   
-            
-
-                _anim.SetBool("isWalking", true);
+            _playerIsMoving = true;
+            if (runInput>0)
+            {
+                _anim.PlayAnim(Define.PlayerAction.Run);
+                Move(_runSpeed);
+            }
+            else
+            {
+                _anim.PlayAnim(Define.PlayerAction.Walk);
                 Move(_walkSpeed);
+            }
         }
         else
         {
             _playerIsMoving = false;
-            _anim.SetBool("isRunning", false);
-            _anim.SetBool("isWalking",false);
+            _anim.PlayAnim(Define.PlayerAction.Idle);
         }
     }
 
@@ -59,5 +71,15 @@ public class PlayerMovement : MonoBehaviour
     {
         moveInput = value.Get<Vector2>();
     }
+
+    void OnRun(InputValue value)
+    {
+       runInput = value.Get<float>();
+    }
     
+    void OnJump(InputValue value)
+    {
+        jumpInput = value.Get<float>();
+        Debug.Log(jumpInput);
+    }
 }
