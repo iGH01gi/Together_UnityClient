@@ -8,10 +8,8 @@ public class Define
     {
         //Scene Types that can occur
         Unknown,
-        Login,
         Lobby,
         InGame,
-        PostGame
     }
     public enum UIEvent
     {
