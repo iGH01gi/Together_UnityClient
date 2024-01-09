@@ -71,6 +71,7 @@ public class KeyBindingManager : MonoBehaviour
 
     public void ChangeKeySetting(GameObject button, KeyValuePair<string,Tuple<int, InputBinding>> current)
     {
+        GetBindings();
         InputAction action = _playerControl[current.Value.Item2.action];
         action.Disable();
         _rebindOperation = action.PerformInteractiveRebinding(current.Value.Item1)
@@ -83,7 +84,7 @@ public class KeyBindingManager : MonoBehaviour
     
     void RebindComplete(GameObject button, KeyValuePair<string,Tuple<int, InputBinding>> current,InputAction action)
     {
-        
+        GetBindings();
         bool successful = true;
         bool isComposite = current.Value.Item1 > 0;
         string newBinding = action.bindings[current.Value.Item1].path;
@@ -111,10 +112,16 @@ public class KeyBindingManager : MonoBehaviour
             // [ADD] binding failed popup
         }
         action.Enable();
-        _rebindOperation.Dispose();
-        
-        
         
         Debug.Log($"{keyname}finished rebinding to : {newBinding}");
+    }
+
+    void GetBindings()
+    {
+        foreach (var ahh in _playerControl.bindings)
+        {
+            Debug.Log(ahh.path);
+        }
+        Debug.Log("\n");
     }
 }
