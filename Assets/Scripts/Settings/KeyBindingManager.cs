@@ -65,7 +65,7 @@ public class KeyBindingManager : MonoBehaviour
                 .SetReference("StringTable", current.Key);
             go.transform.GetChild(1).GetComponent<Button>().onClick.AddListener(() => ChangeKeySetting(go.transform.GetChild(1).gameObject,current));
             go.transform.GetChild(1).GetChild(0).GetComponent<TextMeshProUGUI>().text =
-                current.Value.Item2.path.Replace("<Keyboard>/", "");
+                current.Value.Item2.ToDisplayString();
         }
     }
 
@@ -74,16 +74,37 @@ public class KeyBindingManager : MonoBehaviour
         InputAction action = _playerControl[current.Value.Item2.action];
         action.Disable();
         _rebindOperation = action.PerformInteractiveRebinding(current.Value.Item1)
-            .OnComplete(operation => RebindComplete(button, current,action))
-            .WithControlsExcluding("Mouse")
+            .OnComplete(operation => RebindComplete(button, current))
             .WithCancelingThrough("<Keyboard>/escape")
             .OnMatchWaitForAnother(0.1f)
             .Start();
     }
     
-    void RebindComplete(GameObject button, KeyValuePair<string,Tuple<int, InputBinding>> current,InputAction action)
+    void RebindComplete(GameObject button, KeyValuePair<string,Tuple<int, InputBinding>> current)
     {
+        InputAction action = _playerControl[current.Value.Item2.action];
         bool successful = true;
+        InputBinding newBinding = action.bindings[current.Value.Item1];
+        
+        Debug.Log(newBinding.ToDisplayString());
+
+        foreach (var loop in _keyBindings)
+        {
+            if ((current.Key != loop.Key)&&(newBinding.ToDisplayString() == loop.Value.Item2.ToDisplayString()))
+            {
+                successful = false;
+                action.ChangeBinding(current.Value.Item1).WithPath(current.Value.Item2.path);
+                Debug.Log("Override occured");
+                break;
+            }
+        }
+
+        if (successful)
+        {
+            _keyBindings[current.Key] = Tuple.Create(current.Value.Item1,newBinding);
+            button.transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = newBinding.ToDisplayString();
+        }
+        
         action.Enable();
     }
 }
