@@ -71,7 +71,6 @@ public class KeyBindingManager : MonoBehaviour
 
     public void ChangeKeySetting(GameObject button, KeyValuePair<string,Tuple<int, InputBinding>> current)
     {
-        GetBindings();
         InputAction action = _playerControl[current.Value.Item2.action];
         action.Disable();
         _rebindOperation = action.PerformInteractiveRebinding(current.Value.Item1)
@@ -84,44 +83,7 @@ public class KeyBindingManager : MonoBehaviour
     
     void RebindComplete(GameObject button, KeyValuePair<string,Tuple<int, InputBinding>> current,InputAction action)
     {
-        GetBindings();
         bool successful = true;
-        bool isComposite = current.Value.Item1 > 0;
-        string newBinding = action.bindings[current.Value.Item1].path;
-        string keyname = current.Key;
-
-        foreach (var search in _keyBindings)
-        {
-            if (keyname != search.Key && newBinding == search.Value.Item2.path)
-            {
-                //[ADD] UI POP UP
-                Debug.Log("Overlapping Controls!!!!");
-                action.ApplyBindingOverride(current.Value.Item1,current.Value.Item2.path);
-                successful = false;
-                break;
-            }
-        }
-
-        if (successful)
-        {
-            button.transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = newBinding.Replace("<Keyboard>/", "");
-            // [ADD] save binding changes to json
-        }
-        else
-        {
-            // [ADD] binding failed popup
-        }
         action.Enable();
-        
-        Debug.Log($"{keyname}finished rebinding to : {newBinding}");
-    }
-
-    void GetBindings()
-    {
-        foreach (var ahh in _playerControl.bindings)
-        {
-            Debug.Log(ahh.path);
-        }
-        Debug.Log("\n");
     }
 }
