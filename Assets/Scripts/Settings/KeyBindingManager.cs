@@ -76,6 +76,7 @@ public class KeyBindingManager : MonoBehaviour
         action.Disable();
         _rebindOperation = action.PerformInteractiveRebinding(current.Value.Item1)
             .OnComplete(operation => RebindComplete(button, current))
+            .WithControlsExcluding("Mouse")
             .WithCancelingThrough("<Keyboard>/escape")
             .OnMatchWaitForAnother(0.1f)
             .Start();
