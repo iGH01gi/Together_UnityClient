@@ -1,0 +1,12 @@
+{
+  "sound":{
+    "master": 100,
+    "bgm":100,
+    "sfx":100
+  },
+  "others":{
+    "language": "en",
+    "mouseSensitivity": 100,
+    "fontSize":24
+  }
+}

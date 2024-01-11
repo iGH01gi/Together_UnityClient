@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using TMPro;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.Localization.Components;
@@ -22,11 +23,11 @@ public class KeyBindingManager : MonoBehaviour
     private Dictionary<string,Tuple<int,InputBinding>> _keyBindings;
     InputActionRebindingExtensions.RebindingOperation _rebindOperation;
 
-
     void Start()
     {
         _playerControl = _inputActionAsset.FindActionMap("Player");
         _keyBindings = new Dictionary<string,Tuple<int, InputBinding>>();
+        _playerControl.LoadBindingOverridesFromJson(Managers.Data.LoadFromJson(Define.SaveFiles.KeyBinding));
         GetCurrentBinding();
         DisplayKeySetting();
     }
@@ -85,8 +86,6 @@ public class KeyBindingManager : MonoBehaviour
         InputAction action = _playerControl[current.Value.Item2.action];
         bool successful = true;
         InputBinding newBinding = action.bindings[current.Value.Item1];
-        
-        Debug.Log(newBinding.ToDisplayString());
 
         foreach (var loop in _keyBindings)
         {
@@ -106,5 +105,10 @@ public class KeyBindingManager : MonoBehaviour
         }
         
         action.Enable();
+    }
+
+    public void SaveChangedBindings()
+    {
+        Managers.Data.SaveToJson(Define.SaveFiles.KeyBinding,_playerControl.SaveBindingOverridesAsJson());
     }
 }

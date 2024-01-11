@@ -4,6 +4,10 @@ using UnityEngine;
 
 public class Define
 {
+    public enum SaveFiles
+    {
+        KeyBinding
+    }
     public enum Scene
     {
         //Scene Types that can occur
