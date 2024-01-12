@@ -27,6 +27,13 @@ public class Managers : MonoBehaviour
     void Start()
     {
         Init();
+        //네트워크 채팅 테스트용 (삭제 예정)
+        StartCoroutine(Network.CoSendPacket());
+    }
+    
+    void Update()
+    {
+        _network.Update();
     }
 
     static void Init()

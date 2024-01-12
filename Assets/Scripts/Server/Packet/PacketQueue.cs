@@ -26,7 +26,8 @@ public class PacketQueue
             if (_packetQueue.Count == 0)
                 return null;
             
-            _packetQueue.Dequeue();
+            return _packetQueue.Dequeue();
         }
     }
 }
+

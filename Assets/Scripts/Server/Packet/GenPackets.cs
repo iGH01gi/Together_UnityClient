@@ -2,6 +2,7 @@ using ServerCore;
 using System;
 using System.Net;
 using System.Text;
+
 public enum PacketID
 {
     C_Chat = 1,
