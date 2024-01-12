@@ -13,6 +13,7 @@ public class Managers : MonoBehaviour
     SoundManager _sound = new SoundManager();
     PoolManager _pool = new PoolManager();
     DataManager _data = new DataManager();
+    NetworkManager _network = new NetworkManager();
     
     
     public static  ResourceManager Resource { get { return Instance._resource;} }
@@ -21,6 +22,7 @@ public class Managers : MonoBehaviour
     public static SoundManager Sound { get { return Instance._sound; } }
     public static PoolManager Pool { get { return Instance._pool; } }
     public static DataManager Data { get { return Instance._data; } }
+    public static NetworkManager Network { get { return Instance._network; } }
 
     void Start()
     {
@@ -43,6 +45,7 @@ public class Managers : MonoBehaviour
             _instance._sound.Init();
             _instance._data.Init();
             _instance._pool.Init();
+            _instance._network.Init();
         }
     }
     
