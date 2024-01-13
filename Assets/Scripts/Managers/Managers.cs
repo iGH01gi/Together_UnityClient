@@ -14,6 +14,7 @@ public class Managers : MonoBehaviour
     PoolManager _pool = new PoolManager();
     DataManager _data = new DataManager();
     NetworkManager _network = new NetworkManager();
+    PlayerManager _player = new PlayerManager();
     
     
     public static  ResourceManager Resource { get { return Instance._resource;} }
@@ -23,12 +24,11 @@ public class Managers : MonoBehaviour
     public static PoolManager Pool { get { return Instance._pool; } }
     public static DataManager Data { get { return Instance._data; } }
     public static NetworkManager Network { get { return Instance._network; } }
+    public static PlayerManager Player { get { return Instance._player; } }
 
     void Start()
     {
         Init();
-        //네트워크 채팅 테스트용 (삭제 예정)
-        StartCoroutine(Network.CoSendPacket());
     }
     
     void Update()
