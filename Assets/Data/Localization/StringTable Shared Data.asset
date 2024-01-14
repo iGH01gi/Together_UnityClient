@@ -71,6 +71,10 @@ MonoBehaviour:
     m_Key: Effects
     m_Metadata:
       m_Items: []
+  - m_Id: 3742342787010560
+    m_Key: language
+    m_Metadata:
+      m_Items: []
   m_Metadata:
     m_Items: []
   m_KeyGenerator:

@@ -74,6 +74,10 @@ MonoBehaviour:
     m_Localized: Sound Effect Volumn
     m_Metadata:
       m_Items: []
+  - m_Id: 3742342787010560
+    m_Localized: Language
+    m_Metadata:
+      m_Items: []
   references:
     version: 2
     RefIds: []

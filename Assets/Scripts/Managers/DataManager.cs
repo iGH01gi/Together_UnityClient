@@ -48,7 +48,6 @@ public class DataManager
     {
         if (File.Exists(GetFilePath(fileType)))
         {
-            Debug.Log("bruh");
             string str = File.ReadAllText(GetFilePath(fileType));
             return JsonUtility.FromJson<T>(str);
         }
