@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 5839783868790846972}
   - component: {fileID: 7866922593236228870}
   m_Layer: 5
-  m_Name: '[keyname]'
+  m_Name: KeyBindingSelection
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -37,7 +37,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 0.5}
   m_AnchorMax: {x: 1, y: 0.5}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 177.7076}
+  m_SizeDelta: {x: 0, y: 180}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &5839783868790846972
 CanvasRenderer:
@@ -170,8 +170,8 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6884417094136082716, guid: a7712208714da1a4d8eb3e3d402d7d1b, type: 3}
-      propertyPath: m_Navigation.m_Mode
-      value: 0
+      propertyPath: m_Interactable
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

@@ -15,14 +15,6 @@ MonoBehaviour:
   m_TableCollectionName: StringTable
   m_TableCollectionNameGuidString: 0aac7a9fb7bdca74994506b3c550a33c
   m_Entries:
-  - m_Id: 92550631424
-    m_Key: StartGame
-    m_Metadata:
-      m_Items: []
-  - m_Id: 197743775744
-    m_Key: EndGame
-    m_Metadata:
-      m_Items: []
   - m_Id: 57408658509824
     m_Key: left
     m_Metadata:
@@ -49,6 +41,34 @@ MonoBehaviour:
       m_Items: []
   - m_Id: 2608531022831616
     m_Key: Save
+    m_Metadata:
+      m_Items: []
+  - m_Id: 3021214275768320
+    m_Key: DisplaySetting
+    m_Metadata:
+      m_Items: []
+  - m_Id: 3021244936130560
+    m_Key: SoundSetting
+    m_Metadata:
+      m_Items: []
+  - m_Id: 3021268382289920
+    m_Key: ControlSetting
+    m_Metadata:
+      m_Items: []
+  - m_Id: 3021292247879680
+    m_Key: KeyBindingSetting
+    m_Metadata:
+      m_Items: []
+  - m_Id: 3284813250465792
+    m_Key: Master
+    m_Metadata:
+      m_Items: []
+  - m_Id: 3284818627563520
+    m_Key: Bgm
+    m_Metadata:
+      m_Items: []
+  - m_Id: 3284820330450944
+    m_Key: Effects
     m_Metadata:
       m_Items: []
   m_Metadata:

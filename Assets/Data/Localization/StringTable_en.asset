@@ -18,12 +18,12 @@ MonoBehaviour:
   m_Metadata:
     m_Items: []
   m_TableData:
-  - m_Id: 92550631424
-    m_Localized: Start Game
+  - m_Id: 3021244936130560
+    m_Localized: Sound Setting
     m_Metadata:
       m_Items: []
-  - m_Id: 197743775744
-    m_Localized: End Game
+  - m_Id: 3021214275768320
+    m_Localized: Display Setting
     m_Metadata:
       m_Items: []
   - m_Id: 57408658509824
@@ -52,6 +52,26 @@ MonoBehaviour:
       m_Items: []
   - m_Id: 2608531022831616
     m_Localized: Save
+    m_Metadata:
+      m_Items: []
+  - m_Id: 3021268382289920
+    m_Localized: Control Setting
+    m_Metadata:
+      m_Items: []
+  - m_Id: 3021292247879680
+    m_Localized: Key Binding Setting
+    m_Metadata:
+      m_Items: []
+  - m_Id: 3284813250465792
+    m_Localized: Master Volumn
+    m_Metadata:
+      m_Items: []
+  - m_Id: 3284818627563520
+    m_Localized: BGM Volumn
+    m_Metadata:
+      m_Items: []
+  - m_Id: 3284820330450944
+    m_Localized: Sound Effect Volumn
     m_Metadata:
       m_Items: []
   references:
