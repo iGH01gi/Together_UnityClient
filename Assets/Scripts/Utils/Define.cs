@@ -6,6 +6,9 @@ public class Define
 {
     public enum SaveFiles
     {
+        Display,
+        Sound,
+        Control,
         KeyBinding
     }
     public enum Scene
@@ -25,8 +28,7 @@ public class Define
     public enum Sound
     {
         Bgm,
-        Effect,
-        MaxCount,
+        Effects,
     }
 
     public enum PlayerAction

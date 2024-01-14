@@ -60,7 +60,7 @@ public class KeyBindingManager : MonoBehaviour
         
         foreach (KeyValuePair<string,Tuple<int, InputBinding>> current in _keyBindings)
         {
-            GameObject go = Managers.Resource.Instantiate("UI/KeyBindings/[keyname]", transform);
+            GameObject go = Managers.Resource.Instantiate("UI/Setting/KeyBindingSelection", transform);
             go.name = current.Key;
             go.transform.GetChild(0).GetComponent<LocalizeStringEvent>().StringReference
                 .SetReference("StringTable", current.Key);

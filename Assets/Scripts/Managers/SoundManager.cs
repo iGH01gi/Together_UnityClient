@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class SoundManager
 {
-    AudioSource[] _audioSources = new AudioSource[(int)Define.Sound.MaxCount];
+    AudioSource[] _audioSources = new AudioSource[Define.Sound.GetNames(typeof(Define.Sound)).Length];
     Dictionary<string, AudioClip> _audioClips = new Dictionary<string, AudioClip>();
 
     public void Init()
@@ -16,13 +16,12 @@ public class SoundManager
             Object.DontDestroyOnLoad(root);
 
             string[] soundNames = System.Enum.GetNames(typeof(Define.Sound));
-            for (int i = 0; i < soundNames.Length - 1; i++)
+	        for (int i = 0; i < soundNames.Length; i++)
             {
                 GameObject go = new GameObject { name = soundNames[i] };
                 _audioSources[i] = go.AddComponent<AudioSource>();
                 go.transform.parent = root.transform;
             }
-
             _audioSources[(int)Define.Sound.Bgm].loop = true;
         }
     }
@@ -37,36 +36,46 @@ public class SoundManager
         _audioClips.Clear();
     }
 
-    public void Play(string path, Define.Sound type = Define.Sound.Effect, float pitch = 1.0f)
+    public void Play(string path, Define.Sound type = Define.Sound.Effects, float pitch = 1.0f)
     {
         AudioClip audioClip = GetOrAddAudioClip(path, type);
         Play(audioClip, type, pitch);
     }
 
-	public void Play(AudioClip audioClip, Define.Sound type = Define.Sound.Effect, float pitch = 1.0f)
+	public void Play(AudioClip audioClip, Define.Sound type = Define.Sound.Effects, float pitch = 1.0f)
 	{
+		AudioSource audioSource;
         if (audioClip == null)
             return;
 
-		if (type == Define.Sound.Bgm)
-		{
-			AudioSource audioSource = _audioSources[(int)Define.Sound.Bgm];
-			if (audioSource.isPlaying)
-				audioSource.Stop();
+        switch (type)
+        {
+	        case Define.Sound.Bgm:
+	        {
+		        audioSource = _audioSources[(int)Define.Sound.Bgm];
+		        if (audioSource.isPlaying)
+			        audioSource.Stop();
 
-			audioSource.pitch = pitch;
-			audioSource.clip = audioClip;
-			audioSource.Play();
-		}
-		else
-		{
-			AudioSource audioSource = _audioSources[(int)Define.Sound.Effect];
-			audioSource.pitch = pitch;
-			audioSource.PlayOneShot(audioClip);
-		}
+		        audioSource.pitch = pitch;
+		        audioSource.clip = audioClip;
+		        audioSource.Play();
+		        break;
+	        }
+	        case Define.Sound.Effects:
+		        audioSource = _audioSources[(int)Define.Sound.Effects];
+		        audioSource.pitch = pitch;
+		        audioSource.PlayOneShot(audioClip);
+		        break;
+        }
+
 	}
 
-	AudioClip GetOrAddAudioClip(string path, Define.Sound type = Define.Sound.Effect)
+	public void ChangeAudioVolume(Define.Sound type, float volume)
+	{
+		_audioSources[(int)type].volume = volume;
+	}
+
+	AudioClip GetOrAddAudioClip(string path, Define.Sound type = Define.Sound.Effects)
     {
 		if (path.Contains("Sounds/") == false)
 			path = $"Sounds/{path}";
