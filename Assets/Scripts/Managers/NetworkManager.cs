@@ -24,12 +24,14 @@ public class NetworkManager
     }
 
     /// <summary>
-    /// 패킷큐에서 지속적으로 패킷을 뽑아서 처리하는 함수 (서버로부터 받은걸 처리)
+    /// 패킷큐에서 지속적으로 패킷을 뽑아서 처리하는 함수 (서버로부터 받은걸 처리) 
+    /// 매 프레임마다 큐에 있는 모든걸 꺼내기 위해 PopAll() 사용
+    /// 실제 뽑는건 메인쓰레드가 Managers의 Update에서 처리
     /// </summary>
     public void Update()
     {
-        IPacket packet = PacketQueue.Instance.Pop();
-        if (packet != null)
+        List<IPacket> list = PacketQueue.Instance.PopAll();
+        foreach (IPacket packet in list)
         {
             PacketManager.Instance.HandlePacket(_session, packet);
         }

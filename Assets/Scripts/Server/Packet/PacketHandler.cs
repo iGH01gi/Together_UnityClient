@@ -13,6 +13,8 @@ public class PacketHandler
     {
         S_BroadcastEnterGame pkt=packet as S_BroadcastEnterGame;
         ServerSession serverSession = session as ServerSession;
+
+        Managers.Player.EnterGame(pkt);
     }
     
     /// <summary>
@@ -24,6 +26,8 @@ public class PacketHandler
     {
         S_BroadcastLeaveGame pkt=packet as S_BroadcastLeaveGame;
         ServerSession serverSession = session as ServerSession;
+        
+        Managers.Player.LeaveGame(pkt);
     }
     
     /// <summary>
@@ -35,6 +39,8 @@ public class PacketHandler
     {
         S_PlayerList pkt=packet as S_PlayerList;
         ServerSession serverSession = session as ServerSession;
+        
+        Managers.Player.Add(pkt);
     }
     
     /// <summary>
@@ -46,5 +52,7 @@ public class PacketHandler
     {
         S_BroadcastMove pkt=packet as S_BroadcastMove;
         ServerSession serverSession = session as ServerSession;
+        
+        Managers.Player.Move(pkt);
     }
 }
