@@ -7,18 +7,46 @@ using SimpleJSON;
 using UnityEngine.InputSystem;
 using File = System.IO.File;
 
+
+[System.Serializable]
+public class PlayerData
+{
+    public ControlData _ControlData;
+
+    public PlayerData()
+    {
+        _ControlData = new ControlData();
+    }
+}
+
+public class ControlData
+{
+    public float mouseSensitivity;
+
+    public ControlData()
+    {
+        mouseSensitivity = 100f;
+    }
+}
+
 public class DataManager
 {
     Dictionary<Define.SaveFiles, string> fileNames;
+    public static PlayerData _playerData;
     
     public void Init()
     {
         fileNames = new Dictionary<Define.SaveFiles, string>();
+
         //Define file names
+        fileNames[Define.SaveFiles.Player] = "PlayerData.json";
         fileNames[Define.SaveFiles.Display] = "DisplaySettings.json";
         fileNames[Define.SaveFiles.Sound] = "SoundSettings.json";
         fileNames[Define.SaveFiles.Control] = "ControlSettings.json";
         fileNames[Define.SaveFiles.KeyBinding] = "OverrideBindings.json";
+        
+        _playerData = new PlayerData();
+        _playerData = Managers.Data.LoadFromJson<PlayerData>(Define.SaveFiles.Player, _playerData);
     }
 
     public void SaveToJson(Define.SaveFiles fileType, string data)
@@ -33,7 +61,6 @@ public class DataManager
 
     public string LoadFromJson(Define.SaveFiles fileType)
     {
-        Debug.Log(GetFilePath(fileType));
         if (File.Exists(GetFilePath(fileType)))
         {
             return File.ReadAllText(GetFilePath(fileType));
@@ -61,4 +88,6 @@ public class DataManager
     {
         return Application.persistentDataPath + fileNames[fileType];
     }
+    
+    public static PlayerData GetPlayerData { get { return _playerData; } }
 }

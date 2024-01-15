@@ -75,6 +75,10 @@ MonoBehaviour:
     m_Key: language
     m_Metadata:
       m_Items: []
+  - m_Id: 3766891301736448
+    m_Key: mouseSensitivity
+    m_Metadata:
+      m_Items: []
   m_Metadata:
     m_Items: []
   m_KeyGenerator:

@@ -6,6 +6,7 @@ public class Define
 {
     public enum SaveFiles
     {
+        Player,
         Display,
         Sound,
         Control,
