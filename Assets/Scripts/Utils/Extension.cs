@@ -15,4 +15,5 @@ public static class Extension
 	{
 		UI_Base.BindEvent(go, action, type);
 	}
+    
 }

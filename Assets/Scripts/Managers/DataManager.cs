@@ -11,21 +11,11 @@ using File = System.IO.File;
 [System.Serializable]
 public class PlayerData
 {
-    public ControlData _ControlData;
+    public float MouseSensitivity;
 
     public PlayerData()
     {
-        _ControlData = new ControlData();
-    }
-}
-
-public class ControlData
-{
-    public float mouseSensitivity;
-
-    public ControlData()
-    {
-        mouseSensitivity = 100f;
+        MouseSensitivity = 100f;
     }
 }
 
@@ -89,5 +79,5 @@ public class DataManager
         return Application.persistentDataPath + fileNames[fileType];
     }
     
-    public static PlayerData GetPlayerData { get { return _playerData; } }
+    public PlayerData Player { get { return _playerData; } }
 }
