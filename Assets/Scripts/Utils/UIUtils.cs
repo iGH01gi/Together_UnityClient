@@ -9,7 +9,8 @@ using UnityEngine.UI;
 
 public class UIUtils
 {
-    public static void BindUISlider<T>(T classToBind, Action<GameObject> OnSliderValueChanged,Transform transform)
+    public static void BindClassToUISlider<T>(T classToBind, Action<GameObject> OnSliderValueChanged,
+        Transform transform)
     {
         foreach (var current in classToBind.GetType().GetFields().ToList())
         {
@@ -25,5 +26,36 @@ public class UIUtils
             });
             go.transform.GetChild(2).GetComponent<TextMeshProUGUI>().text = val;
         }
+    }
+
+    public static void BindFieldToUISlider<T>(T classToBind, string fieldName, Action<GameObject> OnSliderValueChanged,
+        Transform transform)
+    {
+        GameObject go = Managers.Resource.Instantiate("UI/UISlider", transform);
+        go.name = fieldName;
+        go.transform.GetChild(0).GetComponent<LocalizeStringEvent>().StringReference
+            .SetReference("StringTable", fieldName);
+        string val = classToBind.GetType().GetField(fieldName).GetValue(classToBind).ToString();
+        go.transform.GetChild(1).GetComponent<Slider>().value = float.Parse(val);
+        go.transform.GetChild(1).GetComponent<Slider>().onValueChanged.AddListener(delegate
+        {
+            OnSliderValueChanged(go);
+        });
+        go.transform.GetChild(2).GetComponent<TextMeshProUGUI>().text = val;
+    }
+    
+    public static void BindFieldToUIToggle<T>(T classToBind, string fieldName, Action<GameObject> OnToggleValueChanged,
+        Transform transform)
+    {
+        GameObject go = Managers.Resource.Instantiate("UI/UIToggle", transform);
+        go.name = fieldName;
+        go.transform.GetChild(0).GetComponent<LocalizeStringEvent>().StringReference
+            .SetReference("StringTable", fieldName);
+        go.transform.GetChild(1).GetComponent<Toggle>().isOn =
+            bool.Parse(classToBind.GetType().GetField(fieldName).GetValue(classToBind).ToString());
+        go.transform.GetChild(1).GetComponent<Toggle>().onValueChanged.AddListener(delegate
+        {
+            OnToggleValueChanged(go);
+        });
     }
 }

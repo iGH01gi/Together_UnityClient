@@ -12,10 +12,12 @@ using File = System.IO.File;
 public class PlayerData
 {
     public float MouseSensitivity;
-
+    public bool isFullScreen;
+    
     public PlayerData()
     {
         MouseSensitivity = 100f;
+        isFullScreen = true;
     }
 }
 

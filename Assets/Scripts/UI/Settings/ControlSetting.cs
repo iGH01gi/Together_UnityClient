@@ -10,7 +10,7 @@ public class ControlSetting : MonoBehaviour
 {
     void Start()
     {
-        UIUtils.BindUISlider(Managers.Data.Player,OnSliderValueChanged,transform);
+        UIUtils.BindFieldToUISlider(Managers.Data.Player,"MouseSensitivity",OnSliderValueChanged,transform);
     }
 
     void OnSliderValueChanged(GameObject go)

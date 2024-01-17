@@ -34,7 +34,7 @@ public class SoundSettings : MonoBehaviour
         _soundSetting = new SoundSettingComponent();
         _soundSetting = Managers.Data.LoadFromJson<SoundSettingComponent>(Define.SaveFiles.Sound, _soundSetting);
         UpdateVolume("Master");
-        UIUtils.BindUISlider(_soundSetting,OnSliderValueChanged,transform);
+        UIUtils.BindClassToUISlider(_soundSetting,OnSliderValueChanged,transform);
     }
 
     void OnSliderValueChanged(GameObject go)

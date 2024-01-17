@@ -79,6 +79,10 @@ MonoBehaviour:
     m_Key: MouseSensitivity
     m_Metadata:
       m_Items: []
+  - m_Id: 4407964190400512
+    m_Key: isFullScreen
+    m_Metadata:
+      m_Items: []
   m_Metadata:
     m_Items: []
   m_KeyGenerator:

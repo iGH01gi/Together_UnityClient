@@ -39,4 +39,11 @@ public class Define
         Walk,
         Jump,
     }
+    
+    public enum Resolution
+    {
+        Low,
+        Medium,
+        High
+    }
 }
