@@ -40,10 +40,10 @@ public class Define
         Jump,
     }
     
-    public enum Resolution
+    public enum DisplayQuality
     {
         Low,
         Medium,
-        High
+        High,
     }
 }

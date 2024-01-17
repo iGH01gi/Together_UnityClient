@@ -83,6 +83,26 @@ MonoBehaviour:
     m_Key: isFullScreen
     m_Metadata:
       m_Items: []
+  - m_Id: 4771357056471040
+    m_Key: DisplayQuality
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4773595137085440
+    m_Key: Low
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4773599570464768
+    m_Key: Medium
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4773601369821184
+    m_Key: High
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4773602812661760
+    m_Key: Best
+    m_Metadata:
+      m_Items: []
   m_Metadata:
     m_Items: []
   m_KeyGenerator:

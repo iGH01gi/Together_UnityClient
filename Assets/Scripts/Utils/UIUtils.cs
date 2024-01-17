@@ -35,7 +35,7 @@ public class UIUtils
         go.name = fieldName;
         go.transform.GetChild(0).GetComponent<LocalizeStringEvent>().StringReference
             .SetReference("StringTable", fieldName);
-        string val = classToBind.GetType().GetField(fieldName).GetValue(classToBind).ToString();
+        string val = Util.GetValueClassField(classToBind, fieldName).ToString();
         go.transform.GetChild(1).GetComponent<Slider>().value = float.Parse(val);
         go.transform.GetChild(1).GetComponent<Slider>().onValueChanged.AddListener(delegate
         {
@@ -43,7 +43,7 @@ public class UIUtils
         });
         go.transform.GetChild(2).GetComponent<TextMeshProUGUI>().text = val;
     }
-    
+
     public static void BindFieldToUIToggle<T>(T classToBind, string fieldName, Action<GameObject> OnToggleValueChanged,
         Transform transform)
     {
@@ -52,8 +52,24 @@ public class UIUtils
         go.transform.GetChild(0).GetComponent<LocalizeStringEvent>().StringReference
             .SetReference("StringTable", fieldName);
         go.transform.GetChild(1).GetComponent<Toggle>().isOn =
-            bool.Parse(classToBind.GetType().GetField(fieldName).GetValue(classToBind).ToString());
+            bool.Parse(Util.GetValueClassField(classToBind, fieldName).ToString());
         go.transform.GetChild(1).GetComponent<Toggle>().onValueChanged.AddListener(delegate
+        {
+            OnToggleValueChanged(go);
+        });
+    }
+    
+    public static void BindFieldToUIDropdown<T>(T classToBind, string fieldName, Action<GameObject> OnToggleValueChanged,
+        Transform transform, List<string> dropdownMenus)
+    {
+        GameObject go = Managers.Resource.Instantiate("UI/UIDropDown", transform);
+        go.name = fieldName;
+        go.transform.GetChild(0).GetComponent<LocalizeStringEvent>().StringReference
+            .SetReference("StringTable", fieldName);
+        go.transform.GetChild(1).GetComponent<TMP_Dropdown>().AddOptions(dropdownMenus);
+        go.transform.GetChild(1).GetComponent<TMP_Dropdown>().value =
+            dropdownMenus.IndexOf(Util.GetValueClassField(classToBind, fieldName).ToString());
+        go.transform.GetChild(1).GetComponent<TMP_Dropdown>().onValueChanged.AddListener(delegate
         {
             OnToggleValueChanged(go);
         });

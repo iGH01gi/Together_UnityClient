@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Localization;
 using UnityEngine.UI;
@@ -24,6 +25,7 @@ public class LocaleSelectionDropdown : MonoBehaviour
         m_Dropdown.options.Add(new TMP_Dropdown.OptionData("Loading..."));
         m_Dropdown.interactable = false;
 
+        LocalizationSettings.SelectedLocale = Managers.Data.Player.currentLocale;
         // SelectedLocaleAsync will ensure that the locales have been initialized and a locale has been selected.
         m_InitializeOperation = LocalizationSettings.SelectedLocaleAsync;
         if (m_InitializeOperation.IsDone)
@@ -78,6 +80,7 @@ public class LocaleSelectionDropdown : MonoBehaviour
         LocalizationSettings.SelectedLocaleChanged -= LocalizationSettings_SelectedLocaleChanged;
 
         var locale = LocalizationSettings.AvailableLocales.Locales[index];
+        Managers.Data.Player.currentLocale = locale;
         LocalizationSettings.SelectedLocale = locale;
 
         // Resubscribe to SelectedLocaleChanged so that we can stay in sync with changes that may be made by other scripts.

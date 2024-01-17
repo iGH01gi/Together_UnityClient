@@ -5,19 +5,26 @@ using OpenCover.Framework.Model;
 using UnityEngine;
 using SimpleJSON;
 using UnityEngine.InputSystem;
+using UnityEngine.Localization;
+using UnityEngine.Localization.Settings;
 using File = System.IO.File;
-
 
 [System.Serializable]
 public class PlayerData
 {
+    public Locale currentLocale;
     public float MouseSensitivity;
     public bool isFullScreen;
-    
+    public Define.DisplayQuality DisplayQuality;
+    public string MyResolution;
+
     public PlayerData()
     {
+        MyResolution = DisplaySettings.ResolutionToString(Screen.currentResolution);
+        currentLocale = LocalizationSettings.AvailableLocales.Locales[0];
         MouseSensitivity = 100f;
         isFullScreen = true;
+        DisplayQuality = Define.DisplayQuality.High;
     }
 }
 
@@ -39,6 +46,9 @@ public class DataManager
         
         _playerData = new PlayerData();
         _playerData = Managers.Data.LoadFromJson<PlayerData>(Define.SaveFiles.Player, _playerData);
+        Screen.fullScreen = _playerData.isFullScreen;
+        Screen.SetResolution(_playerData.MyResolution.width,_playerData.MyResolution.height,Managers.Data.Player.isFullScreen);
+        DisplaySettings.SetQualityLevel(Managers.Data.Player.DisplayQuality);
     }
 
     public void SaveToJson(Define.SaveFiles fileType, string data)
@@ -78,8 +88,13 @@ public class DataManager
 
     string GetFilePath(Define.SaveFiles fileType)
     {
-        return Application.persistentDataPath + fileNames[fileType];
+        return Application.persistentDataPath +"\\"+ fileNames[fileType];
     }
     
     public PlayerData Player { get { return _playerData; } }
+
+    public void SavePlayerData()
+    {
+        SaveToJson<PlayerData>(Define.SaveFiles.Player,_playerData);
+    }
 }

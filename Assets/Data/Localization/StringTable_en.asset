@@ -86,6 +86,26 @@ MonoBehaviour:
     m_Localized: Full Screen
     m_Metadata:
       m_Items: []
+  - m_Id: 4771357056471040
+    m_Localized: Graphics Quality
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4773602812661760
+    m_Localized: Best
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4773595137085440
+    m_Localized: Low
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4773599570464768
+    m_Localized: Medium
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4773601369821184
+    m_Localized: High
+    m_Metadata:
+      m_Items: []
   references:
     version: 2
     RefIds: []
