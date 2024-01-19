@@ -11,14 +11,15 @@ public class DisplaySettings : MonoBehaviour
     private List<string> resolutions;
     void Start()
     {
+        resolutions = new List<string>();
         Screen.resolutions.ToList().ForEach(x=>
         {
             resolutions.Add(ResolutionToString(x));
         });
         
         UIUtils.BindFieldToUIToggle(Managers.Data.Player,"isFullScreen",OnFullScreenChanged,transform);
-        UIUtils.BindFieldToUIDropdown(Managers.Data.Player,"QualityIndex",OnQualityIndexChanged,transform,Util.EnumToString<Define.DisplayQuality>());
-        UIUtils.BindFieldToUIDropdown(Managers.Data.Player,"MyResolution",OnResolutionChanged,transform,resolutions);
+        UIUtils.BindFieldToUIDropdown(Managers.Data.Player,"DisplayQuality",OnQualityIndexChanged,transform,Util.EnumToString<Define.DisplayQuality>());
+        UIUtils.BindFieldToUIDropdown(Managers.Data.Player.MyResolution.ToDisplayString(),"MyResolution",OnResolutionChanged,transform,resolutions);
     }
 
     void OnFullScreenChanged(GameObject go)
@@ -28,10 +29,11 @@ public class DisplaySettings : MonoBehaviour
         Screen.fullScreen = value;
     }
 
-    void OnQualityIndexChanged(GameObject go)
+    void OnQualityIndexChanged(TMP_Dropdown dropdown)
     {
-        int value = go.transform.GetChild(1).GetComponent<TMP_Dropdown>().value;
-        go.transform.GetChild(1).GetComponent<TMP_Dropdown>().RefreshShownValue();
+        int value = dropdown.value;
+        dropdown.RefreshShownValue();
+        Managers.Data.Player.DisplayQuality = Util.GetEnumByIndex(Managers.Data.Player.DisplayQuality, value);
         SetQualityLevel(Managers.Data.Player.DisplayQuality);
     }
 
@@ -51,13 +53,13 @@ public class DisplaySettings : MonoBehaviour
         }
     }
 
-    void OnResolutionChanged(GameObject go)
+    void OnResolutionChanged(TMP_Dropdown dropdown)
     {
-        int value = go.transform.GetChild(1).GetComponent<TMP_Dropdown>().value;
+        dropdown.RefreshShownValue();
+        int value = dropdown.value;
         Resolution myRes = Screen.resolutions[value];
-        go.transform.GetChild(1).GetComponent<TMP_Dropdown>().RefreshShownValue();
-        Managers.Data.Player.MyResolution = myRes;
-        Debug.Log(Managers.Data.Player.MyResolution);
+        Managers.Data.Player.MyResolution.width = myRes.width;
+        Managers.Data.Player.MyResolution.height = myRes.height;
         Screen.SetResolution(myRes.width,myRes.height,Managers.Data.Player.isFullScreen);
     }
 

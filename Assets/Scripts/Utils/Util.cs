@@ -65,4 +65,14 @@ public class Util
     {
         return classToBind.GetType().GetField(fieldName).GetValue(classToBind);
     }
+
+    public static E GetEnumByIndex<E>(E e, int index)
+    {
+        return (E)(Enum.GetValues(e.GetType())).GetValue(index);
+    }
+
+    public static int GetIndexOfEnum<E>(E e)
+    {
+        return Array.IndexOf(Enum.GetValues(e.GetType()), e);
+    }
 }

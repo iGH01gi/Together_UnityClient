@@ -10,17 +10,30 @@ using UnityEngine.Localization.Settings;
 using File = System.IO.File;
 
 [System.Serializable]
+public struct ResolutionStruct
+{
+    public int width;
+    public int height;
+
+    public string ToDisplayString()
+    {
+        return this.width +"x"+this.height;
+    }
+}
+
+[System.Serializable]
 public class PlayerData
 {
     public Locale currentLocale;
     public float MouseSensitivity;
     public bool isFullScreen;
     public Define.DisplayQuality DisplayQuality;
-    public string MyResolution;
+    public ResolutionStruct MyResolution;
 
     public PlayerData()
     {
-        MyResolution = DisplaySettings.ResolutionToString(Screen.currentResolution);
+        MyResolution.width = Screen.currentResolution.width;
+        MyResolution.height = Screen.currentResolution.height;
         currentLocale = LocalizationSettings.AvailableLocales.Locales[0];
         MouseSensitivity = 100f;
         isFullScreen = true;
@@ -32,7 +45,8 @@ public class DataManager
 {
     Dictionary<Define.SaveFiles, string> fileNames;
     public static PlayerData _playerData;
-    
+    public PlayerData Player { get { return _playerData; } }
+
     public void Init()
     {
         fileNames = new Dictionary<Define.SaveFiles, string>();
@@ -47,8 +61,8 @@ public class DataManager
         _playerData = new PlayerData();
         _playerData = Managers.Data.LoadFromJson<PlayerData>(Define.SaveFiles.Player, _playerData);
         Screen.fullScreen = _playerData.isFullScreen;
-        Screen.SetResolution(_playerData.MyResolution.width,_playerData.MyResolution.height,Managers.Data.Player.isFullScreen);
-        DisplaySettings.SetQualityLevel(Managers.Data.Player.DisplayQuality);
+        Screen.SetResolution(_playerData.MyResolution.width,_playerData.MyResolution.height,_playerData.isFullScreen);
+        DisplaySettings.SetQualityLevel(_playerData.DisplayQuality);
     }
 
     public void SaveToJson(Define.SaveFiles fileType, string data)
@@ -91,8 +105,6 @@ public class DataManager
         return Application.persistentDataPath +"\\"+ fileNames[fileType];
     }
     
-    public PlayerData Player { get { return _playerData; } }
-
     public void SavePlayerData()
     {
         SaveToJson<PlayerData>(Define.SaveFiles.Player,_playerData);

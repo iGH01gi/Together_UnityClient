@@ -59,19 +59,28 @@ public class UIUtils
         });
     }
     
-    public static void BindFieldToUIDropdown<T>(T classToBind, string fieldName, Action<GameObject> OnToggleValueChanged,
+    public static void BindFieldToUIDropdown<T>(T classToBind, string fieldName, Action<TMP_Dropdown> OnToggleValueChanged,
         Transform transform, List<string> dropdownMenus)
     {
         GameObject go = Managers.Resource.Instantiate("UI/UIDropDown", transform);
         go.name = fieldName;
+        TMP_Dropdown dropdown = go.transform.GetChild(1).GetComponent<TMP_Dropdown>();
         go.transform.GetChild(0).GetComponent<LocalizeStringEvent>().StringReference
             .SetReference("StringTable", fieldName);
-        go.transform.GetChild(1).GetComponent<TMP_Dropdown>().AddOptions(dropdownMenus);
-        go.transform.GetChild(1).GetComponent<TMP_Dropdown>().value =
-            dropdownMenus.IndexOf(Util.GetValueClassField(classToBind, fieldName).ToString());
+        dropdown.AddOptions(dropdownMenus);
+        if (classToBind is string)
+        {
+            Debug.Log("string lol");
+            dropdown.value = dropdownMenus.IndexOf(classToBind.ToString());
+        }
+        else
+        {
+            Debug.Log("not string lol");
+            dropdown.value = dropdownMenus.IndexOf(Util.GetValueClassField(classToBind, fieldName).ToString());
+        }
         go.transform.GetChild(1).GetComponent<TMP_Dropdown>().onValueChanged.AddListener(delegate
         {
-            OnToggleValueChanged(go);
+            OnToggleValueChanged(dropdown);
         });
     }
 }
