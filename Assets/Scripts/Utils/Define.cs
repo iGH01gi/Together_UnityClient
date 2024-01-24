@@ -46,4 +46,12 @@ public class Define
         Medium,
         High,
     }
+
+    public enum MainMenuButtons
+    {
+        StartGame,
+        Shop,
+        Settings,
+        EndGame
+    }
 }

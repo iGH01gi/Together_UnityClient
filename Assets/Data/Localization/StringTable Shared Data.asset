@@ -107,6 +107,22 @@ MonoBehaviour:
     m_Key: MyResolution
     m_Metadata:
       m_Items: []
+  - m_Id: 6798453531238400
+    m_Key: StartGame
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6798569826705408
+    m_Key: EndGame
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6798667897921536
+    m_Key: Shop
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6799620281753600
+    m_Key: Settings
+    m_Metadata:
+      m_Items: []
   m_Metadata:
     m_Items: []
   m_KeyGenerator:

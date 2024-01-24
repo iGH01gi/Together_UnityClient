@@ -83,4 +83,25 @@ public class UIUtils
             OnToggleValueChanged(dropdown);
         });
     }
+
+    public static void BindUIButtonWithText(string buttonName, Action<GameObject> OnButtonPress, Transform transform)
+    {
+        GameObject go = Managers.Resource.Instantiate("UI/UIDropDown", transform);
+        go.name = buttonName;
+        go.transform.GetChild(0).GetComponent<LocalizeStringEvent>().StringReference
+            .SetReference("StringTable", buttonName);
+        go.GetComponent<Button>().onClick.AddListener(delegate
+        {
+            OnButtonPress(go);
+        });
+    }
+    
+    public static void BindUIButtonNoText(string path, Action<GameObject> OnButtonPress, Transform transform)
+    {
+        GameObject go = Managers.Resource.Instantiate($"UI/{path}", transform);
+        go.GetComponent<Button>().onClick.AddListener(delegate
+        {
+            OnButtonPress(go);
+        });
+    }
 }
