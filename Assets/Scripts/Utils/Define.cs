@@ -38,4 +38,13 @@ public class Define
         Walk,
         Jump,
     }
+    
+    public enum HttpMethod
+    {
+        Get,
+        Post,
+        Put,
+        Delete,
+        Patch,
+    }
 }
