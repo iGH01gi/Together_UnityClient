@@ -63,26 +63,4 @@ public class Define
         Delete,
         Patch,
     }
-    
-    public enum HttpMethod
-    {
-        Get,
-        Post,
-        Put,
-        Delete,
-        Patch,
-    public enum DisplayQuality
-    {
-        Low,
-        Medium,
-        High,
-    }
-
-    public enum MainMenuButtons
-    {
-        StartGame,
-        Shop,
-        Settings,
-        EndGame
-
 }

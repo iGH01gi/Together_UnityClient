@@ -2,13 +2,20 @@
 
 namespace WebServer
 {
-    //서버로부터 받을 데이터구조
+    #region 서버로부터 받을 데이터구조
     public class GetSoundSettingResponseDTO : BaseResponseDTO
+    {
+        public SoundSetting soundSetting;
+    }
+    
+    public class SoundSetting
     {
         public float Master;
         public float Bgm;
         public float Effects;
     }
+    # endregion
+    
     public class GetSoundSettingP : BaseWebProtocol
     {
         private string _userId;
