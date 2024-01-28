@@ -6,10 +6,6 @@ using UnityEngine;
 
 public class MainMenuNavigator : MonoBehaviour
 {
-    [SerializeField] GameObject MainMenuPanel;
-    [SerializeField] GameObject RoomSelectionPanel;
-    [SerializeField] GameObject SettingsPanel;
-
     public void ToMainMenu()
     {
         

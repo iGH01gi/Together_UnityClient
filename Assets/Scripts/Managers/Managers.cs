@@ -53,6 +53,7 @@ public class Managers : MonoBehaviour
             _instance._data.Init();
             _instance._pool.Init();
             _instance._network.Init();
+            _instance._ui.Init();
         }
     }
     
@@ -61,7 +62,7 @@ public class Managers : MonoBehaviour
     {
         Sound.Clear();
         Scene.Clear();
-        UI.Clear();
+        //UI.Clear();
         Pool.Clear();
     }
     
