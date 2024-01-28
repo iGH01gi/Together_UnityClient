@@ -1,5 +1,7 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class Util
@@ -53,6 +55,24 @@ public class Util
 
         return null;
     }
+    
+    public static List<String> EnumToString<T> ()
+    {
+        return Enum.GetValues(typeof(T)).Cast<T>().ToList().Select(s => s.ToString()).ToList();
+    }
+    
+    public static object GetValueClassField<T>(T classToBind, string fieldName)
+    {
+        return classToBind.GetType().GetField(fieldName).GetValue(classToBind);
+    }
 
+    public static E GetEnumByIndex<E>(E e, int index)
+    {
+        return (E)(Enum.GetValues(e.GetType())).GetValue(index);
+    }
 
+    public static int GetIndexOfEnum<E>(E e)
+    {
+        return Array.IndexOf(Enum.GetValues(e.GetType()), e);
+    }
 }

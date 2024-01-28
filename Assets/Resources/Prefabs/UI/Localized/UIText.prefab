@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 6920492050228745144}
   - component: {fileID: 2236161392248042929}
   m_Layer: 5
-  m_Name: LocalizationText
+  m_Name: UIText
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

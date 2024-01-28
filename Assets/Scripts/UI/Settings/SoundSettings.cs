@@ -34,24 +34,10 @@ public class SoundSettings : MonoBehaviour
         _soundSetting = new SoundSettingComponent();
         _soundSetting = Managers.Data.LoadFromJson<SoundSettingComponent>(Define.SaveFiles.Sound, _soundSetting);
         UpdateVolume("Master");
-        foreach (var current in _soundSetting.GetType().GetFields().ToList())
-        {
-            GameObject go = Managers.Resource.Instantiate("UI/UISlider", transform);
-            go.name = current.Name;
-            go.transform.GetChild(0).GetComponent<LocalizeStringEvent>().StringReference
-                .SetReference("StringTable", current.Name);
-            string val = current.GetValue(_soundSetting).ToString();
-            go.transform.GetChild(1).GetComponent<Slider>().value = float.Parse(val);
-            go.transform.GetChild(1).GetComponent<Slider>().onValueChanged.AddListener(delegate
-            {
-                OnSliderValueChanged(go);
-            });
-            go.transform.GetChild(2).GetComponent<TextMeshProUGUI>().text = val;
-        }
-        
+        UIUtils.BindClassToUISlider(_soundSetting,OnSliderValueChanged,transform);
     }
 
-    public void OnSliderValueChanged(GameObject go)
+    void OnSliderValueChanged(GameObject go)
     {
         float currentValue = go.transform.GetChild(1).GetComponent<Slider>().value;
         _soundSetting.GetType().GetField(go.name).SetValue(_soundSetting,currentValue);

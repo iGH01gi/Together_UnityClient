@@ -6,6 +6,7 @@ public class Define
 {
     public enum SaveFiles
     {
+        Player,
         Display,
         Sound,
         Control,
@@ -36,7 +37,22 @@ public class Define
         Idle,
         Run,
         Walk,
-        Jump,
+        Jump,  
+     }
+     
+    public enum DisplayQuality
+    {
+        Low,
+        Medium,
+        High,
+    }
+
+    public enum MainMenuButtons
+    {
+        StartGame,
+        Shop,
+        Settings,
+        EndGame
     }
     
     public enum HttpMethod
@@ -47,4 +63,26 @@ public class Define
         Delete,
         Patch,
     }
+    
+    public enum HttpMethod
+    {
+        Get,
+        Post,
+        Put,
+        Delete,
+        Patch,
+    public enum DisplayQuality
+    {
+        Low,
+        Medium,
+        High,
+    }
+
+    public enum MainMenuButtons
+    {
+        StartGame,
+        Shop,
+        Settings,
+        EndGame
+
 }

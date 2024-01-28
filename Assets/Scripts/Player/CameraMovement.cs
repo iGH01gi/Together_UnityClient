@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -8,11 +9,17 @@ public class CameraMovement : MonoBehaviour
     public float minViewDistance = 15f;
     
     //this is to be fetched from player settings
-    public float mouseSensitivity = 100f;
+    static float mouseSensitivity;
+
+    static int sensitivityAdjuster = 3;
     
     private Vector3 _playerPos;
     private float rotationX = 0f;
 
+    private void Start()
+    {
+        mouseSensitivity = Managers.Data.Player.MouseSensitivity *sensitivityAdjuster;
+    }
 
     private void Update()
     {
@@ -30,7 +37,11 @@ public class CameraMovement : MonoBehaviour
         }
 
     }
-    
+
+    public static void MouseSensitivityChanged(float change)
+    {
+        mouseSensitivity = change*sensitivityAdjuster;
+    }
     /*
      _playerPos = transform.parent.GetChild(1).transform.position;
      .

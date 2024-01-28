@@ -75,6 +75,54 @@ MonoBehaviour:
     m_Key: language
     m_Metadata:
       m_Items: []
+  - m_Id: 3766891301736448
+    m_Key: MouseSensitivity
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4407964190400512
+    m_Key: isFullScreen
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4771357056471040
+    m_Key: DisplayQuality
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4773595137085440
+    m_Key: Low
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4773599570464768
+    m_Key: Medium
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4773601369821184
+    m_Key: High
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4773602812661760
+    m_Key: Best
+    m_Metadata:
+      m_Items: []
+  - m_Id: 5147620527857664
+    m_Key: MyResolution
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6798453531238400
+    m_Key: StartGame
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6798569826705408
+    m_Key: EndGame
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6798667897921536
+    m_Key: Shop
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6799620281753600
+    m_Key: Settings
+    m_Metadata:
+      m_Items: []
   m_Metadata:
     m_Items: []
   m_KeyGenerator:

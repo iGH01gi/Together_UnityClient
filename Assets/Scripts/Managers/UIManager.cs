@@ -1,53 +1,85 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class UIManager
 {
-    int _order = 10;
+    public static int order = 0;
+    Stack<GameObject> _popupStack = new Stack<GameObject>();
 
-    Stack<UI_Popup> _popupStack = new Stack<UI_Popup>();
-    UI_Scene _sceneUI = null;
+    public static GameObject root;
+    
+    public GameObject Root { get { return root; } }
+    
+    public static GameObject sceneUI;
+    
+    public GameObject SceneUI { get { return sceneUI; } }
 
-    public GameObject Root
+    public void Init()
     {
-        get
+        root = GameObject.Find("@UI_Root");
+        if (root == null)
         {
-			GameObject root = GameObject.Find("@UI_Root");
-			if (root == null)
-				root = new GameObject { name = "@UI_Root" };
-            return root;
-		}
-    }
-
-    public void SetCanvas(GameObject go, bool sort = true)
-    {
-        Canvas canvas = Util.GetOrAddComponent<Canvas>(go);
-        canvas.renderMode = RenderMode.ScreenSpaceOverlay;
-        canvas.overrideSorting = true;
-
-        if (sort)
-        {
-            canvas.sortingOrder = _order;
-            _order++;
-        }
-        else
-        {
-            canvas.sortingOrder = 0;
+            root = new GameObject { name = "@UI_Root" };
+            Canvas canvas = Util.GetOrAddComponent<Canvas>(root);
+            canvas.renderMode = RenderMode.ScreenSpaceOverlay;
+            CanvasScaler canvasScaler = Util.GetOrAddComponent<CanvasScaler>(root);
+            canvasScaler.uiScaleMode = CanvasScaler.ScaleMode.ScaleWithScreenSize;
+            root.AddComponent<GraphicRaycaster>();
         }
     }
 
-	public T MakeSubItem<T>(Transform parent = null, string name = null) where T : UI_Base
-	{
-		if (string.IsNullOrEmpty(name))
-			name = typeof(T).Name;
+    public T MakeSubItem<T>(Transform parent = null, string name = null) where T : MonoBehaviour
+    {
+        if (string.IsNullOrEmpty(name))
+        {
+            name = typeof(T).Name;
+        }
 
-		GameObject go = Managers.Resource.Instantiate($"UI/SubItem/{name}");
-		if (parent != null)
-			go.transform.SetParent(parent);
+        GameObject go = Managers.Resource.Instantiate($"UI/SubItem/{name}");
+        if (parent != null)
+        {
+            go.transform.SetParent(parent);
+        }
 
-		return Util.GetOrAddComponent<T>(go);
-	}
+        return Util.GetOrAddComponent<T>(go);
+    }
+    
+    public void LoadScenePanel(string panelName, Transform transform = null)
+    {
+        if (sceneUI != null)
+        {
+            Managers.Resource.Destroy(sceneUI);
+        }
+        sceneUI = Managers.Resource.Instantiate($"UI/Panel/{panelName}", root.transform);
+    }
+    
+    public void LoadScenePanel<T>(string panelName, T componentName = null, Transform transform = null) where T : Component
+    {
+        if (sceneUI != null)
+        {
+            Managers.Resource.Destroy(sceneUI);
+        }
+
+        sceneUI = Managers.Resource.Instantiate($"UI/Panel/{panelName}", root.transform);
+        sceneUI.AddComponent<T>();
+    }
+
+    public void LoadPopupPanel<T>(string panelName, T componentName, Transform thisTransform = null) where T : Component
+    {
+        if (thisTransform == null)
+        {
+            thisTransform = root.transform;
+        }
+        GameObject popup = Managers.Resource.Instantiate($"UI/Popup/{panelName}",thisTransform);
+        popup.AddComponent<T>();
+        _popupStack.Push(popup);
+    }
+
+
+    /*
 
 	public T ShowSceneUI<T>(string name = null) where T : UI_Scene
 	{
@@ -113,4 +145,5 @@ public class UIManager
         CloseAllPopupUI();
         _sceneUI = null;
     }
+    */
 }
