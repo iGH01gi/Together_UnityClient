@@ -37,9 +37,9 @@ public class Define
         Idle,
         Run,
         Walk,
-        Jump,
-    }
-    
+        Jump,  
+     }
+     
     public enum DisplayQuality
     {
         Low,
@@ -54,4 +54,35 @@ public class Define
         Settings,
         EndGame
     }
+    
+    public enum HttpMethod
+    {
+        Get,
+        Post,
+        Put,
+        Delete,
+        Patch,
+    }
+    
+    public enum HttpMethod
+    {
+        Get,
+        Post,
+        Put,
+        Delete,
+        Patch,
+    public enum DisplayQuality
+    {
+        Low,
+        Medium,
+        High,
+    }
+
+    public enum MainMenuButtons
+    {
+        StartGame,
+        Shop,
+        Settings,
+        EndGame
+
 }

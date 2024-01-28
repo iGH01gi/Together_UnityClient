@@ -56,6 +56,9 @@ public class PlayerManager
     //이미 내가 입장해있는 상태일때, 새로운 애가 입장
     public void EnterGame(S_BroadcastEnterGame packet)
     {
+        if (packet.playerId == _myPlayer.playerId) //내가 입장한거라면
+            return;
+        
         GameObject go = Managers.Resource.Instantiate("Player") as GameObject;
         
         Player player = go.AddComponent<Player>();

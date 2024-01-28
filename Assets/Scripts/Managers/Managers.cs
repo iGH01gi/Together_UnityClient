@@ -15,6 +15,7 @@ public class Managers : MonoBehaviour
     DataManager _data = new DataManager();
     NetworkManager _network = new NetworkManager();
     PlayerManager _player = new PlayerManager();
+    WebManager _web = new WebManager();
     
     
     public static  ResourceManager Resource { get { return Instance._resource;} }
@@ -29,6 +30,7 @@ public class Managers : MonoBehaviour
     void Start()
     {
         Init();
+        WebManager.Init();
     }
     
     void Update()

@@ -19,7 +19,7 @@ public class PacketQueue
         }
     }
         
-    public IPacket Pop()
+    public IPacket Pop() 
     {
         lock (_lock)
         {
@@ -41,7 +41,6 @@ public class PacketQueue
                 list.Add(_packetQueue.Dequeue());
             }
         }
-
         return list;
     }
 }
