@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
@@ -10,12 +11,15 @@ public class UIManager
     Stack<GameObject> _popupStack = new Stack<GameObject>();
 
     public static GameObject root;
-    
+
     public GameObject Root { get { return root; } }
     
     public static GameObject sceneUI;
     
     public GameObject SceneUI { get { return sceneUI; } }
+    
+    
+    public static GameObject popupPanel;
 
     public void Init()
     {
@@ -46,17 +50,8 @@ public class UIManager
 
         return Util.GetOrAddComponent<T>(go);
     }
-    
-    public void LoadScenePanel(string panelName, Transform transform = null)
-    {
-        if (sceneUI != null)
-        {
-            Managers.Resource.Destroy(sceneUI);
-        }
-        sceneUI = Managers.Resource.Instantiate($"UI/Panel/{panelName}", root.transform);
-    }
-    
-    public void LoadScenePanel<T>(string panelName, T componentName = null, Transform transform = null) where T : Component
+
+    public void LoadScenePanel<T>(string panelName, Transform transform = null) where T : Component
     {
         if (sceneUI != null)
         {
@@ -67,18 +62,26 @@ public class UIManager
         sceneUI.AddComponent<T>();
     }
 
-    public void LoadPopupPanel<T>(string panelName, T componentName, Transform thisTransform = null) where T : Component
+    public GameObject LoadPopupPanel(string panelName)
     {
-        if (thisTransform == null)
-        {
-            thisTransform = root.transform;
-        }
-        GameObject popup = Managers.Resource.Instantiate($"UI/Popup/{panelName}",thisTransform);
-        popup.AddComponent<T>();
+        GameObject popup = Managers.Resource.Instantiate($"UI/Popup/{panelName}",root.transform);
+        _popupStack.Push(popup);
+        return popup;
+    }
+    
+    public void LoadSettingsPanel()
+    {
+        GameObject popup = Managers.Resource.Instantiate($"UI/Panel/SettingsPanel",root.transform);
         _popupStack.Push(popup);
     }
-
-
+    
+    public void CloseTopPopup()
+    {
+        if (_popupStack.Count == 0)
+            return;
+        Managers.Resource.Destroy(_popupStack.Pop().gameObject);
+        
+    }
     /*
 
 	public T ShowSceneUI<T>(string name = null) where T : UI_Scene

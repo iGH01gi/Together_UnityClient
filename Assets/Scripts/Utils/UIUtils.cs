@@ -84,15 +84,15 @@ public class UIUtils
         });
     }
 
-    public static void BindUIButtonWithText(string buttonName, Action<GameObject> OnButtonPress, Transform transform)
+    public static void BindUIButtonWithText(string buttonName, Action OnButtonPress, Transform transform)
     {
-        GameObject go = Managers.Resource.Instantiate("UI/Localized/UIDropDown", transform);
+        GameObject go = Managers.Resource.Instantiate("UI/Localized/UIButton", transform);
         go.name = buttonName;
         go.transform.GetChild(0).GetComponent<LocalizeStringEvent>().StringReference
             .SetReference("StringTable", buttonName);
         go.GetComponent<Button>().onClick.AddListener(delegate
         {
-            OnButtonPress(go);
+            OnButtonPress();
         });
     }
     
