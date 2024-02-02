@@ -3,6 +3,8 @@ using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.EventSystems;
+using UnityEngine.InputSystem;
 using UnityEngine.UI;
 
 public class UIManager
@@ -81,6 +83,11 @@ public class UIManager
             return;
         Managers.Resource.Destroy(_popupStack.Pop().gameObject);
         
+    }
+
+    public void OnCancel(InputValue value)
+    {
+        Debug.Log($"{value} Bleh");
     }
     /*
 

@@ -58,6 +58,7 @@ public class Managers : MonoBehaviour
             _instance._pool.Init();
             _instance._network.Init();
             _instance._ui.Init();
+            _instance._input.Init();
         }
     }
     
