@@ -10,7 +10,7 @@ public class GameScene : BaseScene
 
         SceneType = Define.Scene.InGame;
         
-        Managers.Sound.Play("Bgm/test_bgm",Define.Sound.Bgm);
+        //Managers.Sound.Play("Bgm/test_bgm",Define.Sound.Bgm);
     }
 
     public override void Clear()
