@@ -1,46 +1,52 @@
 using System.Collections;
 using System.Collections.Generic;
+using Google.Protobuf;
 using UnityEngine;
+
+public class PacketMessage
+{
+    public ushort Id { get; set; }
+    public IMessage Message { get; set; }
+}
 
 //유니티메인쓰레드와 백그라운드 쓰레드(네트워크를 처리하는) 사이의 소통을 PacketQueue라는 통로를 이용해서 처리
 //메인 쓰레드에서는 Pop을 사용해서 처리
 public class PacketQueue
 {
     public static PacketQueue Instance { get; } = new PacketQueue();
-    
-    Queue<IPacket> _packetQueue = new Queue<IPacket>();
+
+    Queue<PacketMessage> _packetQueue = new Queue<PacketMessage>();
     object _lock = new object();
 
-    public void Push(IPacket packet)
+    public void Push(ushort id, IMessage packet)
     {
         lock (_lock)
         {
-            _packetQueue.Enqueue(packet);
+            _packetQueue.Enqueue(new PacketMessage() { Id = id, Message = packet });
         }
     }
-        
-    public IPacket Pop() 
+
+    public PacketMessage Pop()
     {
         lock (_lock)
         {
             if (_packetQueue.Count == 0)
                 return null;
-            
+
             return _packetQueue.Dequeue();
         }
     }
 
-    public List<IPacket> PopAll()
+    public List<PacketMessage> PopAll()
     {
-        List<IPacket> list=new List<IPacket>();
-        
-        lock(_lock)
+        List<PacketMessage> list = new List<PacketMessage>();
+
+        lock (_lock)
         {
             while (_packetQueue.Count > 0)
-            {
                 list.Add(_packetQueue.Dequeue());
-            }
         }
+
         return list;
     }
 }

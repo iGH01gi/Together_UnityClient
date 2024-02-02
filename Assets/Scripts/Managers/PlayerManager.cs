@@ -7,7 +7,7 @@ public class PlayerManager
     private MyPlayer _myPlayer; //내 플레이어
     private Dictionary<int, Player> _players = new Dictionary<int, Player>(); //다른 플레이어들
     
-    //내가 접속했을때, 서버로부터 모든 플레이어들의 리스트를 받아서 처리
+    /*//내가 접속했을때, 서버로부터 모든 플레이어들의 리스트를 받아서 처리
     public void Add(S_PlayerList packet)
     {
         foreach (S_PlayerList.Player p in packet.players)
@@ -83,5 +83,5 @@ public class PlayerManager
                 _players.Remove(packet.playerId);
             }
         }
-    }
+    }*/
 }

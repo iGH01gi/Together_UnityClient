@@ -4,29 +4,27 @@ using System.Buffers;
 using System.Net;
 using System.Net.Sockets;
 using System.Text;
+using UnityEngine;
 
-namespace DummyClient
+public class ServerSession : PacketSession
 {
-    public class ServerSession : PacketSession
+    public override void OnConnected(EndPoint endPoint)
     {
-        public override void OnConnected(EndPoint endPoint)
-        {
-            Console.WriteLine($"OnConnected: {endPoint}");
-        }
+        Debug.Log($"OnConnected : {endPoint}");
+    }
 
-        public override void OnDisconnected(EndPoint endPoint)
-        {
-            Console.WriteLine($"OnDisconnected: {endPoint}");
-        }
+    public override void OnDisconnected(EndPoint endPoint)
+    {
+        Debug.Log($"OnDisconnected : {endPoint}");
+    }
 
-        public override void OnRecvPacket(ArraySegment<byte> buffer)
-        {
-            PacketManager.Instance.OnRecvPacket(this, buffer, (s, p) => PacketQueue.Instance.Push(p));
-        }
+    public override void OnRecvPacket(ArraySegment<byte> buffer)
+    {
+        PacketManager.Instance.OnRecvPacket(this, buffer);
+    }
 
-        public override void OnSend(int numOfBytes)
-        {
-            // Console.WriteLine($"Transferred bytes: {numOfBytes}");
-        }
+    public override void OnSend(int numOfBytes)
+    {
+        //Console.WriteLine($"Transferred bytes: {numOfBytes}");
     }
 }

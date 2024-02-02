@@ -15,7 +15,7 @@ public class MyPlayer : Player
         
     }
     
-    //이동 패킷 보냄
+    /*//이동 패킷 보냄
     public IEnumerator CoSendPacket()
     {
         while (true)
@@ -29,5 +29,5 @@ public class MyPlayer : Player
 
             Managers.Network.Send(movePacket.Write());
         }
-    }
+    }*/
 }
