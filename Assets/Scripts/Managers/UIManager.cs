@@ -11,6 +11,7 @@ public class UIManager
 {
     public static int order = 0;
     Stack<GameObject> _popupStack = new Stack<GameObject>();
+    Stack<GameObject> _firstSelected = new Stack<GameObject>();
 
     public static GameObject root;
 
@@ -19,9 +20,6 @@ public class UIManager
     public static GameObject sceneUI;
     
     public GameObject SceneUI { get { return sceneUI; } }
-    
-    
-    public static GameObject popupPanel;
 
     public void Init()
     {
@@ -37,22 +35,6 @@ public class UIManager
         }
     }
 
-    public T MakeSubItem<T>(Transform parent = null, string name = null) where T : MonoBehaviour
-    {
-        if (string.IsNullOrEmpty(name))
-        {
-            name = typeof(T).Name;
-        }
-
-        GameObject go = Managers.Resource.Instantiate($"UI/SubItem/{name}");
-        if (parent != null)
-        {
-            go.transform.SetParent(parent);
-        }
-
-        return Util.GetOrAddComponent<T>(go);
-    }
-
     public void LoadScenePanel<T>(string panelName, Transform transform = null) where T : Component
     {
         if (sceneUI != null)
@@ -66,17 +48,13 @@ public class UIManager
 
     public GameObject LoadPopupPanel(string panelName)
     {
+        GameObject panel = Managers.Resource.Instantiate($"UI/Panel/Panel",root.transform);
         GameObject popup = Managers.Resource.Instantiate($"UI/Popup/{panelName}",root.transform);
-        _popupStack.Push(popup);
+        popup.transform.SetParent(panel.transform);
+        _popupStack.Push(panel);
         return popup;
     }
-    
-    public void LoadSettingsPanel()
-    {
-        GameObject popup = Managers.Resource.Instantiate($"UI/Panel/SettingsPanel",root.transform);
-        _popupStack.Push(popup);
-    }
-    
+
     public void CloseTopPopup()
     {
         if (_popupStack.Count == 0)
@@ -85,12 +63,32 @@ public class UIManager
         
     }
 
-    public void OnCancel(InputValue value)
+    public bool PopupActive()
     {
-        Debug.Log($"{value} Bleh");
+        return (_popupStack.Count > 0);
+    }
+
+    public void SetEventSystemNavigation(GameObject go)
+    {
+        EventSystem.current.firstSelectedGameObject = go;
     }
     /*
+    public T MakeSubItem<T>(Transform parent = null, string name = null) where T : MonoBehaviour
+    {
+        if (string.IsNullOrEmpty(name))
+        {
+            name = typeof(T).Name;
+        }
 
+        GameObject go = Managers.Resource.Instantiate($"UI/subitem/{name}");
+        if (parent != null)
+        {
+            go.transform.SetParent(parent);
+        }
+
+        return Util.GetOrAddComponent<T>(go);
+    }
+    
 	public T ShowSceneUI<T>(string name = null) where T : UI_Scene
 	{
 		if (string.IsNullOrEmpty(name))

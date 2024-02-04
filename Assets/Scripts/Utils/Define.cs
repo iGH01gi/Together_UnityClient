@@ -71,4 +71,9 @@ public class Define
         Undefined,
         YesNo
     }
+
+    public enum InputType
+    {
+        UIInputHandler
+    }
 }

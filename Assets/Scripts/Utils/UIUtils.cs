@@ -84,7 +84,7 @@ public class UIUtils
         });
     }
 
-    public static void BindUIButtonWithText(string buttonName, Action OnButtonPress, Transform transform)
+    public static GameObject BindUIButtonWithText(string buttonName, Action OnButtonPress, Transform transform)
     {
         GameObject go = Managers.Resource.Instantiate("UI/Localized/UIButton", transform);
         go.name = buttonName;
@@ -94,6 +94,7 @@ public class UIUtils
         {
             OnButtonPress();
         });
+        return go;
     }
     
     public static void BindUIButtonNoText(string path, Action<GameObject> OnButtonPress, Transform transform)

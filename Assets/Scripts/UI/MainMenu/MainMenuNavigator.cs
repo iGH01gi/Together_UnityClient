@@ -11,7 +11,7 @@ public class MainMenuNavigator : MonoBehaviour
     {
         UIUtils.BindUIButtonWithText("StartGame",ToLobby,transform);
         UIUtils.BindUIButtonWithText("Shop",ToLobby,transform);
-        UIUtils.BindUIButtonWithText("Settings",Managers.UI.LoadSettingsPanel,transform);
+        UIUtils.BindUIButtonWithText("Settings",Settings,transform);
         UIUtils.BindUIButtonWithText("EndGame",ExitGame,transform);
     }
 
@@ -21,6 +21,11 @@ public class MainMenuNavigator : MonoBehaviour
     }
 
     public void ToLobby()
+    {
+        
+    }
+
+    public void Settings()
     {
         
     }
