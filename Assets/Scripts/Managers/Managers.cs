@@ -16,6 +16,7 @@ public class Managers : MonoBehaviour
     NetworkManager _network = new NetworkManager();
     PlayerManager _player = new PlayerManager();
     WebManager _web = new WebManager();
+    InputManager _input = new InputManager();
     
     
     public static  ResourceManager Resource { get { return Instance._resource;} }
@@ -26,6 +27,7 @@ public class Managers : MonoBehaviour
     public static DataManager Data { get { return Instance._data; } }
     public static NetworkManager Network { get { return Instance._network; } }
     public static PlayerManager Player { get { return Instance._player; } }
+    public static InputManager Input { get { return Instance._input; } }
 
     void Start()
     {
@@ -56,6 +58,7 @@ public class Managers : MonoBehaviour
             _instance._pool.Init();
             _instance._network.Init();
             _instance._ui.Init();
+            _instance._input.Init();
         }
     }
     
