@@ -11,7 +11,7 @@ public class LobbyScene : BaseScene
 
         if (SceneType == Define.Scene.Unknown)
         {
-            Managers.UI.LoadScenePanel<MainMenuNavigator>("MainMenuButtons");
+            Managers.UI.LoadScenePanel("MainMenuUI");
         }
         SceneType = Define.Scene.Lobby;
     }

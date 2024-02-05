@@ -34,25 +34,23 @@ public class UIManager
             root.AddComponent<GraphicRaycaster>();
         }
     }
-
-    public void LoadScenePanel<T>(string panelName, Transform transform = null) where T : Component
+    
+    public void LoadScenePanel(string sceneUIType)
     {
         if (sceneUI != null)
         {
             Managers.Resource.Destroy(sceneUI);
         }
 
-        sceneUI = Managers.Resource.Instantiate($"UI/Panel/{panelName}", root.transform);
-        sceneUI.AddComponent<T>();
+        sceneUI = Managers.Resource.Instantiate($"UI/Scene/{sceneUIType}", root.transform);
+        sceneUI.AddComponent(Type.GetType(sceneUIType));
     }
 
-    public GameObject LoadPopupPanel(string panelName)
+    public void LoadPopupPanel<T>() where T: UI_popup
     {
-        GameObject panel = Managers.Resource.Instantiate($"UI/Panel/Panel",root.transform);
-        GameObject popup = Managers.Resource.Instantiate($"UI/Popup/{panelName}",root.transform);
-        popup.transform.SetParent(panel.transform);
-        _popupStack.Push(panel);
-        return popup;
+        GameObject popup = Managers.Resource.Instantiate($"UI/Popup/{typeof(T).BaseType}",root.transform);
+        popup.AddComponent(typeof(T));
+        _popupStack.Push(popup);
     }
 
     public void CloseTopPopup()

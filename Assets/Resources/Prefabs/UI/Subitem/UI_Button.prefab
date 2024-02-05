@@ -12,8 +12,9 @@ GameObject:
   - component: {fileID: 5045400899348471005}
   - component: {fileID: 4256308669070470073}
   - component: {fileID: 6884417094136082716}
+  - component: {fileID: 4533873551778910918}
   m_Layer: 5
-  m_Name: UIButton
+  m_Name: UI_Button
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -121,6 +122,18 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls: []
+--- !u!114 &4533873551778910918
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1889359701471392751}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ecd34c346b5236b4d83bfd9de7b2187e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &1974195366186923860
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -216,6 +229,14 @@ PrefabInstance:
     - target: {fileID: 5856558000202554168, guid: 55c3bda54ee364b4c9e38460ffc7c99c, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6920492050228745144, guid: 55c3bda54ee364b4c9e38460ffc7c99c, type: 3}
+      propertyPath: m_fontSize
+      value: 15
+      objectReference: {fileID: 0}
+    - target: {fileID: 6920492050228745144, guid: 55c3bda54ee364b4c9e38460ffc7c99c, type: 3}
+      propertyPath: m_fontSizeBase
+      value: 15
       objectReference: {fileID: 0}
     - target: {fileID: 7045614775725182669, guid: 55c3bda54ee364b4c9e38460ffc7c99c, type: 3}
       propertyPath: m_Name
