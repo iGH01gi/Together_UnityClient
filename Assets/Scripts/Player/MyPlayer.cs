@@ -4,10 +4,10 @@ using UnityEngine;
 
 public class MyPlayer : Player
 {
-
+    public GameRoom Room { get; set; } //현재 내가 참가하고 있는 게임룸
     void Start()
     {
-        StartCoroutine("CoSendPacket");
+        //StartCoroutine("CoSendPacket");
     }
 
     void Update()

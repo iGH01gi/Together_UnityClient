@@ -4,8 +4,15 @@ using UnityEngine;
 
 public class PlayerManager
 {
-    private MyPlayer _myPlayer; //내 플레이어
-    private Dictionary<int, Player> _players = new Dictionary<int, Player>(); //다른 플레이어들
+    public MyPlayer _myPlayer; //내 플레이어
+    
+    public Dictionary<int, Player> _otherPlayers = new Dictionary<int, Player>(); //다른 플레이어들
+
+    public void Clear()
+    {
+        _myPlayer = null;
+        _otherPlayers.Clear();
+    }
     
     /*//내가 접속했을때, 서버로부터 모든 플레이어들의 리스트를 받아서 처리
     public void Add(S_PlayerList packet)

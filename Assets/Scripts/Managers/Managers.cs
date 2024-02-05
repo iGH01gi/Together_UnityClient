@@ -15,7 +15,7 @@ public class Managers : MonoBehaviour
     DataManager _data = new DataManager();
     NetworkManager _network = new NetworkManager();
     PlayerManager _player = new PlayerManager();
-    WebManager _web = new WebManager();
+    RoomManager _room = new RoomManager();
     
     
     public static  ResourceManager Resource { get { return Instance._resource;} }
@@ -26,6 +26,7 @@ public class Managers : MonoBehaviour
     public static DataManager Data { get { return Instance._data; } }
     public static NetworkManager Network { get { return Instance._network; } }
     public static PlayerManager Player { get { return Instance._player; } }
+    public static RoomManager Room { get { return Instance._room; } }
 
     void Start()
     {

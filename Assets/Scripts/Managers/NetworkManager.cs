@@ -8,7 +8,7 @@ using UnityEngine;
 
 public class NetworkManager
 {
-    ServerSession _session = new ServerSession();
+    public ServerSession _session = new ServerSession();
 
     public void Init()
     {

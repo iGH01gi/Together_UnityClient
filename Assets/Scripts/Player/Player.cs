@@ -1,17 +1,18 @@
 using System.Collections;
 using System.Collections.Generic;
-using UnityEngine;
+using Google.Protobuf.Protocol;
 
-public class Player : MonoBehaviour
+public class Player
 {
-    public int playerId { get; set; }
-    void Start()
-    {
-        
-    }
-    
-    void Update()
-    {
-        
-    }
+    //현재 playerId는 sessionId와 같게 처리하고 있음
+    public int PlayerId { get; set; }
+    public string Name { get; set; }
+
+    private float posX;
+    private float posY;
+    private float posZ;
+    private float rotX;
+    private float rotY;
+    private float rotZ;
+
 }
