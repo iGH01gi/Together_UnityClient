@@ -12,6 +12,7 @@ public class Define
         Control,
         KeyBinding
     }
+
     public enum Scene
     {
         //Scene Types that can occur
@@ -19,13 +20,14 @@ public class Define
         Lobby,
         InGame,
     }
+
     public enum UIEvent
     {
         //UI Events that can occur
         Click,
         Drag
     }
-    
+
     public enum Sound
     {
         Bgm,
@@ -37,9 +39,9 @@ public class Define
         Idle,
         Run,
         Walk,
-        Jump,  
-     }
-     
+        Jump,
+    }
+
     public enum DisplayQuality
     {
         Low,
@@ -54,7 +56,7 @@ public class Define
         Settings,
         EndGame
     }
-    
+
     public enum HttpMethod
     {
         Get,
@@ -62,5 +64,16 @@ public class Define
         Put,
         Delete,
         Patch,
+    }
+
+    public enum Popup
+    {
+        Undefined,
+        YesNo
+    }
+
+    public enum InputType
+    {
+        UIInputHandler
     }
 }

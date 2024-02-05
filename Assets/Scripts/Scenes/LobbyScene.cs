@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class LobbyScene : BaseScene
 {
@@ -10,11 +11,8 @@ public class LobbyScene : BaseScene
 
         if (SceneType == Define.Scene.Unknown)
         {
-            Managers.UI.LoadScenePanel("Panel");
-            Managers.UI.LoadScenePanel("MainMenuButtons",GetComponent<MainMenuNavigator>());
-            
+            Managers.UI.LoadScenePanel("MainMenuUI");
         }
-
         SceneType = Define.Scene.Lobby;
     }
 
