@@ -4,29 +4,48 @@ using System.Buffers;
 using System.Net;
 using System.Net.Sockets;
 using System.Text;
+using Google.Protobuf;
+using Google.Protobuf.Protocol;
+using UnityEngine;
 
-namespace DummyClient
+public class ServerSession : PacketSession
 {
-    public class ServerSession : PacketSession
+    public void Send(IMessage packet)
     {
-        public override void OnConnected(EndPoint endPoint)
-        {
-            Console.WriteLine($"OnConnected: {endPoint}");
-        }
+        string msgName = packet.Descriptor.Name.Replace("_", String.Empty);
+        MsgId msgId = (MsgId)Enum.Parse(typeof(MsgId),msgName);
 
-        public override void OnDisconnected(EndPoint endPoint)
-        {
-            Console.WriteLine($"OnDisconnected: {endPoint}");
-        }
+        ushort size = (ushort)packet.CalculateSize();
+        byte[] sendBuffer = new byte[size + 4];
+        Array.Copy(BitConverter.GetBytes((ushort)size + 4), 0, sendBuffer, 0, sizeof(ushort));
+        Array.Copy(BitConverter.GetBytes((ushort)msgId), 0, sendBuffer, 2, sizeof(ushort));
+        Array.Copy(packet.ToByteArray(), 0, sendBuffer, 4, size);
 
-        public override void OnRecvPacket(ArraySegment<byte> buffer)
-        {
-            PacketManager.Instance.OnRecvPacket(this, buffer, (s, p) => PacketQueue.Instance.Push(p));
-        }
+        Send(new ArraySegment<byte>(sendBuffer));
+    }
+    
+    public override void OnConnected(EndPoint endPoint)
+    {
+        Debug.Log($"OnConnected : {endPoint}");
 
-        public override void OnSend(int numOfBytes)
+        PacketManager.Instance.CustomHandler = (s, m, i) =>
         {
-            // Console.WriteLine($"Transferred bytes: {numOfBytes}");
-        }
+            PacketQueue.Instance.Push(i, m);
+        };
+    }
+
+    public override void OnDisconnected(EndPoint endPoint)
+    {
+        Debug.Log($"OnDisconnected : {endPoint}");
+    }
+
+    public override void OnRecvPacket(ArraySegment<byte> buffer)
+    {
+        PacketManager.Instance.OnRecvPacket(this, buffer);
+    }
+
+    public override void OnSend(int numOfBytes)
+    {
+        //Console.WriteLine($"Transferred bytes: {numOfBytes}");
     }
 }

@@ -49,6 +49,38 @@ public class WebManager : MonoBehaviour
         setSoundSettingP.SendRequest(responseCallback);
     }
     
+    //키 설정을 서버에게 받아옴
+    public void GetKeySetting(string userId,Action<UnityWebRequest> responseCallback)
+    {
+        GetKeySettingP getKeySettingP = gameObject.AddComponent<GetKeySettingP>();
+        getKeySettingP.Init(userId);
+        getKeySettingP.SendRequest(responseCallback);
+    }
+    
+    //키 설정을 서버로 보냄
+    public void SetKeySetting(SetKeySettingRequestDTO requestDto, Action<UnityWebRequest> responseCallback)
+    {
+        SetKeySettingP setKeySettingP = gameObject.AddComponent<SetKeySettingP>();
+        setKeySettingP.Init(requestDto);
+        setKeySettingP.SendRequest(responseCallback);
+    }
+    
+    //플레이어 설정 정보를 서버에게 받아옴
+    public void GetPlayerSetting(string userId,Action<UnityWebRequest> responseCallback)
+    {
+        GetPlayerSettingP getPlayerSettingP = gameObject.AddComponent<GetPlayerSettingP>();
+        getPlayerSettingP.Init(userId);
+        getPlayerSettingP.SendRequest(responseCallback);
+    }
+    
+    //플레이어 설정 정보를 서버로 보냄
+    public void SetPlayerSetting(SetPlayerSettingRequestDTO requestDto, Action<UnityWebRequest> responseCallback)
+    {
+        SetPlayerSettingP setPlayerSettingP = gameObject.AddComponent<SetPlayerSettingP>();
+        setPlayerSettingP.Init(requestDto);
+        setPlayerSettingP.SendRequest(responseCallback);
+    }
+    
     #endregion
 
     

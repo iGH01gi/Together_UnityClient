@@ -22,7 +22,7 @@ public class GetSoundSettingCallBack : MonoBehaviour
         if (responseDto.code == 1) //서버에서의 처리가 성공일때 code=1을 담아서 서버에서 보내기로 약속함
         {
             Debug.Log($"서버에서 온 code: {responseDto.code}, 서버에서 온 message: {responseDto.message}");
-            Debug.Log($"해당 유저의 마스터 볼륨: {responseDto.Master}, 해당 유저의 배경음 볼륨: {responseDto.Bgm}, 해당 유저의 효과음 볼륨: {responseDto.Effects}");
+            Debug.Log($"해당 유저의 마스터 볼륨: {responseDto.soundSetting.Master}, 해당 유저의 배경음 볼륨: {responseDto.soundSetting.Bgm}, 해당 유저의 효과음 볼륨: {responseDto.soundSetting.Effects}");
         }
         else
         {

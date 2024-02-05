@@ -4,10 +4,9 @@ using System.Net;
 using System.Net.Sockets;
 using System.Text;
 using System.Threading;
+using UnityEngine;
 
-namespace ServerCore
-{
-    public abstract class PacketSession : Session
+public abstract class PacketSession : Session
 {
     public static readonly int HeaderSize = 2;
 
@@ -17,7 +16,6 @@ namespace ServerCore
     public sealed override int OnRecv(ArraySegment<byte> buffer)
     {
         int processLen = 0;
-        int packetCount = 0;
 
         while (true)
         {
@@ -26,21 +24,16 @@ namespace ServerCore
                 break;
 
             //패킷이 완전체로 도착했는지 확인 (ushort만큼 긁어서 뱉어줌=데이터 사이즈가 들어잇는 부분)
-            ushort dataSize=BitConverter.ToUInt16(buffer.Array, buffer.Offset);
+            ushort dataSize = BitConverter.ToUInt16(buffer.Array, buffer.Offset);
             if (buffer.Count < dataSize)
                 break;
 
             //여기까지 왔으면 패킷 조립 가능
-            OnRecvPacket(new ArraySegment<byte>(buffer.Array,buffer.Offset,dataSize));
-            packetCount++;
+            OnRecvPacket(new ArraySegment<byte>(buffer.Array, buffer.Offset, dataSize));
 
             processLen += dataSize;
             buffer = new ArraySegment<byte>(buffer.Array, buffer.Offset + dataSize, buffer.Count - dataSize);
-
         }
-        
-        if(packetCount>1)
-            Console.WriteLine($"패킷 모아 보내기 : {packetCount}");
 
         return processLen; //처리한 바이트수를 리턴
     }
@@ -88,9 +81,9 @@ public abstract class Session
 
     public void Send(List<ArraySegment<byte>> sendBuffList)
     {
-        if(sendBuffList.Count==0)
+        if (sendBuffList.Count == 0)
             return;
-        
+
         lock (_lock)
         {
             foreach (ArraySegment<byte> sendBuff in sendBuffList)
@@ -102,6 +95,7 @@ public abstract class Session
             }
         }
     }
+
     public void Send(ArraySegment<byte> sendBuffer)
     {
         lock (_lock)
@@ -131,12 +125,13 @@ public abstract class Session
     {
         if (_disconnected == 1)
             return;
-        
+
         while (_sendQueue.Count > 0)
         {
             ArraySegment<byte> buff = _sendQueue.Dequeue();
             _pendingList.Add(buff);
         }
+
         _sendArgs.BufferList = _pendingList;
 
         try
@@ -149,7 +144,7 @@ public abstract class Session
         }
         catch (Exception e)
         {
-            Console.WriteLine($"RegisterSend Failed {e}");
+            Debug.Log($"RegisterSend Failed {e}");
         }
     }
 
@@ -171,7 +166,7 @@ public abstract class Session
                 }
                 catch (Exception e)
                 {
-                    Console.WriteLine($"OnSendCompleted Failed {e}");
+                    Debug.Log($"OnSendCompleted Failed {e}");
                 }
             }
             else
@@ -183,12 +178,12 @@ public abstract class Session
 
     void RegisterRecv()
     {
-        if(_disconnected==1)
+        if (_disconnected == 1)
             return;
-        
+
         _recvBuffer.Clean();
-        ArraySegment<byte> segment =_recvBuffer.WriteSegment;
-        _recvArgs.SetBuffer(segment.Array,segment.Offset,segment.Count);
+        ArraySegment<byte> segment = _recvBuffer.WriteSegment;
+        _recvArgs.SetBuffer(segment.Array, segment.Offset, segment.Count);
 
         try
         {
@@ -200,11 +195,11 @@ public abstract class Session
         }
         catch (Exception e)
         {
-            Console.WriteLine($"RegisterRecv Failed {e}");
+            Debug.Log($"RegisterRecv Failed {e}");
         }
     }
 
-    void OnRecvCompleted(Object sender, SocketAsyncEventArgs args)
+    void OnRecvCompleted(object sender, SocketAsyncEventArgs args)
     {
         if (args.BytesTransferred > 0 && args.SocketError == SocketError.Success)
         {
@@ -219,8 +214,8 @@ public abstract class Session
                 }
 
                 //컨텐츠 쪽으로 데이터를 넘겨주고 얼마나 처리했는지 받는다 (tcp 특성상 바이트 전체가 아닌 일부가 왔을수도 있음)
-                int processLen=OnRecv(_recvBuffer.ReadSegment);
-                if (processLen < 0 || _recvBuffer.DataSize<processLen)
+                int processLen = OnRecv(_recvBuffer.ReadSegment);
+                if (processLen < 0 || _recvBuffer.DataSize < processLen)
                 {
                     Disconnect();
                     return;
@@ -237,7 +232,7 @@ public abstract class Session
             }
             catch (Exception e)
             {
-                Console.WriteLine($"OnRecvCompleted Failed {e}");
+                Debug.Log($"OnRecvCompleted Failed {e}");
             }
         }
         else
@@ -248,6 +243,5 @@ public abstract class Session
     }
 
     #endregion
-}
 }
 

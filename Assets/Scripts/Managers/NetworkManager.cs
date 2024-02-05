@@ -2,13 +2,13 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Net;
-using DummyClient;
+using Google.Protobuf;
 using ServerCore;
 using UnityEngine;
 
 public class NetworkManager
 {
-    ServerSession _session = new ServerSession();
+    public ServerSession _session = new ServerSession();
 
     public void Init()
     {
@@ -30,15 +30,12 @@ public class NetworkManager
     /// </summary>
     public void Update()
     {
-        List<IPacket> list = PacketQueue.Instance.PopAll();
-        foreach (IPacket packet in list)
+        List<PacketMessage> list = PacketQueue.Instance.PopAll();
+        foreach (PacketMessage packet in list)
         {
-            PacketManager.Instance.HandlePacket(_session, packet);
-        }
-    }
-    
-    public void Send(ArraySegment<byte> sendBuff)
-    {
-        _session.Send(sendBuff);
+            Action<PacketSession, IMessage> handler = PacketManager.Instance.GetPacketHandler(packet.Id);
+            if (handler != null)
+                handler.Invoke(_session, packet.Message);
+        }	
     }
 }

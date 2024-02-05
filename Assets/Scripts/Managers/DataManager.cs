@@ -1,10 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
-using OpenCover.Framework.Model;
 using UnityEngine;
-using SimpleJSON;
-using UnityEngine.InputSystem;
 using UnityEngine.Localization;
 using UnityEngine.Localization.Settings;
 using File = System.IO.File;

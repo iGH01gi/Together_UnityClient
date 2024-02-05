@@ -4,10 +4,10 @@ using UnityEngine;
 
 public class MyPlayer : Player
 {
-
+    public GameRoom Room { get; set; } //현재 내가 참가하고 있는 게임룸
     void Start()
     {
-        StartCoroutine("CoSendPacket");
+        //StartCoroutine("CoSendPacket");
     }
 
     void Update()
@@ -15,7 +15,7 @@ public class MyPlayer : Player
         
     }
     
-    //이동 패킷 보냄
+    /*//이동 패킷 보냄
     public IEnumerator CoSendPacket()
     {
         while (true)
@@ -29,5 +29,5 @@ public class MyPlayer : Player
 
             Managers.Network.Send(movePacket.Write());
         }
-    }
+    }*/
 }
