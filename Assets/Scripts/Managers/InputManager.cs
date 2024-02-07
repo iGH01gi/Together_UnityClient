@@ -8,15 +8,18 @@ public class InputManager
 {
     static List<Define.InputType> _inputList = new List<Define.InputType>();
     static GameObject root;
+    private InputActionAsset _inputActionAsset;
+    
     public void Init()
     {
+        _inputActionAsset = Resources.Load<InputActionAsset>("playerInput");
         root = GameObject.Find("@Input");
         if (root == null)
         {
             root = new GameObject { name = "@Input" };
             Object.DontDestroyOnLoad(root);
             PlayerInput playerInput = root.AddComponent<PlayerInput>();
-            playerInput.actions = Resources.Load<InputActionAsset>("playerInput");
+            playerInput.actions = _inputActionAsset;
             playerInput.notificationBehavior = PlayerNotifications.BroadcastMessages;
             AddInput(Define.InputType.UIInputHandler);
         }
@@ -45,5 +48,15 @@ public class InputManager
             GameObject.Destroy(root.transform.GetChild(_inputList.IndexOf(inputType)));
             _inputList.Remove(inputType);
         }
+    }
+
+    public void EnableInput()
+    {
+        _inputActionAsset.Enable();
+    }
+    
+    public void DisableInput()
+    {
+        _inputActionAsset.Disable();
     }
 }

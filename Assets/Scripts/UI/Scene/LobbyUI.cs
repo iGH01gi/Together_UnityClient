@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class LobbyUI : UI_scene
 {
+    private UIRoomListPacket _uiRoomListPacket;
     private enum Buttons
     {
         MainMenuButton,
@@ -16,6 +17,8 @@ public class LobbyUI : UI_scene
     private void Start()
     {
         InitButtons<Buttons>();
+        _uiRoomListPacket = gameObject.AddComponent<UIRoomListPacket>();
+        _uiRoomListPacket.WaitForPacket();
     }
 
     private void MainMenuButton()

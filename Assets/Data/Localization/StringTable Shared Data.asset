@@ -139,6 +139,14 @@ MonoBehaviour:
     m_Key: CreateRoom
     m_Metadata:
       m_Items: []
+  - m_Id: 11749246171779072
+    m_Key: InGameStatus
+    m_Metadata:
+      m_Items: []
+  - m_Id: 11749403319767040
+    m_Key: WaitingStatus
+    m_Metadata:
+      m_Items: []
   m_Metadata:
     m_Items: []
   m_KeyGenerator:

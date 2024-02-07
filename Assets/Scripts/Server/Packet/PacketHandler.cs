@@ -16,7 +16,7 @@ public class PacketHandler
         
         //방 목록 새로 받은정보로 갱신
         //TODO : callback함수는 받은 방 정보들로 ui 채워줘야 함. 방 정보들은 RoomManger의 _rooms들의 Info에 채워져있음
-        Managers.Room.RefreshRoomList(roomListPacket.Rooms.ToList(), callback: null); 
+        Managers.Room.RefreshRoomList(roomListPacket.Rooms.ToList(), callback: OnReceivePacket); 
     }
     
     //본인이 생성한 방 정보를 서버로부터 받음
