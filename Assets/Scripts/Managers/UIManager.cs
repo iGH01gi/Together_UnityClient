@@ -46,9 +46,18 @@ public class UIManager
         sceneUI.AddComponent(Type.GetType(sceneUIType));
     }
 
-    public void LoadPopupPanel<T>() where T: UI_popup
+    public void LoadPopupPanel<T>(bool isBase = false) where T: UI_popup
     {
-        GameObject popup = Managers.Resource.Instantiate($"UI/Popup/{typeof(T).BaseType}",root.transform);
+        GameObject popup;
+        if (isBase)
+        {
+            popup =  Managers.Resource.Instantiate($"UI/Popup/{typeof(T)}",root.transform);
+        }
+        else
+        {
+            popup = Managers.Resource.Instantiate($"UI/Popup/{typeof(T).BaseType}",root.transform);
+        }
+            
         popup.AddComponent(typeof(T));
         _popupStack.Push(popup);
     }

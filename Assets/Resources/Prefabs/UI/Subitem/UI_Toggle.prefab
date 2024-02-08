@@ -160,6 +160,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6475410718852048313}
+  - component: {fileID: 5133695903566916246}
   - component: {fileID: 8880046418033427467}
   m_Layer: 5
   m_Name: Toggle
@@ -188,6 +189,18 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &5133695903566916246
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2389620185680569467}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c32f6a534667785459838d987532428a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &8880046418033427467
 MonoBehaviour:
   m_ObjectHideFlags: 0

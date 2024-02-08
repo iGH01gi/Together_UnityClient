@@ -15,8 +15,8 @@ public abstract class YesNoPopup : UI_popup
         transform.GetChild(0).GetComponent<UI_Button>().SetOnClick(ClosePopup);
         transform.GetChild(1).GetComponent<UI_Text>().SetString(typeof(T).Name);
         transform.GetChild(2).GetComponent<UI_Button>().SetOnClick(YesFunc);
-        transform.GetChild(2).GetChild(0).GetComponent<UI_Text>().SetString("Yes");
+        transform.GetChild(2).GetComponent<UI_Button>().SetChildString("Yes");
         transform.GetChild(3).GetComponent<UI_Button>().SetOnClick(NoFunc);
-        transform.GetChild(3).GetChild(0).GetComponent<UI_Text>().SetString("No");
+        transform.GetChild(3).GetComponent<UI_Button>().SetChildString("No");
     }
 }

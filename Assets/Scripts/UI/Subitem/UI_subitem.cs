@@ -10,4 +10,9 @@ public class UI_subitem : MonoBehaviour
         go.GetComponent<LocalizeStringEvent>().StringReference
             .SetReference("StringTable", description);
     }
+
+    public void SetChildString(string str, int childindex = 0)
+    {
+        transform.GetChild(childindex).GetComponent<UI_Text>().SetString(str);
+    }
 }

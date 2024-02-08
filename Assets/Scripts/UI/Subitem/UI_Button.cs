@@ -10,4 +10,9 @@ public class UI_Button : UI_subitem
     {
         gameObject.GetComponent<Button>().onClick.AddListener(delegate { func(); });
     }
+
+    public void Activation(bool activate)
+    {
+        gameObject.GetComponent<Button>().interactable = activate;
+    }
 }

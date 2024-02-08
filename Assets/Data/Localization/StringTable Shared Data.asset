@@ -147,6 +147,30 @@ MonoBehaviour:
     m_Key: WaitingStatus
     m_Metadata:
       m_Items: []
+  - m_Id: 12715041891573760
+    m_Key: RoomName
+    m_Metadata:
+      m_Items: []
+  - m_Id: 12715105858904064
+    m_Key: UsePassword
+    m_Metadata:
+      m_Items: []
+  - m_Id: 12715178273562624
+    m_Key: Password
+    m_Metadata:
+      m_Items: []
+  - m_Id: 12715474999599104
+    m_Key: Close
+    m_Metadata:
+      m_Items: []
+  - m_Id: 12723814437773312
+    m_Key: InputRoomNamePopup
+    m_Metadata:
+      m_Items: []
+  - m_Id: 12724950053969920
+    m_Key: InputPasswordPopup
+    m_Metadata:
+      m_Items: []
   m_Metadata:
     m_Items: []
   m_KeyGenerator:

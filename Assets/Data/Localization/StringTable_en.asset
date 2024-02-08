@@ -150,6 +150,34 @@ MonoBehaviour:
     m_Localized: Waiting
     m_Metadata:
       m_Items: []
+  - m_Id: 12715041891573760
+    m_Localized: Room Name
+    m_Metadata:
+      m_Items: []
+  - m_Id: 12715105858904064
+    m_Localized: Use Password
+    m_Metadata:
+      m_Items: []
+  - m_Id: 12715178273562624
+    m_Localized: Password
+    m_Metadata:
+      m_Items: []
+  - m_Id: 12715474999599104
+    m_Localized: Close
+    m_Metadata:
+      m_Items: []
+  - m_Id: 12723814437773312
+    m_Localized: 'Room Name cannot be empty.
+
+      Enter room name to continue'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 12724950053969920
+    m_Localized: 'Password cannot be empty.
+
+      Enter password to continue'
+    m_Metadata:
+      m_Items: []
   references:
     version: 2
     RefIds: []

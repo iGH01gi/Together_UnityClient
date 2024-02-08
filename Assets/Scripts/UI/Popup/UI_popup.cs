@@ -7,7 +7,10 @@ public class UI_popup : UI_base
     public enum PopupType
     {
         YesNoPopup,
-        Settings
+        Settings,
+        CreateRoom,
+        Alert,
+        ProgressPopup
     }
     
     protected void ClosePopup()
