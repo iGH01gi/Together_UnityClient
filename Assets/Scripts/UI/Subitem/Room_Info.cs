@@ -24,7 +24,7 @@ public class Room_Info : UI_subitem
         
         if (!gameRoom.Info.IsPrivate)
         {
-            transform.GetChild(3).gameObject.SetActive(false);
+            Destroy(transform.GetChild(3).gameObject);
         }
     }
 }

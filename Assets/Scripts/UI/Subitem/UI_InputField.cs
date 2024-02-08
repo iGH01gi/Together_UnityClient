@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -12,11 +13,11 @@ public class UI_InputField : UI_subitem
 
     public string GetInputText()
     {
-        return gameObject.GetComponent<InputField>().text;
+        return gameObject.GetComponent<TMP_InputField>().text;
     }
 
     public void SetInteractable(bool interactable)
     {
-        gameObject.GetComponent<InputField>().interactable = interactable;
+        gameObject.GetComponent<TMP_InputField>().interactable = interactable;
     }
 }
