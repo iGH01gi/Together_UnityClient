@@ -7,7 +7,7 @@ public class VoxelizedMesh : MonoBehaviour
 {
     public List<Vector3Int> gridPoints = new List<Vector3Int>();
     public float HalfSize = 0.1f;
-    public Vector3 LocalOrigin;
+    public Vector3 LocalOrigin; //로컬좌표 기준 바운드상자의 꼭짓점 시작점 (바운드상자 첫 시작 꼭짓점 좌표인듯?)
     
     
 
@@ -36,8 +36,9 @@ public class VoxelizedMesh : MonoBehaviour
             voxelizedMesh = meshFilter.gameObject.AddComponent<VoxelizedMesh>();
         }
 
-        Bounds bounds = meshCollider.bounds; //메시콜라이더를 모두 포함하는 경계 상자
-        Vector3 minExtents = bounds.center - bounds.extents; //경계 상자의 한 모서리에 위치한 점의 좌표(기준 시작점 좌표일듯...아마 꼭짓점)
+        //bounds.extents : 경계 상자의 중점에서 꼭짓점까지의 크기벡터(x,y,z벡터)
+        Bounds bounds = meshCollider.bounds; //월드좌표 기준 메시콜라이더를 모두 포함하는 경계 상자
+        Vector3 minExtents = bounds.center - bounds.extents; //월드좌표에서 경계 상자의 한 모서리에 위치한 점의 좌표(기준 시작점 좌표일듯...아마 꼭짓점)
         float halfSize = voxelizedMesh.HalfSize; //복셀의 한변의 절반 크기
         Vector3 count = bounds.extents / halfSize;
 
