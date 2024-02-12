@@ -2,10 +2,10 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class InputPasswordPopup : AlertPopup
+public class InputRoomNamePopup : AlertPopup
 {
     void Start()
     {
-        Init<InputPasswordPopup>();
+        Init<InputRoomNamePopup>();
     }
 }

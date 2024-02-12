@@ -13,9 +13,9 @@ public class CreateRoomPopup : UI_popup
         _roomName = transform.GetChild(0).GetChild(1).GetComponent<UI_InputField>();
         _passwordToggle = transform.GetChild(1).GetChild(1).GetComponent<UI_Toggle>();
         _password = transform.GetChild(2).GetChild(1).GetComponent<UI_InputField>();
-        _roomName.SetChildString("RoomName");
-        _passwordToggle.SetChildString("UsePassword");
-        _password.SetChildString("Password");
+        transform.GetChild(0).GetChild(0).GetComponent<UI_Text>().SetString("RoomName");
+        transform.GetChild(1).GetChild(0).GetComponent<UI_Text>().SetString("UsePassword");
+        transform.GetChild(2).GetChild(0).GetComponent<UI_Text>().SetString("Password");
         _passwordToggle.SetOnClick(UsePassword);
         transform.GetChild(3).GetComponent<UI_Button>().SetChildString("CreateRoom");
         transform.GetChild(3).GetComponent<UI_Button>().SetOnClick(SubmitCreateRoom);
@@ -35,17 +35,14 @@ public class CreateRoomPopup : UI_popup
             Managers.UI.LoadPopupPanel<InputRoomNamePopup>();
         }
         
-        else if (_password.GetInputText().Length < 1)
+        else if (_password.GetInputText().Length < 1 && _passwordToggle.GetToggleState())
         {
             Managers.UI.LoadPopupPanel<InputPasswordPopup>();
         }
         else
         {
-            C_MakeRoom cMakeRoom = new C_MakeRoom();
-            cMakeRoom.Title = _roomName.GetInputText();
-            cMakeRoom.IsPrivate = _passwordToggle.GetToggleState();
-            cMakeRoom.Password = _password.GetInputText();
-            Managers.Network._session.Send(cMakeRoom);
+            UIPacketHandler.MakeNewRoomSendPacket(_roomName.GetInputText(),_passwordToggle.GetToggleState(),_password.GetInputText());
+            ClosePopup();
         }
     }
 }

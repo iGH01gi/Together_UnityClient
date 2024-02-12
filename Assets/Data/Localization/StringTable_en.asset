@@ -178,6 +178,14 @@ MonoBehaviour:
       Enter password to continue'
     m_Metadata:
       m_Items: []
+  - m_Id: 14123122584215552
+    m_Localized: Enter Password
+    m_Metadata:
+      m_Items: []
+  - m_Id: 14123405926227968
+    m_Localized: Submit
+    m_Metadata:
+      m_Items: []
   references:
     version: 2
     RefIds: []

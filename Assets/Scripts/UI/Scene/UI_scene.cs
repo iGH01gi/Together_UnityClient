@@ -12,7 +12,7 @@ public abstract class UI_scene : UI_base
         RoomUI,
     }
 
-    protected void InstantiateSceneUI(SceneUIType sceneUIType)
+    public static void InstantiateSceneUI(SceneUIType sceneUIType)
     {
         Managers.UI.LoadScenePanel(sceneUIType.ToString());
     }
@@ -32,7 +32,7 @@ public abstract class UI_scene : UI_base
                 go = gameObject.transform.Find(button).gameObject;
             }
 
-            if (go.transform.childCount == 1)
+            if (go.transform.childCount == 1 && go.transform.GetChild(0).name == "LocalizationText")
             {
                 go.transform.GetChild(0).GetComponent<UI_Text>().SetString(button);
             }

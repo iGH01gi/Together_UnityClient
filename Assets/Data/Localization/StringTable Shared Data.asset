@@ -171,6 +171,14 @@ MonoBehaviour:
     m_Key: InputPasswordPopup
     m_Metadata:
       m_Items: []
+  - m_Id: 14123122584215552
+    m_Key: EnterPasswordPopup
+    m_Metadata:
+      m_Items: []
+  - m_Id: 14123405926227968
+    m_Key: Submit
+    m_Metadata:
+      m_Items: []
   m_Metadata:
     m_Items: []
   m_KeyGenerator:
