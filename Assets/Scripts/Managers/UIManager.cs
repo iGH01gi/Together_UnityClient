@@ -46,7 +46,7 @@ public class UIManager
         sceneUI.AddComponent(Type.GetType(sceneUIType));
     }
 
-    public void LoadPopupPanel<T>(bool isBase = false) where T: UI_popup
+    public T LoadPopupPanel<T>(bool isBase = false) where T: UI_popup
     {
         GameObject popup;
         if (isBase)
@@ -60,6 +60,7 @@ public class UIManager
             
         popup.AddComponent(typeof(T));
         _popupStack.Push(popup);
+        return popup.GetComponent<T>();
     }
 
     public void CloseTopPopup()

@@ -23,7 +23,7 @@ public class RoomUI : UI_scene
         GetPlayerList();
     }
 
-    private void GetPlayerList()
+    public void GetPlayerList()
     {
         Transform PlayersPanel = transform.GetChild(4);
         ClearPlayerListPanel(PlayersPanel);
@@ -41,7 +41,7 @@ public class RoomUI : UI_scene
 
     void BackToLobbyButton()
     {
-        Managers.UI.LoadScenePanel(SceneUIType.LobbyUI.ToString());
+        UIPacketHandler.LeaveRoomSendPacket(thisRoom.Info.RoomId);
     }
 
     void ReadyButton()
@@ -57,7 +57,7 @@ public class RoomUI : UI_scene
         }
     }
 
-    void RefreshButton()
+    public void RefreshButton()
     {
         GetPlayerList();
     }

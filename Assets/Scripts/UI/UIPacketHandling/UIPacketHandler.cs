@@ -44,4 +44,26 @@ public class UIPacketHandler
         OnReceivePacket();
         UI_scene.InstantiateSceneUI(UI_scene.SceneUIType.RoomUI);
     }
+
+    public static void LeaveRoomSendPacket(int roomID)
+    {
+        CS_LeaveRoom csLeaveRoom = new CS_LeaveRoom();
+        csLeaveRoom.RoomId = roomID;
+        Managers.Network._session.Send(csLeaveRoom);
+    }
+
+    public static void RequestLeaveRoomReceivePacket()
+    {
+        Managers.UI.LoadScenePanel(UI_scene.SceneUIType.LobbyUI.ToString());
+    }
+    
+    public static void OthersLeftRoomReceivePacket()
+    {
+        Managers.UI.SceneUI.GetComponent<RoomUI>().RefreshButton();
+    }
+
+    public static void NewFaceEnterReceivePacket()
+    {
+        Managers.UI.SceneUI.GetComponent<RoomUI>().RefreshButton();
+    }
 }

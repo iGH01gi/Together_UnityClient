@@ -67,7 +67,7 @@ public class PacketHandler
         Debug.Log("S_RefreshInRoomHandler");
         
         //TODO : callback함수로 새로 들어온 플레이어의 정보를 방 UI에 반영. 필요한 정보는 RoomManger의 _rooms들의 Info와 _players에 채워져있음
-        Managers.Room.ProcessNewFaceInRoom(informNewFaceInRoomPacket, callback: null);
+        Managers.Room.ProcessNewFaceInRoom(informNewFaceInRoomPacket, callback: UIPacketHandler.NewFaceEnterReceivePacket);
     }
     
     //방에서 누군가가 나갔을때 (본인포함)
@@ -81,12 +81,12 @@ public class PacketHandler
         if(leaveRoomPacket.PlayerId == Managers.Player._myPlayer.PlayerId)
         {
             //TODO : callback함수로 '내'가 방을 나갔을때의 ui 처리
-            Managers.Room.ProcessLeaveRoom(leaveRoomPacket, callback: null);
+            Managers.Room.ProcessLeaveRoom(leaveRoomPacket, callback: UIPacketHandler.RequestLeaveRoomReceivePacket);
         }
         else
         {
             //TODO : callback함수로 방에 있는 다른 유저가 나갔을때 띄울 ui 처리
-            Managers.Room.ProcessLeaveRoom(leaveRoomPacket, callback: null);
+            Managers.Room.ProcessLeaveRoom(leaveRoomPacket, callback: UIPacketHandler.OthersLeftRoomReceivePacket);
         }
     }
     

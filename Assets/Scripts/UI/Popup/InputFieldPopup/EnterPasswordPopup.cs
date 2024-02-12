@@ -4,14 +4,16 @@ using UnityEngine;
 
 public class EnterPasswordPopup : InputFieldPopup
 {
-    void Start()
+    public GameRoom thisRoom { get; set; }
+    public void Init(GameRoom gameRoom)
     {
-        base.Init<EnterPasswordPopup>();
+        thisRoom = gameRoom;
+        Init<EnterPasswordPopup>();
     }
 
     protected override void OnButtonClick()
     {
         UIPacketHandler.WaitForPacket();
-        Managers.Room.RequestEnterRoom(gameRoom.Info.RoomId,transform.GetChild(2).GetComponent<UI_InputField>().GetInputText(),Managers.Player._myPlayer.PlayerId.ToString());
+        Managers.Room.RequestEnterRoom(thisRoom.Info.RoomId,transform.GetChild(2).GetChild(0).GetComponent<UI_InputField>().GetInputText(),"TEST");
     }
 }

@@ -33,7 +33,8 @@ public class Room_Info : UI_subitem
     {
         if (myroom.Info.IsPrivate)
         {
-            Managers.UI.LoadPopupPanel<EnterPasswordPopup>();
+            EnterPasswordPopup popup = Managers.UI.LoadPopupPanel<EnterPasswordPopup>();
+            popup.Init(myroom);
         }
         else
         {
