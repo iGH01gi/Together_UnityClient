@@ -29,6 +29,11 @@ public class PacketHandler
 
         if (makeRoomPacket.Room != null)
         {
+            //방 매니저에 방 추가
+            GameRoom gameRoom = new GameRoom();
+            gameRoom.Info = makeRoomPacket.Room;
+            Managers.Room.AddRoom(makeRoomPacket.Room.RoomId,gameRoom);
+            
             //방 생성이 성공했다면, 해당 방 입장을 요청
             Managers.Room.RequestEnterRoom(makeRoomPacket.Room.RoomId, makeRoomPacket.Password, name: "TestName");
         }

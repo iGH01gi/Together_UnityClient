@@ -9,6 +9,16 @@ using Google.Protobuf.Protocol;
 public class RoomManager
 {
     public Dictionary<int, GameRoom> _rooms = new Dictionary<int, GameRoom>();
+    
+    /// <summary>
+    /// 룸 딕셔너리에 수동으로 방 목록 추가
+    /// </summary>
+    /// <param name="roomId">룸id/param>
+    /// <param name="gameRoom">게임룸 정보</param>
+    public void AddRoom(int roomId, GameRoom gameRoom)
+    {
+        _rooms.Add(roomId, gameRoom);
+    }
 
     /// <summary>
     /// 방 목록 새로 받아서 갱신
@@ -37,6 +47,7 @@ public class RoomManager
     /// </summary>
     /// <param name="roomId">방 id</param>
     /// <param name="password">방 비번</param>
+    /// <param name="name">플레이어 이름</param>
     public void RequestEnterRoom(int roomId, string password, string name)
     {
         CS_EnterRoom sendPacket = new CS_EnterRoom();
@@ -147,4 +158,5 @@ public class RoomManager
         if(callback!=null)
             callback.Invoke();
     }
+
 }
