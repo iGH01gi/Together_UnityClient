@@ -7,9 +7,9 @@ using UnityEngine;
 public class PacketHandler
 {
     //서버한테 방 리스트를 받고 갱신함
-    public static void S_RoomListHandler(PacketSession session, IMessage packet)
+    public static void SC_RoomListHandler(PacketSession session, IMessage packet)
     {
-        S_RoomList roomListPacket = packet as S_RoomList;
+        SC_RoomList roomListPacket = packet as SC_RoomList;
         ServerSession serverSession = session as ServerSession;
         
         Debug.Log($"S_RoomListHandler, {roomListPacket.Rooms.Count}개의 방 존재");
@@ -20,9 +20,9 @@ public class PacketHandler
     }
     
     //본인이 생성한 방 정보를 서버로부터 받음
-    public static void S_MakeRoomHandler(PacketSession session, IMessage packet)
+    public static void SC_MakeRoomHandler(PacketSession session, IMessage packet)
     {
-        S_MakeRoom makeRoomPacket = packet as S_MakeRoom;
+        SC_MakeRoom makeRoomPacket = packet as SC_MakeRoom;
         ServerSession serverSession = session as ServerSession;
         
         Debug.Log("S_MakeRoomHandler");
@@ -35,9 +35,9 @@ public class PacketHandler
     }
     
     //'나'의 방 입장을 허가or거부 받음
-    public static void S_AllowEnterRoomHandler(PacketSession session, IMessage packet)
+    public static void SC_AllowEnterRoomHandler(PacketSession session, IMessage packet)
     {
-        S_AllowEnterRoom allowEnterRoomPacket = packet as S_AllowEnterRoom;
+        SC_AllowEnterRoom allowEnterRoomPacket = packet as SC_AllowEnterRoom;
         ServerSession serverSession = session as ServerSession;
         
         Debug.Log("S_AllowEnterRoomHandler");
@@ -54,9 +54,9 @@ public class PacketHandler
     }
     
     //'내'가 있는 방에 새로운 유저가 들어왔을때
-    public static void S_InformNewFaceInRoomHandler(PacketSession session, IMessage packet)
+    public static void SC_InformNewFaceInRoomHandler(PacketSession session, IMessage packet)
     {
-        S_InformNewFaceInRoom informNewFaceInRoomPacket = packet as S_InformNewFaceInRoom;
+        SC_InformNewFaceInRoom informNewFaceInRoomPacket = packet as SC_InformNewFaceInRoom;
         ServerSession serverSession = session as ServerSession;
         
         Debug.Log("S_RefreshInRoomHandler");
@@ -66,9 +66,9 @@ public class PacketHandler
     }
     
     //방에서 누군가가 나갔을때 (본인포함)
-    public static void S_LeaveRoomHandler(PacketSession session, IMessage packet)
+    public static void SC_LeaveRoomHandler(PacketSession session, IMessage packet)
     {
-        S_LeaveRoom leaveRoomPacket = packet as S_LeaveRoom;
+        SC_LeaveRoom leaveRoomPacket = packet as SC_LeaveRoom;
         ServerSession serverSession = session as ServerSession;
         
         Debug.Log("S_LeaveRoomHandler");
@@ -89,46 +89,4 @@ public class PacketHandler
     
     
     /****** 이 아래는 데디케이티드 서버로 구현하면서 변경될 예정 ***********/
-    public static void S_EnterGameHandler(PacketSession session, IMessage packet)
-    {
-        S_EnterGame enterGamePacket = packet as S_EnterGame;
-        ServerSession serverSession = session as ServerSession;
-        
-        Debug.Log("S_EnterGameHandler");
-        Debug.Log(enterGamePacket.Player);
-    }
-    
-    public static void S_LeaveGameHandler(PacketSession session, IMessage packet)
-    {
-        S_LeaveGame leaveGamePacket = packet as S_LeaveGame;
-        ServerSession serverSession = session as ServerSession;
-        
-        Debug.Log("S_LeaveGameHandler");
-    }
-    
-    public static void S_SpawnHandler(PacketSession session, IMessage packet)
-    {
-        S_Spawn spawnPacket = packet as S_Spawn;
-        ServerSession serverSession = session as ServerSession;
-        
-        Debug.Log("S_SpawnHandler");
-        Debug.Log(spawnPacket.Players);
-    }
-    
-    public static void S_DespawnHandler(PacketSession session, IMessage packet)
-    {
-        S_Despawn despawnPacket = packet as S_Despawn;
-        ServerSession serverSession = session as ServerSession;
-        
-        Debug.Log("S_DespawnHandler");
-        
-    }
-    
-    public static void S_MoveHandler(PacketSession session, IMessage packet)
-    {
-        S_Move movePacket = packet as S_Move;
-        ServerSession serverSession = session as ServerSession;
-        
-        Debug.Log("S_MoveHandler");
-    }
 }
