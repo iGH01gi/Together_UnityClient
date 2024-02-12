@@ -20,7 +20,7 @@ public class UIPacketHandler
     public static void RoomListSendPacket()
     {
         WaitForPacket();
-        C_RoomList packet = new C_RoomList();
+        CS_RoomList packet = new CS_RoomList();
         Managers.Network._session.Send(packet);
     }
     
@@ -32,7 +32,7 @@ public class UIPacketHandler
 
     public static void MakeNewRoomSendPacket(string roomName, bool isPassword, string password)
     {
-        C_MakeRoom cMakeRoom = new C_MakeRoom();
+        CS_MakeRoom cMakeRoom = new CS_MakeRoom();
         cMakeRoom.Title = roomName;
         cMakeRoom.IsPrivate = isPassword;
         cMakeRoom.Password = password;
