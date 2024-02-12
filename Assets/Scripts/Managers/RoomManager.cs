@@ -9,6 +9,16 @@ using Google.Protobuf.Protocol;
 public class RoomManager
 {
     public Dictionary<int, GameRoom> _rooms = new Dictionary<int, GameRoom>();
+    
+    /// <summary>
+    /// 룸 딕셔너리에 수동으로 방 목록 추가
+    /// </summary>
+    /// <param name="roomId">룸id/param>
+    /// <param name="gameRoom">게임룸 정보</param>
+    public void AddRoom(int roomId, GameRoom gameRoom)
+    {
+        _rooms.Add(roomId, gameRoom);
+    }
 
     /// <summary>
     /// 방 목록 새로 받아서 갱신
@@ -37,9 +47,10 @@ public class RoomManager
     /// </summary>
     /// <param name="roomId">방 id</param>
     /// <param name="password">방 비번</param>
+    /// <param name="name">플레이어 이름</param>
     public void RequestEnterRoom(int roomId, string password, string name)
     {
-        C_EnterRoom sendPacket = new C_EnterRoom();
+        CS_EnterRoom sendPacket = new CS_EnterRoom();
         sendPacket.RoomId = roomId;
         sendPacket.Password = password;
         sendPacket.Name = name;
@@ -52,7 +63,7 @@ public class RoomManager
     /// </summary>
     /// <param name="packet">서버로부터 받은 패킷</param>
     /// <param name="callback">입장했을때의 ui를 띄워주는 콜백함수</param>
-    public void ProcessEnterRoom(S_AllowEnterRoom packet, Action callback)
+    public void ProcessEnterRoom(SC_AllowEnterRoom packet, Action callback)
     {
         if (packet.CanEnter == false)
             return;
@@ -91,7 +102,7 @@ public class RoomManager
     /// </summary>
     /// <param name="packet">서버로부터 받은 패킷</param>
     /// <param name="callback">새로운 들어온 유저를 반영한 ui를 띄워주는 콜백함수</param>
-    public void ProcessNewFaceInRoom(S_InformNewFaceInRoom packet, Action callback)
+    public void ProcessNewFaceInRoom(SC_InformNewFaceInRoom packet, Action callback)
     {
         if (!_rooms.ContainsKey(packet.RoomId))
             return;
@@ -117,7 +128,7 @@ public class RoomManager
     /// </summary>
     /// <param name="packet">서버로부터 받은 패킷</param>
     /// <param name="callback">방을 나갔을때의 ui 처리</param>
-    public void ProcessLeaveRoom(S_LeaveRoom packet, Action callback)
+    public void ProcessLeaveRoom(SC_LeaveRoom packet, Action callback)
     {
         GameRoom gameRoom = Managers.Player._myPlayer.Room;
 
@@ -147,4 +158,5 @@ public class RoomManager
         if(callback!=null)
             callback.Invoke();
     }
+
 }
