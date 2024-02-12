@@ -10,7 +10,6 @@ GameObject:
   m_Component:
   - component: {fileID: 6613392460939096169}
   - component: {fileID: 6710967646386159710}
-  - component: {fileID: 4003082365300608434}
   - component: {fileID: 5021792600709389092}
   m_Layer: 5
   m_Name: CreateRoomPopup
@@ -51,18 +50,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 583182021013350502}
   m_CullTransparentMesh: 1
---- !u!114 &4003082365300608434
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 583182021013350502}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d5d71623a3f1c78499f90b6ba0fb598e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &5021792600709389092
 MonoBehaviour:
   m_ObjectHideFlags: 0

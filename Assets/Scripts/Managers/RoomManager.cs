@@ -57,8 +57,8 @@ public class RoomManager
         if (packet.CanEnter == false)
             return;
 
-        if (!_rooms.ContainsKey(packet.Room.RoomId))
-            return;
+        /*if (!_rooms.ContainsKey(packet.Room.RoomId))
+            return;*/
 
         //입장한 방에 서버로부터 받은 정보 넣기
         GameRoom gameRoom = _rooms[packet.Room.RoomId];

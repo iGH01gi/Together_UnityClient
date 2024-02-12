@@ -26,5 +26,19 @@ public class Room_Info : UI_subitem
         {
             Destroy(transform.GetChild(3).gameObject);
         }
+        transform.GetComponent<UI_Button>().SetOnClick(EnterRoomUI);
+    }
+
+    public void EnterRoomUI()
+    {
+        if (myroom.Info.IsPrivate)
+        {
+            Managers.UI.LoadPopupPanel<EnterPasswordPopup>();
+        }
+        else
+        {
+            UIPacketHandler.WaitForPacket();
+            Managers.Room.RequestEnterRoom(myroom.Info.RoomId,"","TEST");
+        }
     }
 }

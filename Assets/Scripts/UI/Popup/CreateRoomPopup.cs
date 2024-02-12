@@ -41,11 +41,7 @@ public class CreateRoomPopup : UI_popup
         }
         else
         {
-            C_MakeRoom cMakeRoom = new C_MakeRoom();
-            cMakeRoom.Title = _roomName.GetInputText();
-            cMakeRoom.IsPrivate = _passwordToggle.GetToggleState();
-            cMakeRoom.Password = _password.GetInputText();
-            Managers.Network._session.Send(cMakeRoom);
+            UIPacketHandler.MakeNewRoomSendPacket(_roomName.GetInputText(),_passwordToggle.GetToggleState(),_password.GetInputText());
             ClosePopup();
         }
     }

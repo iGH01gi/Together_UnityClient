@@ -7,14 +7,16 @@ using UnityEngine.UI;
 
 public class LobbyUI : UI_scene
 {
-    private int currentPage;
-    private int maxPage;
+    static int currentPage;
+    static int maxPage;
     private TMP_Text pageText;
     private UI_Button leftPageButton;
     private UI_Button rightPageButton;
+    Transform roomsPanel;
 
     private static int roomsPerPage = 5;
-    private List<GameRoom> _gameRoom = new List<GameRoom>();
+
+    private List<GameRoom> _gameRooms = new List<GameRoom>();
     private enum Buttons
     {
         MainMenuButton,
@@ -31,11 +33,7 @@ public class LobbyUI : UI_scene
         pageText = transform.GetChild(2).GetComponent<TMP_Text>();
         leftPageButton = transform.GetChild(1).GetComponent<UI_Button>();
         rightPageButton = transform.GetChild(3).GetComponent<UI_Button>();
-        
-        currentPage = 1;
-        maxPage = 1;
-        DisplayPageNumber();
-        CheckForButtonActivation();
+        roomsPanel = transform.GetChild(6);
         
         UIPacketHandler.RoomListSendPacket();
     }
@@ -48,16 +46,12 @@ public class LobbyUI : UI_scene
     private void LeftPageButton()
     {
         currentPage--;
-        DisplayPageNumber();
-        CheckForButtonActivation();
         ShowPage();
     }
     
     private void RightPageButton()
     {
         currentPage++;
-        DisplayPageNumber();
-        CheckForButtonActivation();
         ShowPage();
     }
     
@@ -78,29 +72,27 @@ public class LobbyUI : UI_scene
 
     public void ShowPage()
     {
-        Transform roomsPanel = transform.GetChild(6);
+        maxPage = (_gameRooms.Count + roomsPerPage - 1) / roomsPerPage;
+        DisplayPageNumber();
+        CheckForButtonActivation();
         ClearRoomListPanel();
-        for (int i = (currentPage-1)*roomsPerPage; i < Math.Min(currentPage*roomsPerPage,_gameRoom.Count); i++)
+        for (int i = (currentPage-1)*roomsPerPage; i < Math.Min(currentPage*roomsPerPage,_gameRooms.Count); i++)
         {
             GameObject currentRoom = Managers.Resource.Instantiate("UI/Subitem/Room_Info");
             currentRoom.transform.SetParent(roomsPanel);
-            currentRoom.GetComponent<Room_Info>().Init(_gameRoom[i]);
+            currentRoom.GetComponent<Room_Info>().Init(_gameRooms[i]);
         }
     }
 
     public void ReceiveNewRoomList()
     {
-        _gameRoom.Clear();
-
+        currentPage = 1;
+        _gameRooms.Clear();
         foreach (var current in Managers.Room._rooms)
         {
-            _gameRoom.Add(current.Value);
+            _gameRooms.Add(current.Value);
         }
-
-        currentPage = 1;
-        maxPage = (_gameRoom.Count + roomsPerPage - 1) / roomsPerPage;
-        CheckForButtonActivation();
-        DisplayPageNumber();
+        
         ShowPage();
     }
 
@@ -112,11 +104,9 @@ public class LobbyUI : UI_scene
 
     void ClearRoomListPanel()
     {
-        Transform roomsPanel = transform.GetChild(6);
-        int loop = roomsPanel.transform.childCount;
-        for (int i = 0; i < loop; i++)
+        foreach (Transform child in roomsPanel)
         {
-            Destroy(roomsPanel.GetChild(0).gameObject);
+            GameObject.Destroy(child.gameObject);
         }
     }
 }

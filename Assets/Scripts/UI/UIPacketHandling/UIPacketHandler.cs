@@ -29,4 +29,19 @@ public class UIPacketHandler
         OnReceivePacket(); 
         Managers.UI.SceneUI.GetComponent<LobbyUI>().ReceiveNewRoomList();
     }
+
+    public static void MakeNewRoomSendPacket(string roomName, bool isPassword, string password)
+    {
+        C_MakeRoom cMakeRoom = new C_MakeRoom();
+        cMakeRoom.Title = roomName;
+        cMakeRoom.IsPrivate = isPassword;
+        cMakeRoom.Password = password;
+        Managers.Network._session.Send(cMakeRoom);
+    }
+
+    public static void EnterRoomReceivePacket()
+    {
+        OnReceivePacket();
+        UI_scene.InstantiateSceneUI(UI_scene.SceneUIType.RoomUI);
+    }
 }

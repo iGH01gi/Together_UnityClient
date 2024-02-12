@@ -45,7 +45,7 @@ public class PacketHandler
         if (allowEnterRoomPacket.CanEnter == true)
         {
             //TODO : callback함수로 방 입장후 띄울 ui 처리. 필요한 정보는 RoomManger의 _rooms들의 Info와 _players에 채워져있음
-            Managers.Room.ProcessEnterRoom(allowEnterRoomPacket, callback: null); 
+            Managers.Room.ProcessEnterRoom(allowEnterRoomPacket, callback: UIPacketHandler.EnterRoomReceivePacket); 
         }
         else
         {
