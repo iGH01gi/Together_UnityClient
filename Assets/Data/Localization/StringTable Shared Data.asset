@@ -183,6 +183,10 @@ MonoBehaviour:
     m_Key: ReadyButton
     m_Metadata:
       m_Items: []
+  - m_Id: 14588726817755136
+    m_Key: WrongPasswordPopup
+    m_Metadata:
+      m_Items: []
   m_Metadata:
     m_Items: []
   m_KeyGenerator:
