@@ -6,6 +6,7 @@ public class WrongPasswordPopup : AlertPopup
 {
     void Start()
     {
+        UIPacketHandler.OnReceivePacket();
         Init<WrongPasswordPopup>();
     }
 }

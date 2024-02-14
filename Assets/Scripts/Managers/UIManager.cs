@@ -46,8 +46,9 @@ public class UIManager
         sceneUI.AddComponent(Type.GetType(sceneUIType));
     }
 
-    public T LoadPopupPanel<T>(bool isBase = false) where T: UI_popup
+    public T LoadPopupPanel<T>(bool isBase = false,bool popupIteractableOnly = true) where T: UI_popup
     {
+        GameObject popupPanel;
         GameObject popup;
         if (isBase)
         {
@@ -57,9 +58,19 @@ public class UIManager
         {
             popup = Managers.Resource.Instantiate($"UI/Popup/{typeof(T).BaseType}",root.transform);
         }
+        
+        if (popupIteractableOnly)
+        {
+            popupPanel = Managers.Resource.Instantiate($"UI/Subitem/Panel",root.transform);
+            popup.transform.SetParent(popupPanel.transform);
+            _popupStack.Push(popupPanel);
+        }
+        else
+        {
+            _popupStack.Push(popup);
+        }
             
         popup.AddComponent(typeof(T));
-        _popupStack.Push(popup);
         return popup.GetComponent<T>();
     }
 

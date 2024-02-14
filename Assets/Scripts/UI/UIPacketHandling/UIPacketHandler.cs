@@ -54,7 +54,7 @@ public class UIPacketHandler
 
     public static void RequestLeaveRoomReceivePacket()
     {
-        Managers.UI.LoadScenePanel(UI_scene.SceneUIType.LobbyUI.ToString());
+        UI_scene.InstantiateSceneUI(UI_scene.SceneUIType.LobbyUI);
     }
     
     public static void OthersLeftRoomReceivePacket()

@@ -10,5 +10,6 @@ public abstract class InputFieldPopup : UI_popup
         transform.GetChild(0).GetComponent<UI_Button>().SetOnClick(ClosePopup);
         transform.GetChild(1).GetComponent<UI_Text>().SetString(typeof(T).Name);
         transform.GetChild(3).GetComponent<UI_Button>().SetOnClick(OnButtonClick);
+        transform.GetChild(3).GetChild(0).GetComponent<UI_Text>().SetString("Submit");
     }
 }
