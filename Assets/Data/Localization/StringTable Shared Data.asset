@@ -184,7 +184,19 @@ MonoBehaviour:
     m_Metadata:
       m_Items: []
   - m_Id: 14588726817755136
-    m_Key: WrongPasswordPopup
+    m_Key: WrongPassword
+    m_Metadata:
+      m_Items: []
+  - m_Id: 14871541980356608
+    m_Key: RoomIsFull
+    m_Metadata:
+      m_Items: []
+  - m_Id: 14871979479818240
+    m_Key: RoomNotExist
+    m_Metadata:
+      m_Items: []
+  - m_Id: 14872091530649600
+    m_Key: CurrentlyPlaying
     m_Metadata:
       m_Items: []
   m_Metadata:

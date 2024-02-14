@@ -10,7 +10,7 @@ using UnityEngine.UI;
 public class UIManager
 {
     public static int order = 0;
-    Stack<GameObject> _popupStack = new Stack<GameObject>();
+    LinkedList<GameObject> _popupLinkedList = new LinkedList<GameObject>();
     Stack<GameObject> _firstSelected = new Stack<GameObject>();
 
     public static GameObject root;
@@ -48,8 +48,13 @@ public class UIManager
 
     public T LoadPopupPanel<T>(bool isBase = false,bool popupIteractableOnly = true) where T: UI_popup
     {
-        GameObject popupPanel;
         GameObject popup;
+        
+        if (popupIteractableOnly)
+        {
+            _popupLinkedList.AddLast(Managers.Resource.Instantiate($"UI/Subitem/Panel", root.transform));
+        }
+        
         if (isBase)
         {
             popup =  Managers.Resource.Instantiate($"UI/Popup/{typeof(T)}",root.transform);
@@ -59,32 +64,42 @@ public class UIManager
             popup = Managers.Resource.Instantiate($"UI/Popup/{typeof(T).BaseType}",root.transform);
         }
         
-        if (popupIteractableOnly)
-        {
-            popupPanel = Managers.Resource.Instantiate($"UI/Subitem/Panel",root.transform);
-            popup.transform.SetParent(popupPanel.transform);
-            _popupStack.Push(popupPanel);
-        }
-        else
-        {
-            _popupStack.Push(popup);
-        }
+        _popupLinkedList.AddLast(popup);
             
         popup.AddComponent(typeof(T));
         return popup.GetComponent<T>();
     }
 
-    public void CloseTopPopup()
+    public void ClosePopup(GameObject gameObject = null)
     {
-        if (_popupStack.Count == 0)
+        if (!PopupActive())
             return;
-        Managers.Resource.Destroy(_popupStack.Pop().gameObject);
-        
+        if (gameObject == null)
+        {
+            Managers.Resource.Destroy(_popupLinkedList.Last.Value);
+            _popupLinkedList.RemoveLast();
+            if (_popupLinkedList.Last.Value.name == "Panel")
+            {
+                Managers.Resource.Destroy(_popupLinkedList.Last.Value);
+                _popupLinkedList.RemoveLast();
+            }
+        }
+        else
+        {
+            var cur = _popupLinkedList.Find(gameObject);
+            if (cur.Previous.Value.name == "Panel")
+            {
+                Managers.Resource.Destroy(cur.Previous.Value);
+                _popupLinkedList.Remove(cur.Previous);
+            }
+            Managers.Resource.Destroy(_popupLinkedList.Find(gameObject).Value);
+            _popupLinkedList.Remove(cur);
+        }
     }
 
     public bool PopupActive()
     {
-        return (_popupStack.Count > 0);
+        return (_popupLinkedList.Count > 0);
     }
 
     public void SetEventSystemNavigation(GameObject go)

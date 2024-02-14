@@ -5,6 +5,7 @@ using UnityEngine;
 
 public class UIPacketHandler
 {
+    private GameObject go;
     public static void WaitForPacket()
     {
         Managers.Input.DisableInput();
@@ -13,7 +14,7 @@ public class UIPacketHandler
 
     public static void OnReceivePacket()
     {
-        Managers.UI.CloseTopPopup();
+        Managers.UI.ClosePopup();
         Managers.Input.EnableInput();
     }
     

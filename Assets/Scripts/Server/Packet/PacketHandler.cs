@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
 using Google.Protobuf;
 using Google.Protobuf.Protocol;
 using ServerCore;
@@ -55,21 +56,23 @@ public class PacketHandler
         else
         {
             //TODO : 방 입장 실패시 처리
+            UIPacketHandler.OnReceivePacket();
+            Debug.Log(allowEnterRoomPacket.ReasonRejected.ToString());
             if(allowEnterRoomPacket.ReasonRejected==ReasonRejected.RoomIsFull)
             {
-                
+                Managers.UI.LoadPopupPanel<RoomIsFull>();
             }
             else if(allowEnterRoomPacket.ReasonRejected==ReasonRejected.CurrentlyPlaying)
             {
-                
+                Managers.UI.LoadPopupPanel<CurrentlyPlaying>();
             }
             else if(allowEnterRoomPacket.ReasonRejected==ReasonRejected.RoomNotExist)
             {
-                
+                Managers.UI.LoadPopupPanel<RoomNotExist>();
             }
             else if(allowEnterRoomPacket.ReasonRejected==ReasonRejected.WrongPassword)
             {
-                
+                Managers.UI.LoadPopupPanel<WrongPassword>();
             }
         }
     }

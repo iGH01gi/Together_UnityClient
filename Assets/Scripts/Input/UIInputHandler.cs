@@ -9,7 +9,7 @@ public class UIInputHandler : MonoBehaviour
     {
         if (Managers.UI.PopupActive())
         {
-            Managers.UI.CloseTopPopup();
+            Managers.UI.ClosePopup();
         }
     }
 }

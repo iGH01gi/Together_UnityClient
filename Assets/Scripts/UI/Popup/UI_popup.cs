@@ -15,6 +15,6 @@ public class UI_popup : UI_base
     
     protected void ClosePopup()
     {
-        Managers.UI.CloseTopPopup();
+        Managers.UI.ClosePopup(gameObject);
     }
 }

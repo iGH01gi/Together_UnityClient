@@ -15,5 +15,6 @@ public class EnterPasswordPopup : InputFieldPopup
     {
         UIPacketHandler.WaitForPacket();
         Managers.Room.RequestEnterRoom(thisRoom.Info.RoomId,transform.GetChild(2).GetChild(0).GetComponent<UI_InputField>().GetInputText(),"TEST");
+        ClosePopup();
     }
 }

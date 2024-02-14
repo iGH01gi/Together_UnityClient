@@ -33,8 +33,8 @@ class PacketManager
 		_handler.Add((ushort)MsgId.ScInformNewFaceInRoom, PacketHandler.SC_InformNewFaceInRoomHandler);		
 		_onRecv.Add((ushort)MsgId.ScLeaveRoom, MakePacket<SC_LeaveRoom>);
 		_handler.Add((ushort)MsgId.ScLeaveRoom, PacketHandler.SC_LeaveRoomHandler);		
-		_onRecv.Add((ushort)MsgId.ScConnectDedicatedServer, MakePacket<SC_ConnectDedicatedServer>);
-		_handler.Add((ushort)MsgId.ScConnectDedicatedServer, PacketHandler.SC_ConnectDedicatedServerHandler);
+		//_onRecv.Add((ushort)MsgId.ScConnectDedicatedServer, MakePacket<SC_ConnectDedicatedServer>);
+		//_handler.Add((ushort)MsgId.ScConnectDedicatedServer, PacketHandler.SC_ConnectDedicatedServerHandler);
 	}
 
 	public void OnRecvPacket(PacketSession session, ArraySegment<byte> buffer)

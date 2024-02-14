@@ -194,6 +194,18 @@ MonoBehaviour:
     m_Localized: 'Wrong Password '
     m_Metadata:
       m_Items: []
+  - m_Id: 14871541980356608
+    m_Localized: Room is already full
+    m_Metadata:
+      m_Items: []
+  - m_Id: 14871979479818240
+    m_Localized: Room does not exist.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 14872091530649600
+    m_Localized: This Room is currently ingame.
+    m_Metadata:
+      m_Items: []
   references:
     version: 2
     RefIds: []
