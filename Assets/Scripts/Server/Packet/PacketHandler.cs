@@ -55,7 +55,22 @@ public class PacketHandler
         else
         {
             //TODO : 방 입장 실패시 처리
-            Managers.UI.LoadPopupPanel<WrongPasswordPopup>();
+            if(allowEnterRoomPacket.ReasonRejected==ReasonRejected.RoomIsFull)
+            {
+                
+            }
+            else if(allowEnterRoomPacket.ReasonRejected==ReasonRejected.CurrentlyPlaying)
+            {
+                
+            }
+            else if(allowEnterRoomPacket.ReasonRejected==ReasonRejected.RoomNotExist)
+            {
+                
+            }
+            else if(allowEnterRoomPacket.ReasonRejected==ReasonRejected.WrongPassword)
+            {
+                
+            }
         }
     }
     

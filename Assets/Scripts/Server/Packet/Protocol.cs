@@ -33,34 +33,37 @@ namespace Google.Protobuf.Protocol {
             "ASABKAkSEQoJaXNQcml2YXRlGAIgASgIEhAKCHBhc3N3b3JkGAMgASgJIkEK",
             "C1NDX01ha2VSb29tEiAKBHJvb20YASABKAsyEi5Qcm90b2NvbC5Sb29tSW5m",
             "bxIQCghwYXNzd29yZBgCIAEoCSI+CgxDU19FbnRlclJvb20SDgoGcm9vbUlk",
-            "GAEgASgFEhAKCHBhc3N3b3JkGAIgASgJEgwKBG5hbWUYAyABKAkiggEKEVND",
+            "GAEgASgFEhAKCHBhc3N3b3JkGAIgASgJEgwKBG5hbWUYAyABKAkitAEKEVND",
             "X0FsbG93RW50ZXJSb29tEhAKCGNhbkVudGVyGAEgASgIEhIKCm15UGxheWVy",
             "SWQYAiABKAUSIAoEcm9vbRgDIAEoCzISLlByb3RvY29sLlJvb21JbmZvEiUK",
-            "B3BsYXllcnMYBCADKAsyFC5Qcm90b2NvbC5QbGF5ZXJJbmZvImcKFlNDX0lu",
-            "Zm9ybU5ld0ZhY2VJblJvb20SDgoGcm9vbUlkGAEgASgFEhQKDGN1cnJlbnRD",
-            "b3VudBgCIAEoBRInCgluZXdQbGF5ZXIYAyABKAsyFC5Qcm90b2NvbC5QbGF5",
-            "ZXJJbmZvIh4KDENTX0xlYXZlUm9vbRIOCgZyb29tSWQYASABKAUiIAoMU0Nf",
-            "TGVhdmVSb29tEhAKCHBsYXllcklkGAEgASgFIlgKClBsYXllckluZm8SEAoI",
-            "cGxheWVySWQYASABKAUSDAoEbmFtZRgCIAEoCRIqCgl0cmFuc2Zvcm0YAyAB",
-            "KAsyFy5Qcm90b2NvbC5UcmFuc2Zvcm1JbmZvImMKDVRyYW5zZm9ybUluZm8S",
-            "DAoEcG9zWBgBIAEoAhIMCgRwb3NZGAIgASgCEgwKBHBvc1oYAyABKAISDAoE",
-            "cm90WBgEIAEoAhIMCgRyb3RZGAUgASgCEgwKBHJvdFoYBiABKAIqwQEKBU1z",
-            "Z0lkEhAKDENTX1JPT01fTElTVBAAEhAKDFNDX1JPT01fTElTVBABEhAKDENT",
-            "X01BS0VfUk9PTRACEhAKDFNDX01BS0VfUk9PTRADEhEKDUNTX0VOVEVSX1JP",
-            "T00QBBIXChNTQ19BTExPV19FTlRFUl9ST09NEAUSHgoaU0NfSU5GT1JNX05F",
-            "V19GQUNFX0lOX1JPT00QBhIRCg1DU19MRUFWRV9ST09NEAcSEQoNU0NfTEVB",
-            "VkVfUk9PTRAIQhuqAhhHb29nbGUuUHJvdG9idWYuUHJvdG9jb2xiBnByb3Rv",
-            "Mw=="));
+            "B3BsYXllcnMYBCADKAsyFC5Qcm90b2NvbC5QbGF5ZXJJbmZvEjAKDnJlYXNv",
+            "blJlamVjdGVkGAUgASgOMhguUHJvdG9jb2wuUmVhc29uUmVqZWN0ZWQiZwoW",
+            "U0NfSW5mb3JtTmV3RmFjZUluUm9vbRIOCgZyb29tSWQYASABKAUSFAoMY3Vy",
+            "cmVudENvdW50GAIgASgFEicKCW5ld1BsYXllchgDIAEoCzIULlByb3RvY29s",
+            "LlBsYXllckluZm8iHgoMQ1NfTGVhdmVSb29tEg4KBnJvb21JZBgBIAEoBSIg",
+            "CgxTQ19MZWF2ZVJvb20SEAoIcGxheWVySWQYASABKAUiWAoKUGxheWVySW5m",
+            "bxIQCghwbGF5ZXJJZBgBIAEoBRIMCgRuYW1lGAIgASgJEioKCXRyYW5zZm9y",
+            "bRgDIAEoCzIXLlByb3RvY29sLlRyYW5zZm9ybUluZm8iYwoNVHJhbnNmb3Jt",
+            "SW5mbxIMCgRwb3NYGAEgASgCEgwKBHBvc1kYAiABKAISDAoEcG9zWhgDIAEo",
+            "AhIMCgRyb3RYGAQgASgCEgwKBHJvdFkYBSABKAISDAoEcm90WhgGIAEoAiri",
+            "AQoFTXNnSWQSEAoMQ1NfUk9PTV9MSVNUEAASEAoMU0NfUk9PTV9MSVNUEAES",
+            "EAoMQ1NfTUFLRV9ST09NEAISEAoMU0NfTUFLRV9ST09NEAMSEQoNQ1NfRU5U",
+            "RVJfUk9PTRAEEhcKE1NDX0FMTE9XX0VOVEVSX1JPT00QBRIeChpTQ19JTkZP",
+            "Uk1fTkVXX0ZBQ0VfSU5fUk9PTRAGEhEKDUNTX0xFQVZFX1JPT00QBxIRCg1T",
+            "Q19MRUFWRV9ST09NEAgSHwobU0NfQ09OTkVDVF9ERURJQ0FURURfU0VSVkVS",
+            "EAkqWwoOUmVhc29uUmVqZWN0ZWQSEAoMUm9vbU5vdEV4aXN0EAASFAoQQ3Vy",
+            "cmVudGx5UGxheWluZxABEg4KClJvb21Jc0Z1bGwQAhIRCg1Xcm9uZ1Bhc3N3",
+            "b3JkEANCG6oCGEdvb2dsZS5Qcm90b2J1Zi5Qcm90b2NvbGIGcHJvdG8z"));
       descriptor = pbr::FileDescriptor.FromGeneratedCode(descriptorData,
           new pbr::FileDescriptor[] { global::Google.Protobuf.WellKnownTypes.TimestampReflection.Descriptor, },
-          new pbr::GeneratedClrTypeInfo(new[] {typeof(global::Google.Protobuf.Protocol.MsgId), }, null, new pbr::GeneratedClrTypeInfo[] {
+          new pbr::GeneratedClrTypeInfo(new[] {typeof(global::Google.Protobuf.Protocol.MsgId), typeof(global::Google.Protobuf.Protocol.ReasonRejected), }, null, new pbr::GeneratedClrTypeInfo[] {
             new pbr::GeneratedClrTypeInfo(typeof(global::Google.Protobuf.Protocol.CS_RoomList), global::Google.Protobuf.Protocol.CS_RoomList.Parser, null, null, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::Google.Protobuf.Protocol.SC_RoomList), global::Google.Protobuf.Protocol.SC_RoomList.Parser, new[]{ "Rooms" }, null, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::Google.Protobuf.Protocol.RoomInfo), global::Google.Protobuf.Protocol.RoomInfo.Parser, new[]{ "RoomId", "Title", "CurrentCount", "MaxCount", "IsPrivate", "IsPlaying" }, null, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::Google.Protobuf.Protocol.CS_MakeRoom), global::Google.Protobuf.Protocol.CS_MakeRoom.Parser, new[]{ "Title", "IsPrivate", "Password" }, null, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::Google.Protobuf.Protocol.SC_MakeRoom), global::Google.Protobuf.Protocol.SC_MakeRoom.Parser, new[]{ "Room", "Password" }, null, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::Google.Protobuf.Protocol.CS_EnterRoom), global::Google.Protobuf.Protocol.CS_EnterRoom.Parser, new[]{ "RoomId", "Password", "Name" }, null, null, null, null),
-            new pbr::GeneratedClrTypeInfo(typeof(global::Google.Protobuf.Protocol.SC_AllowEnterRoom), global::Google.Protobuf.Protocol.SC_AllowEnterRoom.Parser, new[]{ "CanEnter", "MyPlayerId", "Room", "Players" }, null, null, null, null),
+            new pbr::GeneratedClrTypeInfo(typeof(global::Google.Protobuf.Protocol.SC_AllowEnterRoom), global::Google.Protobuf.Protocol.SC_AllowEnterRoom.Parser, new[]{ "CanEnter", "MyPlayerId", "Room", "Players", "ReasonRejected" }, null, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::Google.Protobuf.Protocol.SC_InformNewFaceInRoom), global::Google.Protobuf.Protocol.SC_InformNewFaceInRoom.Parser, new[]{ "RoomId", "CurrentCount", "NewPlayer" }, null, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::Google.Protobuf.Protocol.CS_LeaveRoom), global::Google.Protobuf.Protocol.CS_LeaveRoom.Parser, new[]{ "RoomId" }, null, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::Google.Protobuf.Protocol.SC_LeaveRoom), global::Google.Protobuf.Protocol.SC_LeaveRoom.Parser, new[]{ "PlayerId" }, null, null, null, null),
@@ -82,6 +85,14 @@ namespace Google.Protobuf.Protocol {
     [pbr::OriginalName("SC_INFORM_NEW_FACE_IN_ROOM")] ScInformNewFaceInRoom = 6,
     [pbr::OriginalName("CS_LEAVE_ROOM")] CsLeaveRoom = 7,
     [pbr::OriginalName("SC_LEAVE_ROOM")] ScLeaveRoom = 8,
+    [pbr::OriginalName("SC_CONNECT_DEDICATED_SERVER")] ScConnectDedicatedServer = 9,
+  }
+
+  public enum ReasonRejected {
+    [pbr::OriginalName("RoomNotExist")] RoomNotExist = 0,
+    [pbr::OriginalName("CurrentlyPlaying")] CurrentlyPlaying = 1,
+    [pbr::OriginalName("RoomIsFull")] RoomIsFull = 2,
+    [pbr::OriginalName("WrongPassword")] WrongPassword = 3,
   }
 
   #endregion
@@ -1140,6 +1151,7 @@ namespace Google.Protobuf.Protocol {
       myPlayerId_ = other.myPlayerId_;
       room_ = other.room_ != null ? other.room_.Clone() : null;
       players_ = other.players_.Clone();
+      reasonRejected_ = other.reasonRejected_;
       _unknownFields = pb::UnknownFieldSet.Clone(other._unknownFields);
     }
 
@@ -1191,6 +1203,17 @@ namespace Google.Protobuf.Protocol {
       get { return players_; }
     }
 
+    /// <summary>Field number for the "reasonRejected" field.</summary>
+    public const int ReasonRejectedFieldNumber = 5;
+    private global::Google.Protobuf.Protocol.ReasonRejected reasonRejected_ = global::Google.Protobuf.Protocol.ReasonRejected.RoomNotExist;
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public global::Google.Protobuf.Protocol.ReasonRejected ReasonRejected {
+      get { return reasonRejected_; }
+      set {
+        reasonRejected_ = value;
+      }
+    }
+
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public override bool Equals(object other) {
       return Equals(other as SC_AllowEnterRoom);
@@ -1208,6 +1231,7 @@ namespace Google.Protobuf.Protocol {
       if (MyPlayerId != other.MyPlayerId) return false;
       if (!object.Equals(Room, other.Room)) return false;
       if(!players_.Equals(other.players_)) return false;
+      if (ReasonRejected != other.ReasonRejected) return false;
       return Equals(_unknownFields, other._unknownFields);
     }
 
@@ -1218,6 +1242,7 @@ namespace Google.Protobuf.Protocol {
       if (MyPlayerId != 0) hash ^= MyPlayerId.GetHashCode();
       if (room_ != null) hash ^= Room.GetHashCode();
       hash ^= players_.GetHashCode();
+      if (ReasonRejected != global::Google.Protobuf.Protocol.ReasonRejected.RoomNotExist) hash ^= ReasonRejected.GetHashCode();
       if (_unknownFields != null) {
         hash ^= _unknownFields.GetHashCode();
       }
@@ -1244,6 +1269,10 @@ namespace Google.Protobuf.Protocol {
         output.WriteMessage(Room);
       }
       players_.WriteTo(output, _repeated_players_codec);
+      if (ReasonRejected != global::Google.Protobuf.Protocol.ReasonRejected.RoomNotExist) {
+        output.WriteRawTag(40);
+        output.WriteEnum((int) ReasonRejected);
+      }
       if (_unknownFields != null) {
         _unknownFields.WriteTo(output);
       }
@@ -1262,6 +1291,9 @@ namespace Google.Protobuf.Protocol {
         size += 1 + pb::CodedOutputStream.ComputeMessageSize(Room);
       }
       size += players_.CalculateSize(_repeated_players_codec);
+      if (ReasonRejected != global::Google.Protobuf.Protocol.ReasonRejected.RoomNotExist) {
+        size += 1 + pb::CodedOutputStream.ComputeEnumSize((int) ReasonRejected);
+      }
       if (_unknownFields != null) {
         size += _unknownFields.CalculateSize();
       }
@@ -1286,6 +1318,9 @@ namespace Google.Protobuf.Protocol {
         Room.MergeFrom(other.Room);
       }
       players_.Add(other.players_);
+      if (other.ReasonRejected != global::Google.Protobuf.Protocol.ReasonRejected.RoomNotExist) {
+        ReasonRejected = other.ReasonRejected;
+      }
       _unknownFields = pb::UnknownFieldSet.MergeFrom(_unknownFields, other._unknownFields);
     }
 
@@ -1314,6 +1349,10 @@ namespace Google.Protobuf.Protocol {
           }
           case 34: {
             players_.AddEntriesFrom(input, _repeated_players_codec);
+            break;
+          }
+          case 40: {
+            ReasonRejected = (global::Google.Protobuf.Protocol.ReasonRejected) input.ReadEnum();
             break;
           }
         }

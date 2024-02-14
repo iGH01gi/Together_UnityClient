@@ -22,6 +22,11 @@ public class PlayerMovement : MonoBehaviour
 
     private void Start()
     {
+        if (transform.GetComponent<PlayerInput>() != null)
+        {
+            //
+            transform.GetComponent<PlayerInput>().enabled = true;
+        }
         _anim = transform.GetChild(1).GetComponent<PlayerAnimController>();
         _playerIsMoving = false;
     }
