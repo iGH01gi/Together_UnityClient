@@ -124,4 +124,22 @@ public class PacketHandler
     
     
     /****** 이 아래는 데디케이티드 서버로 구현하면서 변경될 예정 ***********/
+    public static void SC_ConnectDedicatedServerHandler(PacketSession session, IMessage packet)
+    {
+        SC_ConnectDedicatedServer connectDedicatedServerPacket = packet as SC_ConnectDedicatedServer;
+        ServerSession serverSession = session as ServerSession;
+        Debug.Log("SC_ConnectDedicatedServerHandler");
+        
+        //TODO : 데디케이티드 서버 연결정보를 받았을때, 데디케이티드 서버로 연결하는 함수 호출
+        if(connectDedicatedServerPacket.Ip != null && connectDedicatedServerPacket.Port != -1) //정상 연결가능
+        {
+            Managers.Network.ConnectDedicatedServer(connectDedicatedServerPacket.Ip, connectDedicatedServerPacket.Port);
+        }
+        else//데디케이티드 서버 연결 실패
+        {
+            
+        }
+        
+
+    }
 }
