@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
 
-public class UIInputHandler : MonoBehaviour
+public class LobbyInput : MonoBehaviour
 {
     void OnCancel()
     {

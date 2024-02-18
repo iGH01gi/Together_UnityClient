@@ -64,7 +64,7 @@ public class RoomUI : UI_scene
 
     void TempGameStart()
     {
-        //Implement Game start
+        Managers.Scene.LoadScene(Define.Scene.InGame);
     }
 
     void ClearPlayerListPanel(Transform roomsPanel)

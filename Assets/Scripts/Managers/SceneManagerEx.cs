@@ -5,13 +5,14 @@ using UnityEngine.SceneManagement;
 
 public class SceneManagerEx
 {
-    public BaseScene CurrentScene { get { return GameObject.FindObjectOfType<BaseScene>(); } }
-
+    public Define.Scene SceneType = Define.Scene.Lobby;
+    
 	public void LoadScene(Define.Scene type)
     {
         Managers.Clear();
-
+        SceneType = type;
         SceneManager.LoadScene(GetSceneName(type));
+        Managers.Input.ChangeInput(SceneType);
     }
 
     string GetSceneName(Define.Scene type)
@@ -22,6 +23,6 @@ public class SceneManagerEx
 
     public void Clear()
     {
-        CurrentScene.Clear();
+        // Implement Scene clear if necessary
     }
 }

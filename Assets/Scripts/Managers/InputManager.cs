@@ -6,9 +6,11 @@ using UnityEngine.InputSystem;
 
 public class InputManager
 {
-    static List<Define.InputType> _inputList = new List<Define.InputType>();
+    public Vector2 moveVal;
     static GameObject root;
     private InputActionAsset _inputActionAsset;
+    private GameObject LobbyInput;
+    private GameObject InGameInput;
     
     public void Init()
     {
@@ -20,36 +22,34 @@ public class InputManager
             Object.DontDestroyOnLoad(root);
             PlayerInput playerInput = root.AddComponent<PlayerInput>();
             playerInput.actions = _inputActionAsset;
-            playerInput.notificationBehavior = PlayerNotifications.SendMessages;
-            AddInput(Define.InputType.UIInputHandler);
+            playerInput.notificationBehavior = PlayerNotifications.BroadcastMessages;
+            LobbyInput = new GameObject { name = "LobbyInput" };
+            LobbyInput.transform.SetParent(root.transform);
+            LobbyInput.AddComponent<LobbyInput>();
+            InGameInput = new GameObject { name = "InGameInput" };
+            InGameInput.transform.SetParent(root.transform);
+            InGameInput.AddComponent<InGameInput>();
+            
+            //테스트를 위한 임시 코드
+            LobbyInput.SetActive(false);
         }
     }
 
-    public void AddInput(Define.InputType inputType)
+    public void ChangeInput(Define.Scene scene)
     {
-        if (!_inputList.Contains(inputType))
+        switch (scene)
         {
-            _inputList.Add(inputType);
-            GameObject newInputObject = new GameObject(inputType.ToString());
-            switch (inputType)
-            {
-                case Define.InputType.UIInputHandler:
-                    newInputObject.AddComponent<UIInputHandler>();
-                    break;
-            }
-            newInputObject.transform.SetParent(root.transform);
+            case Define.Scene.Lobby:
+                LobbyInput.SetActive(true);
+                InGameInput.SetActive(false);
+                break;
+            case Define.Scene.InGame:
+                LobbyInput.SetActive(false);
+                InGameInput.SetActive(true);
+                break;
         }
     }
-
-    public void RemoveInput(Define.InputType inputType)
-    {
-        if (_inputList.Contains(inputType))
-        {
-            GameObject.Destroy(root.transform.GetChild(_inputList.IndexOf(inputType)));
-            _inputList.Remove(inputType);
-        }
-    }
-
+    
     public void EnableInput()
     {
         _inputActionAsset.Enable();

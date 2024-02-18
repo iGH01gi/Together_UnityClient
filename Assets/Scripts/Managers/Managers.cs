@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -30,6 +31,7 @@ public class Managers : MonoBehaviour
     public static PlayerManager Player { get { return Instance._player; } }
     public static InputManager Input { get { return Instance._input; } }
     public static RoomManager Room { get { return Instance._room; } }
+    
 
     void Start()
     {
@@ -69,7 +71,7 @@ public class Managers : MonoBehaviour
     {
         Sound.Clear();
         Scene.Clear();
-        //UI.Clear();
+        UI.Clear();
         Pool.Clear();
     }
     

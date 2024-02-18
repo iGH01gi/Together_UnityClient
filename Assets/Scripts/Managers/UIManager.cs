@@ -4,8 +4,8 @@ using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.EventSystems;
-using UnityEngine.InputSystem;
 using UnityEngine.UI;
+using Object = UnityEngine.Object;
 
 public class UIManager
 {
@@ -27,6 +27,7 @@ public class UIManager
         if (root == null)
         {
             root = new GameObject { name = "@UI_Root" };
+            Object.DontDestroyOnLoad(root);
             Canvas canvas = Util.GetOrAddComponent<Canvas>(root);
             canvas.renderMode = RenderMode.ScreenSpaceOverlay;
             CanvasScaler canvasScaler = Util.GetOrAddComponent<CanvasScaler>(root);
@@ -105,6 +106,19 @@ public class UIManager
     public void SetEventSystemNavigation(GameObject go)
     {
         EventSystem.current.firstSelectedGameObject = go;
+    }
+
+    public void Clear()
+    {
+        if (sceneUI != null)
+        {
+            Managers.Resource.Destroy(sceneUI);
+        }
+        foreach (var cur in _popupLinkedList)
+        {
+            Managers.Resource.Destroy(cur);
+            _popupLinkedList.Remove(cur);
+        }
     }
     /*
     public T MakeSubItem<T>(Transform parent = null, string name = null) where T : MonoBehaviour
