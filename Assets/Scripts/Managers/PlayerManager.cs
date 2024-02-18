@@ -4,13 +4,15 @@ using UnityEngine;
 
 public class PlayerManager
 {
-    public MyPlayer _myPlayer; //내 플레이어
+    public MyRoomPlayer _myRoomPlayer; //내 룸서버 플레이어
+    public Dictionary<int, Player> _otherRoomPlayers = new Dictionary<int, Player>(); //다른 룸서버 플레이어들 (key: playerId, value: 플레이어 정보)
     
-    public Dictionary<int, Player> _otherPlayers = new Dictionary<int, Player>(); //다른 플레이어들
-
+    public DediPlayer _myDediPlayer; //내 데디서버 플레이어
+    public Dictionary<int,DediPlayer> _otherDediPlayers = new Dictionary<int, DediPlayer>(); //다른 데디서버 플레이어들 (key: 데디playerId, value: 플레이어 정보)
+    
     public void Clear()
     {
-        _myPlayer = null;
-        _otherPlayers.Clear();
+        _myRoomPlayer = null;
+        _otherRoomPlayers.Clear();
     }
 }

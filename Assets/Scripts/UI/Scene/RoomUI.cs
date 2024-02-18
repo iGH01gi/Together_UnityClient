@@ -19,7 +19,7 @@ public class RoomUI : UI_scene
     void Start()
     {
         InitButtons<Buttons>();
-        thisRoom = Managers.Player._myPlayer.Room;
+        thisRoom = Managers.Player._myRoomPlayer.Room;
         GetPlayerList();
     }
 
@@ -32,7 +32,7 @@ public class RoomUI : UI_scene
             GameObject currentPlayer = Managers.Resource.Instantiate("UI/Subitem/PlayerInRoom");
             currentPlayer.transform.SetParent(PlayersPanel);
             currentPlayer.GetComponent<PlayerInRoom>().Init(current);
-            if (current.PlayerId == Managers.Player._myPlayer.PlayerId)
+            if (current.PlayerId == Managers.Player._myRoomPlayer.PlayerId)
             {
                 myPlayer = currentPlayer;
             }

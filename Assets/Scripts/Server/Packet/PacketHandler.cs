@@ -97,7 +97,7 @@ public class PacketHandler
         
         Debug.Log("SC_LeaveRoomHandler");
         
-        if(leaveRoomPacket.PlayerId == Managers.Player._myPlayer.PlayerId)
+        if(leaveRoomPacket.PlayerId == Managers.Player._myRoomPlayer.PlayerId)
         {
             //TODO : callback함수로 '내'가 방을 나갔을때의 ui 처리
             Managers.Room.ProcessLeaveRoom(leaveRoomPacket, callback: UIPacketHandler.RequestLeaveRoomReceivePacket);
@@ -121,6 +121,18 @@ public class PacketHandler
         serverSession.Send(sendPacket);
     }
     
+    public static void DSC_PingPongHandler(PacketSession session, IMessage packet)
+    {
+        DSC_PingPong pingPongPacket = packet as DSC_PingPong;
+        DedicatedServerSession dedicatedServerSession = session as DedicatedServerSession;
+        
+        Debug.Log("DSC_PingPongHandler");
+        
+        //데디케이티드 서버로부터 핑을 받았다는 의미로, 살아있다는 응답으로 퐁을 보냄
+        CDS_PingPong sendPacket = new CDS_PingPong();
+        dedicatedServerSession.Send(sendPacket);
+    }
+    
     
     
     /****** 이 아래는 데디케이티드 서버로 구현하면서 변경될 예정 ***********/
@@ -130,16 +142,19 @@ public class PacketHandler
         ServerSession serverSession = session as ServerSession;
         Debug.Log("SC_ConnectDedicatedServerHandler");
         
-        //TODO : 데디케이티드 서버 연결정보를 받았을때, 데디케이티드 서버로 연결하는 함수 호출
-        if(connectDedicatedServerPacket.Ip != null && connectDedicatedServerPacket.Port != -1) //정상 연결가능
+        //데디케이티드 서버가 정상적으로 생성됨
+        if(connectDedicatedServerPacket.Ip != null && connectDedicatedServerPacket.Port != -1) 
         {
-            Managers.Network.ConnectDedicatedServer(connectDedicatedServerPacket.Ip, connectDedicatedServerPacket.Port);
+            string dediIP = connectDedicatedServerPacket.Ip;
+            int dediPort = connectDedicatedServerPacket.Port;
+            
+            //해당 데디케이티드 서버와 연결, 전용 세션 생성
+            //세션이 생성되었을때만 입장요청 패킷(CDS_AllowEnterGame) 보냄을 보장함.
+            Managers.Network.ConnectToDedicatedServer(dediIP, dediPort);
         }
         else//데디케이티드 서버 연결 실패
         {
-            
+            Debug.Log("데디케이티드 서버 연결 실패");
         }
-        
-
     }
 }

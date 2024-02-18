@@ -29,17 +29,20 @@ public class ServerSession : PacketSession
     
     public override void OnConnected(EndPoint endPoint)
     {
-        Debug.Log($"OnConnected : {endPoint}");
+        Debug.Log($"OnConnected RoomServer : {endPoint}");
 
-        PacketManager.Instance.CustomHandler = (s, m, i) =>
+        if (PacketManager.Instance.CustomHandler == null)
         {
-            PacketQueue.Instance.Push(i, m);
-        };
+            PacketManager.Instance.CustomHandler = (s, m, i) =>
+            {
+                PacketQueue.Instance.Push(i, m);
+            };
+        }
     }
 
     public override void OnDisconnected(EndPoint endPoint)
     {
-        Debug.Log($"OnDisconnected : {endPoint}");
+        Debug.Log($"OnDisconnected RoomServer : {endPoint}");
         
         //TODO: 서버 세션 연결이 끊겼을 때 처리
     }

@@ -35,10 +35,12 @@ class PacketManager
 		_handler.Add((ushort)MsgId.ScLeaveRoom, PacketHandler.SC_LeaveRoomHandler);		
 		_onRecv.Add((ushort)MsgId.ScPingPong, MakePacket<SC_PingPong>);
 		_handler.Add((ushort)MsgId.ScPingPong, PacketHandler.SC_PingPongHandler);		
-		//_onRecv.Add((ushort)MsgId.DscPingPong, MakePacket<DSC_PingPong>);
-		//_handler.Add((ushort)MsgId.DscPingPong, PacketHandler.DSC_PingPongHandler);		
+		_onRecv.Add((ushort)MsgId.DscPingPong, MakePacket<DSC_PingPong>);
+		_handler.Add((ushort)MsgId.DscPingPong, PacketHandler.DSC_PingPongHandler);		
 		_onRecv.Add((ushort)MsgId.ScConnectDedicatedServer, MakePacket<SC_ConnectDedicatedServer>);
-		_handler.Add((ushort)MsgId.ScConnectDedicatedServer, PacketHandler.SC_ConnectDedicatedServerHandler);
+		_handler.Add((ushort)MsgId.ScConnectDedicatedServer, PacketHandler.SC_ConnectDedicatedServerHandler);		
+		_onRecv.Add((ushort)MsgId.DscAllowEnterGame, MakePacket<DSC_AllowEnterGame>);
+		_handler.Add((ushort)MsgId.DscAllowEnterGame, PacketHandler.DSC_AllowEnterGameHandler);
 	}
 
 	public void OnRecvPacket(PacketSession session, ArraySegment<byte> buffer)

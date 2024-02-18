@@ -22,7 +22,7 @@ public class UIPacketHandler
     {
         WaitForPacket();
         CS_RoomList packet = new CS_RoomList();
-        Managers.Network._session.Send(packet);
+        Managers.Network._roomSession.Send(packet);
     }
     
     public static void RoomListOnReceivePacket()
@@ -37,7 +37,7 @@ public class UIPacketHandler
         cMakeRoom.Title = roomName;
         cMakeRoom.IsPrivate = isPassword;
         cMakeRoom.Password = password;
-        Managers.Network._session.Send(cMakeRoom);
+        Managers.Network._roomSession.Send(cMakeRoom);
     }
 
     public static void EnterRoomReceivePacket()
@@ -50,7 +50,7 @@ public class UIPacketHandler
     {
         CS_LeaveRoom csLeaveRoom = new CS_LeaveRoom();
         csLeaveRoom.RoomId = roomID;
-        Managers.Network._session.Send(csLeaveRoom);
+        Managers.Network._roomSession.Send(csLeaveRoom);
     }
 
     public static void RequestLeaveRoomReceivePacket()

@@ -55,7 +55,7 @@ public class RoomManager
         sendPacket.Password = password;
         sendPacket.Name = name;
 
-        Managers.Network._session.Send(sendPacket);
+        Managers.Network._roomSession.Send(sendPacket);
     }
 
     /// <summary>
@@ -80,13 +80,13 @@ public class RoomManager
 
             if (player.PlayerId == packet.MyPlayerId) //'나'라면 플레이어 매니저 정보에 본인 입력 + 게임룸에 '나' 추가
             {
-                Managers.Player._myPlayer = new MyPlayer()
+                Managers.Player._myRoomPlayer = new MyRoomPlayer()
                     { PlayerId = playerInfo.PlayerId, Name = playerInfo.Name, Room = gameRoom };
-                gameRoom._players.Add(Managers.Player._myPlayer);
+                gameRoom._players.Add(Managers.Player._myRoomPlayer);
             }
             else //다른사람이면 플레이어 매니저에 등록 + 게임룸에 추가
             {
-                Managers.Player._otherPlayers.Add(key: player.PlayerId, value: player);
+                Managers.Player._otherRoomPlayers.Add(key: player.PlayerId, value: player);
                 gameRoom._players.Add(player);
             }
         }
@@ -113,7 +113,7 @@ public class RoomManager
         Player player = new Player() { PlayerId = packet.NewPlayer.PlayerId, Name = packet.NewPlayer.Name };
 
         //플레이어 매니저에 등록
-        Managers.Player._otherPlayers.Add(key: player.PlayerId, value: player);
+        Managers.Player._otherRoomPlayers.Add(key: player.PlayerId, value: player);
         //게임룸에 추가
         gameRoom._players.Add(player);
 
@@ -130,15 +130,15 @@ public class RoomManager
     /// <param name="callback">방을 나갔을때의 ui 처리</param>
     public void ProcessLeaveRoom(SC_LeaveRoom packet, Action callback)
     {
-        GameRoom gameRoom = Managers.Player._myPlayer.Room;
+        GameRoom gameRoom = Managers.Player._myRoomPlayer.Room;
 
         if (gameRoom == null)
             return;
 
-        if (packet.PlayerId == Managers.Player._myPlayer.PlayerId) //내가 방을 나간것일때
+        if (packet.PlayerId == Managers.Player._myRoomPlayer.PlayerId) //내가 방을 나간것일때
         {
             //나가기 전에 방 정보 건들여주기
-            gameRoom._players.Remove(Managers.Player._myPlayer);
+            gameRoom._players.Remove(Managers.Player._myRoomPlayer);
             gameRoom.Info.CurrentCount = gameRoom._players.Count;
             gameRoom._players.Clear();
 
@@ -151,8 +151,8 @@ public class RoomManager
             gameRoom._players.RemoveAll(x => x.PlayerId == packet.PlayerId);
 
             //내 플레이어 정보 초기화
-            if (Managers.Player._otherPlayers.ContainsKey(packet.PlayerId))
-                Managers.Player._otherPlayers.Remove(packet.PlayerId);
+            if (Managers.Player._otherRoomPlayers.ContainsKey(packet.PlayerId))
+                Managers.Player._otherRoomPlayers.Remove(packet.PlayerId);
         }
         
         if(callback!=null)
