@@ -36,21 +36,6 @@ public class InputManager
         }
         */
     }
-
-    public void ChangeInput(Define.Scene scene)
-    {
-        switch (scene)
-        {
-            case Define.Scene.Lobby:
-                LobbyInput.SetActive(true);
-                InGameInput.SetActive(false);
-                break;
-            case Define.Scene.InGame:
-                LobbyInput.SetActive(false);
-                InGameInput.SetActive(true);
-                break;
-        }
-    }
     
     public void EnableInput()
     {

@@ -12,7 +12,6 @@ public class SceneManagerEx
         Managers.Clear();
         SceneType = type;
         SceneManager.LoadScene(GetSceneName(type));
-        Managers.Input.ChangeInput(SceneType);
     }
 
     string GetSceneName(Define.Scene type)

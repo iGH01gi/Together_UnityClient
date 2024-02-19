@@ -8,16 +8,16 @@ using UnityEngine.InputSystem;
 
 public class InGameInput : MonoBehaviour
 {
-    private Vector2 moveInput;
+    public static Vector2 moveInput;
     static int sensitivityAdjuster = 3;
-    public float _walkSpeed = 0.03f;
-    public float _runSpeed = 0.045f;
-    public float minViewDistance = 15f;
+    static float _walkSpeed = 0.03f;
+    static float _runSpeed = 0.045f;
+    public static float minViewDistance = 15f;
     static float mouseSensitivity;
     private float rotationX = 0f;
     
     //서버 통신 관련 변수들
-    private float keyboardInputInterval = 0.033f; // 0.1초마다 키보드 입력 처리. 아마 이걸 예쌍 패킷 도착시간으로 생각하고 코딩해야할듯
+    private float keyboardInputInterval = 0.04f; // 0.1초마다 키보드 입력 처리. 아마 이걸 예쌍 패킷 도착시간으로 생각하고 코딩해야할듯
     private double error=0; // 실제로 패킷을 보내고 올때까지의 시간과, 예상 시간과의 괴리. ms단
     private DateTime _packetSentTime;
     private float timeSinceLastInput=0;
@@ -26,7 +26,7 @@ public class InGameInput : MonoBehaviour
     private Transform player;
     private Transform prefab;
 
-    private bool isRunning = false;
+    public static bool isRunning = false;
     public Define.PlayerAction playerState;
     void OnMove(InputValue value)
     {
