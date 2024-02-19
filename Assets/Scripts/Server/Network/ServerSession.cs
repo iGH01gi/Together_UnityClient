@@ -40,6 +40,8 @@ public class ServerSession : PacketSession
     public override void OnDisconnected(EndPoint endPoint)
     {
         Debug.Log($"OnDisconnected : {endPoint}");
+        
+        //TODO: 서버 세션 연결이 끊겼을 때 처리
     }
 
     public override void OnRecvPacket(ArraySegment<byte> buffer)

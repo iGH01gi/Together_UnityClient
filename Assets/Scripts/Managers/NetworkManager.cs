@@ -20,7 +20,7 @@ public class NetworkManager
 
         Connector connector = new Connector();
         
-        connector.Connect(endPoint, () => { return _session; }, 1);
+        connector.Connect(endPoint, () => { return _session; }, 1); //게임룸 서버에 연결
     }
 
     /// <summary>
@@ -37,5 +37,17 @@ public class NetworkManager
             if (handler != null)
                 handler.Invoke(_session, packet.Message);
         }	
+    }
+
+    public void OnQuitUnity() //유니티가 종료될때 연결 끊음. Managers에서 실행시킴
+    {
+        if(_session!= null)
+            _session.Disconnect();
+    }
+
+
+    public void ConnectDedicatedServer(string ip, int port)
+    {
+        
     }
 }

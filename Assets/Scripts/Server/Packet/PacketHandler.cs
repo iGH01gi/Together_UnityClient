@@ -13,7 +13,7 @@ public class PacketHandler
         SC_RoomList roomListPacket = packet as SC_RoomList;
         ServerSession serverSession = session as ServerSession;
         
-        Debug.Log($"S_RoomListHandler, {roomListPacket.Rooms.Count}개의 방 존재");
+        Debug.Log($"SC_RoomListHandler, {roomListPacket.Rooms.Count}개의 방 존재");
         
         //방 목록 새로 받은정보로 갱신
         //TODO : callback함수는 받은 방 정보들로 ui 채워줘야 함. 방 정보들은 RoomManger의 _rooms들의 Info에 채워져있음
@@ -26,7 +26,7 @@ public class PacketHandler
         SC_MakeRoom makeRoomPacket = packet as SC_MakeRoom;
         ServerSession serverSession = session as ServerSession;
         
-        Debug.Log("S_MakeRoomHandler");
+        Debug.Log("SC_MakeRoomHandler");
 
         if (makeRoomPacket.Room != null)
         {
@@ -46,7 +46,7 @@ public class PacketHandler
         SC_AllowEnterRoom allowEnterRoomPacket = packet as SC_AllowEnterRoom;
         ServerSession serverSession = session as ServerSession;
         
-        Debug.Log("S_AllowEnterRoomHandler");
+        Debug.Log("SC_AllowEnterRoomHandler");
 
         if (allowEnterRoomPacket.CanEnter == true)
         {
@@ -83,7 +83,7 @@ public class PacketHandler
         SC_InformNewFaceInRoom informNewFaceInRoomPacket = packet as SC_InformNewFaceInRoom;
         ServerSession serverSession = session as ServerSession;
         
-        Debug.Log("S_RefreshInRoomHandler");
+        Debug.Log("SC_InformNewFaceInRoomHandler");
         
         //TODO : callback함수로 새로 들어온 플레이어의 정보를 방 UI에 반영. 필요한 정보는 RoomManger의 _rooms들의 Info와 _players에 채워져있음
         Managers.Room.ProcessNewFaceInRoom(informNewFaceInRoomPacket, callback: UIPacketHandler.NewFaceEnterReceivePacket);
@@ -95,7 +95,7 @@ public class PacketHandler
         SC_LeaveRoom leaveRoomPacket = packet as SC_LeaveRoom;
         ServerSession serverSession = session as ServerSession;
         
-        Debug.Log("S_LeaveRoomHandler");
+        Debug.Log("SC_LeaveRoomHandler");
         
         if(leaveRoomPacket.PlayerId == Managers.Player._myPlayer.PlayerId)
         {
@@ -109,8 +109,37 @@ public class PacketHandler
         }
     }
     
+    public static void SC_PingPongHandler(PacketSession session, IMessage packet)
+    {
+        SC_PingPong pingPongPacket = packet as SC_PingPong;
+        ServerSession serverSession = session as ServerSession;
+        
+        Debug.Log("SC_PingPongHandler");
+        
+        //서버로부터 핑을 받았다는 의미로, 살아있다는 응답으로 퐁을 보냄
+        CS_PingPong sendPacket = new CS_PingPong();
+        serverSession.Send(sendPacket);
+    }
     
     
     
     /****** 이 아래는 데디케이티드 서버로 구현하면서 변경될 예정 ***********/
+    public static void SC_ConnectDedicatedServerHandler(PacketSession session, IMessage packet)
+    {
+        SC_ConnectDedicatedServer connectDedicatedServerPacket = packet as SC_ConnectDedicatedServer;
+        ServerSession serverSession = session as ServerSession;
+        Debug.Log("SC_ConnectDedicatedServerHandler");
+        
+        //TODO : 데디케이티드 서버 연결정보를 받았을때, 데디케이티드 서버로 연결하는 함수 호출
+        if(connectDedicatedServerPacket.Ip != null && connectDedicatedServerPacket.Port != -1) //정상 연결가능
+        {
+            Managers.Network.ConnectDedicatedServer(connectDedicatedServerPacket.Ip, connectDedicatedServerPacket.Port);
+        }
+        else//데디케이티드 서버 연결 실패
+        {
+            
+        }
+        
+
+    }
 }

@@ -114,8 +114,8 @@ public abstract class Session
             return;
 
         OnDisconnected(_socket.RemoteEndPoint);
-        _socket.Shutdown(SocketShutdown.Both);
-        _socket.Close();
+        _socket.Shutdown(SocketShutdown.Both); //소켓 수신,송신 기능 종료
+        _socket.Close(); //현재 연결을 종료하고 리소스를 정리함
         Clear();
     }
 
