@@ -14,5 +14,15 @@ public class PlayerManager
     {
         _myRoomPlayer = null;
         _otherRoomPlayers.Clear();
+        
+        _myDediPlayer = null;
+        _otherDediPlayers.Clear();
     }
+
+    public void ClearDedi()
+    {
+        _myDediPlayer = null;
+        _otherDediPlayers.Clear();
+    }
+
 }

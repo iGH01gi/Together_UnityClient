@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Google.Protobuf.Protocol;
 using JetBrains.Annotations;
 using UnityEngine;
 
@@ -8,7 +9,7 @@ public class RoomUI : UI_scene
     // Start is called before the first frame update
     private GameRoom thisRoom;
     GameObject myPlayer;
-    
+
     private enum Buttons
     {
         BackToLobbyButton,
@@ -16,6 +17,7 @@ public class RoomUI : UI_scene
         TempGameStart,
         RefreshButton
     }
+
     void Start()
     {
         InitButtons<Buttons>();
@@ -65,6 +67,10 @@ public class RoomUI : UI_scene
     void TempGameStart()
     {
         //Implement Game start
+        Debug.Log("겜시작버튼 눌림");
+        CS_ConnectDedicatedServer sendPacket = new CS_ConnectDedicatedServer();
+        sendPacket.RoomId = thisRoom.Info.RoomId;
+        Managers.Network._roomSession.Send(sendPacket);
     }
 
     void ClearPlayerListPanel(Transform roomsPanel)

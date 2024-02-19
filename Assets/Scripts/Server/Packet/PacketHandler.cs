@@ -121,6 +121,7 @@ public class PacketHandler
         serverSession.Send(sendPacket);
     }
     
+    //지금 session이 데디서버세션이아니라 서버세션으로 등록되는것이 문제임.
     public static void DSC_PingPongHandler(PacketSession session, IMessage packet)
     {
         DSC_PingPong pingPongPacket = packet as DSC_PingPong;
@@ -150,11 +151,22 @@ public class PacketHandler
             
             //해당 데디케이티드 서버와 연결, 전용 세션 생성
             //세션이 생성되었을때만 입장요청 패킷(CDS_AllowEnterGame) 보냄을 보장함.
-            Managers.Network.ConnectToDedicatedServer(dediIP, dediPort);
+            Managers.Dedicated.ConnectToDedicatedServer(dediIP, dediPort);
         }
         else//데디케이티드 서버 연결 실패
         {
             Debug.Log("데디케이티드 서버 연결 실패");
         }
+    }
+    
+    public static void DSC_AllowEnterGameHandler(PacketSession session, IMessage packet)
+    {
+        DSC_AllowEnterGame allowEnterGamePacket = packet as DSC_AllowEnterGame;
+        DedicatedServerSession dedicatedServerSession = session as DedicatedServerSession;
+        
+        Debug.Log("DSC_AllowEnterGameHandler");
+        
+        //TODO : 데디케이티드 서버로부터 게임에 입장을 허가받았을때의 처리
+        Managers.Dedicated.AllowEnterGame(allowEnterGamePacket, callback:()=>{Managers.Scene.LoadScene(Define.Scene.InGame);});
     }
 }

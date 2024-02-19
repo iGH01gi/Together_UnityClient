@@ -19,6 +19,7 @@ public class Managers : MonoBehaviour
     WebManager _web = new WebManager();
     InputManager _input = new InputManager();
     RoomManager _room = new RoomManager();
+    DedicatedManager _dedicated = new DedicatedManager();
     
     
     public static  ResourceManager Resource { get { return Instance._resource;} }
@@ -31,6 +32,7 @@ public class Managers : MonoBehaviour
     public static PlayerManager Player { get { return Instance._player; } }
     public static InputManager Input { get { return Instance._input; } }
     public static RoomManager Room { get { return Instance._room; } }
+    public static DedicatedManager Dedicated { get { return Instance._dedicated; } }
 
     void Start()
     {

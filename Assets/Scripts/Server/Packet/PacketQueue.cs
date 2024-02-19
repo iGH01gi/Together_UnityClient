@@ -5,6 +5,7 @@ using UnityEngine;
 
 public class PacketMessage
 {
+    public PacketSession Session { get; set; }
     public ushort Id { get; set; }
     public IMessage Message { get; set; }
 }
@@ -18,11 +19,11 @@ public class PacketQueue
     Queue<PacketMessage> _packetQueue = new Queue<PacketMessage>();
     object _lock = new object();
 
-    public void Push(ushort id, IMessage packet)
+    public void Push(PacketSession session ,ushort id, IMessage packet)
     {
         lock (_lock)
         {
-            _packetQueue.Enqueue(new PacketMessage() { Id = id, Message = packet });
+            _packetQueue.Enqueue(new PacketMessage() {Session = session, Id = id, Message = packet });
         }
     }
 

@@ -35,7 +35,7 @@ public class ServerSession : PacketSession
         {
             PacketManager.Instance.CustomHandler = (s, m, i) =>
             {
-                PacketQueue.Instance.Push(i, m);
+                PacketQueue.Instance.Push(s, i, m);
             };
         }
     }

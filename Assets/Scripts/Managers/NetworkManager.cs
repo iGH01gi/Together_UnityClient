@@ -39,7 +39,7 @@ public class NetworkManager
         {
             Action<PacketSession, IMessage> handler = PacketManager.Instance.GetPacketHandler(packet.Id);
             if (handler != null)
-                handler.Invoke(_roomSession, packet.Message);
+                handler.Invoke(packet.Session, packet.Message);
         }	
     }
 
@@ -52,16 +52,4 @@ public class NetworkManager
             _roomSession.Disconnect();
     }
     
-    /// <summary>
-    /// 데디서버와 연결하고 전용세션을 생성.
-    /// 세션이 생성되었을때만 입장요청 패킷(CDS_AllowEnterGame) 보냄을 보장함.
-    /// </summary>
-    /// <param name="ip">데디서버 ip</param>
-    /// <param name="port">데디서버 포트번호</param>
-    public void ConnectToDedicatedServer(string ip, int port) 
-    {
-        IPEndPoint endPoint = new IPEndPoint(IPAddress.Parse(ip), port);
-        Connector connector = new Connector();
-        connector.Connect(endPoint, () => { return _dedicatedServerSession; }, 1);
-    }
 }
