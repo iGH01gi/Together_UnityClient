@@ -460,9 +460,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1581177442}
-  - component: {fileID: 1581177443}
-  - component: {fileID: 1581177445}
   - component: {fileID: 1581177444}
+  - component: {fileID: 1581177445}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -487,19 +486,6 @@ Transform:
   - {fileID: 389322858}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1581177443
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1581177441}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c0bf49a9e513b884798aff3b42c14e2c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  minViewDistance: 15
 --- !u!114 &1581177444
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -539,11 +525,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 1581177441}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ace52d037cd021145944c40cabbd3a2e, type: 3}
+  m_Script: {fileID: 11500000, guid: 2ba8dd7efc313af4fa77cc1a527962b4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _walkSpeed: 0.02
-  _runSpeed: 0.03
+  _walkSpeed: 0.03
+  _runSpeed: 0.045
+  minViewDistance: 15
+  playerState: 0
 --- !u!1001 &1658604704
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -619,7 +607,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1686021177305034388, guid: ebee340de387f334f9ac44e044abd8fb, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0
+      value: -1
       objectReference: {fileID: 0}
     - target: {fileID: 1686021177305034388, guid: ebee340de387f334f9ac44e044abd8fb, type: 3}
       propertyPath: m_LocalPosition.z

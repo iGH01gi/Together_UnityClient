@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
+using UnityEditor.Animations;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -9,6 +10,8 @@ public class InGameInput : MonoBehaviour
 {
     private Vector2 moveInput;
     static int sensitivityAdjuster = 3;
+    public float _walkSpeed = 0.03f;
+    public float _runSpeed = 0.045f;
     public float minViewDistance = 15f;
     static float mouseSensitivity;
     private float rotationX = 0f;
@@ -19,17 +22,37 @@ public class InGameInput : MonoBehaviour
     private DateTime _packetSentTime;
     private float timeSinceLastInput=0;
 
-    private GameObject camera;
-    private GameObject player;
+    private Transform camera;
+    private Transform player;
+    private Transform prefab;
 
+    private bool isRunning = false;
+    public Define.PlayerAction playerState;
     void OnMove(InputValue value)
     {
         moveInput = value.Get<Vector2>();
     }
     
+    void OnRun(InputValue value)
+    {
+        isRunning = value.isPressed;
+
+    }
+
+    void OnJump(InputValue value)
+    {
+        if (value.Get<float>()>0)
+        {
+            //jump
+        }
+    }
+    
     private void Start()
     {
         mouseSensitivity = Managers.Data.Player.MouseSensitivity *sensitivityAdjuster;
+        prefab = GameObject.Find("Player").transform;
+        camera = prefab.transform.GetChild(0);
+        player = prefab.transform.GetChild(1);
     }
     
     void Update()
@@ -40,32 +63,41 @@ public class InGameInput : MonoBehaviour
         rotationX -= mouseY;
         rotationX = Mathf.Clamp(rotationX, -70f, minViewDistance);
         
-        transform.GetChild(0).transform.localRotation = Quaternion.Euler(rotationX,0f,0f);
-        transform.Rotate(3f * mouseX * Vector3.up);
-        if (!PlayerMovement._playerIsMoving)
+        camera.localRotation = Quaternion.Euler(rotationX,0f,0f);
+        prefab.Rotate(3f * mouseX * Vector3.up);
+        if (moveInput.magnitude<=0)
         {
-            transform.GetChild(1).transform.Rotate(3f * -mouseX * Vector3.up);
+            player.transform.Rotate(3f * -mouseX * Vector3.up);
+        }
+        if (moveInput.magnitude > 0)
+        {
+            player.transform.localRotation =
+                Quaternion.AngleAxis(Mathf.Atan2(moveInput.x, moveInput.y) * Mathf.Rad2Deg, Vector3.up);
         }
         
         timeSinceLastInput += Time.deltaTime;
 
         if (timeSinceLastInput >= keyboardInputInterval)
         {
-            
+            //Send Packet(Vector2 moveInput, Vector3 player.rotation, bool isRunning)
+            prefab.position = Move(moveInput,prefab.position,prefab.localRotation,isRunning);
         }
     }
     
-    private void Move(float moveSpeed)
+    private Vector3 Move(Vector2 moveInputVector, Vector3 prefabPosition,Quaternion prefabRotation, bool toRunOrNot)
     {
-        Vector3 newPos = transform.rotation.normalized * new Vector3(moveSpeed * moveInput.x, 0f, moveSpeed * moveInput.y);
-        LookDirection(Mathf.Atan2(moveInput.x,moveInput.y)* Mathf.Rad2Deg);
-        transform.position += newPos;
-    }
+        Vector3 newPos;
+        if (isRunning)
+        {
+            newPos = prefabRotation.normalized * new Vector3(_runSpeed * moveInputVector.x, 0f, _runSpeed * moveInputVector.y);
+        }
+        else
+        {
+            newPos = prefabRotation.normalized * new Vector3(_walkSpeed * moveInputVector.x, 0f, _walkSpeed * moveInputVector.y);
+        }
 
-    private void LookDirection(float angle)
-    {
-        timeCount += (Time.deltaTime * slerpFactor);
-        transform.GetChild(1).transform.localRotation = Quaternion.Slerp(transform.GetChild(1).transform.localRotation,Quaternion.AngleAxis(angle, Vector3.up),timeCount);
+        prefabPosition += newPos;
+        return prefabPosition;
     }
 
     void MoveCharacter()

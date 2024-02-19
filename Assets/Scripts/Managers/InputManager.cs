@@ -15,6 +15,7 @@ public class InputManager
     public void Init()
     {
         _inputActionAsset = Resources.Load<InputActionAsset>("playerInput");
+        /*
         root = GameObject.Find("@Input");
         if (root == null)
         {
@@ -33,6 +34,7 @@ public class InputManager
             //테스트를 위한 임시 코드
             LobbyInput.SetActive(false);
         }
+        */
     }
 
     public void ChangeInput(Define.Scene scene)
