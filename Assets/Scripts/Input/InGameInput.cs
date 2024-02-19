@@ -17,7 +17,7 @@ public class InGameInput : MonoBehaviour
     private float rotationX = 0f;
     
     //서버 통신 관련 변수들
-    private float keyboardInputInterval = 0.1f; // 0.1초마다 키보드 입력 처리. 아마 이걸 예쌍 패킷 도착시간으로 생각하고 코딩해야할듯
+    private float keyboardInputInterval = 0.033f; // 0.1초마다 키보드 입력 처리. 아마 이걸 예쌍 패킷 도착시간으로 생각하고 코딩해야할듯
     private double error=0; // 실제로 패킷을 보내고 올때까지의 시간과, 예상 시간과의 괴리. ms단
     private DateTime _packetSentTime;
     private float timeSinceLastInput=0;
@@ -55,7 +55,7 @@ public class InGameInput : MonoBehaviour
         player = prefab.transform.GetChild(1);
     }
     
-    void Update()
+    void LateUpdate()
     {
         float mouseX = Input.GetAxis("Mouse X") * mouseSensitivity * Time.deltaTime;
         float mouseY = Input.GetAxis("Mouse Y") * mouseSensitivity * Time.deltaTime;
@@ -75,12 +75,13 @@ public class InGameInput : MonoBehaviour
                 Quaternion.AngleAxis(Mathf.Atan2(moveInput.x, moveInput.y) * Mathf.Rad2Deg, Vector3.up);
         }
         
-        timeSinceLastInput += Time.deltaTime;
+        timeSinceLastInput += Time.fixedDeltaTime;
 
         if (timeSinceLastInput >= keyboardInputInterval)
         {
             //Send Packet(Vector2 moveInput, Vector3 player.rotation, bool isRunning)
-            prefab.position = Move(moveInput,prefab.position,prefab.localRotation,isRunning);
+            prefab.GetComponent<Rigidbody>().MovePosition(Move(moveInput,prefab.position,prefab.localRotation,isRunning));
+            timeSinceLastInput = 0;
         }
     }
     
