@@ -50,6 +50,9 @@ public class NetworkManager
     {
         if(_roomSession!= null)
             _roomSession.Disconnect();
+        
+        if(_dedicatedServerSession!=null)
+            _dedicatedServerSession.Disconnect();
     }
     
 }

@@ -41,8 +41,10 @@ class PacketManager
 		_handler.Add((ushort)MsgId.ScConnectDedicatedServer, PacketHandler.SC_ConnectDedicatedServerHandler);		
 		_onRecv.Add((ushort)MsgId.DscAllowEnterGame, MakePacket<DSC_AllowEnterGame>);
 		_handler.Add((ushort)MsgId.DscAllowEnterGame, PacketHandler.DSC_AllowEnterGameHandler);		
-		//_onRecv.Add((ushort)MsgId.DscInformNewFaceInDedicatedServer, MakePacket<DSC_InformNewFaceInDedicatedServer>);
-		//_handler.Add((ushort)MsgId.DscInformNewFaceInDedicatedServer, PacketHandler.DSC_InformNewFaceInDedicatedServerHandler);
+		_onRecv.Add((ushort)MsgId.DscInformNewFaceInDedicatedServer, MakePacket<DSC_InformNewFaceInDedicatedServer>);
+		_handler.Add((ushort)MsgId.DscInformNewFaceInDedicatedServer, PacketHandler.DSC_InformNewFaceInDedicatedServerHandler);		
+		_onRecv.Add((ushort)MsgId.DscInformLeaveDedicatedServer, MakePacket<DSC_InformLeaveDedicatedServer>);
+		_handler.Add((ushort)MsgId.DscInformLeaveDedicatedServer, PacketHandler.DSC_InformLeaveDedicatedServerHandler);
 	}
 
 	public void OnRecvPacket(PacketSession session, ArraySegment<byte> buffer)

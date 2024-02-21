@@ -137,6 +137,8 @@ public class PacketHandler
     
     
     /****** 이 아래는 데디케이티드 서버로 구현하면서 변경될 예정 ***********/
+    
+    //데디케이트서버와 연결을 시도하고, 연결되었다면 입장요청 패킷을 보냄
     public static void SC_ConnectDedicatedServerHandler(PacketSession session, IMessage packet)
     {
         SC_ConnectDedicatedServer connectDedicatedServerPacket = packet as SC_ConnectDedicatedServer;
@@ -159,6 +161,7 @@ public class PacketHandler
         }
     }
     
+    //데디케이트서버로부터 게임에 입장을 허가받았을때의 처리
     public static void DSC_AllowEnterGameHandler(PacketSession session, IMessage packet)
     {
         DSC_AllowEnterGame allowEnterGamePacket = packet as DSC_AllowEnterGame;
@@ -168,5 +171,29 @@ public class PacketHandler
         
         //TODO : 데디케이티드 서버로부터 게임에 입장을 허가받았을때의 처리
         Managers.Dedicated.AllowEnterGame(allowEnterGamePacket, callback:()=>{Managers.Scene.LoadScene(Define.Scene.InGame);});
+    }
+    
+    //데디케이트서버로부터 새로운 유저가 들어왔을때의 처리
+    public static void DSC_InformNewFaceInDedicatedServerHandler(PacketSession session, IMessage packet)
+    {
+        DSC_InformNewFaceInDedicatedServer informNewFaceInDedicatedServerPacket = packet as DSC_InformNewFaceInDedicatedServer;
+        DedicatedServerSession dedicatedServerSession = session as DedicatedServerSession;
+        
+        Debug.Log("DSC_InformNewFaceInDedicatedServerHandler");
+        
+        //TODO : 데디케이티드 서버로부터 새로운 유저가 들어왔을때의 처리
+        Managers.Dedicated.InformNewFaceInDedicatedServer(informNewFaceInDedicatedServerPacket, callback:()=>{});
+    }
+
+    //데디케이티드 서버로부터 유저가 나갔을때의 처리
+    public static void DSC_InformLeaveDedicatedServerHandler(PacketSession session, IMessage packet)
+    {
+        DSC_InformLeaveDedicatedServer informLeaveDedicatedServerPacket = packet as DSC_InformLeaveDedicatedServer;
+        DedicatedServerSession dedicatedServerSession = session as DedicatedServerSession;
+        
+        Debug.Log("DSC_InformLeaveDedicatedServerHandler");
+        
+        //TODO : 데디케이티드 서버로부터 유저가 나갔을때의 처리
+        Managers.Dedicated.InformLeaveDedicatedServer(informLeaveDedicatedServerPacket, callback:()=>{});
     }
 }

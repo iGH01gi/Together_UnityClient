@@ -89,5 +89,14 @@ public class DedicatedManager
         Connector connector = new Connector();
         connector.Connect(endPoint, () => { return Managers.Network._dedicatedServerSession; }, 1);
     }
-    
+
+    public void InformNewFaceInDedicatedServer(DSC_InformNewFaceInDedicatedServer informNewFaceInDedicatedServerPacket, Action callback)
+    {
+        throw new NotImplementedException();
+    }
+
+    public void InformLeaveDedicatedServer(DSC_InformLeaveDedicatedServer informLeaveDedicatedServerPacket, Action callback)
+    {
+        throw new NotImplementedException();
+    }
 }
