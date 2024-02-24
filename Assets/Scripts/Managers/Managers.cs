@@ -20,6 +20,7 @@ public class Managers : MonoBehaviour
     InputManager _input = new InputManager();
     RoomManager _room = new RoomManager();
     DedicatedManager _dedicated = new DedicatedManager();
+    ObjectManager _object = new ObjectManager();
     
     
     public static  ResourceManager Resource { get { return Instance._resource;} }
@@ -33,6 +34,7 @@ public class Managers : MonoBehaviour
     public static InputManager Input { get { return Instance._input; } }
     public static RoomManager Room { get { return Instance._room; } }
     public static DedicatedManager Dedicated { get { return Instance._dedicated; } }
+    public static ObjectManager Object { get { return Instance._object; } }
 
     void Start()
     {

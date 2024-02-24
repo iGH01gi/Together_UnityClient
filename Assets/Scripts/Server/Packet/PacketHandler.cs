@@ -154,6 +154,9 @@ public class PacketHandler
             //해당 데디케이티드 서버와 연결, 전용 세션 생성
             //세션이 생성되었을때만 입장요청 패킷(CDS_AllowEnterGame) 보냄을 보장함.
             Managers.Dedicated.ConnectToDedicatedServer(dediIP, dediPort);
+            
+            //게임씬 변경
+            Managers.Scene.LoadScene(Define.Scene.ServerTest);
         }
         else//데디케이티드 서버 연결 실패
         {
@@ -170,7 +173,7 @@ public class PacketHandler
         Debug.Log("DSC_AllowEnterGameHandler");
         
         //TODO : 데디케이티드 서버로부터 게임에 입장을 허가받았을때의 처리
-        Managers.Dedicated.AllowEnterGame(allowEnterGamePacket, callback:()=>{Managers.Scene.LoadScene(Define.Scene.InGame);});
+        Managers.Dedicated.AllowEnterGame(allowEnterGamePacket);
     }
     
     //데디케이트서버로부터 새로운 유저가 들어왔을때의 처리
