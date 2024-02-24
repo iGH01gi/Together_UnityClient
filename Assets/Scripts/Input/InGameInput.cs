@@ -10,8 +10,8 @@ public class InGameInput : MonoBehaviour
 {
     public static Vector2 moveInput;
     static int sensitivityAdjuster = 3;
-    static float _walkSpeed = 0.03f;
-    static float _runSpeed = 0.045f;
+    static float _walkSpeed = 0.05f;
+    static float _runSpeed = 0.075f;
     public static float minViewDistance = 15f;
     static float mouseSensitivity;
     private float rotationX = 0f;
@@ -28,25 +28,24 @@ public class InGameInput : MonoBehaviour
 
     public static bool isRunning = false;
     public Define.PlayerAction playerState;
+    
+    private void ChangeAnim()
+    {
+        player.GetComponent<PlayerAnimController>().PlayAnim(moveInput,isRunning);
+    }
+    
     void OnMove(InputValue value)
     {
         moveInput = value.Get<Vector2>();
+        ChangeAnim();
     }
-    
+
     void OnRun(InputValue value)
     {
         isRunning = value.isPressed;
-
+        ChangeAnim();
     }
 
-    void OnJump(InputValue value)
-    {
-        if (value.Get<float>()>0)
-        {
-            //jump
-        }
-    }
-    
     private void Start()
     {
         mouseSensitivity = Managers.Data.Player.MouseSensitivity *sensitivityAdjuster;
