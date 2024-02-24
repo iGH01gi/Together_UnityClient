@@ -97,7 +97,7 @@ public class PacketHandler
         
         Debug.Log("SC_LeaveRoomHandler");
         
-        if(leaveRoomPacket.PlayerId == Managers.Player._myPlayer.PlayerId)
+        if(leaveRoomPacket.PlayerId == Managers.Player._myRoomPlayer.PlayerId)
         {
             //TODO : callback함수로 '내'가 방을 나갔을때의 ui 처리
             Managers.Room.ProcessLeaveRoom(leaveRoomPacket, callback: UIPacketHandler.RequestLeaveRoomReceivePacket);
@@ -121,25 +121,82 @@ public class PacketHandler
         serverSession.Send(sendPacket);
     }
     
+    //지금 session이 데디서버세션이아니라 서버세션으로 등록되는것이 문제임.
+    public static void DSC_PingPongHandler(PacketSession session, IMessage packet)
+    {
+        DSC_PingPong pingPongPacket = packet as DSC_PingPong;
+        DedicatedServerSession dedicatedServerSession = session as DedicatedServerSession;
+        
+        Debug.Log("DSC_PingPongHandler");
+        
+        //데디케이티드 서버로부터 핑을 받았다는 의미로, 살아있다는 응답으로 퐁을 보냄
+        CDS_PingPong sendPacket = new CDS_PingPong();
+        dedicatedServerSession.Send(sendPacket);
+    }
+    
     
     
     /****** 이 아래는 데디케이티드 서버로 구현하면서 변경될 예정 ***********/
+    
+    //데디케이트서버와 연결을 시도하고, 연결되었다면 입장요청 패킷을 보냄
     public static void SC_ConnectDedicatedServerHandler(PacketSession session, IMessage packet)
     {
         SC_ConnectDedicatedServer connectDedicatedServerPacket = packet as SC_ConnectDedicatedServer;
         ServerSession serverSession = session as ServerSession;
         Debug.Log("SC_ConnectDedicatedServerHandler");
         
-        //TODO : 데디케이티드 서버 연결정보를 받았을때, 데디케이티드 서버로 연결하는 함수 호출
-        if(connectDedicatedServerPacket.Ip != null && connectDedicatedServerPacket.Port != -1) //정상 연결가능
+        //데디케이티드 서버가 정상적으로 생성됨
+        if(connectDedicatedServerPacket.Ip != null && connectDedicatedServerPacket.Port != -1) 
         {
-            Managers.Network.ConnectDedicatedServer(connectDedicatedServerPacket.Ip, connectDedicatedServerPacket.Port);
+            string dediIP = connectDedicatedServerPacket.Ip;
+            int dediPort = connectDedicatedServerPacket.Port;
+            
+            //해당 데디케이티드 서버와 연결, 전용 세션 생성
+            //세션이 생성되었을때만 입장요청 패킷(CDS_AllowEnterGame) 보냄을 보장함.
+            Managers.Dedicated.ConnectToDedicatedServer(dediIP, dediPort);
+            
+            //게임씬 변경
+            Managers.Scene.LoadScene(Define.Scene.ServerTest);
         }
         else//데디케이티드 서버 연결 실패
         {
-            
+            Debug.Log("데디케이티드 서버 연결 실패");
         }
+    }
+    
+    //데디케이트서버로부터 게임에 입장을 허가받았을때의 처리
+    public static void DSC_AllowEnterGameHandler(PacketSession session, IMessage packet)
+    {
+        DSC_AllowEnterGame allowEnterGamePacket = packet as DSC_AllowEnterGame;
+        DedicatedServerSession dedicatedServerSession = session as DedicatedServerSession;
         
+        Debug.Log("DSC_AllowEnterGameHandler");
+        
+        //TODO : 데디케이티드 서버로부터 게임에 입장을 허가받았을때의 처리
+        Managers.Dedicated.AllowEnterGame(allowEnterGamePacket);
+    }
+    
+    //데디케이트서버로부터 새로운 유저가 들어왔을때의 처리
+    public static void DSC_InformNewFaceInDedicatedServerHandler(PacketSession session, IMessage packet)
+    {
+        DSC_InformNewFaceInDedicatedServer informNewFaceInDedicatedServerPacket = packet as DSC_InformNewFaceInDedicatedServer;
+        DedicatedServerSession dedicatedServerSession = session as DedicatedServerSession;
+        
+        Debug.Log("DSC_InformNewFaceInDedicatedServerHandler");
+        
+        //TODO : 데디케이티드 서버로부터 새로운 유저가 들어왔을때의 처리
+        Managers.Dedicated.InformNewFaceInDedicatedServer(informNewFaceInDedicatedServerPacket, callback:()=>{});
+    }
 
+    //데디케이티드 서버로부터 유저가 나갔을때의 처리
+    public static void DSC_InformLeaveDedicatedServerHandler(PacketSession session, IMessage packet)
+    {
+        DSC_InformLeaveDedicatedServer informLeaveDedicatedServerPacket = packet as DSC_InformLeaveDedicatedServer;
+        DedicatedServerSession dedicatedServerSession = session as DedicatedServerSession;
+        
+        Debug.Log("DSC_InformLeaveDedicatedServerHandler");
+        
+        //TODO : 데디케이티드 서버로부터 유저가 나갔을때의 처리
+        Managers.Dedicated.InformLeaveDedicatedServer(informLeaveDedicatedServerPacket, callback:()=>{});
     }
 }

@@ -17,7 +17,7 @@ public class InputManager
         _inputActionAsset = Resources.Load<InputActionAsset>("playerInput");
         /*
         root = GameObject.Find("@Input");
-        if (root == null)
+       /* if (root == null)
         {
             root = new GameObject { name = "@Input" };
             Object.DontDestroyOnLoad(root);

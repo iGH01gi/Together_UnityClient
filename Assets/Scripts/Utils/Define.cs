@@ -19,6 +19,7 @@ public class Define
         Unknown,
         Lobby,
         InGame,
+        ServerTest
     }
 
     public enum UIEvent

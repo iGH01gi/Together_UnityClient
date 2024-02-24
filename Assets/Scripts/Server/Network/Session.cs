@@ -43,7 +43,7 @@ public abstract class PacketSession : Session
 
 public abstract class Session
 {
-    private Socket _socket;
+    public Socket _socket;
     private int _disconnected = 0;
 
     private RecvBuffer _recvBuffer = new RecvBuffer(65535);

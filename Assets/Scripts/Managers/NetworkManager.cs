@@ -8,8 +8,12 @@ using UnityEngine;
 
 public class NetworkManager
 {
-    public ServerSession _session = new ServerSession();
+    public ServerSession _roomSession = new ServerSession(); //게임룸 서버와 연결된 세션
+    public DedicatedServerSession _dedicatedServerSession = new DedicatedServerSession(); //데디케이티드 서버와 연결된 세션
 
+    /// <summary>
+    /// 룸서버와 연결하고 전용세션을 생성
+    /// </summary>
     public void Init()
     {
         //DNS
@@ -20,7 +24,7 @@ public class NetworkManager
 
         Connector connector = new Connector();
         
-        connector.Connect(endPoint, () => { return _session; }, 1); //게임룸 서버에 연결
+        connector.Connect(endPoint, () => { return _roomSession; }, 1); //게임룸 서버에 연결
     }
 
     /// <summary>
@@ -35,19 +39,20 @@ public class NetworkManager
         {
             Action<PacketSession, IMessage> handler = PacketManager.Instance.GetPacketHandler(packet.Id);
             if (handler != null)
-                handler.Invoke(_session, packet.Message);
+                handler.Invoke(packet.Session, packet.Message);
         }	
     }
 
-    public void OnQuitUnity() //유니티가 종료될때 연결 끊음. Managers에서 실행시킴
+    /// <summary>
+    /// 유니티가 종료될때 연결 끊음. Managers에서 실행시킴. 결론적으로 Discconect실행됨
+    /// </summary>
+    public void OnQuitUnity()
     {
-        if(_session!= null)
-            _session.Disconnect();
-    }
-
-
-    public void ConnectDedicatedServer(string ip, int port)
-    {
+        if(_roomSession!= null)
+            _roomSession.Disconnect();
         
+        if(_dedicatedServerSession!=null)
+            _dedicatedServerSession.Disconnect();
     }
+    
 }
