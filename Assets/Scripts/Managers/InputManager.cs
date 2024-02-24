@@ -6,13 +6,16 @@ using UnityEngine.InputSystem;
 
 public class InputManager
 {
-    static List<Define.InputType> _inputList = new List<Define.InputType>();
+    public Vector2 moveVal;
     static GameObject root;
     private InputActionAsset _inputActionAsset;
+    private GameObject LobbyInput;
+    private GameObject InGameInput;
     
     public void Init()
     {
         _inputActionAsset = Resources.Load<InputActionAsset>("playerInput");
+        /*
         root = GameObject.Find("@Input");
        /* if (root == null)
         {
@@ -20,36 +23,20 @@ public class InputManager
             Object.DontDestroyOnLoad(root);
             PlayerInput playerInput = root.AddComponent<PlayerInput>();
             playerInput.actions = _inputActionAsset;
-            playerInput.notificationBehavior = PlayerNotifications.SendMessages;
-            AddInput(Define.InputType.UIInputHandler);
-        }*/
-    }
-
-    public void AddInput(Define.InputType inputType)
-    {
-        if (!_inputList.Contains(inputType))
-        {
-            _inputList.Add(inputType);
-            GameObject newInputObject = new GameObject(inputType.ToString());
-            switch (inputType)
-            {
-                case Define.InputType.UIInputHandler:
-                    newInputObject.AddComponent<UIInputHandler>();
-                    break;
-            }
-            newInputObject.transform.SetParent(root.transform);
+            playerInput.notificationBehavior = PlayerNotifications.BroadcastMessages;
+            LobbyInput = new GameObject { name = "LobbyInput" };
+            LobbyInput.transform.SetParent(root.transform);
+            LobbyInput.AddComponent<LobbyInput>();
+            InGameInput = new GameObject { name = "InGameInput" };
+            InGameInput.transform.SetParent(root.transform);
+            InGameInput.AddComponent<InGameInput>();
+            
+            //테스트를 위한 임시 코드
+            LobbyInput.SetActive(false);
         }
+        */
     }
-
-    public void RemoveInput(Define.InputType inputType)
-    {
-        if (_inputList.Contains(inputType))
-        {
-            GameObject.Destroy(root.transform.GetChild(_inputList.IndexOf(inputType)));
-            _inputList.Remove(inputType);
-        }
-    }
-
+    
     public void EnableInput()
     {
         _inputActionAsset.Enable();

@@ -8,12 +8,7 @@ public class LobbyScene : BaseScene
     protected override void Init()
     {
         base.Init();
-
-        if (SceneType == Define.Scene.Unknown)
-        {
-            Managers.UI.LoadScenePanel("MainMenuUI");
-        }
-        SceneType = Define.Scene.Lobby;
+        Managers.UI.LoadScenePanel("MainMenuUI");
     }
 
     public override void Clear()

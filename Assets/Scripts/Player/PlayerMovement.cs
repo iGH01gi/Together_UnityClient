@@ -33,6 +33,7 @@ public class PlayerMovement : MonoBehaviour
 
     private void Update()
     {
+        /*
         if (jumpInput > 0)
         {
             _anim.PlayAnim(Define.PlayerAction.Jump);
@@ -57,6 +58,7 @@ public class PlayerMovement : MonoBehaviour
             _playerIsMoving = false;
             _anim.PlayAnim(Define.PlayerAction.Idle);
         }
+        */
     }
 
     private void Move(float moveSpeed)

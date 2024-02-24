@@ -36,6 +36,7 @@ public class Managers : MonoBehaviour
     public static DedicatedManager Dedicated { get { return Instance._dedicated; } }
     public static ObjectManager Object { get { return Instance._object; } }
 
+
     void Start()
     {
         Init();
@@ -74,7 +75,7 @@ public class Managers : MonoBehaviour
     {
         Sound.Clear();
         Scene.Clear();
-        //UI.Clear();
+        UI.Clear();
         Pool.Clear();
     }
 

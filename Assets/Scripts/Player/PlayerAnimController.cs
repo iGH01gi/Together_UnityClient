@@ -12,28 +12,24 @@ public class PlayerAnimController : MonoBehaviour
         _anim = GetComponent<Animator>();
     }
 
-    public void PlayAnim(Define.PlayerAction name)
+    public void PlayAnim(Vector2 moveInput, bool isRunning)
     {
-        switch (name)
+        if (moveInput.magnitude > 0)
         {
-            case Define.PlayerAction.Idle:
-                PlayerAnimClear();
-                break;
-            case Define.PlayerAction.Run:
+            if (isRunning)
+            {
                 PlayerAnimClear();
                 _anim.SetBool("isRunning", true);
-                break;
-            case Define.PlayerAction.Walk:
+            }
+            else
+            {
                 PlayerAnimClear();
                 _anim.SetBool("isWalking", true);
-                break;
-            case Define.PlayerAction.Jump:
-                Debug.Log("Jump Jump!");
-                _anim.SetTrigger("isJumping");
-                break;
-            default:
-                PlayerAnimClear();
-                break;
+            }
+        }
+        else
+        {
+            PlayerAnimClear();
         }
     }
     
