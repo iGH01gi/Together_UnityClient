@@ -50,7 +50,7 @@ public class InGameInput : MonoBehaviour
         player = prefab.transform.GetChild(1);
     }
     
-    void LateUpdate()
+    void Update()
     {
         float mouseX = Input.GetAxis("Mouse X") * mouseSensitivity * Time.deltaTime;
         float mouseY = Input.GetAxis("Mouse Y") * mouseSensitivity * Time.deltaTime;
