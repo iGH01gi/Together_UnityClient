@@ -56,10 +56,7 @@ public class DedicatedManager
         newDediPlayer.Name = myName;
         newDediPlayer.IsMyPlayer = true;
 
-        GameObject myPlayerObj = Managers.Object.SpawnPlayer(newDediPlayer);
-        myPlayerObj.GetComponent<PlayerInput>().enabled = true; //내 플레이어만 입력을 받도록 활성화
-        myPlayerObj.GetComponent<InGameInput>().enabled = true; //내 플레이어만 입력을 받도록 활성화
-        myPlayerObj.GetComponentInChildren<Camera>().enabled= true; //내 플레이어만 카메라만 활성화되도록
+        GameObject myPlayerObj = Managers.Player.SpawnPlayer(newDediPlayer);
         myPlayerObj.name = $"MyPlayer_{myDediPlayerId}";
         Managers.Player._myDediPlayer = myPlayerObj;
 
@@ -75,10 +72,7 @@ public class DedicatedManager
             dediPlayer.Name = playerInfo.Name;
             dediPlayer.IsMyPlayer = false;
 
-            GameObject OtherPlayerObj = Managers.Object.SpawnPlayer(dediPlayer);
-            OtherPlayerObj.GetComponent<PlayerInput>().enabled = false; //다른 플레이어 입력 비활성화
-            OtherPlayerObj.GetComponent<InGameInput>().enabled = false; //다른 플레이어 입력 비활성화
-            OtherPlayerObj.GetComponentInChildren<Camera>().enabled = false; //다른 플레이어 카메라 비활성화
+            GameObject OtherPlayerObj = Managers.Player.SpawnPlayer(dediPlayer);
             OtherPlayerObj.name = $"OtherPlayer_{playerInfo.PlayerId}";
             Managers.Player._otherDediPlayers.Add(dediPlayer.PlayerId, OtherPlayerObj);
         }
@@ -126,10 +120,7 @@ public class DedicatedManager
         newDediPlayer.Name = informNewFaceInDedicatedServerPacket.NewPlayer.Name;
         newDediPlayer.IsMyPlayer = false;
         
-        GameObject OtherPlayerObj = Managers.Object.SpawnPlayer(newDediPlayer);
-        OtherPlayerObj.GetComponent<PlayerInput>().enabled = false; //다른 플레이어 입력 비활성화
-        OtherPlayerObj.GetComponent<InGameInput>().enabled = false; //다른 플레이어 입력 비활성화
-        OtherPlayerObj.GetComponentInChildren<Camera>().enabled = false; //다른 플레이어 카메라 비활성화
+        GameObject OtherPlayerObj = Managers.Player.SpawnPlayer(newDediPlayer);
         OtherPlayerObj.name = $"OtherPlayer_{newDediPlayer.PlayerId}";
         Managers.Player._otherDediPlayers.Add(newDediPlayer.PlayerId, OtherPlayerObj);
         
@@ -149,7 +140,7 @@ public class DedicatedManager
         if (Managers.Player._otherDediPlayers.ContainsKey(leavePlayerId))
         {
             GameObject leavePlayerObj = Managers.Player._otherDediPlayers[leavePlayerId];
-            Managers.Object.DespawnPlayer(leavePlayerObj);
+            Managers.Player.DespawnPlayer(leavePlayerObj);
             Managers.Player._otherDediPlayers.Remove(leavePlayerId);
         }
         
