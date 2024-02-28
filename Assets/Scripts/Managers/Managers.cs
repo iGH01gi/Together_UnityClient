@@ -43,7 +43,6 @@ public class Managers : MonoBehaviour
     {
         Init();
         WebManager.Init();
-        LogicManager.Init();
     }
 
     
@@ -55,7 +54,7 @@ public class Managers : MonoBehaviour
 
     private void FixedUpdate()
     {
-        _logic.FixedUpdate(); //게임 로직 업데이트(게임로직 주기마다 실행되어야하는)
+       // _logic.FixedUpdate(); //게임 로직 업데이트(게임로직 주기마다 실행되어야하는)
     }
 
     static void Init()

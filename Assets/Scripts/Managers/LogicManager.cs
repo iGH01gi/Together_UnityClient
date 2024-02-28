@@ -2,33 +2,29 @@
 using UnityEngine;
 
 
+/// <summary>
+/// 서버와 동기화 하는 로직을 담당하는 매니저.
+/// </summary>
 public class LogicManager
 {
-    private static float _gameLogicInterval = 0.03f; //초당 20회(데디서버와 맞춰야 함)
+    private float _tick = 0.1f; //초당 10회(이 주기마다 동기화, 데디서버와 맞춰야 함)
+    private float _timer = 0.0f;
     
     /// <summary>
-    /// 매 프레임마다 실행할 이벤트들
+    /// 플레이어 움직임 정보 보내는 이벤트
     /// </summary>
-    public event Action FrameEvent;
-    
-    /// <summary>
-    /// 플레이어 움직임 이벤트
-    /// </summary>
-    public event Action PlayerMoveEvent;
-
-    public static void Init()
-    {
-        // FixedUpdate를 초당 20번 호출하도록 설정합니다.
-        Time.fixedDeltaTime = _gameLogicInterval;
-    }
+    public event Action SendMyPlayerMoveEvent;
     
     public void Update()
     {
-        FrameEvent?.Invoke(); //프레임 이벤트 실행
+        //다른 플레이어 움직임 동기화 패킷 받아서 먼저 처리
+        
+        _timer += Time.deltaTime;
+        if(_timer >= _tick)
+        {
+            SendMyPlayerMoveEvent?.Invoke(); //플레이어 움직임 정보 보냄
+            _timer = 0;
+        }
     }
     
-    public void FixedUpdate()
-    {
-        PlayerMoveEvent?.Invoke(); //플레이어 움직임 계산 이벤트 실행
-    }
 }

@@ -49,17 +49,15 @@ public class InGameInput : MonoBehaviour
         prefab = gameObject.transform;
         camera = prefab.transform.GetChild(0);
         player = prefab.transform.GetChild(1);
-        _velocity = Vector3.zero;
         _destination = prefab.position;
         rb = prefab.GetComponent<Rigidbody>();
+        _velocity = new Vector3(0f,rb.velocity.y,0f);
         
-        Managers.Logic.FrameEvent -= _Update;
-        Managers.Logic.FrameEvent += _Update;
-        Managers.Logic.PlayerMoveEvent -= _Move;
-        Managers.Logic.PlayerMoveEvent += _Move;
+        Managers.Logic.SendMyPlayerMoveEvent -= SendMove;
+        Managers.Logic.SendMyPlayerMoveEvent += SendMove;
     }
     
-    void _Update()
+    void Update()
     {
         float mouseX = Input.GetAxis("Mouse X") * mouseSensitivity * Time.deltaTime;
         float mouseY = Input.GetAxis("Mouse Y") * mouseSensitivity * Time.deltaTime;
@@ -78,47 +76,37 @@ public class InGameInput : MonoBehaviour
             player.transform.localRotation =
                 Quaternion.AngleAxis(Mathf.Atan2(moveInput.x, moveInput.y) * Mathf.Rad2Deg, Vector3.up);
         }
-        
-        
-        
-        //prefab.GetComponent<Rigidbody>().velocity = _velocity ;
-        /*if (Vector3.Distance(prefab.position, _destination) > 0.1f)
-        {
-            prefab.GetComponent<Rigidbody>().MovePosition(_destination);
-        }
-        else//transform.position이 _destination과 오차범위 이내로 들어오면 움직이지 않음
-        {
-            //prefab.GetComponent<Rigidbody>().velocity = Vector3.zero;
-        }*/
-        
+        _velocity= CalculateVelocity(moveInput, prefab.localRotation);
+    }
+
+    private void FixedUpdate()
+    {
+        rb.velocity = _velocity;
     }
 
     public Vector3 _destination;
     public Vector3 _velocity;
-    void _Move()
+    void SendMove()
     {
-        //Send Packet(Vector2 moveInput, Vector3 player.rotation, bool isRunning)
-        _destination = CalculateDestination(moveInput, prefab.rotation);
-        rb.MovePosition(_destination);
-        //_velocity = CalculateVelocity(moveInput, prefab.localRotation) * 100;
+        //서버로 현재위치, 속보벡터 정보를 보냄
     }
-    
-    /*private Vector3 CalculateVelocity(Vector2 moveInputVector, Quaternion prefabRotation)
+
+    private Vector3 CalculateVelocity(Vector2 moveInputVector, Quaternion prefabRotation)
     {
         Vector3 velocity;
         if (isRunning)
         {
-            velocity = prefabRotation.normalized * new Vector3(_runSpeed * moveInputVector.x, 0f, _runSpeed * moveInputVector.y);
+            velocity = prefabRotation.normalized * new Vector3(_runSpeed * moveInputVector.x, rb.velocity.y, _runSpeed * moveInputVector.y);
         }
         else
         {
-            velocity = prefabRotation.normalized * new Vector3(_walkSpeed * moveInputVector.x, 0f, _walkSpeed * moveInputVector.y);
+            velocity = prefabRotation.normalized * new Vector3(_walkSpeed * moveInputVector.x, rb.velocity.y, _walkSpeed * moveInputVector.y);
         }
         
         return velocity;
-    }*/
+    }
     
-    private Vector3 CalculateDestination(Vector2 moveInputVector, Quaternion prefabRotation)
+    /*private Vector3 CalculateDestination(Vector2 moveInputVector, Quaternion prefabRotation)
     {
         Vector3 movement;
         if (isRunning)
@@ -131,6 +119,6 @@ public class InGameInput : MonoBehaviour
         }
 
         return transform.position + movement;
-    }
+    }*/
 
 }

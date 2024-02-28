@@ -237,6 +237,10 @@ PrefabInstance:
       propertyPath: m_IsKinematic
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4181058824186891517, guid: f5d95c50ade706841892e1d4500f2929, type: 3}
+      propertyPath: m_CollisionDetection
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 4301727193327882605, guid: f5d95c50ade706841892e1d4500f2929, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
