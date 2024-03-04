@@ -17,7 +17,7 @@ public class LogicManager
     
     public void Update()
     {
-        //다른 플레이어 움직임 동기화 패킷 받아서 먼저 처리
+        //TODO: 다른 플레이어 움직임 동기화 패킷 받아서 먼저 처리하기
         
         _timer += Time.deltaTime;
         if(_timer >= _tick)

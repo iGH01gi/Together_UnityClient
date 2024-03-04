@@ -12,9 +12,12 @@ public class PlayerManager
     
     
     public GameObject _myDediPlayer; //내 데디서버 플레이어
-    public Dictionary<int,GameObject> _otherDediPlayers = new Dictionary<int, GameObject>(); //다른 데디서버 플레이어들 (key: 데디playerId, value: 플레이어 정보)
+    public int _myDediPlayerId = -1; //내 데디서버 플레이어의 playerId (초기값 -1)
+    public Dictionary<int,GameObject> _otherDediPlayers = new Dictionary<int, GameObject>(); //다른 데디서버 플레이어들 (key: 데디playerId, value: 플레이어 오브젝트)
+    public Dictionary<int,GameObject> _ghosts = new Dictionary<int, GameObject>()   ; //key: 데디playerId, value: 고스트 오브젝트
     public string _tempMyPlayerPrefabPath = "Player/MyPlayer";
     public string _tempOtherPlayerPrefabPath = "Player/OtherPlayer";
+    public string _tempTargetGhost = "Player/TargetGhost";
 
     
     public void Clear()
@@ -27,6 +30,7 @@ public class PlayerManager
 
     public void ClearDedi()
     {
+        _myDediPlayerId = -1;
         if (_myDediPlayer != null)
         {
             GameObject.Destroy(_myDediPlayer);
@@ -41,12 +45,21 @@ public class PlayerManager
             }
         }
         _otherDediPlayers.Clear();
+        
+        foreach (GameObject ghost in _ghosts.Values)
+        {
+            if (ghost != null)
+            {
+                GameObject.Destroy(ghost);
+            }
+        }
+        _ghosts.Clear();
     }
     
     
     
     /// <summary>
-    /// 데디서버 플레이어를 실제로 생성하는 함수
+    /// 데디서버 플레이어+고스트를 실제로 생성하는 함수
     /// </summary>
     /// <param name="dediPlayer">갖고 있어야할 플레이어 정보</param>
     /// <returns></returns>
@@ -56,13 +69,27 @@ public class PlayerManager
         if(dediPlayer.IsMyPlayer) //본인 플레이어용 프리팹 이용
         {
             obj = Managers.Resource.Instantiate(_tempMyPlayerPrefabPath);
+            obj.name = $"MyPlayer_{dediPlayer.PlayerId}";
+            Managers.Player._myDediPlayer = obj;
+            obj.transform.position = new Vector3(dediPlayer.PlayerId, dediPlayer.PlayerId, dediPlayer.PlayerId);
         }
         else //다른 플레이어용 프리팹 이용
         {
             obj = Managers.Resource.Instantiate(_tempOtherPlayerPrefabPath);
+            obj.name = $"OtherPlayer_{dediPlayer.PlayerId}";
+            Managers.Player._otherDediPlayers.Add(dediPlayer.PlayerId, obj);
+            obj.transform.position = new Vector3(dediPlayer.PlayerId, dediPlayer.PlayerId, dediPlayer.PlayerId);
         }
         DediPlayer dediPlayerComponent = obj.AddComponent<DediPlayer>();
         dediPlayerComponent.CopyFrom(dediPlayer);
+        
+
+        //고스트 생성
+        GameObject newGhost = Managers.Resource.Instantiate(_tempTargetGhost);
+        newGhost.transform.position = new Vector3(dediPlayer.PlayerId,dediPlayer.PlayerId,dediPlayer.PlayerId);
+        _ghosts.Add(dediPlayer.PlayerId,newGhost);
+        newGhost.name = $"Ghost_{dediPlayer.PlayerId}"; //고스트 오브젝트 이름을 "Ghost_플레이어id"로 설정
+        
 
         return obj;
     }
@@ -75,5 +102,11 @@ public class PlayerManager
     {
         Managers.Resource.Destroy(dediPlayerObj);
     }
+
+    public void DespawnGhost(GameObject ghostObj)
+    {
+        Managers.Resource.Destroy(ghostObj);
+    }
+    
 
 }
