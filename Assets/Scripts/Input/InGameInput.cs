@@ -133,11 +133,11 @@ public class InGameInput : MonoBehaviour
         Vector3 velocity;
         if (_isRunning)
         {
-            velocity = prefabRotation.normalized * new Vector3(_runSpeed * moveInputVector.x, 0, _runSpeed * moveInputVector.y);
+            velocity = prefabRotation.normalized * new Vector3( moveInputVector.x, 0,  moveInputVector.y) * _runSpeed;
         }
         else
         {
-            velocity = prefabRotation.normalized * new Vector3(_walkSpeed * moveInputVector.x, 0, _walkSpeed * moveInputVector.y);
+            velocity = prefabRotation.normalized * new Vector3( moveInputVector.x, 0,  moveInputVector.y) * _walkSpeed;
         }
 
         if (!_controller.isGrounded)
