@@ -21,6 +21,7 @@ public class Managers : MonoBehaviour
     RoomManager _room = new RoomManager();
     DedicatedManager _dedicated = new DedicatedManager();
     ObjectManager _object = new ObjectManager();
+    LogicManager _logic = new LogicManager();
     
     
     public static  ResourceManager Resource { get { return Instance._resource;} }
@@ -35,6 +36,7 @@ public class Managers : MonoBehaviour
     public static RoomManager Room { get { return Instance._room; } }
     public static DedicatedManager Dedicated { get { return Instance._dedicated; } }
     public static ObjectManager Object { get { return Instance._object; } }
+    public static LogicManager Logic { get { return Instance._logic; } }
 
 
     void Start()
@@ -42,10 +44,17 @@ public class Managers : MonoBehaviour
         Init();
         WebManager.Init();
     }
+
     
     void Update()
     {
-        _network.Update();
+        _network.Update(); //받은 패킷 처리
+        _logic.Update(); //게임 로직 업데이트(매 프레임마다 실행되어야하는)
+    }
+
+    private void FixedUpdate()
+    {
+       // _logic.FixedUpdate(); //게임 로직 업데이트(게임로직 주기마다 실행되어야하는)
     }
 
     static void Init()

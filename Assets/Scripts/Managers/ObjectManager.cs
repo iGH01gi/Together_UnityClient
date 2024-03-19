@@ -5,29 +5,7 @@
 /// </summary>
 public class ObjectManager
 {
-    public string _tempPlayerPrefabPath = "Player/Player";
-    
-/// <summary>
-/// 데디서버 플레이어를 실제로 생성하는 함수
-/// </summary>
-/// <param name="dediPlayer">갖고 있어야할 플레이어 정보</param>
-/// <returns></returns>
-    public GameObject SpawnPlayer(DediPlayer dediPlayer)
-    {
-        GameObject gameObject =Managers.Resource.Instantiate(_tempPlayerPrefabPath);
-        DediPlayer dediPlayerComponent = gameObject.AddComponent<DediPlayer>();
-        
-        dediPlayerComponent.CopyFrom(dediPlayer);
 
-        return gameObject;
-    }
 
-/// <summary>
-/// 플레이어를 게임상에서 제거하는 함수 (Destroy처리)
-/// </summary>
-/// <param name="dediPlayer">Destroy할 플레이어 오브젝트</param>
-    public void DespawnPlayer(GameObject dediPlayerObj)
-    {
-        Managers.Resource.Destroy(dediPlayerObj);
-    }
+
 }

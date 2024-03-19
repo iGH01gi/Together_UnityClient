@@ -3,6 +3,7 @@ using System.Net;
 using Google.Protobuf.Protocol;
 using ServerCore;
 using UnityEngine;
+using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
 
 /// <summary>
@@ -54,10 +55,12 @@ public class DedicatedManager
         newDediPlayer.PlayerId = myDediPlayerId;
         newDediPlayer.Name = myName;
         newDediPlayer.IsMyPlayer = true;
+        GameObject myPlayerObj = Managers.Player.SpawnPlayer(newDediPlayer);
+        
+        
 
-        GameObject myPlayerObj = Managers.Object.SpawnPlayer(newDediPlayer);
-        Managers.Player._myDediPlayer = myPlayerObj;
-
+        //플레이어매니저에 데디플레이어id저장
+        Managers.Player._myDediPlayerId = myDediPlayerId;
 
         //다른 데디플레이어정보들도 플레이어매니저에 저장
         foreach (PlayerInfo playerInfo in packet.Players)
@@ -70,8 +73,7 @@ public class DedicatedManager
             dediPlayer.Name = playerInfo.Name;
             dediPlayer.IsMyPlayer = false;
 
-            GameObject OtherPlayerObj = Managers.Object.SpawnPlayer(dediPlayer);
-            Managers.Player._otherDediPlayers.Add(dediPlayer.PlayerId, OtherPlayerObj);
+            GameObject OtherPlayerObj = Managers.Player.SpawnPlayer(dediPlayer);
         }
         
     }
@@ -117,8 +119,8 @@ public class DedicatedManager
         newDediPlayer.Name = informNewFaceInDedicatedServerPacket.NewPlayer.Name;
         newDediPlayer.IsMyPlayer = false;
         
-        GameObject OtherPlayerObj = Managers.Object.SpawnPlayer(newDediPlayer);
-        Managers.Player._otherDediPlayers.Add(newDediPlayer.PlayerId, OtherPlayerObj);
+        GameObject OtherPlayerObj = Managers.Player.SpawnPlayer(newDediPlayer);
+        
         
         //콜백함수 실행
         if (callback != null)
@@ -136,8 +138,14 @@ public class DedicatedManager
         if (Managers.Player._otherDediPlayers.ContainsKey(leavePlayerId))
         {
             GameObject leavePlayerObj = Managers.Player._otherDediPlayers[leavePlayerId];
-            Managers.Object.DespawnPlayer(leavePlayerObj);
+            Managers.Player.DespawnPlayer(leavePlayerObj);
             Managers.Player._otherDediPlayers.Remove(leavePlayerId);
+        }
+        if(Managers.Player._ghosts.ContainsKey(leavePlayerId))
+        {
+            GameObject leaveGhostObj = Managers.Player._ghosts[leavePlayerId];
+            Managers.Player.DespawnGhost(leaveGhostObj);
+            Managers.Player._ghosts.Remove(leavePlayerId);
         }
         
         //콜백함수 실행

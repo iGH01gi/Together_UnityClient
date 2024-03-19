@@ -22,7 +22,7 @@ public class CameraMovement : MonoBehaviour
         mouseSensitivity = Managers.Data.Player.MouseSensitivity *sensitivityAdjuster;
     }
 
-    private void Update()
+    private void LateUpdate()
     {
         float mouseX = Input.GetAxis("Mouse X") * mouseSensitivity * Time.deltaTime;
         float mouseY = Input.GetAxis("Mouse Y") * mouseSensitivity * Time.deltaTime;

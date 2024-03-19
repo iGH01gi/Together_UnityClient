@@ -39,7 +39,7 @@ public class PlayerMovement : MonoBehaviour
             _anim.PlayAnim(Define.PlayerAction.Jump);
         }
 
-        if (moveInput!= Vector2.zero)
+        if (_moveInput!= Vector2.zero)
         {
             _playerIsMoving = true;
             if (runInput>0)
