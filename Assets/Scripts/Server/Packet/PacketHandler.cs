@@ -156,7 +156,7 @@ public class PacketHandler
             Managers.Dedicated.ConnectToDedicatedServer(dediIP, dediPort);
             
             //게임씬 변경
-            Managers.Scene.LoadScene(Define.Scene.ServerTest);
+            Managers.Scene.LoadScene(Define.Scene.InGame);
         }
         else//데디케이티드 서버 연결 실패
         {

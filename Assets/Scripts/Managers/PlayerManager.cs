@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Google.Protobuf.Protocol;
 using UnityEngine;
 
 /// <summary>
@@ -59,40 +60,54 @@ public class PlayerManager
     
     
     /// <summary>
-    /// 데디서버 플레이어+고스트를 실제로 생성하는 함수
+    /// 데디서버 플레이어+고스트(다른 플레이어일 경우에만)를 실제로 생성하는 함수
     /// </summary>
-    /// <param name="dediPlayer">갖고 있어야할 플레이어 정보</param>
+    /// <param name="playerInfo"></param>
+    /// <param name="transformInfo"></param>
+    /// <param name="isMyPlayer"></param>
     /// <returns></returns>
-    public GameObject SpawnPlayer(DediPlayer dediPlayer)
+    public GameObject SpawnPlayer(PlayerInfo playerInfo, TransformInfo transformInfo, bool isMyPlayer)
     {
         GameObject obj = null;
-        if(dediPlayer.IsMyPlayer) //본인 플레이어용 프리팹 이용
+        if(isMyPlayer) //본인 플레이어용 프리팹 이용
         {
             obj = Managers.Resource.Instantiate(_tempMyPlayerPrefabPath);
-            obj.name = $"MyPlayer_{dediPlayer.PlayerId}";
-            Managers.Player._myDediPlayer = obj;
-            obj.transform.position = new Vector3(dediPlayer.PlayerId, dediPlayer.PlayerId, dediPlayer.PlayerId);
+            obj.name = $"MyPlayer_{playerInfo.PlayerId}";
+            _myDediPlayer = obj;
+            _myDediPlayerId = playerInfo.PlayerId;
+            obj.transform.position = new Vector3(transformInfo.PosX, transformInfo.PosY, transformInfo.PosZ);
+            obj.transform.rotation = new Quaternion(transformInfo.RotX, transformInfo.RotY, transformInfo.RotZ, transformInfo.RotW);
         }
         else //다른 플레이어용 프리팹 이용
         {
             obj = Managers.Resource.Instantiate(_tempOtherPlayerPrefabPath);
-            obj.name = $"OtherPlayer_{dediPlayer.PlayerId}";
-            Managers.Player._otherDediPlayers.Add(dediPlayer.PlayerId, obj);
-            obj.transform.position = new Vector3(dediPlayer.PlayerId, dediPlayer.PlayerId, dediPlayer.PlayerId);
+            obj.name = $"OtherPlayer_{playerInfo.PlayerId}";
+            Managers.Player._otherDediPlayers.Add(playerInfo.PlayerId, obj);
+            obj.transform.position = new Vector3(transformInfo.PosX, transformInfo.PosY, transformInfo.PosZ);
+            obj.transform.rotation = new Quaternion(transformInfo.RotX, transformInfo.RotY, transformInfo.RotZ, transformInfo.RotW);
         }
+        
+        DediPlayer newDediPlayer = new DediPlayer();
+        newDediPlayer.PlayerId = playerInfo.PlayerId;
+        newDediPlayer.Name = playerInfo.Name;
+        newDediPlayer.IsMyPlayer = isMyPlayer;
+        
         DediPlayer dediPlayerComponent = obj.AddComponent<DediPlayer>();
-        dediPlayerComponent.CopyFrom(dediPlayer);
+        dediPlayerComponent.CopyFrom(newDediPlayer);
         
-
-        //고스트 생성
-        GameObject newGhost = Managers.Resource.Instantiate(_tempTargetGhost);
-        newGhost.transform.position = new Vector3(dediPlayer.PlayerId,dediPlayer.PlayerId,dediPlayer.PlayerId);
-        _ghosts.Add(dediPlayer.PlayerId,newGhost);
-        newGhost.name = $"Ghost_{dediPlayer.PlayerId}"; //고스트 오브젝트 이름을 "Ghost_플레이어id"로 설정
-        
+        //다른 플레이어라면 고스트 생성 및 등록
+        if (!isMyPlayer)
+        {
+            GameObject newGhost = Managers.Resource.Instantiate(_tempTargetGhost);
+            newGhost.transform.position = new Vector3(transformInfo.PosX, transformInfo.PosY, transformInfo.PosZ);
+            newGhost.transform.rotation = new Quaternion(transformInfo.RotX, transformInfo.RotY, transformInfo.RotZ, transformInfo.RotW);
+            _ghosts.Add(playerInfo.PlayerId,newGhost);
+            newGhost.name = $"Ghost_{playerInfo.PlayerId}"; //고스트 오브젝트 이름을 "Ghost_플레이어id"로 설정
+        }
 
         return obj;
     }
+    
 
     /// <summary>
     /// 플레이어를 게임상에서 제거하는 함수 (Destroy처리)
