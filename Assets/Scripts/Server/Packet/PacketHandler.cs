@@ -184,7 +184,6 @@ public class PacketHandler
         
         Debug.Log("DSC_InformNewFaceInDedicatedServerHandler");
         
-        //TODO : 데디케이티드 서버로부터 새로운 유저가 들어왔을때의 처리
         Managers.Dedicated.InformNewFaceInDedicatedServer(informNewFaceInDedicatedServerPacket, callback:()=>{});
     }
 
@@ -196,7 +195,17 @@ public class PacketHandler
         
         Debug.Log("DSC_InformLeaveDedicatedServerHandler");
         
-        //TODO : 데디케이티드 서버로부터 유저가 나갔을때의 처리
         Managers.Dedicated.InformLeaveDedicatedServer(informLeaveDedicatedServerPacket, callback:()=>{});
+    }
+    
+    //데디케이트서버로부터 유저의 움직임을 받았을때의 처리
+    public static void DSC_MoveHandler(PacketSession session, IMessage packet)
+    {
+        DSC_Move movePacket = packet as DSC_Move;
+        DedicatedServerSession dedicatedServerSession = session as DedicatedServerSession;
+        
+        Debug.Log("DSC_MoveHandler");
+        
+        Managers.Dedicated.SyncOtherPlayerMove(movePacket);
     }
 }

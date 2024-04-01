@@ -9,7 +9,7 @@ using UnityEngine;
 public class PlayerManager
 {
     public MyRoomPlayer _myRoomPlayer; //내 룸서버 플레이어
-    public Dictionary<int, Player> _otherRoomPlayers = new Dictionary<int, Player>(); //다른 룸서버 플레이어들 (key: playerId, value: 플레이어 정보)
+    public Dictionary<int, RoomPlayer> _otherRoomPlayers = new Dictionary<int, RoomPlayer>(); //다른 룸서버 플레이어들 (key: playerId, value: 플레이어 정보)
     
     
     public GameObject _myDediPlayer; //내 데디서버 플레이어
@@ -77,6 +77,9 @@ public class PlayerManager
             _myDediPlayerId = playerInfo.PlayerId;
             obj.transform.position = new Vector3(transformInfo.PosX, transformInfo.PosY, transformInfo.PosZ);
             obj.transform.rotation = new Quaternion(transformInfo.RotX, transformInfo.RotY, transformInfo.RotZ, transformInfo.RotW);
+            
+            MyDediPlayer myDediPlayerComponent = obj.AddComponent<MyDediPlayer>();
+            myDediPlayerComponent.Init(playerInfo.PlayerId, playerInfo.Name);
         }
         else //다른 플레이어용 프리팹 이용
         {
@@ -85,15 +88,11 @@ public class PlayerManager
             Managers.Player._otherDediPlayers.Add(playerInfo.PlayerId, obj);
             obj.transform.position = new Vector3(transformInfo.PosX, transformInfo.PosY, transformInfo.PosZ);
             obj.transform.rotation = new Quaternion(transformInfo.RotX, transformInfo.RotY, transformInfo.RotZ, transformInfo.RotW);
+            
+            OtherDediPlayer otherDediPlayerComponent = obj.AddComponent<OtherDediPlayer>();
+            otherDediPlayerComponent.Init(playerInfo.PlayerId, playerInfo.Name);
         }
         
-        DediPlayer newDediPlayer = new DediPlayer();
-        newDediPlayer.PlayerId = playerInfo.PlayerId;
-        newDediPlayer.Name = playerInfo.Name;
-        newDediPlayer.IsMyPlayer = isMyPlayer;
-        
-        DediPlayer dediPlayerComponent = obj.AddComponent<DediPlayer>();
-        dediPlayerComponent.CopyFrom(newDediPlayer);
         
         //다른 플레이어라면 고스트 생성 및 등록
         if (!isMyPlayer)
@@ -103,6 +102,12 @@ public class PlayerManager
             newGhost.transform.rotation = new Quaternion(transformInfo.RotX, transformInfo.RotY, transformInfo.RotZ, transformInfo.RotW);
             _ghosts.Add(playerInfo.PlayerId,newGhost);
             newGhost.name = $"Ghost_{playerInfo.PlayerId}"; //고스트 오브젝트 이름을 "Ghost_플레이어id"로 설정
+            
+            //만약 newGhost가 Ghost.cs컴포넌트 가지고 있지 않다면 추가
+            if (newGhost.GetComponent<Ghost>() == null)
+            {
+                newGhost.AddComponent<Ghost>();
+            }
         }
 
         return obj;
@@ -117,10 +122,41 @@ public class PlayerManager
     {
         Managers.Resource.Destroy(dediPlayerObj);
     }
-
     public void DespawnGhost(GameObject ghostObj)
     {
         Managers.Resource.Destroy(ghostObj);
+    }
+
+
+    /// <summary>
+    /// 다른 플레이어의 움직임을 동기화 (정확히는 고스트를 데디서버와 동기화시킴)
+    /// </summary>
+    /// <param name="playerId"></param>
+    /// <param name="transformInfo"></param>
+    /// <param name="keyboardInput"></param>
+    public void SyncOtherPlayerMove(int playerId, TransformInfo transformInfo, int keyboardInput)
+    {
+        if (_ghosts.TryGetValue(playerId, out GameObject ghostObj))
+        {
+            float posX = transformInfo.PosX;
+            float posY = transformInfo.PosY;
+            float posZ = transformInfo.PosZ;
+            float rotX = transformInfo.RotX;
+            float rotY = transformInfo.RotY;
+            float rotZ = transformInfo.RotZ;
+            float rotW = transformInfo.RotW;
+            Quaternion localRotation = new Quaternion(rotX, rotY, rotZ, rotW);
+
+            CharacterController ghostController = ghostObj.GetComponent<CharacterController>();
+            ghostController.transform.position = new Vector3(posX, posY, posZ); //고스트 위치 순간이동
+            ghostObj.transform.rotation = new Quaternion(rotX, rotY, rotZ, rotW); //고스트 회전
+
+            ghostObj.GetComponent<Ghost>().CalculateVelocity(keyboardInput, localRotation);
+            if (_otherDediPlayers.TryGetValue(playerId, out GameObject playerObj))
+            {
+                playerObj.GetComponent<OtherDediPlayer>().SetGhostLastState(keyboardInput, localRotation);
+            }
+        }
     }
     
 

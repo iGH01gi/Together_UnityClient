@@ -76,9 +76,9 @@ public class RoomManager
         gameRoom.Info = packet.Room;
         foreach (PlayerInfo playerInfo in packet.Players)
         {
-            Player player = new Player() { PlayerId = playerInfo.PlayerId, Name = playerInfo.Name };
+            RoomPlayer roomPlayer = new RoomPlayer() { PlayerId = playerInfo.PlayerId, Name = playerInfo.Name };
 
-            if (player.PlayerId == packet.MyPlayerId) //'나'라면 플레이어 매니저 정보에 본인 입력 + 게임룸에 '나' 추가
+            if (roomPlayer.PlayerId == packet.MyPlayerId) //'나'라면 플레이어 매니저 정보에 본인 입력 + 게임룸에 '나' 추가
             {
                 Managers.Player._myRoomPlayer = new MyRoomPlayer()
                     { PlayerId = playerInfo.PlayerId, Name = playerInfo.Name, Room = gameRoom };
@@ -86,8 +86,8 @@ public class RoomManager
             }
             else //다른사람이면 플레이어 매니저에 등록 + 게임룸에 추가
             {
-                Managers.Player._otherRoomPlayers.Add(key: player.PlayerId, value: player);
-                gameRoom._players.Add(player);
+                Managers.Player._otherRoomPlayers.Add(key: roomPlayer.PlayerId, value: roomPlayer);
+                gameRoom._players.Add(roomPlayer);
             }
         }
 
@@ -110,12 +110,12 @@ public class RoomManager
         GameRoom gameRoom = _rooms[packet.RoomId];
         gameRoom.Info.CurrentCount = packet.CurrentCount;
 
-        Player player = new Player() { PlayerId = packet.NewPlayer.PlayerId, Name = packet.NewPlayer.Name };
+        RoomPlayer roomPlayer = new RoomPlayer() { PlayerId = packet.NewPlayer.PlayerId, Name = packet.NewPlayer.Name };
 
         //플레이어 매니저에 등록
-        Managers.Player._otherRoomPlayers.Add(key: player.PlayerId, value: player);
+        Managers.Player._otherRoomPlayers.Add(key: roomPlayer.PlayerId, value: roomPlayer);
         //게임룸에 추가
-        gameRoom._players.Add(player);
+        gameRoom._players.Add(roomPlayer);
 
         //새로 들어온 플레이어의 정보 처리가 완료되었기 때문에,
         //callback함수를 실행하여서 새로 들어온 플레이어의 정보를 방 UI에 반영

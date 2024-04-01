@@ -129,4 +129,18 @@ public class DedicatedManager
         if (callback != null)
             callback.Invoke();
     }
+    
+    /// <summary>
+    /// 다른 플레이어의 움직임을 동기화 (정확히는 고스트를 데디서버와 동기화시킴)
+    /// </summary>
+    /// <param name="packet"></param>
+    public void SyncOtherPlayerMove(DSC_Move movePacket)
+    {
+        int playerId = movePacket.PlayerId;
+        TransformInfo transformInfo = movePacket.Transform;
+        int keyboardInput = movePacket.KeyboardInput;
+        
+        if(playerId != Managers.Player._myDediPlayerId)
+            Managers.Player.SyncOtherPlayerMove(playerId,transformInfo,keyboardInput);
+    }
 }
