@@ -53,7 +53,7 @@ public class Ghost : MonoBehaviour
         }
         else
         {
-            if ((keyboardInput & _runBit) == 1)
+            if ((keyboardInput & _runBit) != 1)
             {
                 isRunning = true;
             }
