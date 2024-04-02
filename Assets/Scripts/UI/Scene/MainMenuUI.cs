@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class MainMenuUI : UI_scene
 {
@@ -16,11 +17,12 @@ public class MainMenuUI : UI_scene
     private void Start()
     {
         InitButtons<Buttons>(true);
+        gameObject.GetComponent<VerticalLayoutGroup>().spacing = (Screen.height / 60);
     }
 
     private void StartGame()
     {
-        Managers.UI.LoadScenePanel(SceneUIType.LobbyUI.ToString());
+       // Managers.UI.LoadScenePanel(SceneUIType.LobbyUI.ToString());
     }
     
     private void Shop()

@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public abstract class UI_scene : UI_base
 {
@@ -32,9 +33,11 @@ public abstract class UI_scene : UI_base
                 go = gameObject.transform.Find(button).gameObject;
             }
 
-            if (go.transform.childCount == 1 && go.transform.GetChild(0).name == "LocalizationText")
+            GameObject localText = Util.FindChild(go, "LocalizationText", true);
+
+            if (localText != null)
             {
-                go.transform.GetChild(0).GetComponent<UI_Text>().SetString(button);
+                localText.GetComponent<UI_Text>().SetString(button);
             }
 
             go.GetComponent<UI_Button>().SetOnClick(funcToRun(button));
