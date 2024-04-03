@@ -18,29 +18,29 @@ public abstract class UI_scene : UI_base
         Managers.UI.LoadScenePanel(sceneUIType.ToString());
     }
 
-    protected void InitButtons<T>(bool initiate = false) where T : Enum
+    protected void InitButtons<T>(GameObject go,bool initiate = false) where T : Enum
     {
-        foreach (string button in Enum.GetNames(typeof(T)))
+        foreach (string buttonName in Enum.GetNames(typeof(T)))
         {
-            GameObject go;
+            GameObject buttonGO;
             if (initiate)
             {
-                go = Managers.Resource.Instantiate("UI/Subitem/UI_Button", transform);
-                go.name = button;
+                buttonGO = Managers.Resource.Instantiate("UI/Subitem/UI_Button", go.transform);
+                buttonGO.name = buttonName;
             }
             else
             {
-                go = gameObject.transform.Find(button).gameObject;
+                buttonGO = go.transform.Find(buttonName).gameObject;
             }
 
-            GameObject localText = Util.FindChild(go, "LocalizationText", true);
+            GameObject localText = Util.FindChild(buttonGO, "LocalizationText", true);
 
             if (localText != null)
             {
-                localText.GetComponent<UI_Text>().SetString(button);
+                localText.GetComponent<UI_Text>().SetString(buttonName);
             }
 
-            go.GetComponent<UI_Button>().SetOnClick(funcToRun(button));
+            buttonGO.GetComponent<UI_Button>().SetOnClick(funcToRun(buttonName));
         }
     }
 

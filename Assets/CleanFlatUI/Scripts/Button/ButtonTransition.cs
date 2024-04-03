@@ -5,7 +5,7 @@ using UnityEngine.UI;
 using UnityEngine.EventSystems;
 namespace RainbowArt.CleanFlatUI
 {
-    public class ButtonTransition : MonoBehaviour
+    public class ButtonTransition : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
     {
         Button button;      
 
@@ -17,14 +17,14 @@ namespace RainbowArt.CleanFlatUI
             if(button == null)
             {
                 button = gameObject.GetComponent<Button>();
-            }   
-            button.onClick.AddListener(OnButtonClick); 
+            }
+            //button.onClick.AddListener(OnButtonClick); 
             if(animator != null)
             {
                 animator.enabled = false;               
             } 
         }
-        public void OnButtonClick()
+        public void OnPointerEnter(PointerEventData eventData)
         {
             if( animator != null )
             {
@@ -32,7 +32,21 @@ namespace RainbowArt.CleanFlatUI
                 {
                     animator.enabled = true;
                 }
-                animator.Play("Transition",0,0);         
+                //animator.Play("Transition",0,0);   
+                animator.SetBool("Hover",true);
+            }            
+        }
+        
+        public void OnPointerExit(PointerEventData eventData)
+        {
+            if( animator != null )
+            {
+                if(animator.enabled == false)
+                {
+                    animator.enabled = true;
+                }
+                //animator.Play("Transition",0,0);   
+                animator.SetBool("Hover",false);
             }            
         }
     }

@@ -174,7 +174,7 @@ namespace RainbowArt.CleanFlatUI
         public void ShowModalWindow()
         {           
             gameObject.SetActive(true);
-            InitButtons(); 
+            //InitButtons(); 
             InitAnimation();  
             UpdateHeight();
             PlayAnimation(true); 
@@ -204,7 +204,7 @@ namespace RainbowArt.CleanFlatUI
             yield return new WaitForSeconds(disableTime);
             gameObject.SetActive(false);         
         }  
-
+/*
         void InitButtons()
         {
             if(buttonClose != null)
@@ -223,7 +223,7 @@ namespace RainbowArt.CleanFlatUI
                 buttonCancel.onClick.AddListener(OnCancelClick);  
             }            
         }
-
+*/
         void OnCloseClick()
         {
             OnCancelClick();          
@@ -270,7 +270,7 @@ namespace RainbowArt.CleanFlatUI
             }            
         }   
 
-        void Update()
+        /*void Update()
         {
             if(bDelayedUpdate)
             {
@@ -281,7 +281,7 @@ namespace RainbowArt.CleanFlatUI
                     UpdateHeight();                                           
                 }
             }
-        }         
+        } */        
 
         void UpdateHeight()
         {
@@ -296,7 +296,8 @@ namespace RainbowArt.CleanFlatUI
                     pos.y = -finalHeight;
                     buttonBar.anchoredPosition3D = pos;  
                     finalHeight = finalHeight+ buttonBarHeight;
-                }                
+                }
+                
                 view.SetSizeWithCurrentAnchors(RectTransform.Axis.Vertical, finalHeight);
 
                 float pivotY = view.pivot.y;

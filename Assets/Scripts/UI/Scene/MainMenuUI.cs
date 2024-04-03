@@ -13,11 +13,9 @@ public class MainMenuUI : UI_scene
         Settings,
         EndGame
     }
-    
     private void Start()
     {
-        InitButtons<Buttons>(true);
-        gameObject.GetComponent<VerticalLayoutGroup>().spacing = (Screen.height / 60);
+        InitButtons<Buttons>(transform.GetChild(0).gameObject,true);
     }
 
     private void StartGame()

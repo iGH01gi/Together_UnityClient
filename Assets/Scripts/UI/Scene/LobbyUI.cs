@@ -28,7 +28,7 @@ public class LobbyUI : UI_scene
 
     private void Start()
     {
-        InitButtons<Buttons>();
+        InitButtons<Buttons>(gameObject);
         
         pageText = transform.GetChild(2).GetComponent<TMP_Text>();
         leftPageButton = transform.GetChild(1).GetComponent<UI_Button>();
