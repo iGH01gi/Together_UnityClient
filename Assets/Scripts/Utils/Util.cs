@@ -56,7 +56,7 @@ public class Util
 
         return null;
     }
-    
+
     public static List<String> EnumToString<T> ()
     {
         return Enum.GetValues(typeof(T)).Cast<T>().ToList().Select(s => s.ToString()).ToList();

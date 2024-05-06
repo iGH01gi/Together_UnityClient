@@ -20,7 +20,7 @@ public class RoomUI : UI_scene
 
     void Start()
     {
-        InitButtons<Buttons>();
+        InitButtons<Buttons>(gameObject);
         thisRoom = Managers.Player._myRoomPlayer.Room;
         GetPlayerList();
     }

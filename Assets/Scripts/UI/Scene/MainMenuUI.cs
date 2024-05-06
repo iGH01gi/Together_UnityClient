@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class MainMenuUI : UI_scene
 {
@@ -12,15 +13,14 @@ public class MainMenuUI : UI_scene
         Settings,
         EndGame
     }
-    
     private void Start()
     {
-        InitButtons<Buttons>(true);
+        InitButtons<Buttons>(transform.GetChild(0).gameObject,true);
     }
 
     private void StartGame()
     {
-        Managers.UI.LoadScenePanel(SceneUIType.LobbyUI.ToString());
+       //Managers.UI.LoadScenePanel(SceneUIType.LobbyUI.ToString());
     }
     
     private void Shop()
@@ -30,7 +30,7 @@ public class MainMenuUI : UI_scene
     
     private void Settings()
     {
-        //fix up settings
+        Managers.UI.LoadPopupPanel<SettingsPopup>(true);
     }
     
     private void EndGame()

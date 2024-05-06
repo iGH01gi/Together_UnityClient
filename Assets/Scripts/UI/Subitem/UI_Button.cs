@@ -6,6 +6,16 @@ using UnityEngine.UI;
 
 public class UI_Button : UI_subitem
 {
+    public void PlayButtonClick()
+    {
+        Managers.Sound.Play("Effects/Confirm");
+    }
+
+    public void PlayButtonHover()
+    {
+        Managers.Sound.Play("Effects/ButtonClick");
+    }
+    
     public void SetOnClick(Action func)
     {
         gameObject.GetComponent<Button>().onClick.AddListener(delegate { func(); });
