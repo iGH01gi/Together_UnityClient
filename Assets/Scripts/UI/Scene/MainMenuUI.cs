@@ -20,7 +20,7 @@ public class MainMenuUI : UI_scene
 
     private void StartGame()
     {
-       // Managers.UI.LoadScenePanel(SceneUIType.LobbyUI.ToString());
+       //Managers.UI.LoadScenePanel(SceneUIType.LobbyUI.ToString());
     }
     
     private void Shop()
@@ -30,7 +30,7 @@ public class MainMenuUI : UI_scene
     
     private void Settings()
     {
-        //fix up settings
+        Managers.UI.LoadPopupPanel<SettingsPopup>(true);
     }
     
     private void EndGame()

@@ -50,7 +50,12 @@ public class UIManager
     public T LoadPopupPanel<T>(bool isBase = false,bool popupIteractableOnly = true) where T: UI_popup
     {
         GameObject popup;
-
+        
+        if (popupIteractableOnly)
+        {
+            _popupLinkedList.AddLast(Managers.Resource.Instantiate($"UI/Subitem/Panel", root.transform));
+        }
+        
         if (isBase)
         {
             popup =  Managers.Resource.Instantiate($"UI/Popup/{typeof(T)}",root.transform);
@@ -74,10 +79,20 @@ public class UIManager
         {
             Managers.Resource.Destroy(_popupLinkedList.Last.Value);
             _popupLinkedList.RemoveLast();
+            if (_popupLinkedList.Last.Value.name == "Panel")
+            {
+                Managers.Resource.Destroy(_popupLinkedList.Last.Value);
+                _popupLinkedList.RemoveLast();
+            }
         }
         else
         {
             var cur = _popupLinkedList.Find(gameObject);
+            if (cur.Previous.Value.name == "Panel")
+            {
+                Managers.Resource.Destroy(cur.Previous.Value);
+                _popupLinkedList.Remove(cur.Previous);
+            }
             Managers.Resource.Destroy(_popupLinkedList.Find(gameObject).Value);
             _popupLinkedList.Remove(cur);
         }

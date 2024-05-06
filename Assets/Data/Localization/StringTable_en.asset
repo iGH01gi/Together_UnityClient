@@ -19,11 +19,11 @@ MonoBehaviour:
     m_Items: []
   m_TableData:
   - m_Id: 3021244936130560
-    m_Localized: Sound Setting
+    m_Localized: Sound
     m_Metadata:
       m_Items: []
   - m_Id: 3021214275768320
-    m_Localized: Display Setting
+    m_Localized: Display
     m_Metadata:
       m_Items: []
   - m_Id: 57408658509824
@@ -55,11 +55,11 @@ MonoBehaviour:
     m_Metadata:
       m_Items: []
   - m_Id: 3021268382289920
-    m_Localized: Control Setting
+    m_Localized: Control
     m_Metadata:
       m_Items: []
   - m_Id: 3021292247879680
-    m_Localized: Key Binding Setting
+    m_Localized: Key Binding
     m_Metadata:
       m_Items: []
   - m_Id: 3284813250465792
