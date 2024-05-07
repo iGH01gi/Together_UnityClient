@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Google.Protobuf.Protocol;
 using UnityEngine;
 
 /// <summary>
@@ -8,7 +9,7 @@ using UnityEngine;
 public class PlayerManager
 {
     public MyRoomPlayer _myRoomPlayer; //내 룸서버 플레이어
-    public Dictionary<int, Player> _otherRoomPlayers = new Dictionary<int, Player>(); //다른 룸서버 플레이어들 (key: playerId, value: 플레이어 정보)
+    public Dictionary<int, RoomPlayer> _otherRoomPlayers = new Dictionary<int, RoomPlayer>(); //다른 룸서버 플레이어들 (key: playerId, value: 플레이어 정보)
     
     
     public GameObject _myDediPlayer; //내 데디서버 플레이어
@@ -59,40 +60,59 @@ public class PlayerManager
     
     
     /// <summary>
-    /// 데디서버 플레이어+고스트를 실제로 생성하는 함수
+    /// 데디서버 플레이어+고스트(다른 플레이어일 경우에만)를 실제로 생성하는 함수
     /// </summary>
-    /// <param name="dediPlayer">갖고 있어야할 플레이어 정보</param>
+    /// <param name="playerInfo"></param>
+    /// <param name="transformInfo"></param>
+    /// <param name="isMyPlayer"></param>
     /// <returns></returns>
-    public GameObject SpawnPlayer(DediPlayer dediPlayer)
+    public GameObject SpawnPlayer(PlayerInfo playerInfo, TransformInfo transformInfo, bool isMyPlayer)
     {
         GameObject obj = null;
-        if(dediPlayer.IsMyPlayer) //본인 플레이어용 프리팹 이용
+        if(isMyPlayer) //본인 플레이어용 프리팹 이용
         {
             obj = Managers.Resource.Instantiate(_tempMyPlayerPrefabPath);
-            obj.name = $"MyPlayer_{dediPlayer.PlayerId}";
-            Managers.Player._myDediPlayer = obj;
-            obj.transform.position = new Vector3(dediPlayer.PlayerId, dediPlayer.PlayerId, dediPlayer.PlayerId);
+            obj.name = $"MyPlayer_{playerInfo.PlayerId}";
+            _myDediPlayer = obj;
+            _myDediPlayerId = playerInfo.PlayerId;
+            obj.transform.position = new Vector3(transformInfo.PosX, transformInfo.PosY, transformInfo.PosZ);
+            obj.transform.rotation = new Quaternion(transformInfo.RotX, transformInfo.RotY, transformInfo.RotZ, transformInfo.RotW);
+            
+            MyDediPlayer myDediPlayerComponent = obj.AddComponent<MyDediPlayer>();
+            myDediPlayerComponent.Init(playerInfo.PlayerId, playerInfo.Name);
         }
         else //다른 플레이어용 프리팹 이용
         {
             obj = Managers.Resource.Instantiate(_tempOtherPlayerPrefabPath);
-            obj.name = $"OtherPlayer_{dediPlayer.PlayerId}";
-            Managers.Player._otherDediPlayers.Add(dediPlayer.PlayerId, obj);
-            obj.transform.position = new Vector3(dediPlayer.PlayerId, dediPlayer.PlayerId, dediPlayer.PlayerId);
+            obj.name = $"OtherPlayer_{playerInfo.PlayerId}";
+            Managers.Player._otherDediPlayers.Add(playerInfo.PlayerId, obj);
+            obj.transform.position = new Vector3(transformInfo.PosX, transformInfo.PosY, transformInfo.PosZ);
+            obj.transform.rotation = new Quaternion(transformInfo.RotX, transformInfo.RotY, transformInfo.RotZ, transformInfo.RotW);
+            
+            OtherDediPlayer otherDediPlayerComponent = obj.AddComponent<OtherDediPlayer>();
+            otherDediPlayerComponent.Init(playerInfo.PlayerId, playerInfo.Name);
         }
-        DediPlayer dediPlayerComponent = obj.AddComponent<DediPlayer>();
-        dediPlayerComponent.CopyFrom(dediPlayer);
         
-
-        //고스트 생성
-        GameObject newGhost = Managers.Resource.Instantiate(_tempTargetGhost);
-        newGhost.transform.position = new Vector3(dediPlayer.PlayerId,dediPlayer.PlayerId,dediPlayer.PlayerId);
-        _ghosts.Add(dediPlayer.PlayerId,newGhost);
-        newGhost.name = $"Ghost_{dediPlayer.PlayerId}"; //고스트 오브젝트 이름을 "Ghost_플레이어id"로 설정
         
+        //다른 플레이어라면 고스트 생성 및 등록
+        if (!isMyPlayer)
+        {
+            GameObject newGhost = Managers.Resource.Instantiate(_tempTargetGhost);
+            newGhost.transform.position = new Vector3(transformInfo.PosX, transformInfo.PosY, transformInfo.PosZ);
+            newGhost.transform.rotation = new Quaternion(transformInfo.RotX, transformInfo.RotY, transformInfo.RotZ, transformInfo.RotW);
+            _ghosts.Add(playerInfo.PlayerId,newGhost);
+            newGhost.name = $"Ghost_{playerInfo.PlayerId}"; //고스트 오브젝트 이름을 "Ghost_플레이어id"로 설정
+            
+            //만약 newGhost가 Ghost.cs컴포넌트 가지고 있지 않다면 추가
+            if (newGhost.GetComponent<Ghost>() == null)
+            {
+                newGhost.AddComponent<Ghost>();
+            }
+        }
 
         return obj;
     }
+    
 
     /// <summary>
     /// 플레이어를 게임상에서 제거하는 함수 (Destroy처리)
@@ -102,10 +122,41 @@ public class PlayerManager
     {
         Managers.Resource.Destroy(dediPlayerObj);
     }
-
     public void DespawnGhost(GameObject ghostObj)
     {
         Managers.Resource.Destroy(ghostObj);
+    }
+
+
+    /// <summary>
+    /// 다른 플레이어의 움직임을 동기화 (정확히는 고스트를 데디서버와 동기화시킴)
+    /// </summary>
+    /// <param name="playerId"></param>
+    /// <param name="transformInfo"></param>
+    /// <param name="keyboardInput"></param>
+    public void SyncOtherPlayerMove(int playerId, TransformInfo transformInfo, int keyboardInput)
+    {
+        if (_ghosts.TryGetValue(playerId, out GameObject ghostObj))
+        {
+            float posX = transformInfo.PosX;
+            float posY = transformInfo.PosY;
+            float posZ = transformInfo.PosZ;
+            float rotX = transformInfo.RotX;
+            float rotY = transformInfo.RotY;
+            float rotZ = transformInfo.RotZ;
+            float rotW = transformInfo.RotW;
+            Quaternion localRotation = new Quaternion(rotX, rotY, rotZ, rotW);
+
+            CharacterController ghostController = ghostObj.GetComponent<CharacterController>();
+            ghostController.transform.position = new Vector3(posX, posY, posZ); //고스트 위치 순간이동
+            ghostObj.transform.rotation = new Quaternion(rotX, rotY, rotZ, rotW); //고스트 회전
+
+            ghostObj.GetComponent<Ghost>().CalculateVelocity(keyboardInput, localRotation);
+            if (_otherDediPlayers.TryGetValue(playerId, out GameObject playerObj))
+            {
+                playerObj.GetComponent<OtherDediPlayer>().SetGhostLastState(keyboardInput, localRotation);
+            }
+        }
     }
     
 

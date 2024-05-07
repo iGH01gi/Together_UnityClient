@@ -7,5 +7,5 @@ public class GameRoom
 {
     public RoomInfo Info { get; set; } = new RoomInfo();
     
-    public List<Player> _players = new List<Player>(); //방에 있는 플레이어 리스트
+    public List<RoomPlayer> _players = new List<RoomPlayer>(); //방에 있는 플레이어 리스트
 }

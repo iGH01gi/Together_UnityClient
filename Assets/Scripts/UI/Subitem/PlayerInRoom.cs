@@ -5,9 +5,9 @@ using UnityEngine;
 
 public class PlayerInRoom : UI_subitem
 {
-    private Player thisPlayer;
+    private RoomPlayer thisPlayer;
 
-    public void Init(Player player)
+    public void Init(RoomPlayer player)
     {
         thisPlayer = player;
         transform.GetChild(0).GetComponent<TMP_Text>().text = player.Name;

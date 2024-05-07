@@ -42,40 +42,22 @@ public class DedicatedManager
     /// <param name="packet">입장 허용패킷</param>
     public void AllowEnterGame(DSC_AllowEnterGame packet, Action callback=null)
     {
-        //콜백함수 실행
-        if (callback != null)
-            callback.Invoke();
-        
-        int myDediPlayerId = packet.MyDedicatedPlayerId;
-        string myName = Managers.Player._myRoomPlayer.Name;
-
-
-        //내 데디플레이어를 스폰하고 플레이어매니저에 저장
-        DediPlayer newDediPlayer = new DediPlayer();
-        newDediPlayer.PlayerId = myDediPlayerId;
-        newDediPlayer.Name = myName;
-        newDediPlayer.IsMyPlayer = true;
-        GameObject myPlayerObj = Managers.Player.SpawnPlayer(newDediPlayer);
-        
-        
-
-        //플레이어매니저에 데디플레이어id저장
-        Managers.Player._myDediPlayerId = myDediPlayerId;
-
         //다른 데디플레이어정보들도 플레이어매니저에 저장
         foreach (PlayerInfo playerInfo in packet.Players)
         {
-            if (playerInfo.PlayerId == myDediPlayerId) //내 데디플레이어는 이미 저장했으므로 패스
-                continue;
-
-            DediPlayer dediPlayer = new DediPlayer();
-            dediPlayer.PlayerId = playerInfo.PlayerId;
-            dediPlayer.Name = playerInfo.Name;
-            dediPlayer.IsMyPlayer = false;
-
-            GameObject OtherPlayerObj = Managers.Player.SpawnPlayer(dediPlayer);
+            if (playerInfo.PlayerId == packet.MyDedicatedPlayerId) //내 데디플레이어를 스폰하고 플레이어 매니저에 정보 저장
+            {
+                Managers.Player.SpawnPlayer(playerInfo, packet.PlayerTransforms[packet.MyDedicatedPlayerId], true);
+            }
+            else //다른 데디플레이어 생성하고 고스트를 생성하고 플레이어 매니저에 정보 저장
+            {
+                Managers.Player.SpawnPlayer(playerInfo, packet.PlayerTransforms[playerInfo.PlayerId], false);
+            }
         }
         
+        //콜백함수 실행
+        if (callback != null)
+            callback.Invoke();
     }
 
     public bool _inConnectingDediProcess = false;
@@ -112,15 +94,10 @@ public class DedicatedManager
     /// <param name="informNewFaceInDedicatedServerPacket"></param>
     /// <param name="callback"></param>
     /// <exception cref="NotImplementedException"></exception>
-    public void InformNewFaceInDedicatedServer(DSC_InformNewFaceInDedicatedServer informNewFaceInDedicatedServerPacket, Action callback)
+    public void InformNewFaceInDedicatedServer(DSC_InformNewFaceInDedicatedServer packet, Action callback)
     {
-        DediPlayer newDediPlayer = new DediPlayer();
-        newDediPlayer.PlayerId = informNewFaceInDedicatedServerPacket.NewPlayer.PlayerId;
-        newDediPlayer.Name = informNewFaceInDedicatedServerPacket.NewPlayer.Name;
-        newDediPlayer.IsMyPlayer = false;
-        
-        GameObject OtherPlayerObj = Managers.Player.SpawnPlayer(newDediPlayer);
-        
+        //다른 데디플레이어 생성하고 고스트를 생성하고 플레이어 매니저에 정보 저장
+        Managers.Player.SpawnPlayer(packet.NewPlayer, packet.SpawnTransform, false);
         
         //콜백함수 실행
         if (callback != null)
@@ -151,5 +128,19 @@ public class DedicatedManager
         //콜백함수 실행
         if (callback != null)
             callback.Invoke();
+    }
+    
+    /// <summary>
+    /// 다른 플레이어의 움직임을 동기화 (정확히는 고스트를 데디서버와 동기화시킴)
+    /// </summary>
+    /// <param name="packet"></param>
+    public void SyncOtherPlayerMove(DSC_Move movePacket)
+    {
+        int playerId = movePacket.PlayerId;
+        TransformInfo transformInfo = movePacket.Transform;
+        int keyboardInput = movePacket.KeyboardInput;
+        
+        if(playerId != Managers.Player._myDediPlayerId)
+            Managers.Player.SyncOtherPlayerMove(playerId,transformInfo,keyboardInput);
     }
 }
