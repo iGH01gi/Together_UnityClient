@@ -137,10 +137,14 @@ public class DedicatedManager
     public void SyncOtherPlayerMove(DSC_Move movePacket)
     {
         int playerId = movePacket.PlayerId;
-        TransformInfo transformInfo = movePacket.Transform;
+        TransformInfo ghostTransformInfo = movePacket.GhostTransform;
         int keyboardInput = movePacket.KeyboardInput;
-        
-        if(playerId != Managers.Player._myDediPlayerId)
-            Managers.Player.SyncOtherPlayerMove(playerId,transformInfo,keyboardInput);
+        RotationInfo playerRotation = movePacket.PlayerRotation;
+
+
+        if (playerId != Managers.Player._myDediPlayerId)
+        {
+            Managers.Player.SyncOtherPlayerMove(playerId,ghostTransformInfo,keyboardInput,playerRotation);
+        }
     }
 }

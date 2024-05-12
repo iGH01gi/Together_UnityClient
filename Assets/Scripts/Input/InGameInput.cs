@@ -83,22 +83,29 @@ public class InGameInput : MonoBehaviour
 
     void SendMove()
     {
-        //서버로 현재위치,쿼터니언의 4개의 부동소수점 값, 누른 키, utc타임 정보를 보냄
+        //서버로 데디플레이어id, 현재 transform정보(고스트에서 사용), 누른 키, 플레이어 회전정보를 보냄
         CDS_Move packet = new CDS_Move();
         
         packet.MyDediplayerId = Managers.Player._myDediPlayerId;
         
-        TransformInfo transformInfo = new TransformInfo();
+        TransformInfo ghostTransformInfo = new TransformInfo();
+        PositionInfo ghostPositionInfo = new PositionInfo();
+        RotationInfo ghostRotationInfo = new RotationInfo();
+        
         Vector3 position = _prefab.position;
         Quaternion rotation = _prefab.rotation;
-        transformInfo.PosX = position.x;
-        transformInfo.PosY = position.y;
-        transformInfo.PosZ = position.z;
-        transformInfo.RotX = rotation.x;
-        transformInfo.RotY = rotation.y;
-        transformInfo.RotZ = rotation.z;
-        transformInfo.RotW = rotation.w;
-        packet.Transform = transformInfo;
+        ghostPositionInfo.PosX = position.x;
+        ghostPositionInfo.PosY = position.y;
+        ghostPositionInfo.PosZ = position.z;
+        ghostRotationInfo.RotX = rotation.x;
+        ghostRotationInfo.RotY = rotation.y;
+        ghostRotationInfo.RotZ = rotation.z;
+        ghostRotationInfo.RotW = rotation.w;
+        
+        ghostTransformInfo.Position = ghostPositionInfo;
+        ghostTransformInfo.Rotation = ghostRotationInfo;
+        
+        packet.GhostTransform = ghostTransformInfo;
         
         int moveBit = 0;
         if (_isRunning)
@@ -122,8 +129,14 @@ public class InGameInput : MonoBehaviour
             moveBit |= _rightBit;
         }
         packet.KeyboardInput = moveBit;
-        
-        packet.UtcTimeStamp = DateTime.UtcNow.ToBinary();
+ 
+        //플레이어 회전정보 (고스트가 아닌 플레이어의 회전정보로 사용)
+        RotationInfo playerRotation = new RotationInfo();
+        playerRotation.RotX = _player.rotation.x;
+        playerRotation.RotY = _player.rotation.y;
+        playerRotation.RotZ = _player.rotation.z;
+        playerRotation.RotW = _player.rotation.w;
+        packet.PlayerRotation = playerRotation;
         
         Managers.Network._dedicatedServerSession.Send(packet);
     }

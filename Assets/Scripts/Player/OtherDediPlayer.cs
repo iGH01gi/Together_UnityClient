@@ -59,18 +59,13 @@ public class OtherDediPlayer : MonoBehaviour
             Vector3 directionToGhost = _ghost.transform.position - transform.position;
             directionToGhost.y = 0;
 
-            //목표 위치까지 거리가 0.02보다 작으면 도착한것으로 간주
-            if (directionToGhost.magnitude < 0.02f)
+            //목표 위치까지 거리가 0.05보다 작으면 도착한것으로 간주
+            if (directionToGhost.magnitude < 0.05f)
             {
                 _velocity = Vector3.zero;
                 _controller.Move(_velocity);
-                //transform.rotation = Quaternion.Slerp(transform.rotation,_ghostRotation, Time.deltaTime * rotationSpeed); (이 부분 주석처리로 실제 클라랑 동일한 회전구현)
                 return;
             }
-
-            // 현재 회전에서 목표 회전까지 부드럽게 회전시킵니다.
-            Quaternion targetRotation = Quaternion.LookRotation(directionToGhost);
-            transform.rotation = targetRotation;
 
             // 목표 방향으로 이동합니다.
             _velocity = directionToGhost.normalized;

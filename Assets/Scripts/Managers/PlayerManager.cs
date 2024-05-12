@@ -75,8 +75,8 @@ public class PlayerManager
             obj.name = $"MyPlayer_{playerInfo.PlayerId}";
             _myDediPlayer = obj;
             _myDediPlayerId = playerInfo.PlayerId;
-            obj.transform.position = new Vector3(transformInfo.PosX, transformInfo.PosY, transformInfo.PosZ);
-            obj.transform.rotation = new Quaternion(transformInfo.RotX, transformInfo.RotY, transformInfo.RotZ, transformInfo.RotW);
+            obj.transform.position = new Vector3(transformInfo.Position.PosX, transformInfo.Position.PosY, transformInfo.Position.PosZ);
+            obj.transform.rotation = new Quaternion(transformInfo.Rotation.RotX, transformInfo.Rotation.RotY, transformInfo.Rotation.RotZ, transformInfo.Rotation.RotW);
             
             MyDediPlayer myDediPlayerComponent = obj.AddComponent<MyDediPlayer>();
             myDediPlayerComponent.Init(playerInfo.PlayerId, playerInfo.Name);
@@ -86,8 +86,8 @@ public class PlayerManager
             obj = Managers.Resource.Instantiate(_tempOtherPlayerPrefabPath);
             obj.name = $"OtherPlayer_{playerInfo.PlayerId}";
             Managers.Player._otherDediPlayers.Add(playerInfo.PlayerId, obj);
-            obj.transform.position = new Vector3(transformInfo.PosX, transformInfo.PosY, transformInfo.PosZ);
-            obj.transform.rotation = new Quaternion(transformInfo.RotX, transformInfo.RotY, transformInfo.RotZ, transformInfo.RotW);
+            obj.transform.position = new Vector3(transformInfo.Position.PosX, transformInfo.Position.PosY, transformInfo.Position.PosZ);
+            obj.transform.rotation = new Quaternion(transformInfo.Rotation.RotX, transformInfo.Rotation.RotY, transformInfo.Rotation.RotZ, transformInfo.Rotation.RotW);
             
             OtherDediPlayer otherDediPlayerComponent = obj.AddComponent<OtherDediPlayer>();
             otherDediPlayerComponent.Init(playerInfo.PlayerId, playerInfo.Name);
@@ -98,8 +98,8 @@ public class PlayerManager
         if (!isMyPlayer)
         {
             GameObject newGhost = Managers.Resource.Instantiate(_tempTargetGhost);
-            newGhost.transform.position = new Vector3(transformInfo.PosX, transformInfo.PosY, transformInfo.PosZ);
-            newGhost.transform.rotation = new Quaternion(transformInfo.RotX, transformInfo.RotY, transformInfo.RotZ, transformInfo.RotW);
+            newGhost.transform.position = new Vector3(transformInfo.Position.PosX, transformInfo.Position.PosY, transformInfo.Position.PosZ);
+            newGhost.transform.rotation = new Quaternion(transformInfo.Rotation.RotX, transformInfo.Rotation.RotY, transformInfo.Rotation.RotZ, transformInfo.Rotation.RotW);
             _ghosts.Add(playerInfo.PlayerId,newGhost);
             newGhost.name = $"Ghost_{playerInfo.PlayerId}"; //고스트 오브젝트 이름을 "Ghost_플레이어id"로 설정
             
@@ -134,17 +134,17 @@ public class PlayerManager
     /// <param name="playerId"></param>
     /// <param name="transformInfo"></param>
     /// <param name="keyboardInput"></param>
-    public void SyncOtherPlayerMove(int playerId, TransformInfo transformInfo, int keyboardInput)
+    public void SyncOtherPlayerMove(int playerId, TransformInfo ghostTransformInfo, int keyboardInput, RotationInfo playerRotation)
     {
         if (_ghosts.TryGetValue(playerId, out GameObject ghostObj))
         {
-            float posX = transformInfo.PosX;
-            float posY = transformInfo.PosY;
-            float posZ = transformInfo.PosZ;
-            float rotX = transformInfo.RotX;
-            float rotY = transformInfo.RotY;
-            float rotZ = transformInfo.RotZ;
-            float rotW = transformInfo.RotW;
+            float posX = ghostTransformInfo.Position.PosX;
+            float posY = ghostTransformInfo.Position.PosY;
+            float posZ = ghostTransformInfo.Position.PosZ;
+            float rotX = ghostTransformInfo.Rotation.RotX;
+            float rotY = ghostTransformInfo.Rotation.RotY;
+            float rotZ = ghostTransformInfo.Rotation.RotZ;
+            float rotW = ghostTransformInfo.Rotation.RotW;
             Quaternion localRotation = new Quaternion(rotX, rotY, rotZ, rotW);
 
             CharacterController ghostController = ghostObj.GetComponent<CharacterController>();
@@ -155,6 +155,13 @@ public class PlayerManager
             if (_otherDediPlayers.TryGetValue(playerId, out GameObject playerObj))
             {
                 playerObj.GetComponent<OtherDediPlayer>().SetGhostLastState(keyboardInput, localRotation);
+                
+                //플레이어 회전정보 동기화
+                float playerRotX = playerRotation.RotX;
+                float playerRotY = playerRotation.RotY;
+                float playerRotZ = playerRotation.RotZ;
+                float playerRotW = playerRotation.RotW;
+                playerObj.transform.rotation = new Quaternion(playerRotX, playerRotY, playerRotZ, playerRotW);
             }
         }
     }
