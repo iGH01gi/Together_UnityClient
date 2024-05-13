@@ -21,8 +21,8 @@ public class OtherDediPlayer : MonoBehaviour
     int _downBit = (1 << 1);
     int _rightBit = 1;
 
-    static float _walkSpeed = 5f;
-    static float _runSpeed = 7.5f;
+    static float _walkSpeed = 2f;
+    static float _runSpeed = 3f;
     
     public void Init(int playerId, string name)
     {

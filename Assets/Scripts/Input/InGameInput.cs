@@ -14,8 +14,8 @@ public class InGameInput : MonoBehaviour
     
     public static Vector2 _moveInput;
     static int sensitivityAdjuster = 3;
-    static float _walkSpeed = 5f;
-    static float _runSpeed = 7.5f;
+    static float _walkSpeed = 2f;
+    static float _runSpeed = 3f;
     public static float _minViewDistance = 15f;
     static float _mouseSensitivity;
     private float _rotationX = 0f;
