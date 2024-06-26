@@ -44,13 +44,22 @@ public class DedicatedServerSession : PacketSession
         if(Managers.Player._myRoomPlayer != null) //내 플레이어가 방에 있는 상태라면
         {
             CDS_AllowEnterGame sendPacket = new CDS_AllowEnterGame();
-            sendPacket.RoomId = Managers.Player._myRoomPlayer.Room.Info.RoomId;
+            sendPacket.RoomId = Managers.Room.GetMyPlayerRoomId();
             sendPacket.Name = Managers.Player._myRoomPlayer.Name;
             Send(sendPacket);
         }
         
         //데디서버 연결중이라는 flag를 flase로 설정해줌 (연결이 완료되었기 때문)
         Managers.Dedicated._inConnectingDediProcess= false;
+        
+        //내가 방장이라면, 데디서버에게 방 정보(인원 수)를 전달함
+        if(Managers.Room.IsMyPlayerMaster())
+        {
+            CDS_InformRoomInfo sendPacket = new CDS_InformRoomInfo();
+            sendPacket.RoomId = Managers.Room.GetMyPlayerRoomId();
+            sendPacket.PlayerNum = Managers.Room.GetMyPlayerRoomPlayerCount();
+            Send(sendPacket);
+        }
     }
     
     public override void OnDisconnected(EndPoint endPoint)

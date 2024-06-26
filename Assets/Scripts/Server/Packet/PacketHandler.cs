@@ -198,6 +198,17 @@ public class PacketHandler
         Managers.Dedicated.InformLeaveDedicatedServer(informLeaveDedicatedServerPacket, callback:()=>{});
     }
     
+    //데디케이트서버로부터 게임 시작을 알려받았을때의 처리 (이 패킷을 받은 클라는  3,2,1 카운트 후 게임을 시작함)
+    public static void DSC_StartGameHandler(PacketSession session, IMessage packet)
+    {
+        DSC_StartGame startGamePacket = packet as DSC_StartGame;
+        DedicatedServerSession dedicatedServerSession = session as DedicatedServerSession;
+        
+        Debug.Log("DSC_StartGameHandler");
+        
+        //TODO: (이 패킷을 받은 클라는  3,2,1 카운트 후 게임을 시작함). 카운트 끝나기 전까지는 아무 입력도 안먹혀야 함.
+    }
+    
     //데디케이트서버로부터 유저의 움직임을 받았을때의 처리
     public static void DSC_MoveHandler(PacketSession session, IMessage packet)
     {

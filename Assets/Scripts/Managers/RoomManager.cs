@@ -140,6 +140,7 @@ public class RoomManager
             //나가기 전에 방 정보 건들여주기
             gameRoom._players.Remove(Managers.Player._myRoomPlayer);
             gameRoom.Info.CurrentCount = gameRoom._players.Count;
+            gameRoom.Info.RoomMasterPlayerId = packet.RoomMasterPlayerId;
             gameRoom._players.Clear();
 
             //내 플레이어 정보 초기화
@@ -149,6 +150,8 @@ public class RoomManager
         {
             //방정보 최신화
             gameRoom._players.RemoveAll(x => x.PlayerId == packet.PlayerId);
+            gameRoom.Info.CurrentCount = gameRoom._players.Count;
+            gameRoom.Info.RoomMasterPlayerId = packet.RoomMasterPlayerId;
 
             //내 플레이어 정보 초기화
             if (Managers.Player._otherRoomPlayers.ContainsKey(packet.PlayerId))
@@ -158,5 +161,83 @@ public class RoomManager
         if(callback!=null)
             callback.Invoke();
     }
+    
+    /// <summary>
+    /// 특정 roomid에서 특정playerId가 방장인지 확인
+    /// </summary>
+    /// <param name="roomId">방 번호</param>
+    /// <param name="playerId">검사하려는 playerId</param>
+    /// <returns>master가 맞다면 true. 그 외에는 false</returns>
+    public bool IsMaster(int roomId, int playerId)
+    {
+        if (!_rooms.ContainsKey(roomId))
+            return false;
 
+        GameRoom gameRoom = _rooms[roomId];
+        return gameRoom.Info.RoomMasterPlayerId == playerId;
+    }
+    
+    /// <summary>
+    /// 내 player가 현재 방에서 방장인지 확인
+    /// </summary>
+    /// <returns>'내'가 방에 있는 상태가 아니거나 방장이 아니면 false 리턴</returns>
+    public bool IsMyPlayerMaster()
+    {
+        if (Managers.Player._myRoomPlayer == null || Managers.Player._myRoomPlayer.Room == null)
+            return false;
+
+        return IsMaster(Managers.Player._myRoomPlayer.Room.Info.RoomId, Managers.Player._myRoomPlayer.PlayerId);
+    }
+    
+    /// <summary>
+    /// 특정 roomid에서 방장의 playerId를 구함
+    /// </summary>
+    /// <param name="roomId">방 번호</param>
+    /// <returns>존재하지 않는 방이면 -1반환 </returns>
+    public int GetMasterPlayerId(int roomId)
+    {
+        if (!_rooms.ContainsKey(roomId))
+            return -1;
+
+        GameRoom gameRoom = _rooms[roomId];
+        return gameRoom.Info.RoomMasterPlayerId;
+    }
+    
+    /// <summary>
+    /// 내 플레이어가 속한 방id를 구함. 
+    /// </summary>
+    /// <returns>없다면 -1</returns>
+    public int GetMyPlayerRoomId()
+    {
+        if (Managers.Player._myRoomPlayer == null || Managers.Player._myRoomPlayer.Room == null)
+            return -1;
+
+        return Managers.Player._myRoomPlayer.Room.Info.RoomId;
+    }
+    
+    /// <summary>
+    /// 특정 roomid에서 플레이어의 수를 구함
+    /// </summary>
+    /// <param name="roomId">방 번호</param>
+    /// <returns>방이 없으면 -1</returns>
+    public int GetPlayerCount(int roomId)
+    {
+        if (!_rooms.ContainsKey(roomId))
+            return -1;
+
+        GameRoom gameRoom = _rooms[roomId];
+        return gameRoom.Info.CurrentCount;
+    }
+    
+    /// <summary>
+    /// 내 플레이어가 속한 방의 플레이어 수를 구함
+    /// </summary>
+    /// <returns>방이 없다면 -1</returns>
+    public int GetMyPlayerRoomPlayerCount()
+    {
+        if (Managers.Player._myRoomPlayer == null || Managers.Player._myRoomPlayer.Room == null)
+            return -1;
+
+        return Managers.Player._myRoomPlayer.Room.Info.CurrentCount;
+    }
 }
