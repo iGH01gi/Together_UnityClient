@@ -9,7 +9,7 @@ public class GameScene : BaseScene
     protected override void Init()
     {
         base.Init();
-        
+        Managers.UI.LoadScenePanel("InGameUI");
         //Managers.Sound.Play("Bgm/test_bgm",Define.Sound.Bgm);
     }
     
