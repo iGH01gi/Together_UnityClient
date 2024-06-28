@@ -219,4 +219,39 @@ public class PacketHandler
         
         Managers.Dedicated.SyncOtherPlayerMove(movePacket);
     }
+    
+    //데디케이트서버로부터 새로운 상자 정보를 받았을때의 처리
+    public static void DSC_NewChestsInfoHandler(PacketSession session, IMessage packet)
+    {
+        DSC_NewChestsInfo newChestsInfoPacket = packet as DSC_NewChestsInfo;
+        DedicatedServerSession dedicatedServerSession = session as DedicatedServerSession;
+        
+        Debug.Log("DSC_NewChestsInfoHandler");
+        
+        Managers.Object.ChestSetAllInOne(newChestsInfoPacket);
+    }
+
+    //데디케이티드서버가 누군가가 상자를 여는데 성공했음을 알려줄때의 처리
+    public static void DSC_ChestOpenSuccessHandler(PacketSession session, IMessage packet)
+    {
+        DSC_ChestOpenSuccess chestOpenSuccessPacket = packet as DSC_ChestOpenSuccess;
+        DedicatedServerSession dedicatedServerSession = session as DedicatedServerSession;
+        
+        Debug.Log("DSC_ChestOpenSuccessHandler");
+        
+        int chestId = chestOpenSuccessPacket.ChestId;
+        int playerId = chestOpenSuccessPacket.PlayerId;
+        
+        //여는데 성공한것이 나인가? 남인가?
+        if(playerId == Managers.Player._myDediPlayerId)
+        {
+            //나의 상자 열기 성공 처리
+            Managers.Object.OnMyPlayerOpenChestSuccess(chestId);
+        }
+        else
+        {
+            //다른 유저의 상자 열기 성공 처리
+            Managers.Object.OnOtherPlayerOpenChestSuccess(chestId, playerId);
+        }
+    }
 }
