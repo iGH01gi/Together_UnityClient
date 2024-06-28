@@ -217,7 +217,7 @@ public class PacketHandler
         
         Debug.Log("DSC_MoveHandler");
         
-        Managers.Dedicated.SyncOtherPlayerMove(movePacket);
+        Managers.Player.SyncOtherPlayerMove(movePacket);
     }
     
     //데디케이트서버로부터 새로운 상자 정보를 받았을때의 처리

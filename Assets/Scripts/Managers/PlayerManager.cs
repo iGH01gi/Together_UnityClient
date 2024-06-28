@@ -134,8 +134,16 @@ public class PlayerManager
     /// <param name="playerId"></param>
     /// <param name="transformInfo"></param>
     /// <param name="keyboardInput"></param>
-    public void SyncOtherPlayerMove(int playerId, TransformInfo ghostTransformInfo, int keyboardInput, RotationInfo playerRotation)
+    public void SyncOtherPlayerMove(DSC_Move movePacket)
     {
+        int playerId = movePacket.PlayerId;
+        TransformInfo ghostTransformInfo = movePacket.GhostTransform;
+        int keyboardInput = movePacket.KeyboardInput;
+        RotationInfo playerRotation = movePacket.PlayerRotation;
+
+        if (playerId == _myDediPlayerId)
+            return; //내 플레이어는 처리하지 않음
+        
         if (_ghosts.TryGetValue(playerId, out GameObject ghostObj))
         {
             float posX = ghostTransformInfo.Position.PosX;

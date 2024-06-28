@@ -173,7 +173,7 @@ public class ObjectManager : MonoBehaviour
     /// <param name="otherDediPlayerId">열은 데디플레이어id</param>
     public void OnOtherPlayerOpenChestSuccess(int chestId, int otherDediPlayerId)
     {
-        //TODO: 1. 상자 열었다는 이펙트,사운드 처리
+        //TODO: 1. 상자 열었다는 정보기록,이펙트,사운드 처리
         Chest chest = _chestList[chestId].GetComponent<Chest>();
         chest.OpenChest();
 

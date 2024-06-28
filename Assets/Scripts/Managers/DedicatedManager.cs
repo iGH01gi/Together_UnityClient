@@ -7,7 +7,7 @@ using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
 
 /// <summary>
-/// 데디서버와의 패킷통신의 최전선 출입구
+/// 데디서버 정보 저장 및 접속 관련 매니저
 /// </summary>
 public class DedicatedManager
 {
@@ -130,21 +130,4 @@ public class DedicatedManager
             callback.Invoke();
     }
     
-    /// <summary>
-    /// 다른 플레이어의 움직임을 동기화 (정확히는 고스트를 데디서버와 동기화시킴)
-    /// </summary>
-    /// <param name="packet"></param>
-    public void SyncOtherPlayerMove(DSC_Move movePacket)
-    {
-        int playerId = movePacket.PlayerId;
-        TransformInfo ghostTransformInfo = movePacket.GhostTransform;
-        int keyboardInput = movePacket.KeyboardInput;
-        RotationInfo playerRotation = movePacket.PlayerRotation;
-
-
-        if (playerId != Managers.Player._myDediPlayerId)
-        {
-            Managers.Player.SyncOtherPlayerMove(playerId,ghostTransformInfo,keyboardInput,playerRotation);
-        }
-    }
 }
