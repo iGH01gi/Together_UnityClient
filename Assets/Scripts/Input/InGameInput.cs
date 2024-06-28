@@ -67,7 +67,7 @@ public class InGameInput : MonoBehaviour
         
         _camera.localRotation = Quaternion.Euler(_rotationX,0f,0f);
         _prefab.Rotate(3f * mouseX * Vector3.up);
-        if (_moveInput.magnitude<=0)
+        /*if (_moveInput.magnitude<=0)
         {
             _player.transform.Rotate(3f * -mouseX * Vector3.up);
         }
@@ -75,7 +75,10 @@ public class InGameInput : MonoBehaviour
         {
             _player.transform.localRotation =
                 Quaternion.AngleAxis(Mathf.Atan2(_moveInput.x, _moveInput.y) * Mathf.Rad2Deg, Vector3.up);
-        }
+        }*/
+        
+        _player.transform.Rotate(3f * -mouseX * Vector3.up); //new code
+        
         _velocity= CalculateVelocity(_moveInput, _prefab.localRotation);
         _controller.Move(_velocity * Time.deltaTime);
     }
