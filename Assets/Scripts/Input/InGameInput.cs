@@ -78,6 +78,8 @@ public class InGameInput : MonoBehaviour
         }*/
         
         _player.transform.Rotate(3f * -mouseX * Vector3.up); //new code
+        _player.transform.localRotation =
+            Quaternion.AngleAxis(Mathf.Atan2(_moveInput.x, _moveInput.y) * Mathf.Rad2Deg, Vector3.up);
         
         _velocity= CalculateVelocity(_moveInput, _prefab.localRotation);
         _controller.Move(_velocity * Time.deltaTime);
