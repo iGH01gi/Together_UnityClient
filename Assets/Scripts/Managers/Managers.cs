@@ -21,7 +21,8 @@ public class Managers : MonoBehaviour
     RoomManager _room = new RoomManager();
     DedicatedManager _dedicated = new DedicatedManager();
     ObjectManager _object;
-    LogicManager _logic = new LogicManager();
+    JobTimerManager _job = new JobTimerManager();
+    TimeManager _time = new TimeManager();
     
     
     public static  ResourceManager Resource { get { return Instance._resource;} }
@@ -36,7 +37,9 @@ public class Managers : MonoBehaviour
     public static RoomManager Room { get { return Instance._room; } }
     public static DedicatedManager Dedicated { get { return Instance._dedicated; } }
     public static ObjectManager Object { get { return Instance._object; } }
-    public static LogicManager Logic { get { return Instance._logic; } }
+    public static JobTimerManager Logic { get { return Instance._job; } }
+    public static TimeManager Time { get { return Instance._time; } }
+    public static JobTimerManager Job { get { return Instance._job; } }
 
 
     void Start()
@@ -49,7 +52,7 @@ public class Managers : MonoBehaviour
     void Update()
     {
         _network.Update(); //받은 패킷 처리
-        _logic.Update(); //게임 로직 업데이트(매 프레임마다 실행되어야하는)
+        _job.Flush(); //일감 처리(움직임 패킷 여기서 처리)
     }
 
     private void FixedUpdate()
@@ -79,6 +82,7 @@ public class Managers : MonoBehaviour
             _instance._input.Init();
             _instance._object = go.GetComponent<ObjectManager>(); //특별처리 (모노비헤비어)
             _instance._object.Init();
+            _instance._time.Init();
         }
     }
     
