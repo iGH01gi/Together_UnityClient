@@ -53,8 +53,7 @@ public class InGameInput : MonoBehaviour
         _player = _prefab.transform.GetChild(1);
         _velocity = new Vector3(0f,0f,0f);
         
-        Managers.Logic.SendMyPlayerMoveEvent -= SendMove;
-        Managers.Logic.SendMyPlayerMoveEvent += SendMove;
+        Managers.Job.Push(SendMove); //20초 마다 보냄
     }
     
     void Update()
@@ -144,6 +143,9 @@ public class InGameInput : MonoBehaviour
         packet.PlayerRotation = playerRotation;
         
         Managers.Network._dedicatedServerSession.Send(packet);
+        
+        //20초마다 보냄
+        Managers.Job.Push(SendMove, 50);
     }
 
     private Vector3 CalculateVelocity(Vector2 moveInputVector, Quaternion prefabRotation)

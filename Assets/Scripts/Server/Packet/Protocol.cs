@@ -79,27 +79,31 @@ namespace Google.Protobuf.Protocol {
             "CwoDa2V5GAEgASgFEiIKBXZhbHVlGAIgASgLMhMuUHJvdG9jb2wuQ2hlc3RJ",
             "bmZvOgI4ASI7ChBDRFNfVHJ5Q2hlc3RPcGVuEhYKDm15RGVkaXBsYXllcklk",
             "GAEgASgFEg8KB2NoZXN0SWQYAiABKAUiOQoURFNDX0NoZXN0T3BlblN1Y2Nl",
-            "c3MSDwoHY2hlc3RJZBgBIAEoBRIQCghwbGF5ZXJJZBgCIAEoBSqCBgoFTXNn",
-            "SWQSEAoMQ1NfUk9PTV9MSVNUEAASEAoMU0NfUk9PTV9MSVNUEAESEAoMQ1Nf",
-            "TUFLRV9ST09NEAISEAoMU0NfTUFLRV9ST09NEAMSEQoNQ1NfRU5URVJfUk9P",
-            "TRAEEhcKE1NDX0FMTE9XX0VOVEVSX1JPT00QBRIeChpTQ19JTkZPUk1fTkVX",
-            "X0ZBQ0VfSU5fUk9PTRAGEhEKDUNTX0xFQVZFX1JPT00QBxIRCg1TQ19MRUFW",
-            "RV9ST09NEAgSEAoMU0NfUElOR19QT05HEAkSEAoMQ1NfUElOR19QT05HEAoS",
-            "EQoNRFNDX1BJTkdfUE9ORxALEhEKDUNEU19QSU5HX1BPTkcQDBIfChtDU19D",
-            "T05ORUNUX0RFRElDQVRFRF9TRVJWRVIQDRIfChtTQ19DT05ORUNUX0RFRElD",
-            "QVRFRF9TRVJWRVIQDhIYChRDRFNfSU5GT1JNX1JPT01fSU5GTxAPEhgKFENE",
-            "U19BTExPV19FTlRFUl9HQU1FEBASGAoURFNDX0FMTE9XX0VOVEVSX0dBTUUQ",
-            "ERIrCidEU0NfSU5GT1JNX05FV19GQUNFX0lOX0RFRElDQVRFRF9TRVJWRVIQ",
-            "EhIlCiFEU0NfSU5GT1JNX0xFQVZFX0RFRElDQVRFRF9TRVJWRVIQExISCg5E",
-            "U0NfU1RBUlRfR0FNRRAUEgwKCENEU19NT1ZFEBUSDAoIRFNDX01PVkUQFhIX",
-            "ChNEU0NfREFZX1RJTUVSX1NUQVJUEBcSFgoSRFNDX0RBWV9USU1FUl9TWU5D",
-            "EBgSFQoRRFNDX0RBWV9USU1FUl9FTkQQGRIZChVEU0NfTklHSFRfVElNRVJf",
-            "U1RBUlQQGhIYChREU0NfTklHSFRfVElNRVJfU1lOQxAbEhcKE0RTQ19OSUdI",
-            "VF9USU1FUl9FTkQQHBIXChNEU0NfTkVXX0NIRVNUU19JTkZPEB0SFgoSQ0RT",
-            "X1RSWV9DSEVTVF9PUEVOEB4SGgoWRFNDX0NIRVNUX09QRU5fU1VDQ0VTUxAf",
-            "KlsKDlJlYXNvblJlamVjdGVkEhAKDFJvb21Ob3RFeGlzdBAAEhQKEEN1cnJl",
-            "bnRseVBsYXlpbmcQARIOCgpSb29tSXNGdWxsEAISEQoNV3JvbmdQYXNzd29y",
-            "ZBADQhuqAhhHb29nbGUuUHJvdG9idWYuUHJvdG9jb2xiBnByb3RvMw=="));
+            "c3MSDwoHY2hlc3RJZBgBIAEoBRIQCghwbGF5ZXJJZBgCIAEoBSIWChRDRFNf",
+            "UmVxdWVzdFRpbWVzdGFtcCJGChVEU0NfUmVzcG9uc2VUaW1lc3RhbXASLQoJ",
+            "dGltZXN0YW1wGAEgASgLMhouZ29vZ2xlLnByb3RvYnVmLlRpbWVzdGFtcCq5",
+            "BgoFTXNnSWQSEAoMQ1NfUk9PTV9MSVNUEAASEAoMU0NfUk9PTV9MSVNUEAES",
+            "EAoMQ1NfTUFLRV9ST09NEAISEAoMU0NfTUFLRV9ST09NEAMSEQoNQ1NfRU5U",
+            "RVJfUk9PTRAEEhcKE1NDX0FMTE9XX0VOVEVSX1JPT00QBRIeChpTQ19JTkZP",
+            "Uk1fTkVXX0ZBQ0VfSU5fUk9PTRAGEhEKDUNTX0xFQVZFX1JPT00QBxIRCg1T",
+            "Q19MRUFWRV9ST09NEAgSEAoMU0NfUElOR19QT05HEAkSEAoMQ1NfUElOR19Q",
+            "T05HEAoSEQoNRFNDX1BJTkdfUE9ORxALEhEKDUNEU19QSU5HX1BPTkcQDBIf",
+            "ChtDU19DT05ORUNUX0RFRElDQVRFRF9TRVJWRVIQDRIfChtTQ19DT05ORUNU",
+            "X0RFRElDQVRFRF9TRVJWRVIQDhIYChRDRFNfSU5GT1JNX1JPT01fSU5GTxAP",
+            "EhgKFENEU19BTExPV19FTlRFUl9HQU1FEBASGAoURFNDX0FMTE9XX0VOVEVS",
+            "X0dBTUUQERIrCidEU0NfSU5GT1JNX05FV19GQUNFX0lOX0RFRElDQVRFRF9T",
+            "RVJWRVIQEhIlCiFEU0NfSU5GT1JNX0xFQVZFX0RFRElDQVRFRF9TRVJWRVIQ",
+            "ExISCg5EU0NfU1RBUlRfR0FNRRAUEgwKCENEU19NT1ZFEBUSDAoIRFNDX01P",
+            "VkUQFhIXChNEU0NfREFZX1RJTUVSX1NUQVJUEBcSFgoSRFNDX0RBWV9USU1F",
+            "Ul9TWU5DEBgSFQoRRFNDX0RBWV9USU1FUl9FTkQQGRIZChVEU0NfTklHSFRf",
+            "VElNRVJfU1RBUlQQGhIYChREU0NfTklHSFRfVElNRVJfU1lOQxAbEhcKE0RT",
+            "Q19OSUdIVF9USU1FUl9FTkQQHBIXChNEU0NfTkVXX0NIRVNUU19JTkZPEB0S",
+            "FgoSQ0RTX1RSWV9DSEVTVF9PUEVOEB4SGgoWRFNDX0NIRVNUX09QRU5fU1VD",
+            "Q0VTUxAfEhkKFUNEU19SRVFVRVNUX1RJTUVTVEFNUBAgEhoKFkRTQ19SRVNQ",
+            "T05TRV9USU1FU1RBTVAQISpbCg5SZWFzb25SZWplY3RlZBIQCgxSb29tTm90",
+            "RXhpc3QQABIUChBDdXJyZW50bHlQbGF5aW5nEAESDgoKUm9vbUlzRnVsbBAC",
+            "EhEKDVdyb25nUGFzc3dvcmQQA0IbqgIYR29vZ2xlLlByb3RvYnVmLlByb3Rv",
+            "Y29sYgZwcm90bzM="));
       descriptor = pbr::FileDescriptor.FromGeneratedCode(descriptorData,
           new pbr::FileDescriptor[] { global::Google.Protobuf.WellKnownTypes.TimestampReflection.Descriptor, },
           new pbr::GeneratedClrTypeInfo(new[] {typeof(global::Google.Protobuf.Protocol.MsgId), typeof(global::Google.Protobuf.Protocol.ReasonRejected), }, null, new pbr::GeneratedClrTypeInfo[] {
@@ -134,7 +138,9 @@ namespace Google.Protobuf.Protocol {
             new pbr::GeneratedClrTypeInfo(typeof(global::Google.Protobuf.Protocol.DSC_Move), global::Google.Protobuf.Protocol.DSC_Move.Parser, new[]{ "PlayerId", "GhostTransform", "KeyboardInput", "PlayerRotation" }, null, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::Google.Protobuf.Protocol.DSC_NewChestsInfo), global::Google.Protobuf.Protocol.DSC_NewChestsInfo.Parser, new[]{ "ChestsInfo" }, null, null, null, new pbr::GeneratedClrTypeInfo[] { null, }),
             new pbr::GeneratedClrTypeInfo(typeof(global::Google.Protobuf.Protocol.CDS_TryChestOpen), global::Google.Protobuf.Protocol.CDS_TryChestOpen.Parser, new[]{ "MyDediplayerId", "ChestId" }, null, null, null, null),
-            new pbr::GeneratedClrTypeInfo(typeof(global::Google.Protobuf.Protocol.DSC_ChestOpenSuccess), global::Google.Protobuf.Protocol.DSC_ChestOpenSuccess.Parser, new[]{ "ChestId", "PlayerId" }, null, null, null, null)
+            new pbr::GeneratedClrTypeInfo(typeof(global::Google.Protobuf.Protocol.DSC_ChestOpenSuccess), global::Google.Protobuf.Protocol.DSC_ChestOpenSuccess.Parser, new[]{ "ChestId", "PlayerId" }, null, null, null, null),
+            new pbr::GeneratedClrTypeInfo(typeof(global::Google.Protobuf.Protocol.CDS_RequestTimestamp), global::Google.Protobuf.Protocol.CDS_RequestTimestamp.Parser, null, null, null, null, null),
+            new pbr::GeneratedClrTypeInfo(typeof(global::Google.Protobuf.Protocol.DSC_ResponseTimestamp), global::Google.Protobuf.Protocol.DSC_ResponseTimestamp.Parser, new[]{ "Timestamp" }, null, null, null, null)
           }));
     }
     #endregion
@@ -231,6 +237,14 @@ namespace Google.Protobuf.Protocol {
     ///데디서버가 모든 클라에게 상자 열기 성공 결과 전달
     /// </summary>
     [pbr::OriginalName("DSC_CHEST_OPEN_SUCCESS")] DscChestOpenSuccess = 31,
+    /// <summary>
+    ///클라가 데디서버에게 타임스탬프 요청
+    /// </summary>
+    [pbr::OriginalName("CDS_REQUEST_TIMESTAMP")] CdsRequestTimestamp = 32,
+    /// <summary>
+    ///데디서버가 클라에게 타임스탬프 응답
+    /// </summary>
+    [pbr::OriginalName("DSC_RESPONSE_TIMESTAMP")] DscResponseTimestamp = 33,
   }
 
   public enum ReasonRejected {
@@ -5402,6 +5416,242 @@ namespace Google.Protobuf.Protocol {
           }
           case 16: {
             PlayerId = input.ReadInt32();
+            break;
+          }
+        }
+      }
+    }
+
+  }
+
+  public sealed partial class CDS_RequestTimestamp : pb::IMessage<CDS_RequestTimestamp> {
+    private static readonly pb::MessageParser<CDS_RequestTimestamp> _parser = new pb::MessageParser<CDS_RequestTimestamp>(() => new CDS_RequestTimestamp());
+    private pb::UnknownFieldSet _unknownFields;
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public static pb::MessageParser<CDS_RequestTimestamp> Parser { get { return _parser; } }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public static pbr::MessageDescriptor Descriptor {
+      get { return global::Google.Protobuf.Protocol.ProtocolReflection.Descriptor.MessageTypes[32]; }
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    pbr::MessageDescriptor pb::IMessage.Descriptor {
+      get { return Descriptor; }
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public CDS_RequestTimestamp() {
+      OnConstruction();
+    }
+
+    partial void OnConstruction();
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public CDS_RequestTimestamp(CDS_RequestTimestamp other) : this() {
+      _unknownFields = pb::UnknownFieldSet.Clone(other._unknownFields);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public CDS_RequestTimestamp Clone() {
+      return new CDS_RequestTimestamp(this);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public override bool Equals(object other) {
+      return Equals(other as CDS_RequestTimestamp);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public bool Equals(CDS_RequestTimestamp other) {
+      if (ReferenceEquals(other, null)) {
+        return false;
+      }
+      if (ReferenceEquals(other, this)) {
+        return true;
+      }
+      return Equals(_unknownFields, other._unknownFields);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public override int GetHashCode() {
+      int hash = 1;
+      if (_unknownFields != null) {
+        hash ^= _unknownFields.GetHashCode();
+      }
+      return hash;
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public override string ToString() {
+      return pb::JsonFormatter.ToDiagnosticString(this);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public void WriteTo(pb::CodedOutputStream output) {
+      if (_unknownFields != null) {
+        _unknownFields.WriteTo(output);
+      }
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public int CalculateSize() {
+      int size = 0;
+      if (_unknownFields != null) {
+        size += _unknownFields.CalculateSize();
+      }
+      return size;
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public void MergeFrom(CDS_RequestTimestamp other) {
+      if (other == null) {
+        return;
+      }
+      _unknownFields = pb::UnknownFieldSet.MergeFrom(_unknownFields, other._unknownFields);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public void MergeFrom(pb::CodedInputStream input) {
+      uint tag;
+      while ((tag = input.ReadTag()) != 0) {
+        switch(tag) {
+          default:
+            _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, input);
+            break;
+        }
+      }
+    }
+
+  }
+
+  public sealed partial class DSC_ResponseTimestamp : pb::IMessage<DSC_ResponseTimestamp> {
+    private static readonly pb::MessageParser<DSC_ResponseTimestamp> _parser = new pb::MessageParser<DSC_ResponseTimestamp>(() => new DSC_ResponseTimestamp());
+    private pb::UnknownFieldSet _unknownFields;
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public static pb::MessageParser<DSC_ResponseTimestamp> Parser { get { return _parser; } }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public static pbr::MessageDescriptor Descriptor {
+      get { return global::Google.Protobuf.Protocol.ProtocolReflection.Descriptor.MessageTypes[33]; }
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    pbr::MessageDescriptor pb::IMessage.Descriptor {
+      get { return Descriptor; }
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public DSC_ResponseTimestamp() {
+      OnConstruction();
+    }
+
+    partial void OnConstruction();
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public DSC_ResponseTimestamp(DSC_ResponseTimestamp other) : this() {
+      timestamp_ = other.timestamp_ != null ? other.timestamp_.Clone() : null;
+      _unknownFields = pb::UnknownFieldSet.Clone(other._unknownFields);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public DSC_ResponseTimestamp Clone() {
+      return new DSC_ResponseTimestamp(this);
+    }
+
+    /// <summary>Field number for the "timestamp" field.</summary>
+    public const int TimestampFieldNumber = 1;
+    private global::Google.Protobuf.WellKnownTypes.Timestamp timestamp_;
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public global::Google.Protobuf.WellKnownTypes.Timestamp Timestamp {
+      get { return timestamp_; }
+      set {
+        timestamp_ = value;
+      }
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public override bool Equals(object other) {
+      return Equals(other as DSC_ResponseTimestamp);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public bool Equals(DSC_ResponseTimestamp other) {
+      if (ReferenceEquals(other, null)) {
+        return false;
+      }
+      if (ReferenceEquals(other, this)) {
+        return true;
+      }
+      if (!object.Equals(Timestamp, other.Timestamp)) return false;
+      return Equals(_unknownFields, other._unknownFields);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public override int GetHashCode() {
+      int hash = 1;
+      if (timestamp_ != null) hash ^= Timestamp.GetHashCode();
+      if (_unknownFields != null) {
+        hash ^= _unknownFields.GetHashCode();
+      }
+      return hash;
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public override string ToString() {
+      return pb::JsonFormatter.ToDiagnosticString(this);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public void WriteTo(pb::CodedOutputStream output) {
+      if (timestamp_ != null) {
+        output.WriteRawTag(10);
+        output.WriteMessage(Timestamp);
+      }
+      if (_unknownFields != null) {
+        _unknownFields.WriteTo(output);
+      }
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public int CalculateSize() {
+      int size = 0;
+      if (timestamp_ != null) {
+        size += 1 + pb::CodedOutputStream.ComputeMessageSize(Timestamp);
+      }
+      if (_unknownFields != null) {
+        size += _unknownFields.CalculateSize();
+      }
+      return size;
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public void MergeFrom(DSC_ResponseTimestamp other) {
+      if (other == null) {
+        return;
+      }
+      if (other.timestamp_ != null) {
+        if (timestamp_ == null) {
+          Timestamp = new global::Google.Protobuf.WellKnownTypes.Timestamp();
+        }
+        Timestamp.MergeFrom(other.Timestamp);
+      }
+      _unknownFields = pb::UnknownFieldSet.MergeFrom(_unknownFields, other._unknownFields);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public void MergeFrom(pb::CodedInputStream input) {
+      uint tag;
+      while ((tag = input.ReadTag()) != 0) {
+        switch(tag) {
+          default:
+            _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, input);
+            break;
+          case 10: {
+            if (timestamp_ == null) {
+              Timestamp = new global::Google.Protobuf.WellKnownTypes.Timestamp();
+            }
+            input.ReadMessage(Timestamp);
             break;
           }
         }

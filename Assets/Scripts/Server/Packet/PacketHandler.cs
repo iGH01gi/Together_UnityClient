@@ -254,4 +254,15 @@ public class PacketHandler
             Managers.Object.OnOtherPlayerOpenChestSuccess(chestId, playerId);
         }
     }
+    
+    //데디케이티드서버로부터 타임스탬프를 받았을때의 처리
+    public static void DSC_ResponseTimestampHandler(PacketSession session, IMessage packet)
+    {
+        DSC_ResponseTimestamp responseTimestampPacket = packet as DSC_ResponseTimestamp;
+        DedicatedServerSession dedicatedServerSession = session as DedicatedServerSession;
+        
+        Debug.Log("DSC_ResponseTimestampHandler");
+        
+        Managers.Time.OnRecvDediServerTimeStamp(responseTimestampPacket);
+    }
 }
