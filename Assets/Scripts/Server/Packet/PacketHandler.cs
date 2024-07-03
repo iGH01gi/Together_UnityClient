@@ -16,7 +16,6 @@ public class PacketHandler
         Debug.Log($"SC_RoomListHandler, {roomListPacket.Rooms.Count}개의 방 존재");
         
         //방 목록 새로 받은정보로 갱신
-        //TODO : callback함수는 받은 방 정보들로 ui 채워줘야 함. 방 정보들은 RoomManger의 _rooms들의 Info에 채워져있음
         Managers.Room.RefreshRoomList(roomListPacket.Rooms.ToList(), callback: UIPacketHandler.RoomListOnReceivePacket); 
     }
     
@@ -50,12 +49,10 @@ public class PacketHandler
 
         if (allowEnterRoomPacket.CanEnter == true)
         {
-            //TODO : callback함수로 방 입장후 띄울 ui 처리. 필요한 정보는 RoomManger의 _rooms들의 Info와 _players에 채워져있음
             Managers.Room.ProcessEnterRoom(allowEnterRoomPacket, callback: UIPacketHandler.EnterRoomReceivePacket); 
         }
         else
         {
-            //TODO : 방 입장 실패시 처리
             UIPacketHandler.OnReceivePacket();
             Debug.Log(allowEnterRoomPacket.ReasonRejected.ToString());
             if(allowEnterRoomPacket.ReasonRejected==ReasonRejected.RoomIsFull)
@@ -85,7 +82,6 @@ public class PacketHandler
         
         Debug.Log("SC_InformNewFaceInRoomHandler");
         
-        //TODO : callback함수로 새로 들어온 플레이어의 정보를 방 UI에 반영. 필요한 정보는 RoomManger의 _rooms들의 Info와 _players에 채워져있음
         Managers.Room.ProcessNewFaceInRoom(informNewFaceInRoomPacket, callback: UIPacketHandler.NewFaceEnterReceivePacket);
     }
     
@@ -99,12 +95,10 @@ public class PacketHandler
         
         if(leaveRoomPacket.PlayerId == Managers.Player._myRoomPlayer.PlayerId)
         {
-            //TODO : callback함수로 '내'가 방을 나갔을때의 ui 처리
             Managers.Room.ProcessLeaveRoom(leaveRoomPacket, callback: UIPacketHandler.RequestLeaveRoomReceivePacket);
         }
         else
         {
-            //TODO : callback함수로 방에 있는 다른 유저가 나갔을때 띄울 ui 처리
             Managers.Room.ProcessLeaveRoom(leaveRoomPacket, callback: UIPacketHandler.OthersLeftRoomReceivePacket);
         }
     }
@@ -205,8 +199,8 @@ public class PacketHandler
         DedicatedServerSession dedicatedServerSession = session as DedicatedServerSession;
         
         Debug.Log("DSC_StartGameHandler");
-        
-        //TODO: (이 패킷을 받은 클라는  3,2,1 카운트 후 게임을 시작함). 카운트 끝나기 전까지는 아무 입력도 안먹혀야 함.
+        Managers.UI.ClosePopup();
+        Managers.UI.LoadScenePanel("InGameUI");
     }
     
     //데디케이트서버로부터 유저의 움직임을 받았을때의 처리

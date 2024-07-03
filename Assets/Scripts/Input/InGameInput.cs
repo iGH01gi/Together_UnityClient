@@ -61,7 +61,7 @@ public class InGameInput : MonoBehaviour
     {
         float mouseX = Input.GetAxis("Mouse X") * _mouseSensitivity * Time.deltaTime;
         float mouseY = Input.GetAxis("Mouse Y") * _mouseSensitivity * Time.deltaTime;
-        
+
         _rotationX -= mouseY;
         _rotationX = Mathf.Clamp(_rotationX, -70f, _minViewDistance);
         
@@ -76,10 +76,7 @@ public class InGameInput : MonoBehaviour
             _player.transform.localRotation =
                 Quaternion.AngleAxis(Mathf.Atan2(_moveInput.x, _moveInput.y) * Mathf.Rad2Deg, Vector3.up);
         }*/
-        
-        _player.transform.Rotate(3f * -mouseX * Vector3.up); //new code
-        _player.transform.localRotation =
-            Quaternion.AngleAxis(Mathf.Atan2(_moveInput.x, _moveInput.y) * Mathf.Rad2Deg, Vector3.up);
+        //_player.transform.localRotation =Quaternion.AngleAxis(Mathf.Atan2(_moveInput.x, _moveInput.y) * Mathf.Rad2Deg, Vector3.up);
         
         _velocity= CalculateVelocity(_moveInput, _prefab.localRotation);
         _controller.Move(_velocity * Time.deltaTime);
