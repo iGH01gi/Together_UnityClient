@@ -10,19 +10,9 @@ public class OtherDediPlayer : MonoBehaviour
     
     CharacterController _controller;
     public GameObject _ghost;
-    float rotationSpeed = 20f; // 회전 속도를 조절합니다.
     public Vector3 _velocity;
-    bool _isRunning = false;
-    Quaternion _ghostRotation;
-
-    int _runBit = (1 << 4);
-    int _upBit = (1 << 3);
-    int _leftBit = (1 << 2);
-    int _downBit = (1 << 1);
-    int _rightBit = 1;
-
-    static float _walkSpeed = 2f;
-    static float _runSpeed = 3f;
+    public bool _isRunning = false;
+    public Quaternion _targetRotation; //서버에서 받은 목표 회전값. 이 값으로 update문에서 회전시킴
     
     public void Init(int playerId, string name)
     {
@@ -43,8 +33,7 @@ public class OtherDediPlayer : MonoBehaviour
         {
             _ghost = GameObject.Find("Ghost_" + PlayerId);
         }
-
-
+        
         FollowGhost();
     }
 
@@ -55,12 +44,16 @@ public class OtherDediPlayer : MonoBehaviour
     {
         if (_ghost != null)
         {
-            // 목표 방향을 계산합니다.
+            //목표 방향으로 회전합니다.
+            transform.rotation = Quaternion.Slerp(transform.rotation, _targetRotation, Time.deltaTime * 30f);
+            
+            // 목표 방향을 계산합니다. _ghost.transform.position과 transform.position의 높이차는 고려하지 않고 x,z만 고려
             Vector3 directionToGhost = _ghost.transform.position - transform.position;
-            directionToGhost.y = 0;
+            directionToGhost.y = 0; // Y축을 고려하지 않음
 
-            //목표 위치까지 거리가 0.05보다 작으면 도착한것으로 간주
-            if (directionToGhost.magnitude < 0.05f)
+            //목표 위치까지 거리가 beta보다 작으면 도착한것으로 간주하고 멈춤
+            float beta = 0.05f;
+            if (directionToGhost.magnitude < beta)
             {
                 _velocity = Vector3.zero;
                 _controller.Move(_velocity);
@@ -71,36 +64,17 @@ public class OtherDediPlayer : MonoBehaviour
             _velocity = directionToGhost.normalized;
             if (_isRunning)
             {
-                _velocity *= _runSpeed;
+                _velocity *= Managers.Player._syncMoveCtonroller._runSpeed;
             }
             else
             {
-                _velocity *= _walkSpeed;
+                _velocity *= Managers.Player._syncMoveCtonroller._walkSpeed;
             }
             
-            
-            if (!_controller.isGrounded)
-            {
-                _velocity.y = -10f;
-            }
+            _velocity.y = -10f; //중력 같은 효과
             
             _controller.Move(_velocity * Time.deltaTime);
         }
     }
 
-    public void SetGhostLastState(int keyboardInput, Quaternion localRotation)
-    {
-        Vector2 moveInputVector = new Vector2();
-
-        if ((keyboardInput & _runBit) != 1)
-        {
-            _isRunning = true;
-        }
-        else
-        {
-            _isRunning = false;
-        }
-        
-        _ghostRotation = localRotation;
-    }
 }

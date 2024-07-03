@@ -13,6 +13,7 @@ public class TimeManager
     private TimeSpan _sampleRTT; //방금 측정된 RTT
     private float _alpha; //EWMA의 alpha값
 
+    //이건 데디서버에 연결되고 나서 실행되야 하므로, DediServer OnConnected에서 호출해야함
     public void Init()
     {
         _dediserverClientTimeDelta = TimeSpan.Zero;
@@ -32,7 +33,7 @@ public class TimeManager
     public void RequestDediTimeStamp()
     {
         //RTT 측정 시작
-        _rttStartTime = DateTime.Now;
+        _rttStartTime = DateTime.UtcNow;
         
         //데디서버에게 타임스탬프 요청 패킷을 보냄
         CDS_RequestTimestamp requestTimestampPacket = new CDS_RequestTimestamp();
@@ -50,7 +51,7 @@ public class TimeManager
     public void OnRecvDediServerTimeStamp(DSC_ResponseTimestamp packet)
     {
         //RTT 측정 종료
-        _rttEndTime = DateTime.Now;
+        _rttEndTime = DateTime.UtcNow;
         _sampleRTT = _rttEndTime - _rttStartTime;
         
         //EWMA를 이용하여 추정 RTT를 구함
@@ -80,6 +81,6 @@ public class TimeManager
     /// <returns></returns>
     public DateTime GetDediServerTime()
     {
-        return DateTime.Now + _dediserverClientTimeDelta;
+        return DateTime.UtcNow + _dediserverClientTimeDelta;
     }
 }

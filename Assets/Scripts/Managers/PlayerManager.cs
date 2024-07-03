@@ -1,6 +1,8 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using Google.Protobuf.Protocol;
+using Google.Protobuf.WellKnownTypes;
 using UnityEngine;
 
 /// <summary>
@@ -8,6 +10,8 @@ using UnityEngine;
 /// </summary>
 public class PlayerManager
 {
+    public SyncMoveCtonroller _syncMoveCtonroller = new SyncMoveCtonroller();
+    
     public MyRoomPlayer _myRoomPlayer; //내 룸서버 플레이어
     public Dictionary<int, RoomPlayer> _otherRoomPlayers = new Dictionary<int, RoomPlayer>(); //다른 룸서버 플레이어들 (key: playerId, value: 플레이어 정보)
     
@@ -19,7 +23,12 @@ public class PlayerManager
     public string _tempMyPlayerPrefabPath = "Player/MyPlayer";
     public string _tempOtherPlayerPrefabPath = "Player/OtherPlayer";
     public string _tempTargetGhost = "Player/TargetGhost";
-
+    
+    public void Init()
+    {
+        if(_syncMoveCtonroller == null)
+            _syncMoveCtonroller = new SyncMoveCtonroller();
+    }
     
     public void Clear()
     {
@@ -56,7 +65,6 @@ public class PlayerManager
         }
         _ghosts.Clear();
     }
-    
     
     
     /// <summary>
@@ -128,51 +136,6 @@ public class PlayerManager
     }
 
 
-    /// <summary>
-    /// 다른 플레이어의 움직임을 동기화 (정확히는 고스트를 데디서버와 동기화시킴)
-    /// </summary>
-    /// <param name="playerId"></param>
-    /// <param name="transformInfo"></param>
-    /// <param name="keyboardInput"></param>
-    public void SyncOtherPlayerMove(DSC_Move movePacket)
-    {
-        int playerId = movePacket.PlayerId;
-        TransformInfo ghostTransformInfo = movePacket.GhostTransform;
-        int keyboardInput = movePacket.KeyboardInput;
-        RotationInfo playerRotation = movePacket.PlayerRotation;
-
-        if (playerId == _myDediPlayerId)
-            return; //내 플레이어는 처리하지 않음
-        
-        if (_ghosts.TryGetValue(playerId, out GameObject ghostObj))
-        {
-            float posX = ghostTransformInfo.Position.PosX;
-            float posY = ghostTransformInfo.Position.PosY;
-            float posZ = ghostTransformInfo.Position.PosZ;
-            float rotX = ghostTransformInfo.Rotation.RotX;
-            float rotY = ghostTransformInfo.Rotation.RotY;
-            float rotZ = ghostTransformInfo.Rotation.RotZ;
-            float rotW = ghostTransformInfo.Rotation.RotW;
-            Quaternion localRotation = new Quaternion(rotX, rotY, rotZ, rotW);
-
-            CharacterController ghostController = ghostObj.GetComponent<CharacterController>();
-            ghostController.transform.position = new Vector3(posX, posY, posZ); //고스트 위치 순간이동
-            ghostObj.transform.rotation = new Quaternion(rotX, rotY, rotZ, rotW); //고스트 회전
-
-            ghostObj.GetComponent<Ghost>().CalculateVelocity(keyboardInput, localRotation);
-            if (_otherDediPlayers.TryGetValue(playerId, out GameObject playerObj))
-            {
-                playerObj.GetComponent<OtherDediPlayer>().SetGhostLastState(keyboardInput, localRotation);
-                
-                //플레이어 회전정보 동기화
-                float playerRotX = playerRotation.RotX;
-                float playerRotY = playerRotation.RotY;
-                float playerRotZ = playerRotation.RotZ;
-                float playerRotW = playerRotation.RotW;
-                playerObj.transform.rotation = new Quaternion(playerRotX, playerRotY, playerRotZ, playerRotW);
-            }
-        }
-    }
     
 
 }

@@ -1,5 +1,6 @@
 using System;
 using Google.Protobuf.Protocol;
+using Google.Protobuf.WellKnownTypes;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -24,7 +25,7 @@ public class InGameInput : MonoBehaviour
     CharacterController _controller;
     private Transform _camera;
     private Transform _player;
-    private Transform _prefab;
+    private Transform _prefab; //얘가 프리팹 본체
 
     public static bool _isRunning = false;
     private void ChangeAnim()
@@ -87,17 +88,16 @@ public class InGameInput : MonoBehaviour
 
     void SendMove()
     {
-        //서버로 데디플레이어id, 현재 transform정보(고스트에서 사용), 누른 키, 플레이어 회전정보를 보냄
         CDS_Move packet = new CDS_Move();
         
-        packet.MyDediplayerId = Managers.Player._myDediPlayerId;
+        packet.DediplayerId = Managers.Player._myDediPlayerId;
         
         TransformInfo ghostTransformInfo = new TransformInfo();
         PositionInfo ghostPositionInfo = new PositionInfo();
         RotationInfo ghostRotationInfo = new RotationInfo();
         
-        Vector3 position = _prefab.position;
-        Quaternion rotation = _prefab.rotation;
+        Vector3 position = _prefab.transform.position;
+        Quaternion rotation = _prefab.transform.rotation;
         ghostPositionInfo.PosX = position.x;
         ghostPositionInfo.PosY = position.y;
         ghostPositionInfo.PosZ = position.z;
@@ -109,11 +109,13 @@ public class InGameInput : MonoBehaviour
         ghostTransformInfo.Position = ghostPositionInfo;
         ghostTransformInfo.Rotation = ghostRotationInfo;
         
-        packet.GhostTransform = ghostTransformInfo;
+        packet.TransformInfo = ghostTransformInfo;
+        Debug.Log($"보내는 패킷의 posY값 : {packet.TransformInfo.Position.PosY}");
         
         int moveBit = 0;
         if (_isRunning)
         {
+            Debug.Log("달리기 키 눌림");
             moveBit |= _runBit;
         }
         if (_moveInput.y > 0.5f) //윗키눌림
@@ -133,18 +135,21 @@ public class InGameInput : MonoBehaviour
             moveBit |= _rightBit;
         }
         packet.KeyboardInput = moveBit;
- 
-        //플레이어 회전정보 (고스트가 아닌 플레이어의 회전정보로 사용)
-        RotationInfo playerRotation = new RotationInfo();
-        playerRotation.RotX = _player.rotation.x;
-        playerRotation.RotY = _player.rotation.y;
-        playerRotation.RotZ = _player.rotation.z;
-        playerRotation.RotW = _player.rotation.w;
-        packet.PlayerRotation = playerRotation;
+
+        //캐릭터컨트롤러를 사용해서 현재 velocity를 구함
+        //packet.Velocity = new Vector3(_velocity.x, _velocity.y, _velocity.z);
+        Vector3 velocityTemp = CalculateVelocity(_moveInput, _prefab.localRotation);
+        Velocity velocity = new Velocity();
+        velocity.X = velocityTemp.x;
+        velocity.Y = velocityTemp.y;
+        velocity.Z = velocityTemp.z;
+        packet.Velocity = velocity;
+
+        packet.Timestamp = Managers.Time.GetDediServerTime().ToTimestamp();
         
         Managers.Network._dedicatedServerSession.Send(packet);
         
-        //20초마다 보냄
+        //초당 20번 보냄
         Managers.Job.Push(SendMove, 50);
     }
 
@@ -156,14 +161,11 @@ public class InGameInput : MonoBehaviour
             velocity = prefabRotation.normalized * new Vector3( moveInputVector.x, 0,  moveInputVector.y) * _runSpeed;
         }
         else
-        {
+        {   
             velocity = prefabRotation.normalized * new Vector3( moveInputVector.x, 0,  moveInputVector.y) * _walkSpeed;
         }
 
-        if (!_controller.isGrounded)
-        {
-            velocity.y = -10f;
-        }
+        velocity.y = -10f;
 
         return velocity;
     }

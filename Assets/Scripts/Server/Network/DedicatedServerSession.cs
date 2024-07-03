@@ -60,6 +60,9 @@ public class DedicatedServerSession : PacketSession
             sendPacket.PlayerNum = Managers.Room.GetMyPlayerRoomPlayerCount();
             Send(sendPacket);
         }
+        
+        //데디서버와 시간 동기화를 시작함
+        Managers.Time.Init();
     }
     
     public override void OnDisconnected(EndPoint endPoint)

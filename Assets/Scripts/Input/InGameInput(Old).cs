@@ -28,7 +28,7 @@ public class InGameInputOld : MonoBehaviour
 
     private Transform camera;
     private Transform player;
-    private Transform prefab;
+    private Transform prefab; //얘가 프리팹 본체
     private Rigidbody rb;
 
     public static bool isRunning = false;
@@ -98,7 +98,7 @@ public class InGameInputOld : MonoBehaviour
         //서버로 현재위치,쿼터니언의 4개의 부동소수점 값, 누른 키, utc타임 정보를 보냄
         CDS_Move packet = new CDS_Move();
         
-        packet.MyDediplayerId = Managers.Player._myDediPlayerId;
+        packet.DediplayerId = Managers.Player._myDediPlayerId;
         
         TransformInfo transformInfo = new TransformInfo();
         Vector3 position = prefab.position;
@@ -110,7 +110,7 @@ public class InGameInputOld : MonoBehaviour
         transformInfo.Rotation.RotY = rotation.y;
         transformInfo.Rotation.RotZ = rotation.z;
         transformInfo.Rotation.RotW = rotation.w;
-        packet.GhostTransform = transformInfo;
+        packet.TransformInfo = transformInfo;
         
         int moveBit = 0;
         if (isRunning)
@@ -134,14 +134,6 @@ public class InGameInputOld : MonoBehaviour
             moveBit |= _rightBit;
         }
         packet.KeyboardInput = moveBit;
-        
-        //플레이어 회전정보 (고스트가 아닌 플레이어의 회전정보로 사용)
-        RotationInfo playerRotation = new RotationInfo();
-        playerRotation.RotX = player.rotation.x;
-        playerRotation.RotY = player.rotation.y;
-        playerRotation.RotZ = player.rotation.z;
-        playerRotation.RotW = player.rotation.w;
-        packet.PlayerRotation = playerRotation;
         
         Managers.Network._dedicatedServerSession.Send(packet);
         
