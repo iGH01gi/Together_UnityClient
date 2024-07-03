@@ -11,7 +11,8 @@ public class UI_popup : UI_base
         CreateRoom,
         Alert,
         ProgressPopup,
-        SettingsPopup
+        SettingsPopup,
+        WairForSecondsPopup
     }
     
     protected void ClosePopup()

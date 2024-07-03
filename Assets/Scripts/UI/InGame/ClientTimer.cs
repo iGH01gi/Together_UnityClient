@@ -32,9 +32,10 @@ public class ClientTimer : MonoBehaviour
     ////서버 관련 함수/////
     
     // 라운드 시작 패킷 받을 시, 라운드 시간을 변수로 콜
-    public static void Init(int newTimeToSet)
+    public void Init(int newTimeToSet)
     {
         clientTimerValue = newTimeToSet;
+        UpdateTimerUI();
         timerCountdownActivator.enabled = true;
     }
 

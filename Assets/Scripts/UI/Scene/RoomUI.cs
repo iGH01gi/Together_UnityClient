@@ -9,33 +9,59 @@ public class RoomUI : UI_scene
     // Start is called before the first frame update
     private GameRoom thisRoom;
     GameObject myPlayer;
+    GameObject readyButton;
+    GameObject startGameButton;
 
     private enum Buttons
     {
         BackToLobbyButton,
+        //TempGameStart,
+        RefreshButton,
         ReadyButton,
-        TempGameStart,
-        RefreshButton
+        StartGame
     }
 
     void Start()
     {
-        InitButtons<Buttons>(gameObject);
         thisRoom = Managers.Player._myRoomPlayer.Room;
+        InitButtons<Buttons>(gameObject);
+        readyButton = transform.Find("ReadyButton").gameObject;
+        startGameButton = transform.Find("StartGame").gameObject;
         GetPlayerList();
+    }
+    
+    public void ButtonIfMaster()
+    {
+        if (Managers.Room.IsMyPlayerMaster())
+        {
+            Debug.Log("Master eyyyy");
+           readyButton.SetActive(false);
+            startGameButton.SetActive(true);
+        }
+        else
+        { 
+            Debug.Log("Not Master");
+            startGameButton.SetActive(false);
+            readyButton.SetActive(true);
+        }
     }
 
     public void GetPlayerList()
     {
-        Transform PlayersPanel = transform.GetChild(4);
+        Transform PlayersPanel = transform.Find("PlayersPanel");
         ClearPlayerListPanel(PlayersPanel);
         foreach (var current in thisRoom._players)
         {
             GameObject currentPlayer = Managers.Resource.Instantiate("UI/Subitem/PlayerInRoom");
             currentPlayer.transform.SetParent(PlayersPanel);
             currentPlayer.GetComponent<PlayerInRoom>().Init(current);
+            if (!Managers.Room.IsMaster(thisRoom.Info.RoomId, current.PlayerId))
+            {
+                currentPlayer.transform.Find("MasterIcon").gameObject.SetActive(false);
+            }
             if (current.PlayerId == Managers.Player._myRoomPlayer.PlayerId)
             {
+                ButtonIfMaster();
                 myPlayer = currentPlayer;
             }
         }
@@ -64,7 +90,8 @@ public class RoomUI : UI_scene
         GetPlayerList();
     }
 
-    void TempGameStart()
+    //레디 상태인지 확인 가능 할 시 추가
+    public void StartGame()
     {
         //Implement Game start
         Debug.Log("겜시작버튼 눌림");
