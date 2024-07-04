@@ -30,18 +30,20 @@ public class InGameInput : MonoBehaviour
     public static bool _isRunning = false;
     private void ChangeAnim()
     {
-        _player.GetComponent<PlayerAnimController>().PlayAnim(_moveInput,_isRunning);
+        _player.GetComponent<PlayerAnimController>().PlayAnim();
     }
     
     void OnMove(InputValue value)
     {
         _moveInput = value.Get<Vector2>();
+        PlayerAnimController.isWalking = _moveInput.magnitude > 0;
         ChangeAnim();
     }
 
     void OnRun(InputValue value)
     {
         _isRunning = value.isPressed;
+        PlayerAnimController.isWalking = _isRunning;
         ChangeAnim();
     }
 
