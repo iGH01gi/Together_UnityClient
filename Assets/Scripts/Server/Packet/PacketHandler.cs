@@ -55,6 +55,7 @@ public class PacketHandler
         {
             UIPacketHandler.OnReceivePacket();
             Debug.Log(allowEnterRoomPacket.ReasonRejected.ToString());
+            //거부된 이유에 해당하는 팝업 띄우기
             if(allowEnterRoomPacket.ReasonRejected==ReasonRejected.RoomIsFull)
             {
                 Managers.UI.LoadPopupPanel<RoomIsFull>();
@@ -199,8 +200,8 @@ public class PacketHandler
         DedicatedServerSession dedicatedServerSession = session as DedicatedServerSession;
         
         Debug.Log("DSC_StartGameHandler");
-        Managers.UI.ClosePopup();
-        Managers.UI.LoadScenePanel("InGameUI");
+        Managers.UI.ClosePopup(); //현재 띄워져 있는 progressPopup을 닫는다
+        Managers.UI.LoadScenePanel("InGameUI"); //Timer를 포함한 인게임UI 부르기.
     }
     
     //데디케이트서버로부터 유저의 움직임을 받았을때의 처리

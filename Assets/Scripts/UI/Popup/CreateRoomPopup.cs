@@ -3,6 +3,9 @@ using System.Collections.Generic;
 using Google.Protobuf.Protocol;
 using UnityEngine;
 
+/// <summary>
+/// 방 생성 팝업
+/// </summary>
 public class CreateRoomPopup : UI_popup
 {
     private UI_InputField _roomName;
