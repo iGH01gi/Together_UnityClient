@@ -153,7 +153,7 @@ public class SyncMoveCtonroller
     public TransformInfo DeadReckoning(DateTime pastDateTime, TransformInfo pastTransform, Vector3 pastVelocity)
     {
         //현재 DateTime과 과거 DateTime의 차이를 구함
-        TimeSpan timeSpan = DateTime.Now - pastDateTime;
+        TimeSpan timeSpan = DateTime.UtcNow - pastDateTime;
         
         //단순 시간계산만으로 위치를 예측하면 끊기듯이 이동하기 때문에 보정을 이용해 더 이동해줘야 함
         float alpha = 1.3f;
