@@ -4,6 +4,9 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
+/// <summary>
+/// 모든 UI_scene의 상위 클래스.
+/// </summary>
 public abstract class UI_scene : UI_base
 {
     public enum SceneUIType
@@ -18,6 +21,9 @@ public abstract class UI_scene : UI_base
         Managers.UI.LoadScenePanel(sceneUIType.ToString());
     }
 
+    /// <summary>
+    /// 씬 안에 모든 버튼들을 해당 버튼의 함수와 매칭하는 함수. PrefabName = ButtonName = 함수명
+    /// </summary>
     protected void InitButtons<T>(GameObject go,bool initiate = false) where T : Enum
     {
         foreach (string buttonName in Enum.GetNames(typeof(T)))

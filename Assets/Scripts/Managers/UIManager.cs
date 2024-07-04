@@ -7,6 +7,9 @@ using UnityEngine.EventSystems;
 using UnityEngine.UI;
 using Object = UnityEngine.Object;
 
+/// <summary>
+/// 인게임의 모든 UI를 관리하는 매니져
+/// </summary>
 public class UIManager
 {
     public static int order = 0;
@@ -20,7 +23,10 @@ public class UIManager
     public static GameObject sceneUI;
     
     public GameObject SceneUI { get { return sceneUI; } }
-
+    
+    /// <summary>
+    /// UI들의 Parent가 될 Root가 없으면 생성.
+    /// </summary>
     public void Init()
     {
         root = GameObject.Find("@UI_Root");
@@ -36,6 +42,11 @@ public class UIManager
         }
     }
     
+    /// <summary>
+    /// 씬패널 로드 함수 (씬!=Unity Scene. 같은 로비 씬 내에서도 로비, 룸 등 여러 씬패널이 있다)
+    /// *** ScenePanel Prefab명과 동일한 SceneUI 클래스가 존재해야한다. 그 클래스가 씬패널의 기능을 담당한다.***
+    /// 씬 패널은 하나만 존재한다. 다른 씬패널이 불려오면 기존 씬패널은 Destroy 된다.
+    /// </summary>
     public void LoadScenePanel(string sceneUIType)
     {
         if (sceneUI != null)
@@ -44,14 +55,22 @@ public class UIManager
         }
 
         sceneUI = Managers.Resource.Instantiate($"UI/Scene/{sceneUIType}", root.transform);
-        sceneUI.AddComponent(Type.GetType(sceneUIType));
+        sceneUI.AddComponent(Type.GetType(sceneUIType)); //동일한 이름의 클래스 부착
     }
+    
+    /// <summary>
+    /// 팝업을 생성한다.
+    /// *** 생성하는 Popup Prefab명과 동일한 popup 클래스가 존재해야한다. 그 클래스가 해당 팝업의 기능을 담당한다.***
+    /// </summary>
+    /// <param name="isBase">단독 popup이면 true, 상위 팝업 틀이 존재하면 false</param>
+    /// <param name="popupInteractableOnly">해당 팝업만 interactable하면 true, 다른 팝업 밑 ui 패널들도 interactable하면 false</param>
 
-    public T LoadPopupPanel<T>(bool isBase = false,bool popupIteractableOnly = true) where T: UI_popup
+    public T LoadPopupPanel<T>(bool isBase = false,bool popupInteractableOnly = true) where T: UI_popup
     {
         GameObject popup;
         
-        if (popupIteractableOnly)
+        //만약 해당 popup만 interactable하면 다른 팝업과의 interaction을 막기 위해 뒤에 패널 하나를 생성
+        if (popupInteractableOnly)
         {
             _popupLinkedList.AddLast(Managers.Resource.Instantiate($"UI/Subitem/Panel", root.transform));
         }
@@ -67,10 +86,14 @@ public class UIManager
         
         _popupLinkedList.AddLast(popup);
             
-        popup.AddComponent(typeof(T));
+        popup.AddComponent(typeof(T)); //동일한 이름의 클래스 부착
         return popup.GetComponent<T>();
     }
 
+    /// <summary>
+    /// 제일 상위 팝업을 닫는다.
+    /// *** 만약 popupinteractableonly 팝업으로 뒤에 패널이 같이 생성됐다면 그 패널도 destroy 한다.***
+    /// </summary>
     public void ClosePopup(GameObject gameObject = null)
     {
         if (!PopupActive())
@@ -108,6 +131,9 @@ public class UIManager
         EventSystem.current.firstSelectedGameObject = go;
     }
 
+    /// <summary>
+    /// 모든 UI를 삭제한다.
+    /// </summary>
     public void Clear()
     {
         if (sceneUI != null)

@@ -6,6 +6,9 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.UI;
 
+/// <summary>
+/// 카운트 다운 팝업 (전체화면) 현재로써는 3초 고정.
+/// </summary>
 public class WairForSecondsPopup : UI_popup
 {
     IEnumerator Start()
