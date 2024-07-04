@@ -76,10 +76,24 @@ public class RoomUI : UI_scene
     {
         if (myPlayer.transform.GetChild(1).gameObject.activeSelf)
         {
+            //준비완료 -> 준비취소
+            CS_ReadyRoom readyRoomPacket = new CS_ReadyRoom();
+            readyRoomPacket.RoomId = thisRoom.Info.RoomId;
+            readyRoomPacket.PlayerId = Managers.Player._myRoomPlayer.PlayerId;
+            readyRoomPacket.IsReady = false;
+            Managers.Network._roomSession.Send(readyRoomPacket);
+            
             myPlayer.transform.GetChild(1).gameObject.SetActive(false);
         }
         else
         {
+            //준비x -> 준비완료
+            CS_ReadyRoom readyRoomPacket = new CS_ReadyRoom();
+            readyRoomPacket.RoomId = thisRoom.Info.RoomId;
+            readyRoomPacket.PlayerId = Managers.Player._myRoomPlayer.PlayerId;
+            readyRoomPacket.IsReady = true;
+            Managers.Network._roomSession.Send(readyRoomPacket);
+            
             myPlayer.transform.GetChild(1).gameObject.SetActive(true);
             Managers.Sound.Play("Effects/interface");
         }
