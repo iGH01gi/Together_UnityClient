@@ -6,7 +6,6 @@ using UnityEngine;
 
 public class RoomUI : UI_scene
 {
-    // Start is called before the first frame update
     private GameRoom thisRoom;
     GameObject myPlayer;
     GameObject readyButton;
@@ -30,22 +29,24 @@ public class RoomUI : UI_scene
         GetPlayerList();
     }
     
+    //만약 방장이라면 StartGameButton을, 아니라면 ReadyButton
     public void ButtonIfMaster()
     {
         if (Managers.Room.IsMyPlayerMaster())
         {
-            Debug.Log("Master eyyyy");
            readyButton.SetActive(false);
             startGameButton.SetActive(true);
         }
         else
         { 
-            Debug.Log("Not Master");
             startGameButton.SetActive(false);
             readyButton.SetActive(true);
         }
     }
 
+    /// <summary>
+    /// 플레이어에 대한 PlayerInRoom 생성. 방장 표시 포함.
+    /// </summary>
     public void GetPlayerList()
     {
         Transform PlayersPanel = transform.Find("PlayersPanel");
@@ -90,10 +91,10 @@ public class RoomUI : UI_scene
         GetPlayerList();
     }
 
-    //레디 상태인지 확인 가능 할 시 추가
+    
     public void StartGame()
     {
-        //Implement Game start
+        //TODO: 모든 플레이어가 Ready일 시 시작하도록 수정
         Debug.Log("겜시작버튼 눌림");
         CS_ConnectDedicatedServer sendPacket = new CS_ConnectDedicatedServer();
         sendPacket.RoomId = thisRoom.Info.RoomId;

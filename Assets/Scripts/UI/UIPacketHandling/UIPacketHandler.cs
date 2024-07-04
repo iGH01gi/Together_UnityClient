@@ -6,12 +6,19 @@ using UnityEngine;
 public class UIPacketHandler
 {
     private GameObject go;
+    
+    /// <summary>
+    /// 특정 패킷을 기다릴 때 모든 인풋을 막은 후에 progress popup을 띄운다.
+    /// </summary>
     public static void WaitForPacket()
     {
         Managers.Input.DisableInput();
         Managers.UI.LoadPopupPanel<ProgressPopup>(true);
     }
 
+    /// <summary>
+    /// 패킷을 받았을 시에 Progress Popup을 지우고 다시 인풋을 받는다.
+    /// </summary>
     public static void OnReceivePacket()
     {
         Managers.UI.ClosePopup();

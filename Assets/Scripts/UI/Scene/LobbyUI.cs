@@ -5,6 +5,9 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
+/// <summary>
+/// 모든 룸들을 볼 수 있는 로비 씬 UI
+/// </summary>
 public class LobbyUI : UI_scene
 {
     static int currentPage;
@@ -65,14 +68,16 @@ public class LobbyUI : UI_scene
         UIPacketHandler.RoomListSendPacket();
     }
 
+    //페이지 넘버 업데이트
     private void DisplayPageNumber()
     {
         pageText.text = $"{currentPage}/{maxPage}";
     }
 
+    //현재 페이지에 해당하는 룸들 띄우기.
     public void ShowPage()
     {
-        maxPage = (_gameRooms.Count + roomsPerPage - 1) / roomsPerPage;
+        maxPage = Math.Max(1,(_gameRooms.Count + roomsPerPage - 1) / roomsPerPage);
         DisplayPageNumber();
         CheckForButtonActivation();
         ClearRoomListPanel();
@@ -84,6 +89,7 @@ public class LobbyUI : UI_scene
         }
     }
 
+    //룸 리스트를 다시 불러온다.
     public void ReceiveNewRoomList()
     {
         currentPage = 1;
@@ -96,12 +102,14 @@ public class LobbyUI : UI_scene
         ShowPage();
     }
 
+    //페이지 좌 우 이동 버튼이 활성화 되어야 하는지 확인
     void CheckForButtonActivation()
     {
         leftPageButton.Activation((currentPage>1));
         rightPageButton.Activation((maxPage - currentPage) > 0);
     }
 
+    //모든 룸 UI들을 삭제
     void ClearRoomListPanel()
     {
         foreach (Transform child in roomsPanel)
