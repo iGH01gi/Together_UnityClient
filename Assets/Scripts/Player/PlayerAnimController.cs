@@ -6,36 +6,26 @@ using UnityEngine;
 public class PlayerAnimController : MonoBehaviour
 {
     private Animator _anim;
-
+    public static bool isRunning = false;
+    public static bool isWalking = false;
+    public static bool isDigging = false;
+    
     private void Start()
     {
         _anim = GetComponent<Animator>();
     }
 
-    public void PlayAnim(Vector2 moveInput, bool isRunning)
+    public void PlayAnim()
     {
-        if (moveInput.magnitude > 0)
-        {
-            if (isRunning)
-            {
-                PlayerAnimClear();
-                _anim.SetBool("isRunning", true);
-            }
-            else
-            {
-                PlayerAnimClear();
-                _anim.SetBool("isWalking", true);
-            }
-        }
-        else
-        {
-            PlayerAnimClear();
-        }
+        _anim.SetBool("isRunning", isRunning);
+        _anim.SetBool("isWalking",isWalking);
+        _anim.SetBool("isDigging",isDigging);
     }
     
     void PlayerAnimClear()
     {
-        _anim.SetBool("isRunning", false);
-        _anim.SetBool("isWalking",false);
+        isRunning = false;
+        isWalking = false;
+        isDigging = false;
     }
 }

@@ -36,7 +36,7 @@ public class InGameInputOld : MonoBehaviour
     
     private void ChangeAnim()
     {
-        player.GetComponent<PlayerAnimController>().PlayAnim(moveInput,isRunning);
+        //player.GetComponent<PlayerAnimController>().PlayAnim(moveInput,isRunning);
     }
     
     void OnMove(InputValue value)

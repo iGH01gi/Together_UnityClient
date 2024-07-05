@@ -4,7 +4,7 @@ using Google.Protobuf.WellKnownTypes;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-public class InGameInput : MonoBehaviour
+public class MovementInput : MonoBehaviour
 {
     int _runBit = (1 << 4);
     int _upBit = (1 << 3);
@@ -30,18 +30,20 @@ public class InGameInput : MonoBehaviour
     public static bool _isRunning = false;
     private void ChangeAnim()
     {
-        _player.GetComponent<PlayerAnimController>().PlayAnim(_moveInput,_isRunning);
+        _player.GetComponent<PlayerAnimController>().PlayAnim();
     }
     
     void OnMove(InputValue value)
     {
         _moveInput = value.Get<Vector2>();
+        PlayerAnimController.isWalking = _moveInput.magnitude > 0;
         ChangeAnim();
     }
 
     void OnRun(InputValue value)
     {
         _isRunning = value.isPressed;
+        PlayerAnimController.isWalking = _isRunning;
         ChangeAnim();
     }
 
@@ -53,8 +55,8 @@ public class InGameInput : MonoBehaviour
         _camera = _prefab.transform.GetChild(0);
         _player = _prefab.transform.GetChild(1);
         _velocity = new Vector3(0f,0f,0f);
-        
         Managers.Job.Push(SendMove); //20초 마다 보냄
+        GetComponent<PlayerInput>().DeactivateInput();
     }
     
     void Update()
@@ -107,7 +109,7 @@ public class InGameInput : MonoBehaviour
         ghostTransformInfo.Rotation = ghostRotationInfo;
         
         packet.TransformInfo = ghostTransformInfo;
-        Debug.Log($"보내는 패킷의 posY값 : {packet.TransformInfo.Position.PosY}");
+        //Debug.Log($"보내는 패킷의 posY값 : {packet.TransformInfo.Position.PosY}");
         
         int moveBit = 0;
         if (_isRunning)
