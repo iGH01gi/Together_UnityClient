@@ -104,6 +104,18 @@ public class PacketHandler
         }
     }
     
+    //방 안 플레이어들의 레디 관련 정보가 왔을때
+    public static void SC_ReadyRoomHandler(PacketSession session, IMessage packet)
+    {
+        SC_ReadyRoom readyRoomPacket = packet as SC_ReadyRoom;
+        ServerSession serverSession = session as ServerSession;
+        
+        Debug.Log("SC_ReadyRoomHandler");
+        
+        //TODO: 레디 ui 갱신 작업
+        Managers.Room.ProcessReadyRoom(readyRoomPacket, callback: null);
+    }
+    
     public static void SC_PingPongHandler(PacketSession session, IMessage packet)
     {
         SC_PingPong pingPongPacket = packet as SC_PingPong;

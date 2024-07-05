@@ -61,7 +61,7 @@ class PacketManager
 		_onRecv.Add((ushort)MsgId.DscNightTimerSync, MakePacket<DSC_NightTimerSync>);
 		_handler.Add((ushort)MsgId.DscNightTimerSync, PacketHandler.DSC_NightTimerSyncHandler);		
 		_onRecv.Add((ushort)MsgId.DscNightTimerEnd, MakePacket<DSC_NightTimerEnd>);
-		_handler.Add((ushort)MsgId.DscNightTimerEnd, PacketHandler.DSC_NightTimerEndHandler);*/		
+		_handler.Add((ushort)MsgId.DscNightTimerEnd, PacketHandler.DSC_NightTimerEndHandler);	*/	
 		_onRecv.Add((ushort)MsgId.DscNewChestsInfo, MakePacket<DSC_NewChestsInfo>);
 		_handler.Add((ushort)MsgId.DscNewChestsInfo, PacketHandler.DSC_NewChestsInfoHandler);		
 		_onRecv.Add((ushort)MsgId.DscChestOpenSuccess, MakePacket<DSC_ChestOpenSuccess>);

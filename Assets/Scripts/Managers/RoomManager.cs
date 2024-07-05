@@ -240,4 +240,48 @@ public class RoomManager
 
         return Managers.Player._myRoomPlayer.Room.Info.CurrentCount;
     }
+
+    /// <summary>
+    /// 레디정보를 받으면 처리하는 함수
+    /// </summary>
+    /// <param name="readyRoomPacket">레디 정보 패킷</param>
+    /// <param name="callback">레디 정보 갱신이 끝난후 ui처리 콜백</param>
+    public void ProcessReadyRoom(SC_ReadyRoom readyRoomPacket, Action callback)
+    {
+        int roomId = readyRoomPacket.RoomId;
+        
+        if (!_rooms.ContainsKey(roomId))
+            return;
+        
+        GameRoom gameRoom = _rooms[roomId];
+        
+        //gameRoom에 있는 모든 RoomPlayer들을 순회하면서 레디정보 갱신
+        foreach (RoomPlayer roomPlayer in gameRoom._players)
+        {
+            int roomPlayerId = roomPlayer.PlayerId;
+            
+            if (readyRoomPacket.ReadyPlayerInfo.ContainsKey(roomPlayerId) && readyRoomPacket.ReadyPlayerInfo[roomPlayerId])
+                roomPlayer.IsReady = true;
+            else
+                roomPlayer.IsReady = false;
+        }
+        
+        if(callback!=null)
+            callback.Invoke();
+    }
+    
+    /// <summary>
+    /// 내 gameroom의 모든 플레이어가 ready했는지 확인하는 함수(방장은 제외)
+    /// </summary>
+    /// <returns>모두 ready했다면 true</returns>
+    public bool IsMyRoomAllPlayerReady()
+    {
+        int myRoomId = GetMyPlayerRoomId();
+        if (!_rooms.ContainsKey(myRoomId))
+            return false;
+
+        GameRoom gameRoom = _rooms[myRoomId];
+        //방장 빼고 나머지는 다 isReady가 true인지 확인
+        return gameRoom._players.Count(x => x.PlayerId != gameRoom.Info.RoomMasterPlayerId && x.IsReady) == gameRoom.Info.CurrentCount - 1;
+    }
 }

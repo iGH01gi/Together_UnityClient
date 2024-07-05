@@ -7,4 +7,5 @@ public class RoomPlayer
     //현재 룸서버의 playerId는 sessionId와 같게 처리하고 있음
     public int PlayerId { get; set; }
     public string Name { get; set; }
+    public bool IsReady { get; set; }
 }
