@@ -27,8 +27,6 @@ public class MovementInput : MonoBehaviour
     private Transform _player;
     private Transform _prefab; //얘가 프리팹 본체
 
-    private InputAction mousePos;
-
     public static bool _isRunning = false;
     private void ChangeAnim()
     {
@@ -57,17 +55,14 @@ public class MovementInput : MonoBehaviour
         _camera = _prefab.transform.GetChild(0);
         _player = _prefab.transform.GetChild(1);
         _velocity = new Vector3(0f,0f,0f);
-        mousePos = GetComponent<PlayerInput>().actions["Player/Look"];
         Managers.Job.Push(SendMove); //20초 마다 보냄
         GetComponent<PlayerInput>().DeactivateInput();
     }
     
     void Update()
     {
-        Vector2 mouseInput = mousePos.ReadValue<Vector2>().normalized;
-
-        float mouseX = mouseInput.x * _mouseSensitivity * Time.deltaTime;
-        float mouseY = mouseInput.y * _mouseSensitivity * Time.deltaTime;
+        float mouseX = Input.GetAxis("Mouse X") * _mouseSensitivity * Time.deltaTime;
+        float mouseY = Input.GetAxis("Mouse Y") * _mouseSensitivity * Time.deltaTime;
 
         _rotationX -= mouseY;
         _rotationX = Mathf.Clamp(_rotationX, -70f, _minViewDistance);
