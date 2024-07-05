@@ -4,7 +4,7 @@ using Google.Protobuf.WellKnownTypes;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-public class InGameInput : MonoBehaviour
+public class MovementInput : MonoBehaviour
 {
     int _runBit = (1 << 4);
     int _upBit = (1 << 3);
@@ -26,6 +26,8 @@ public class InGameInput : MonoBehaviour
     private Transform _camera;
     private Transform _player;
     private Transform _prefab; //얘가 프리팹 본체
+
+    private InputAction mousePos;
 
     public static bool _isRunning = false;
     private void ChangeAnim()
@@ -55,14 +57,17 @@ public class InGameInput : MonoBehaviour
         _camera = _prefab.transform.GetChild(0);
         _player = _prefab.transform.GetChild(1);
         _velocity = new Vector3(0f,0f,0f);
-        
+        mousePos = GetComponent<PlayerInput>().actions["Player/Look"];
         Managers.Job.Push(SendMove); //20초 마다 보냄
+        GetComponent<PlayerInput>().DeactivateInput();
     }
     
     void Update()
     {
-        float mouseX = Input.GetAxis("Mouse X") * _mouseSensitivity * Time.deltaTime;
-        float mouseY = Input.GetAxis("Mouse Y") * _mouseSensitivity * Time.deltaTime;
+        Vector2 mouseInput = mousePos.ReadValue<Vector2>().normalized;
+
+        float mouseX = mouseInput.x * _mouseSensitivity * Time.deltaTime;
+        float mouseY = mouseInput.y * _mouseSensitivity * Time.deltaTime;
 
         _rotationX -= mouseY;
         _rotationX = Mathf.Clamp(_rotationX, -70f, _minViewDistance);
@@ -109,7 +114,7 @@ public class InGameInput : MonoBehaviour
         ghostTransformInfo.Rotation = ghostRotationInfo;
         
         packet.TransformInfo = ghostTransformInfo;
-        Debug.Log($"보내는 패킷의 posY값 : {packet.TransformInfo.Position.PosY}");
+        //Debug.Log($"보내는 패킷의 posY값 : {packet.TransformInfo.Position.PosY}");
         
         int moveBit = 0;
         if (_isRunning)
