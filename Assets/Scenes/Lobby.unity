@@ -179,6 +179,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: barrel_002
       objectReference: {fileID: 0}
+    - target: {fileID: 1048902700391321891, guid: fd9e1b09660f77546842fd0d9992c5f7, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -203,7 +207,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!4 &62326909
 Transform:
@@ -285,6 +289,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: tarpaulin_002
       objectReference: {fileID: 0}
+    - target: {fileID: 8706441848491773753, guid: 3fe02c90b0c6e3d4b9fe2783f6f7ffbd, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -311,7 +319,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!4 &106633280
 Transform:
@@ -434,6 +442,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: box_003
       objectReference: {fileID: 0}
+    - target: {fileID: 8683156990871319767, guid: a75878c0b70ef2247887bb9e073e7797, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -455,6 +467,10 @@ PrefabInstance:
     - target: {fileID: 5101412115866441545, guid: b907fbdf3e47cac469c6bb767d21abfd, type: 3}
       propertyPath: m_Name
       value: tarpaulin_001
+      objectReference: {fileID: 0}
+    - target: {fileID: 5101412115866441545, guid: b907fbdf3e47cac469c6bb767d21abfd, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
       objectReference: {fileID: 0}
     - target: {fileID: 5584476624195653107, guid: b907fbdf3e47cac469c6bb767d21abfd, type: 3}
       propertyPath: m_RootOrder
@@ -574,6 +590,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: box_003
       objectReference: {fileID: 0}
+    - target: {fileID: 8683156990871319767, guid: a75878c0b70ef2247887bb9e073e7797, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -598,7 +618,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!4 &139282530
 Transform:
@@ -681,6 +701,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: box_003
       objectReference: {fileID: 0}
+    - target: {fileID: 8683156990871319767, guid: a75878c0b70ef2247887bb9e073e7797, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -705,7 +729,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!4 &186999733
 Transform:
@@ -735,6 +759,10 @@ PrefabInstance:
     - target: {fileID: 1675802980743649589, guid: 10ecb00a1dc52b344a8ce5524bbb3bf8, type: 3}
       propertyPath: m_Name
       value: cannon_002
+      objectReference: {fileID: 0}
+    - target: {fileID: 1675802980743649589, guid: 10ecb00a1dc52b344a8ce5524bbb3bf8, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
       objectReference: {fileID: 0}
     - target: {fileID: 2020556310205186959, guid: 10ecb00a1dc52b344a8ce5524bbb3bf8, type: 3}
       propertyPath: m_RootOrder
@@ -813,6 +841,10 @@ PrefabInstance:
     - target: {fileID: 1675802980743649589, guid: 10ecb00a1dc52b344a8ce5524bbb3bf8, type: 3}
       propertyPath: m_Name
       value: cannon_002
+      objectReference: {fileID: 0}
+    - target: {fileID: 1675802980743649589, guid: 10ecb00a1dc52b344a8ce5524bbb3bf8, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
       objectReference: {fileID: 0}
     - target: {fileID: 2020556310205186959, guid: 10ecb00a1dc52b344a8ce5524bbb3bf8, type: 3}
       propertyPath: m_RootOrder
@@ -894,7 +926,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!4 &210842748
 Transform:
@@ -925,7 +957,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!4 &282482639
 Transform:
@@ -956,7 +988,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!4 &295402482
 Transform:
@@ -988,7 +1020,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!4 &311329752
 Transform:
@@ -1062,6 +1094,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: barrel_002
       objectReference: {fileID: 0}
+    - target: {fileID: 1048902700391321891, guid: fd9e1b09660f77546842fd0d9992c5f7, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -1086,7 +1122,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!4 &360380970
 Transform:
@@ -1116,6 +1152,10 @@ PrefabInstance:
     - target: {fileID: 1675802980743649589, guid: 10ecb00a1dc52b344a8ce5524bbb3bf8, type: 3}
       propertyPath: m_Name
       value: cannon_002
+      objectReference: {fileID: 0}
+    - target: {fileID: 1675802980743649589, guid: 10ecb00a1dc52b344a8ce5524bbb3bf8, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
       objectReference: {fileID: 0}
     - target: {fileID: 2020556310205186959, guid: 10ecb00a1dc52b344a8ce5524bbb3bf8, type: 3}
       propertyPath: m_RootOrder
@@ -1199,7 +1239,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!4 &389631912
 Transform:
@@ -1280,7 +1320,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!4 &397505294
 Transform:
@@ -1404,6 +1444,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: cannon_002
       objectReference: {fileID: 0}
+    - target: {fileID: 1675802980743649589, guid: 10ecb00a1dc52b344a8ce5524bbb3bf8, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
+      objectReference: {fileID: 0}
     - target: {fileID: 2020556310205186959, guid: 10ecb00a1dc52b344a8ce5524bbb3bf8, type: 3}
       propertyPath: m_RootOrder
       value: 2575
@@ -1486,7 +1530,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!4 &437295765
 Transform:
@@ -1617,6 +1661,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: box_003
       objectReference: {fileID: 0}
+    - target: {fileID: 8683156990871319767, guid: a75878c0b70ef2247887bb9e073e7797, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -1695,6 +1743,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: cannon_001
       objectReference: {fileID: 0}
+    - target: {fileID: 9050328431908366981, guid: 65be833a968928c4891f888e1d1e9f86, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -1721,7 +1773,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!4 &472852022
 Transform:
@@ -1802,7 +1854,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!4 &492451636
 Transform:
@@ -1834,7 +1886,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!4 &507515345
 Transform:
@@ -1863,6 +1915,10 @@ PrefabInstance:
     - target: {fileID: 5083583973739295062, guid: f9417a6c24887b14f9f3c21ec3096652, type: 3}
       propertyPath: m_Name
       value: box_005
+      objectReference: {fileID: 0}
+    - target: {fileID: 5083583973739295062, guid: f9417a6c24887b14f9f3c21ec3096652, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
       objectReference: {fileID: 0}
     - target: {fileID: 5604540741430356972, guid: f9417a6c24887b14f9f3c21ec3096652, type: 3}
       propertyPath: m_RootOrder
@@ -1929,6 +1985,10 @@ PrefabInstance:
     - target: {fileID: 1675802980743649589, guid: 10ecb00a1dc52b344a8ce5524bbb3bf8, type: 3}
       propertyPath: m_Name
       value: cannon_002
+      objectReference: {fileID: 0}
+    - target: {fileID: 1675802980743649589, guid: 10ecb00a1dc52b344a8ce5524bbb3bf8, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
       objectReference: {fileID: 0}
     - target: {fileID: 2020556310205186959, guid: 10ecb00a1dc52b344a8ce5524bbb3bf8, type: 3}
       propertyPath: m_RootOrder
@@ -2052,6 +2112,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: barrel_002
       objectReference: {fileID: 0}
+    - target: {fileID: 1048902700391321891, guid: fd9e1b09660f77546842fd0d9992c5f7, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -2118,6 +2182,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: barrel_002
       objectReference: {fileID: 0}
+    - target: {fileID: 1048902700391321891, guid: fd9e1b09660f77546842fd0d9992c5f7, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -2142,7 +2210,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!4 &576818343
 Transform:
@@ -2216,6 +2284,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: box_003
       objectReference: {fileID: 0}
+    - target: {fileID: 8683156990871319767, guid: a75878c0b70ef2247887bb9e073e7797, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -2237,6 +2309,10 @@ PrefabInstance:
     - target: {fileID: 1675802980743649589, guid: 10ecb00a1dc52b344a8ce5524bbb3bf8, type: 3}
       propertyPath: m_Name
       value: cannon_002
+      objectReference: {fileID: 0}
+    - target: {fileID: 1675802980743649589, guid: 10ecb00a1dc52b344a8ce5524bbb3bf8, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
       objectReference: {fileID: 0}
     - target: {fileID: 2020556310205186959, guid: 10ecb00a1dc52b344a8ce5524bbb3bf8, type: 3}
       propertyPath: m_RootOrder
@@ -2320,7 +2396,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!4 &656587312
 Transform:
@@ -2398,6 +2474,10 @@ PrefabInstance:
     - target: {fileID: 1675802980743649589, guid: 10ecb00a1dc52b344a8ce5524bbb3bf8, type: 3}
       propertyPath: m_Name
       value: cannon_002
+      objectReference: {fileID: 0}
+    - target: {fileID: 1675802980743649589, guid: 10ecb00a1dc52b344a8ce5524bbb3bf8, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
       objectReference: {fileID: 0}
     - target: {fileID: 2020556310205186959, guid: 10ecb00a1dc52b344a8ce5524bbb3bf8, type: 3}
       propertyPath: m_RootOrder
@@ -2479,7 +2559,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!4 &705652195
 Transform:
@@ -2666,6 +2746,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: barrel_002
       objectReference: {fileID: 0}
+    - target: {fileID: 1048902700391321891, guid: fd9e1b09660f77546842fd0d9992c5f7, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -2690,7 +2774,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!4 &725206098
 Transform:
@@ -2723,7 +2807,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!4 &728698911
 Transform:
@@ -2803,6 +2887,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: barrel_002
       objectReference: {fileID: 0}
+    - target: {fileID: 1048902700391321891, guid: fd9e1b09660f77546842fd0d9992c5f7, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -2827,7 +2915,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!4 &773607716
 Transform:
@@ -2856,6 +2944,10 @@ PrefabInstance:
     - target: {fileID: 1675802980743649589, guid: 10ecb00a1dc52b344a8ce5524bbb3bf8, type: 3}
       propertyPath: m_Name
       value: cannon_002
+      objectReference: {fileID: 0}
+    - target: {fileID: 1675802980743649589, guid: 10ecb00a1dc52b344a8ce5524bbb3bf8, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
       objectReference: {fileID: 0}
     - target: {fileID: 2020556310205186959, guid: 10ecb00a1dc52b344a8ce5524bbb3bf8, type: 3}
       propertyPath: m_RootOrder
@@ -2937,7 +3029,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!4 &791896765
 Transform:
@@ -2970,6 +3062,10 @@ PrefabInstance:
     - target: {fileID: 1675802980743649589, guid: 10ecb00a1dc52b344a8ce5524bbb3bf8, type: 3}
       propertyPath: m_Name
       value: cannon_002
+      objectReference: {fileID: 0}
+    - target: {fileID: 1675802980743649589, guid: 10ecb00a1dc52b344a8ce5524bbb3bf8, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
       objectReference: {fileID: 0}
     - target: {fileID: 2020556310205186959, guid: 10ecb00a1dc52b344a8ce5524bbb3bf8, type: 3}
       propertyPath: m_RootOrder
@@ -3051,7 +3147,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!4 &849508132
 Transform:
@@ -3190,6 +3286,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: box_003
       objectReference: {fileID: 0}
+    - target: {fileID: 8683156990871319767, guid: a75878c0b70ef2247887bb9e073e7797, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -3211,6 +3311,10 @@ PrefabInstance:
     - target: {fileID: 1675802980743649589, guid: 10ecb00a1dc52b344a8ce5524bbb3bf8, type: 3}
       propertyPath: m_Name
       value: cannon_002
+      objectReference: {fileID: 0}
+    - target: {fileID: 1675802980743649589, guid: 10ecb00a1dc52b344a8ce5524bbb3bf8, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
       objectReference: {fileID: 0}
     - target: {fileID: 2020556310205186959, guid: 10ecb00a1dc52b344a8ce5524bbb3bf8, type: 3}
       propertyPath: m_RootOrder
@@ -3292,7 +3396,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!4 &923647972
 Transform:
@@ -3321,6 +3425,10 @@ PrefabInstance:
     - target: {fileID: 1675802980743649589, guid: 10ecb00a1dc52b344a8ce5524bbb3bf8, type: 3}
       propertyPath: m_Name
       value: cannon_002
+      objectReference: {fileID: 0}
+    - target: {fileID: 1675802980743649589, guid: 10ecb00a1dc52b344a8ce5524bbb3bf8, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
       objectReference: {fileID: 0}
     - target: {fileID: 2020556310205186959, guid: 10ecb00a1dc52b344a8ce5524bbb3bf8, type: 3}
       propertyPath: m_RootOrder
@@ -3404,7 +3512,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!4 &964601588
 Transform:
@@ -3527,6 +3635,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: box_003
       objectReference: {fileID: 0}
+    - target: {fileID: 8683156990871319767, guid: a75878c0b70ef2247887bb9e073e7797, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -3593,6 +3705,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: box_003
       objectReference: {fileID: 0}
+    - target: {fileID: 8683156990871319767, guid: a75878c0b70ef2247887bb9e073e7797, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -3614,6 +3730,10 @@ PrefabInstance:
     - target: {fileID: 1675802980743649589, guid: 10ecb00a1dc52b344a8ce5524bbb3bf8, type: 3}
       propertyPath: m_Name
       value: cannon_002
+      objectReference: {fileID: 0}
+    - target: {fileID: 1675802980743649589, guid: 10ecb00a1dc52b344a8ce5524bbb3bf8, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
       objectReference: {fileID: 0}
     - target: {fileID: 2020556310205186959, guid: 10ecb00a1dc52b344a8ce5524bbb3bf8, type: 3}
       propertyPath: m_RootOrder
@@ -3695,7 +3815,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!4 &1010664084
 Transform:
@@ -3726,7 +3846,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!4 &1018683080
 Transform:
@@ -3755,6 +3875,10 @@ PrefabInstance:
     - target: {fileID: 1675802980743649589, guid: 10ecb00a1dc52b344a8ce5524bbb3bf8, type: 3}
       propertyPath: m_Name
       value: cannon_002
+      objectReference: {fileID: 0}
+    - target: {fileID: 1675802980743649589, guid: 10ecb00a1dc52b344a8ce5524bbb3bf8, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
       objectReference: {fileID: 0}
     - target: {fileID: 2020556310205186959, guid: 10ecb00a1dc52b344a8ce5524bbb3bf8, type: 3}
       propertyPath: m_RootOrder
@@ -3870,6 +3994,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: barrel_002
       objectReference: {fileID: 0}
+    - target: {fileID: 1048902700391321891, guid: fd9e1b09660f77546842fd0d9992c5f7, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -3936,6 +4064,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: barrel_002
       objectReference: {fileID: 0}
+    - target: {fileID: 1048902700391321891, guid: fd9e1b09660f77546842fd0d9992c5f7, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -3960,7 +4092,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!4 &1088956629
 Transform:
@@ -3991,7 +4123,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!4 &1094047549
 Transform:
@@ -4019,6 +4151,10 @@ PrefabInstance:
     - target: {fileID: 1675802980743649589, guid: 10ecb00a1dc52b344a8ce5524bbb3bf8, type: 3}
       propertyPath: m_Name
       value: cannon_002
+      objectReference: {fileID: 0}
+    - target: {fileID: 1675802980743649589, guid: 10ecb00a1dc52b344a8ce5524bbb3bf8, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
       objectReference: {fileID: 0}
     - target: {fileID: 2020556310205186959, guid: 10ecb00a1dc52b344a8ce5524bbb3bf8, type: 3}
       propertyPath: m_RootOrder
@@ -4097,6 +4233,10 @@ PrefabInstance:
     - target: {fileID: 1675802980743649589, guid: 10ecb00a1dc52b344a8ce5524bbb3bf8, type: 3}
       propertyPath: m_Name
       value: cannon_002
+      objectReference: {fileID: 0}
+    - target: {fileID: 1675802980743649589, guid: 10ecb00a1dc52b344a8ce5524bbb3bf8, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
       objectReference: {fileID: 0}
     - target: {fileID: 2020556310205186959, guid: 10ecb00a1dc52b344a8ce5524bbb3bf8, type: 3}
       propertyPath: m_RootOrder
@@ -4178,7 +4318,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!4 &1155664994
 Transform:
@@ -4252,6 +4392,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: ship_001
       objectReference: {fileID: 0}
+    - target: {fileID: 4082739453686513045, guid: f4c93df8e9752d84b93153177ff0492d, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -4276,7 +4420,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!4 &1162800296
 Transform:
@@ -4351,6 +4495,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: box_003
       objectReference: {fileID: 0}
+    - target: {fileID: 8683156990871319767, guid: a75878c0b70ef2247887bb9e073e7797, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -4416,6 +4564,10 @@ PrefabInstance:
     - target: {fileID: 1048902700391321891, guid: fd9e1b09660f77546842fd0d9992c5f7, type: 3}
       propertyPath: m_Name
       value: barrel_002
+      objectReference: {fileID: 0}
+    - target: {fileID: 1048902700391321891, guid: fd9e1b09660f77546842fd0d9992c5f7, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -4491,6 +4643,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: box_003
       objectReference: {fileID: 0}
+    - target: {fileID: 8683156990871319767, guid: a75878c0b70ef2247887bb9e073e7797, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -4565,6 +4721,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: barrel_002
       objectReference: {fileID: 0}
+    - target: {fileID: 1048902700391321891, guid: fd9e1b09660f77546842fd0d9992c5f7, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -4589,7 +4749,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!4 &1216781655
 Transform:
@@ -4623,7 +4783,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!4 &1230835745
 Transform:
@@ -4704,7 +4864,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!4 &1234972274
 Transform:
@@ -4735,6 +4895,10 @@ PrefabInstance:
     - target: {fileID: 1675802980743649589, guid: 10ecb00a1dc52b344a8ce5524bbb3bf8, type: 3}
       propertyPath: m_Name
       value: cannon_002
+      objectReference: {fileID: 0}
+    - target: {fileID: 1675802980743649589, guid: 10ecb00a1dc52b344a8ce5524bbb3bf8, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
       objectReference: {fileID: 0}
     - target: {fileID: 2020556310205186959, guid: 10ecb00a1dc52b344a8ce5524bbb3bf8, type: 3}
       propertyPath: m_RootOrder
@@ -4813,6 +4977,10 @@ PrefabInstance:
     - target: {fileID: 1675802980743649589, guid: 10ecb00a1dc52b344a8ce5524bbb3bf8, type: 3}
       propertyPath: m_Name
       value: cannon_002
+      objectReference: {fileID: 0}
+    - target: {fileID: 1675802980743649589, guid: 10ecb00a1dc52b344a8ce5524bbb3bf8, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
       objectReference: {fileID: 0}
     - target: {fileID: 2020556310205186959, guid: 10ecb00a1dc52b344a8ce5524bbb3bf8, type: 3}
       propertyPath: m_RootOrder
@@ -4894,7 +5062,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!4 &1254500357
 Transform:
@@ -4927,7 +5095,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!4 &1269983346
 Transform:
@@ -4961,7 +5129,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!4 &1292647587
 Transform:
@@ -5044,7 +5212,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!4 &1293500395
 Transform:
@@ -5182,6 +5350,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: cannon_001
       objectReference: {fileID: 0}
+    - target: {fileID: 9050328431908366981, guid: 65be833a968928c4891f888e1d1e9f86, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -5248,6 +5420,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: barrel_002
       objectReference: {fileID: 0}
+    - target: {fileID: 1048902700391321891, guid: fd9e1b09660f77546842fd0d9992c5f7, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -5272,7 +5448,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!4 &1351783425
 Transform:
@@ -5305,7 +5481,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!4 &1367392173
 Transform:
@@ -5334,6 +5510,10 @@ PrefabInstance:
     - target: {fileID: 1675802980743649589, guid: 10ecb00a1dc52b344a8ce5524bbb3bf8, type: 3}
       propertyPath: m_Name
       value: cannon_002
+      objectReference: {fileID: 0}
+    - target: {fileID: 1675802980743649589, guid: 10ecb00a1dc52b344a8ce5524bbb3bf8, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
       objectReference: {fileID: 0}
     - target: {fileID: 2020556310205186959, guid: 10ecb00a1dc52b344a8ce5524bbb3bf8, type: 3}
       propertyPath: m_RootOrder
@@ -5465,6 +5645,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: box_003
       objectReference: {fileID: 0}
+    - target: {fileID: 8683156990871319767, guid: a75878c0b70ef2247887bb9e073e7797, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -5489,7 +5673,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!4 &1401709378
 Transform:
@@ -5522,7 +5706,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!4 &1414444315
 Transform:
@@ -5553,7 +5737,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!4 &1419144664
 Transform:
@@ -5639,6 +5823,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: cannon_001
       objectReference: {fileID: 0}
+    - target: {fileID: 9050328431908366981, guid: 65be833a968928c4891f888e1d1e9f86, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -5665,7 +5853,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!4 &1505500416
 Transform:
@@ -5788,6 +5976,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: barrel_002
       objectReference: {fileID: 0}
+    - target: {fileID: 1048902700391321891, guid: fd9e1b09660f77546842fd0d9992c5f7, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -5853,6 +6045,10 @@ PrefabInstance:
     - target: {fileID: 8683156990871319767, guid: a75878c0b70ef2247887bb9e073e7797, type: 3}
       propertyPath: m_Name
       value: box_003
+      objectReference: {fileID: 0}
+    - target: {fileID: 8683156990871319767, guid: a75878c0b70ef2247887bb9e073e7797, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -5928,6 +6124,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: barrel_002
       objectReference: {fileID: 0}
+    - target: {fileID: 1048902700391321891, guid: fd9e1b09660f77546842fd0d9992c5f7, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -5952,7 +6152,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!4 &1580387944
 Transform:
@@ -5982,6 +6182,10 @@ PrefabInstance:
     - target: {fileID: 1675802980743649589, guid: 10ecb00a1dc52b344a8ce5524bbb3bf8, type: 3}
       propertyPath: m_Name
       value: cannon_002
+      objectReference: {fileID: 0}
+    - target: {fileID: 1675802980743649589, guid: 10ecb00a1dc52b344a8ce5524bbb3bf8, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
       objectReference: {fileID: 0}
     - target: {fileID: 2020556310205186959, guid: 10ecb00a1dc52b344a8ce5524bbb3bf8, type: 3}
       propertyPath: m_RootOrder
@@ -6061,6 +6265,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: tarpaulin_001
       objectReference: {fileID: 0}
+    - target: {fileID: 5101412115866441545, guid: b907fbdf3e47cac469c6bb767d21abfd, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
+      objectReference: {fileID: 0}
     - target: {fileID: 5584476624195653107, guid: b907fbdf3e47cac469c6bb767d21abfd, type: 3}
       propertyPath: m_RootOrder
       value: 6714
@@ -6134,6 +6342,10 @@ PrefabInstance:
     - target: {fileID: 1675802980743649589, guid: 10ecb00a1dc52b344a8ce5524bbb3bf8, type: 3}
       propertyPath: m_Name
       value: cannon_002
+      objectReference: {fileID: 0}
+    - target: {fileID: 1675802980743649589, guid: 10ecb00a1dc52b344a8ce5524bbb3bf8, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
       objectReference: {fileID: 0}
     - target: {fileID: 2020556310205186959, guid: 10ecb00a1dc52b344a8ce5524bbb3bf8, type: 3}
       propertyPath: m_RootOrder
@@ -6269,6 +6481,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: cannon_001
       objectReference: {fileID: 0}
+    - target: {fileID: 9050328431908366981, guid: 65be833a968928c4891f888e1d1e9f86, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -6343,6 +6559,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: barrel_002
       objectReference: {fileID: 0}
+    - target: {fileID: 1048902700391321891, guid: fd9e1b09660f77546842fd0d9992c5f7, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -6409,6 +6629,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: cannon_001
       objectReference: {fileID: 0}
+    - target: {fileID: 9050328431908366981, guid: 65be833a968928c4891f888e1d1e9f86, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -6433,7 +6657,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!4 &1725386977
 Transform:
@@ -6465,7 +6689,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!4 &1731907788
 Transform:
@@ -6498,7 +6722,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!4 &1735897362
 Transform:
@@ -6572,6 +6796,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: barrel_002
       objectReference: {fileID: 0}
+    - target: {fileID: 1048902700391321891, guid: fd9e1b09660f77546842fd0d9992c5f7, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -6596,7 +6824,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!4 &1775288561
 Transform:
@@ -6679,6 +6907,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: box_003
       objectReference: {fileID: 0}
+    - target: {fileID: 8683156990871319767, guid: a75878c0b70ef2247887bb9e073e7797, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -6705,7 +6937,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!4 &1803657764
 Transform:
@@ -6788,7 +7020,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!4 &1809214691
 Transform:
@@ -6911,6 +7143,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: barrel_002
       objectReference: {fileID: 0}
+    - target: {fileID: 1048902700391321891, guid: fd9e1b09660f77546842fd0d9992c5f7, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -6977,6 +7213,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: barrel_002
       objectReference: {fileID: 0}
+    - target: {fileID: 1048902700391321891, guid: fd9e1b09660f77546842fd0d9992c5f7, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -7003,7 +7243,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!4 &1868871811
 Transform:
@@ -7084,7 +7324,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!4 &1879143571
 Transform:
@@ -7115,7 +7355,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!4 &1882778458
 Transform:
@@ -7148,7 +7388,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!4 &1887268244
 Transform:
@@ -7231,7 +7471,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!4 &1916371584
 Transform:
@@ -7354,6 +7594,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: cannon_002
       objectReference: {fileID: 0}
+    - target: {fileID: 1675802980743649589, guid: 10ecb00a1dc52b344a8ce5524bbb3bf8, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
+      objectReference: {fileID: 0}
     - target: {fileID: 2020556310205186959, guid: 10ecb00a1dc52b344a8ce5524bbb3bf8, type: 3}
       propertyPath: m_RootOrder
       value: 2577
@@ -7431,6 +7675,10 @@ PrefabInstance:
     - target: {fileID: 1675802980743649589, guid: 10ecb00a1dc52b344a8ce5524bbb3bf8, type: 3}
       propertyPath: m_Name
       value: cannon_002
+      objectReference: {fileID: 0}
+    - target: {fileID: 1675802980743649589, guid: 10ecb00a1dc52b344a8ce5524bbb3bf8, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
       objectReference: {fileID: 0}
     - target: {fileID: 2020556310205186959, guid: 10ecb00a1dc52b344a8ce5524bbb3bf8, type: 3}
       propertyPath: m_RootOrder
@@ -7512,7 +7760,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!4 &1973906871
 Transform:
@@ -7544,7 +7792,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!4 &1981866727
 Transform:
@@ -7576,7 +7824,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!4 &2007746874
 Transform:
@@ -7651,6 +7899,10 @@ PrefabInstance:
     - target: {fileID: 8683156990871319767, guid: a75878c0b70ef2247887bb9e073e7797, type: 3}
       propertyPath: m_Name
       value: box_003
+      objectReference: {fileID: 0}
+    - target: {fileID: 8683156990871319767, guid: a75878c0b70ef2247887bb9e073e7797, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -7730,6 +7982,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: water_001
       objectReference: {fileID: 0}
+    - target: {fileID: 1852129212712512614, guid: 43949b39b517714478d5e783d74f6b8f, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -7754,7 +8010,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!4 &2054570795
 Transform:
@@ -7840,6 +8096,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: cannon_001
       objectReference: {fileID: 0}
+    - target: {fileID: 9050328431908366981, guid: 65be833a968928c4891f888e1d1e9f86, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -7917,6 +8177,10 @@ PrefabInstance:
     - target: {fileID: 9050328431908366981, guid: 65be833a968928c4891f888e1d1e9f86, type: 3}
       propertyPath: m_Name
       value: cannon_001
+      objectReference: {fileID: 0}
+    - target: {fileID: 9050328431908366981, guid: 65be833a968928c4891f888e1d1e9f86, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -7996,6 +8260,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: cannon_001
       objectReference: {fileID: 0}
+    - target: {fileID: 9050328431908366981, guid: 65be833a968928c4891f888e1d1e9f86, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -8022,7 +8290,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!4 &2137969253
 Transform:
