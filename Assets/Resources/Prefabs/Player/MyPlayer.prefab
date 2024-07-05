@@ -164,7 +164,10 @@ MonoBehaviour:
   m_AnimatedTarget: {fileID: 3356504437351311137}
   m_LayerIndex: 0
   m_ShowDebugText: 0
-  m_ChildCameras: []
+  m_ChildCameras:
+  - {fileID: 4117950205291814977}
+  - {fileID: 1903323454607685578}
+  - {fileID: 5467283423210749678}
   m_Instructions:
   - m_FullHash: 1432961145
     m_VirtualCamera: {fileID: 4117950205291814977}
@@ -1046,7 +1049,7 @@ PrefabInstance:
       objectReference: {fileID: 9100000, guid: d73287523bbc7744685034dd4ffc8bbb, type: 2}
     - target: {fileID: 95000011504212896, guid: 4a2d2c00183719d48b35d6a1c1ce38b1, type: 3}
       propertyPath: m_ApplyRootMotion
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 114000011486506766, guid: 4a2d2c00183719d48b35d6a1c1ce38b1, type: 3}
       propertyPath: hair

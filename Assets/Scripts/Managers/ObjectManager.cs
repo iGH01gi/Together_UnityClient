@@ -178,6 +178,7 @@ public class ObjectManager : MonoBehaviour
         chest.OpenChest();
 
         //TODO: 2. 플레이어 효과처리
+        Managers.Sound.Play("Effects/WarningNotification");
     }
     
     /// <summary>
@@ -191,10 +192,16 @@ public class ObjectManager : MonoBehaviour
         chest.OpenChest();
         
         //TODO: 2. 내 플레이어 포인트 증가처리 및 효과처리
-        
+        if (chest._point > 0)
+        {
+            Managers.Sound.Play("Effects/Success");
+            Managers.Sound.Play("Effects/CoinSound");
+        }
+        else
+        {
+            Managers.Sound.Play("Effects/Fail");
+        }
     }
 
     #endregion
-
-
 }

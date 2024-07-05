@@ -199,6 +199,10 @@ MonoBehaviour:
     m_Key: CurrentlyPlaying
     m_Metadata:
       m_Items: []
+  - m_Id: 66437786016845824
+    m_Key: ChestOpenDialogue
+    m_Metadata:
+      m_Items: []
   m_Metadata:
     m_Items: []
   m_KeyGenerator:

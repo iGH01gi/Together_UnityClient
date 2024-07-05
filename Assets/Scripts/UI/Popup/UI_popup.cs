@@ -16,7 +16,8 @@ public class UI_popup : UI_base
         Alert,
         ProgressPopup,
         SettingsPopup,
-        WairForSecondsPopup
+        WairForSecondsPopup,
+        InGameDialogue
     }
     
     protected void ClosePopup()

@@ -17,6 +17,6 @@ public class InGameUI : UI_scene
     {
         yield return new WaitForSeconds(3);
         transform.Find("TimerText").GetComponent<ClientTimer>().Init(time);
-        FindObjectOfType<PlayerInput>().enabled = true;
+        FindObjectOfType<PlayerInput>().ActivateInput();
     }
 }

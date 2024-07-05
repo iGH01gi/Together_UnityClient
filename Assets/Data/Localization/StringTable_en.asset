@@ -206,6 +206,10 @@ MonoBehaviour:
     m_Localized: This Room is currently ingame.
     m_Metadata:
       m_Items: []
+  - m_Id: 66437786016845824
+    m_Localized: To open chest
+    m_Metadata:
+      m_Items: []
   references:
     version: 2
     RefIds: []
