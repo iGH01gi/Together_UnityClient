@@ -235,7 +235,7 @@ public class PacketHandler
         Debug.Log("DSC_DayTimerStartHandler");
         
         int daySeconds = dayTimerStartPacket.DaySeconds; //낮 시간(초)
-        float estimatedCurrentServerTimer = Managers.Time.GetEstimatedLatency(); //현재 서버 타이머 시간(예측)
+        float estimatedCurrentServerTimer = daySeconds - Managers.Time.GetEstimatedLatency(); //현재 서버 타이머 시간(예측)
         //TODO: 낮 타이머 시작 처리
     }
 
@@ -248,7 +248,7 @@ public class PacketHandler
         Debug.Log("DSC_DayTimerSyncHandler");
 
         float currentServerTimer = dayTimerSyncPacket.CurrentServerTimer; 
-        float estimatedCurrentServerTimer = currentServerTimer + Managers.Time.GetEstimatedLatency(); //현재 서버 타이머 시간(예측)
+        float estimatedCurrentServerTimer = currentServerTimer - Managers.Time.GetEstimatedLatency(); //현재 서버 타이머 시간(예측)
         //TODO: 낮 타이머 싱크 처리
     }
 
@@ -271,7 +271,7 @@ public class PacketHandler
         Debug.Log("DSC_NightTimerStartHandler");
 
         int nightSeconds = nightTimerStartPacket.NightSeconds; //밤 시간(초)
-        float estimatedCurrentServerTimer = Managers.Time.GetEstimatedLatency(); //현재 서버 타이머 시간(예측)
+        float estimatedCurrentServerTimer = nightSeconds - Managers.Time.GetEstimatedLatency(); //현재 서버 타이머 시간(예측)
         
         //TODO: 밤 타이머 시작 처리
     }
@@ -285,7 +285,7 @@ public class PacketHandler
         Debug.Log("DSC_NightTimerSyncHandler");
 
         float currentServerTimer = nightTimerSyncPacket.CurrentServerTimer;
-        float estimatedCurrentServerTimer = currentServerTimer + Managers.Time.GetEstimatedLatency(); //현재 서버 타이머 시간(예측)
+        float estimatedCurrentServerTimer = currentServerTimer - Managers.Time.GetEstimatedLatency(); //현재 서버 타이머 시간(예측)
         
         //TODO: 밤 타이머 싱크 처리
         
