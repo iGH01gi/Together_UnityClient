@@ -20,22 +20,27 @@ public class RoomUI : UI_scene
         StartGame
     }
 
-    void Start()
+    void Init()
     {
         thisRoom = Managers.Player._myRoomPlayer.Room;
         InitButtons<Buttons>(gameObject);
         readyButton = transform.Find("ReadyButton").gameObject;
         startGameButton = transform.Find("StartGame").gameObject;
+    }
+    void Start()
+    {
+        Init();
         GetPlayerList();
     }
     
     //만약 방장이라면 StartGameButton을, 아니라면 ReadyButton
-    public void ButtonIfMaster()
+    public void IfMaster()
     {
         if (Managers.Room.IsMyPlayerMaster())
         {
            readyButton.SetActive(false);
-            startGameButton.SetActive(true);
+           startGameButton.SetActive(true);
+           startGameButton.GetComponent<UI_Button>().Activation(Managers.Room.IsMyRoomAllPlayerReady());
         }
         else
         { 
@@ -49,6 +54,10 @@ public class RoomUI : UI_scene
     /// </summary>
     public void GetPlayerList()
     {
+        if (thisRoom == null)
+        {
+            Init();
+        }
         Transform PlayersPanel = transform.Find("PlayersPanel");
         ClearPlayerListPanel(PlayersPanel);
         foreach (var current in thisRoom._players)
@@ -56,13 +65,10 @@ public class RoomUI : UI_scene
             GameObject currentPlayer = Managers.Resource.Instantiate("UI/Subitem/PlayerInRoom");
             currentPlayer.transform.SetParent(PlayersPanel);
             currentPlayer.GetComponent<PlayerInRoom>().Init(current);
-            if (!Managers.Room.IsMaster(thisRoom.Info.RoomId, current.PlayerId))
-            {
-                currentPlayer.transform.Find("MasterIcon").gameObject.SetActive(false);
-            }
+            
             if (current.PlayerId == Managers.Player._myRoomPlayer.PlayerId)
             {
-                ButtonIfMaster();
+                IfMaster();
                 myPlayer = currentPlayer;
             }
         }
@@ -75,29 +81,8 @@ public class RoomUI : UI_scene
 
     void ReadyButton()
     {
-        if (myPlayer.transform.GetChild(1).gameObject.activeSelf)
-        {
-            //준비완료 -> 준비취소
-            CS_ReadyRoom readyRoomPacket = new CS_ReadyRoom();
-            readyRoomPacket.RoomId = thisRoom.Info.RoomId;
-            readyRoomPacket.PlayerId = Managers.Player._myRoomPlayer.PlayerId;
-            readyRoomPacket.IsReady = false;
-            Managers.Network._roomSession.Send(readyRoomPacket);
-            
-            myPlayer.transform.GetChild(1).gameObject.SetActive(false);
-        }
-        else
-        {
-            //준비x -> 준비완료
-            CS_ReadyRoom readyRoomPacket = new CS_ReadyRoom();
-            readyRoomPacket.RoomId = thisRoom.Info.RoomId;
-            readyRoomPacket.PlayerId = Managers.Player._myRoomPlayer.PlayerId;
-            readyRoomPacket.IsReady = true;
-            Managers.Network._roomSession.Send(readyRoomPacket);
-            
-            myPlayer.transform.GetChild(1).gameObject.SetActive(true);
-            Managers.Sound.Play("Effects/interface");
-        }
+        readyButton.GetComponent<UI_Button>().PlayButtonClick();
+        myPlayer.GetComponent<PlayerInRoom>().ToggleReady();
     }
 
     public void RefreshButton()
@@ -108,7 +93,10 @@ public class RoomUI : UI_scene
     
     public void StartGame()
     {
-        //TODO: 모든 플레이어가 Ready일 시 시작하도록 수정
+        if (!Managers.Room.IsMyRoomAllPlayerReady())
+        {
+            return;
+        }
         Debug.Log("겜시작버튼 눌림");
         CS_ConnectDedicatedServer sendPacket = new CS_ConnectDedicatedServer();
         sendPacket.RoomId = thisRoom.Info.RoomId;
