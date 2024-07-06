@@ -74,4 +74,9 @@ public class UIPacketHandler
     {
         Managers.UI.SceneUI.GetComponent<RoomUI>().RefreshButton();
     }
+    
+    public static void UpdateRoomReadyStatus()
+    {
+        Managers.UI.SceneUI.GetComponent<RoomUI>().RefreshButton();
+    }
 }

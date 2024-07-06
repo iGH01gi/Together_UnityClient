@@ -112,8 +112,7 @@ public class PacketHandler
         
         Debug.Log("SC_ReadyRoomHandler");
         
-        //TODO: 레디 ui 갱신 작업
-        Managers.Room.ProcessReadyRoom(readyRoomPacket, callback: null);
+        Managers.Room.ProcessReadyRoom(readyRoomPacket, callback: UIPacketHandler.UpdateRoomReadyStatus);
     }
     
     public static void SC_PingPongHandler(PacketSession session, IMessage packet)
