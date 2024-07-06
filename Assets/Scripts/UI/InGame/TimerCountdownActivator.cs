@@ -8,9 +8,9 @@ public class TimerCountdownActivator : ClientTimer
     //client 자체 카운트 다운
     void Update()
     {
-        float old = clientTimerValue;
-        clientTimerValue = Mathf.Max(0f, clientTimerValue - Time.deltaTime);
-        if (Mathf.CeilToInt(old)>Mathf.CeilToInt(clientTimerValue))
+        float old = _clientTimerValue;
+        _clientTimerValue = Mathf.Max(0f, _clientTimerValue - Time.deltaTime);
+        if (Mathf.CeilToInt(old)>Mathf.CeilToInt(_clientTimerValue))
         {
             UpdateTimerUI();
         }
