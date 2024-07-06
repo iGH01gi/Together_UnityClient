@@ -9,23 +9,23 @@ using UnityEngine;
 public class ClientTimer : MonoBehaviour
 {
     
-    private static float hardSnapMargin = 0.1f; //HardSanp 기준 시간 / Update 단위
-    protected static float clientTimerValue = 0; //현재 타이머 값
-    public static TMP_Text timerUI;
-    public static TimerCountdownActivator timerCountdownActivator;
+    private static float _hardSnapMargin = 0.1f; //HardSanp 기준 시간 / Update 단위
+    protected static float _clientTimerValue = 0; //현재 타이머 값
+    public static TMP_Text _timerUI;
+    public static TimerCountdownActivator _timerCountdownActivator;
 
     private void Awake()
     {
-        timerCountdownActivator = transform.GetComponent<TimerCountdownActivator>();
-        timerCountdownActivator.enabled = false;
-        timerUI = transform.GetComponent<TMP_Text>();
+        _timerCountdownActivator = transform.GetComponent<TimerCountdownActivator>();
+        _timerCountdownActivator.enabled = false;
+        _timerUI = transform.GetComponent<TMP_Text>();
     }
     
 
     //타이머 UI 업데이트
     protected void UpdateTimerUI()
     {
-        timerUI.text = Mathf.CeilToInt(clientTimerValue).ToString();
+        _timerUI.text = Mathf.CeilToInt(_clientTimerValue).ToString();
     }
     
     
@@ -34,17 +34,17 @@ public class ClientTimer : MonoBehaviour
     // 라운드 시작 패킷 받을 시, 라운드 시간을 변수로 콜
     public void Init(int newTimeToSet)
     {
-        clientTimerValue = newTimeToSet;
+        _clientTimerValue = newTimeToSet;
         UpdateTimerUI();
-        timerCountdownActivator.enabled = true;
+        _timerCountdownActivator.enabled = true;
     }
 
     //서버 시간과 비교. hardsnap 마진보다 차이 날 시 hardsnap
     public void CompareTimerValue(float serverTimerValue)
     {
-        if (Math.Abs(serverTimerValue - clientTimerValue) >= hardSnapMargin)
+        if (Math.Abs(serverTimerValue - _clientTimerValue) >= _hardSnapMargin)
         {
-            clientTimerValue = serverTimerValue;
+            _clientTimerValue = serverTimerValue;
             UpdateTimerUI();
         }
     }
@@ -52,7 +52,7 @@ public class ClientTimer : MonoBehaviour
     //서버에서 라운드 종료 패킷 받을 시 타이머 처리
     public void EndTimer()
     {
-        timerCountdownActivator.enabled = false;
-        clientTimerValue = 0;
+        _timerCountdownActivator.enabled = false;
+        _clientTimerValue = 0;
     }
 }
