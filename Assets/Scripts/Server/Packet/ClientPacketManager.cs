@@ -50,7 +50,7 @@ class PacketManager
 		_handler.Add((ushort)MsgId.DscStartGame, PacketHandler.DSC_StartGameHandler);		
 		_onRecv.Add((ushort)MsgId.DscMove, MakePacket<DSC_Move>);
 		_handler.Add((ushort)MsgId.DscMove, PacketHandler.DSC_MoveHandler);		
-		/*_onRecv.Add((ushort)MsgId.DscDayTimerStart, MakePacket<DSC_DayTimerStart>);
+		_onRecv.Add((ushort)MsgId.DscDayTimerStart, MakePacket<DSC_DayTimerStart>);
 		_handler.Add((ushort)MsgId.DscDayTimerStart, PacketHandler.DSC_DayTimerStartHandler);		
 		_onRecv.Add((ushort)MsgId.DscDayTimerSync, MakePacket<DSC_DayTimerSync>);
 		_handler.Add((ushort)MsgId.DscDayTimerSync, PacketHandler.DSC_DayTimerSyncHandler);		
@@ -61,7 +61,7 @@ class PacketManager
 		_onRecv.Add((ushort)MsgId.DscNightTimerSync, MakePacket<DSC_NightTimerSync>);
 		_handler.Add((ushort)MsgId.DscNightTimerSync, PacketHandler.DSC_NightTimerSyncHandler);		
 		_onRecv.Add((ushort)MsgId.DscNightTimerEnd, MakePacket<DSC_NightTimerEnd>);
-		_handler.Add((ushort)MsgId.DscNightTimerEnd, PacketHandler.DSC_NightTimerEndHandler);	*/	
+		_handler.Add((ushort)MsgId.DscNightTimerEnd, PacketHandler.DSC_NightTimerEndHandler);		
 		_onRecv.Add((ushort)MsgId.DscNewChestsInfo, MakePacket<DSC_NewChestsInfo>);
 		_handler.Add((ushort)MsgId.DscNewChestsInfo, PacketHandler.DSC_NewChestsInfoHandler);		
 		_onRecv.Add((ushort)MsgId.DscChestOpenSuccess, MakePacket<DSC_ChestOpenSuccess>);

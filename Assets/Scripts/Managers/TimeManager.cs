@@ -83,4 +83,13 @@ public class TimeManager
     {
         return DateTime.UtcNow + _dediserverClientTimeDelta;
     }
+    
+    /// <summary>
+    /// estimatedRTT의 반을 초단위로 바꿔서 리턴 (소수점도 포함)
+    /// </summary>
+    /// <returns>데디서버까지의 예상 레이턴시(초 단위)</returns>
+    public float GetEstimatedLatency()
+    {
+        return (float)_estimatedRTT.TotalSeconds / 2;
+    }
 }

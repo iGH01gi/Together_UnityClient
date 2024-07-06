@@ -227,6 +227,81 @@ public class PacketHandler
         Managers.Player._syncMoveCtonroller.SyncOtherPlayerMove(movePacket);
     }
     
+    //데디케이트서버로부터 낮 타이머 시작을 받았을때의 처리
+    public static void DSC_DayTimerStartHandler(PacketSession session, IMessage packet)
+    {
+        DSC_DayTimerStart dayTimerStartPacket = packet as DSC_DayTimerStart;
+        DedicatedServerSession dedicatedServerSession = session as DedicatedServerSession;
+        
+        Debug.Log("DSC_DayTimerStartHandler");
+        
+        int daySeconds = dayTimerStartPacket.DaySeconds; //낮 시간(초)
+        float estimatedCurrentServerTimer = Managers.Time.GetEstimatedLatency(); //현재 서버 타이머 시간(예측)
+        //TODO: 낮 타이머 시작 처리
+    }
+
+    //데디케이트서버로부터 낮 타이머 싱크를 받았을때의 처리
+    public static void DSC_DayTimerSyncHandler(PacketSession session, IMessage packet)
+    {
+        DSC_DayTimerSync dayTimerSyncPacket = packet as DSC_DayTimerSync;
+        DedicatedServerSession dedicatedServerSession = session as DedicatedServerSession;
+
+        Debug.Log("DSC_DayTimerSyncHandler");
+
+        float currentServerTimer = dayTimerSyncPacket.CurrentServerTimer; 
+        float estimatedCurrentServerTimer = currentServerTimer + Managers.Time.GetEstimatedLatency(); //현재 서버 타이머 시간(예측)
+        //TODO: 낮 타이머 싱크 처리
+    }
+
+    //데디케이트서버로부터 낮 타이머 종료를 받았을때의 처리
+    public static void DSC_DayTimerEndHandler(PacketSession session, IMessage packet)
+    {
+        DSC_DayTimerEnd dayTimerEndPacket = packet as DSC_DayTimerEnd;
+        DedicatedServerSession dedicatedServerSession = session as DedicatedServerSession;
+
+        Debug.Log("DSC_DayTimerEndHandler");
+        //TODO: 낮 타이머 종료 처리
+    }
+    
+    //데디케이트서버로부터 밤 타이머 시작을 받았을때의 처리
+    public static void DSC_NightTimerStartHandler(PacketSession session, IMessage packet)
+    {
+        DSC_NightTimerStart nightTimerStartPacket = packet as DSC_NightTimerStart;
+        DedicatedServerSession dedicatedServerSession = session as DedicatedServerSession;
+
+        Debug.Log("DSC_NightTimerStartHandler");
+
+        int nightSeconds = nightTimerStartPacket.NightSeconds; //밤 시간(초)
+        float estimatedCurrentServerTimer = Managers.Time.GetEstimatedLatency(); //현재 서버 타이머 시간(예측)
+        
+        //TODO: 밤 타이머 시작 처리
+    }
+    
+    //데디케이트서버로부터 밤 타이머 싱크를 받았을때의 처리
+    public static void DSC_NightTimerSyncHandler(PacketSession session, IMessage packet)
+    {
+        DSC_NightTimerSync nightTimerSyncPacket = packet as DSC_NightTimerSync;
+        DedicatedServerSession dedicatedServerSession = session as DedicatedServerSession;
+
+        Debug.Log("DSC_NightTimerSyncHandler");
+
+        float currentServerTimer = nightTimerSyncPacket.CurrentServerTimer;
+        float estimatedCurrentServerTimer = currentServerTimer + Managers.Time.GetEstimatedLatency(); //현재 서버 타이머 시간(예측)
+        
+        //TODO: 밤 타이머 싱크 처리
+        
+    }
+    
+    //데디케이트서버로부터 밤 타이머 종료를 받았을때의 처리
+    public static void DSC_NightTimerEndHandler(PacketSession session, IMessage packet)
+    {
+        DSC_NightTimerEnd nightTimerEndPacket = packet as DSC_NightTimerEnd;
+        DedicatedServerSession dedicatedServerSession = session as DedicatedServerSession;
+
+        Debug.Log("DSC_NightTimerEndHandler");
+        //TODO: 밤 타이머 종료 처리
+    }
+
     //데디케이트서버로부터 새로운 상자 정보를 받았을때의 처리
     public static void DSC_NewChestsInfoHandler(PacketSession session, IMessage packet)
     {
