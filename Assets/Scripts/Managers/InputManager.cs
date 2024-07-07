@@ -39,6 +39,7 @@ public class InputManager
     
     public void EnableInput()
     {
+        
         _inputActionAsset.Enable();
     }
     

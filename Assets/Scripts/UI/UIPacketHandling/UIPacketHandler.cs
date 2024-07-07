@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using Google.Protobuf.Protocol;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class UIPacketHandler
 {
@@ -78,5 +79,27 @@ public class UIPacketHandler
     public static void UpdateRoomReadyStatus()
     {
         Managers.UI.SceneUI.GetComponent<RoomUI>().RefreshButton();
+    }
+
+    public static void StartTimer(int setTimerValue)
+    {
+        Managers.UI.GetComponentInSceneUI<ClientTimer>("TimerText").Init(setTimerValue);
+    }
+
+    public static void CurrentServerTimerUpdate(float currentServerTime)
+    {
+        Managers.UI.GetComponentInSceneUI<ClientTimer>("TimerText").CompareTimerValue(currentServerTime);
+    }
+    
+    public static void TimerEndedInServer()
+    {
+        Managers.Sound.Play("Effects/Start!");
+        Managers.UI.GetComponentInSceneUI<ClientTimer>("TimerText").EndTimer();
+    }
+
+    public static void StartGameHandler()
+    {
+        Managers.UI.GetComponentInPopup<WairForSecondsPopup>().GameStart();
+        Managers.Player._myDediPlayer.GetComponent<PlayerInput>().ActivateInput();
     }
 }

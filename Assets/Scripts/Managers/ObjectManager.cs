@@ -173,12 +173,12 @@ public class ObjectManager : MonoBehaviour
     /// <param name="otherDediPlayerId">열은 데디플레이어id</param>
     public void OnOtherPlayerOpenChestSuccess(int chestId, int otherDediPlayerId)
     {
-        //TODO: 1. 상자 열었다는 정보기록,이펙트,사운드 처리
+        //상자 열었다는 정보기록,이펙트,사운드 처리
         Chest chest = _chestList[chestId].GetComponent<Chest>();
         chest.OpenChest();
 
-        //TODO: 2. 플레이어 효과처리
-        Managers.Sound.Play("Effects/WarningNotification");
+        //플레이어 효과처리
+        Managers.Sound.Play("Effects/WarningNotification",Define.Sound.Effects,chest.transform.GetComponent<AudioSource>());
     }
     
     /// <summary>
@@ -187,19 +187,20 @@ public class ObjectManager : MonoBehaviour
     /// <param name="chestId">상자id</param>
     public void OnMyPlayerOpenChestSuccess(int chestId)
     {
-        //TODO: 1. 상자 열었다는 정보기록,이펙트,사운드 처리
+        //상자 열었다는 정보기록,이펙트,사운드 처리
         Chest chest = _chestList[chestId].GetComponent<Chest>();
         chest.OpenChest();
         
-        //TODO: 2. 내 플레이어 포인트 증가처리 및 효과처리
+        //내 플레이어 포인트 증가처리 및 효과처리
         if (chest._point > 0)
         {
-            Managers.Sound.Play("Effects/Success");
-            Managers.Sound.Play("Effects/CoinSound");
+            Managers.Sound.Play("Effects/Success",Define.Sound.Effects,chest.transform.GetComponent<AudioSource>());
+            Managers.Sound.Play("Effects/CoinSound",Define.Sound.Effects,chest.transform.GetComponent<AudioSource>());
+            //Managers.  += chest._point;
         }
         else
         {
-            Managers.Sound.Play("Effects/Fail");
+            Managers.Sound.Play("Effects/Fail",Define.Sound.Effects,chest.transform.GetComponent<AudioSource>());
         }
     }
 
