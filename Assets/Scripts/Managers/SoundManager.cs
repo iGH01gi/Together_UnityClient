@@ -36,38 +36,43 @@ public class SoundManager
         _audioClips.Clear();
     }
 
-    public void Play(string path, Define.Sound type = Define.Sound.Effects, float pitch = 1.0f)
+    public void Play(string path, Define.Sound type = Define.Sound.Effects, AudioSource audioSource = null, float pitch = 1.0f)
     {
         AudioClip audioClip = GetOrAddAudioClip(path, type);
-        Play(audioClip, type, pitch);
+        Play(audioClip, type, audioSource, pitch);
     }
 
-	public void Play(AudioClip audioClip, Define.Sound type = Define.Sound.Effects, float pitch = 1.0f)
+	public void Play(AudioClip audioClip, Define.Sound type = Define.Sound.Effects, AudioSource audioSource = null, float pitch = 1.0f)
 	{
-		AudioSource audioSource;
-        if (audioClip == null)
+		if (audioClip == null)	
             return;
+		if (audioSource == null)
+		{
+			switch (type)
+			{
+				case Define.Sound.Bgm:
+				{
+					audioSource = _audioSources[(int)Define.Sound.Bgm];
+					if (audioSource.isPlaying)
+						audioSource.Stop();
 
-        switch (type)
-        {
-	        case Define.Sound.Bgm:
-	        {
-		        audioSource = _audioSources[(int)Define.Sound.Bgm];
-		        if (audioSource.isPlaying)
-			        audioSource.Stop();
-
-		        audioSource.pitch = pitch;
-		        audioSource.clip = audioClip;
-		        audioSource.Play();
-		        break;
-	        }
-	        case Define.Sound.Effects:
-		        audioSource = _audioSources[(int)Define.Sound.Effects];
-		        audioSource.pitch = pitch;
-		        audioSource.PlayOneShot(audioClip);
-		        break;
-        }
-
+					audioSource.pitch = pitch;
+					audioSource.clip = audioClip;
+					audioSource.Play();
+					break;
+				}
+				case Define.Sound.Effects:
+					audioSource = _audioSources[(int)Define.Sound.Effects];
+					audioSource.pitch = pitch;
+					audioSource.PlayOneShot(audioClip);
+					break;
+			}
+		}
+		else
+		{
+			audioSource.pitch = pitch;
+			audioSource.PlayOneShot(audioClip);
+		}
 	}
 
 	public void ChangeAudioVolume(Define.Sound type, float volume)

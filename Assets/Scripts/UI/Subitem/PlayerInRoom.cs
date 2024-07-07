@@ -15,7 +15,7 @@ public class PlayerInRoom : UI_subitem
         transform.Find("PlayerName").GetComponent<TMP_Text>().text = player.Name;
         readyIcon = transform.Find("ReadyIcon").gameObject;
         readyIcon.SetActive(player.IsReady);
-        Debug.Log(player.Name + " is ready: " + player.IsReady);
+        //Debug.Log(player.Name + " is ready: " + player.IsReady);
         transform.Find("MasterIcon").gameObject.SetActive(Managers.Room.IsMaster(Managers.Room.GetMyPlayerRoomId(),player.PlayerId));
     }
     

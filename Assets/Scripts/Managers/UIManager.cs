@@ -102,7 +102,7 @@ public class UIManager
         {
             Managers.Resource.Destroy(_popupLinkedList.Last.Value);
             _popupLinkedList.RemoveLast();
-            if (_popupLinkedList.Last.Value.name == "Panel")
+            if (_popupLinkedList.Count>0 && _popupLinkedList.Last.Value.name == "Panel")
             {
                 Managers.Resource.Destroy(_popupLinkedList.Last.Value);
                 _popupLinkedList.RemoveLast();
@@ -111,11 +111,12 @@ public class UIManager
         else
         {
             var cur = _popupLinkedList.Find(gameObject);
-            if (cur.Previous.Value.name == "Panel")
+            if (_popupLinkedList.Count>1 && cur.Previous.Value.name == "Panel")
             {
                 Managers.Resource.Destroy(cur.Previous.Value);
                 _popupLinkedList.Remove(cur.Previous);
             }
+
             Managers.Resource.Destroy(_popupLinkedList.Find(gameObject).Value);
             _popupLinkedList.Remove(cur);
         }
@@ -140,11 +141,25 @@ public class UIManager
         {
             Managers.Resource.Destroy(sceneUI);
         }
+        if(PopupActive())
         foreach (var cur in _popupLinkedList)
         {
             Managers.Resource.Destroy(cur);
             _popupLinkedList.Remove(cur);
         }
+    }
+    
+    public T GetComponentInSceneUI<T>(string childName = null) where T : MonoBehaviour
+    {
+        if(childName == null)
+            return sceneUI.GetComponent<T>();
+        return sceneUI.transform.Find(childName).GetComponent<T>();
+    }
+    
+    public T GetComponentInPopup<T>(string popupName = null) where T : MonoBehaviour
+    {
+        Debug.Log( _popupLinkedList.Last.Value.name);
+        return _popupLinkedList.Last.Value.GetComponent<T>();
     }
     /*
     public T MakeSubItem<T>(Transform parent = null, string name = null) where T : MonoBehaviour

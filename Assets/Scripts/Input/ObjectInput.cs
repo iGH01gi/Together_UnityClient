@@ -8,6 +8,13 @@ public class ObjectInput : MonoBehaviour
 {
     private GameObject currentChest;
     
+    private void Start()
+    {
+        GetComponent<PlayerInput>().DeactivateInput();
+    }
+    
+    
+    
     private void OnTriggerEnter(Collider other)
     {
         Debug.Log(other.tag);
@@ -22,7 +29,7 @@ public class ObjectInput : MonoBehaviour
 
     private void OnTriggerExit(Collider other)
     {
-        if(currentChest.Equals(other.transform.parent.gameObject))
+        if(other.tag == "Chest" && currentChest.Equals(other.transform.parent.gameObject))
         {
             currentChest.GetComponent<Chest>().UnHighlightChest();
             currentChest = null;

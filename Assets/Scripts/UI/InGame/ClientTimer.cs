@@ -9,7 +9,7 @@ using UnityEngine;
 public class ClientTimer : MonoBehaviour
 {
     
-    private static float _hardSnapMargin = 0.1f; //HardSanp 기준 시간 / Update 단위
+    private static float _hardSnapMargin = 0.01f; //HardSanp 기준 시간 / Update 단위
     protected static float _clientTimerValue = 0; //현재 타이머 값
     public static TMP_Text _timerUI;
     public static TimerCountdownActivator _timerCountdownActivator;
@@ -54,5 +54,7 @@ public class ClientTimer : MonoBehaviour
     {
         _timerCountdownActivator.enabled = false;
         _clientTimerValue = 0;
+        
+        /// TODO: 낮과 밤 이후 처리
     }
 }

@@ -19,8 +19,13 @@ public class WairForSecondsPopup : UI_popup
             transform.Find("Seconds").GetComponent<TMP_Text>().text = i.ToString();
             yield return new WaitForSeconds(1);
         }
+    }
+
+    public void GameStart()
+    {
         transform.GetComponent<Image>().color= new Color(0,0,0,0);
         transform.Find("Seconds").GetComponent<TMP_Text>().text = "START!";
+        
         Managers.Sound.Play("Effects/Start!");
         ClosePopup();
     }

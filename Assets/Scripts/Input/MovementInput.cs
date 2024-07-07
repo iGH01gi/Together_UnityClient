@@ -56,7 +56,6 @@ public class MovementInput : MonoBehaviour
         _player = _prefab.transform.GetChild(1);
         _velocity = new Vector3(0f,0f,0f);
         Managers.Job.Push(SendMove); //20초 마다 보냄
-        GetComponent<PlayerInput>().DeactivateInput();
     }
     
     void Update()
@@ -114,7 +113,7 @@ public class MovementInput : MonoBehaviour
         int moveBit = 0;
         if (_isRunning)
         {
-            Debug.Log("달리기 키 눌림");
+            //Debug.Log("달리기 키 눌림");
             moveBit |= _runBit;
         }
         if (_moveInput.y > 0.5f) //윗키눌림

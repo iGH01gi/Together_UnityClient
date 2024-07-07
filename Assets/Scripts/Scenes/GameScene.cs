@@ -10,8 +10,8 @@ public class GameScene : BaseScene
     protected override void Init()
     {
         base.Init();
-        Managers.UI.LoadPopupPanel<ProgressPopup>(true);
-   
+        Managers.UI.LoadPopupPanel<ProgressPopup>(true,false);
+
         //Managers.Sound.Play("Bgm/test_bgm",Define.Sound.Bgm);
     }
     

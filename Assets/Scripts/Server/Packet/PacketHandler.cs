@@ -4,6 +4,7 @@ using Google.Protobuf;
 using Google.Protobuf.Protocol;
 using ServerCore;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class PacketHandler
 {
@@ -212,7 +213,9 @@ public class PacketHandler
         
         Debug.Log("DSC_StartGameHandler");
         Managers.UI.ClosePopup(); //현재 띄워져 있는 progressPopup을 닫는다
+        Managers.UI.ClosePopup(); //현재 띄워져 있는 progressPopup을 닫는다
         Managers.UI.LoadScenePanel("InGameUI"); //Timer를 포함한 인게임UI 부르기.
+        Managers.Player._myDediPlayer.GetComponent<PlayerInput>().DeactivateInput();
     }
     
     //데디케이트서버로부터 유저의 움직임을 받았을때의 처리
@@ -221,7 +224,7 @@ public class PacketHandler
         DSC_Move movePacket = packet as DSC_Move;
         DedicatedServerSession dedicatedServerSession = session as DedicatedServerSession;
         
-        Debug.Log("DSC_MoveHandler");
+        //Debug.Log("DSC_MoveHandler");
         
         Managers.Player._syncMoveCtonroller.SyncOtherPlayerMove(movePacket);
     }
@@ -236,7 +239,12 @@ public class PacketHandler
         
         int daySeconds = dayTimerStartPacket.DaySeconds; //낮 시간(초)
         float estimatedCurrentServerTimer = daySeconds - Managers.Time.GetEstimatedLatency(); //현재 서버 타이머 시간(예측)
-        //TODO: 낮 타이머 시작 처리
+        
+        Managers.Player._myDediPlayer.GetComponent<PlayerInput>().DeactivateInput();
+        
+        UIPacketHandler.StartGameHandler();
+        UIPacketHandler.StartTimer(daySeconds);
+        UIPacketHandler.CurrentServerTimerUpdate(estimatedCurrentServerTimer);
     }
 
     //데디케이트서버로부터 낮 타이머 싱크를 받았을때의 처리
@@ -249,7 +257,8 @@ public class PacketHandler
 
         float currentServerTimer = dayTimerSyncPacket.CurrentServerTimer; 
         float estimatedCurrentServerTimer = currentServerTimer - Managers.Time.GetEstimatedLatency(); //현재 서버 타이머 시간(예측)
-        //TODO: 낮 타이머 싱크 처리
+        
+        UIPacketHandler.CurrentServerTimerUpdate(estimatedCurrentServerTimer);
     }
 
     //데디케이트서버로부터 낮 타이머 종료를 받았을때의 처리
@@ -259,7 +268,9 @@ public class PacketHandler
         DedicatedServerSession dedicatedServerSession = session as DedicatedServerSession;
 
         Debug.Log("DSC_DayTimerEndHandler");
-        //TODO: 낮 타이머 종료 처리
+        
+        Managers.Player._myDediPlayer.GetComponent<PlayerInput>().DeactivateInput();
+        UIPacketHandler.TimerEndedInServer();
     }
     
     //데디케이트서버로부터 밤 타이머 시작을 받았을때의 처리
@@ -273,7 +284,8 @@ public class PacketHandler
         int nightSeconds = nightTimerStartPacket.NightSeconds; //밤 시간(초)
         float estimatedCurrentServerTimer = nightSeconds - Managers.Time.GetEstimatedLatency(); //현재 서버 타이머 시간(예측)
         
-        //TODO: 밤 타이머 시작 처리
+        UIPacketHandler.StartTimer(nightSeconds);
+        UIPacketHandler.CurrentServerTimerUpdate(estimatedCurrentServerTimer);
     }
     
     //데디케이트서버로부터 밤 타이머 싱크를 받았을때의 처리
@@ -287,8 +299,7 @@ public class PacketHandler
         float currentServerTimer = nightTimerSyncPacket.CurrentServerTimer;
         float estimatedCurrentServerTimer = currentServerTimer - Managers.Time.GetEstimatedLatency(); //현재 서버 타이머 시간(예측)
         
-        //TODO: 밤 타이머 싱크 처리
-        
+        UIPacketHandler.CurrentServerTimerUpdate(estimatedCurrentServerTimer);
     }
     
     //데디케이트서버로부터 밤 타이머 종료를 받았을때의 처리
@@ -298,7 +309,8 @@ public class PacketHandler
         DedicatedServerSession dedicatedServerSession = session as DedicatedServerSession;
 
         Debug.Log("DSC_NightTimerEndHandler");
-        //TODO: 밤 타이머 종료 처리
+        
+        UIPacketHandler.TimerEndedInServer();
     }
 
     //데디케이트서버로부터 새로운 상자 정보를 받았을때의 처리
@@ -342,7 +354,7 @@ public class PacketHandler
         DSC_ResponseTimestamp responseTimestampPacket = packet as DSC_ResponseTimestamp;
         DedicatedServerSession dedicatedServerSession = session as DedicatedServerSession;
         
-        Debug.Log("DSC_ResponseTimestampHandler");
+        //Debug.Log("DSC_ResponseTimestampHandler");
         
         Managers.Time.OnRecvDediServerTimeStamp(responseTimestampPacket);
     }
