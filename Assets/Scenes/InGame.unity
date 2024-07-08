@@ -14,19 +14,19 @@ OcclusionCullingSettings:
 RenderSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 9
-  m_Fog: 0
-  m_FogColor: {r: 0.5, g: 0.5, b: 0.5, a: 1}
-  m_FogMode: 3
-  m_FogDensity: 0.01
+  m_Fog: 1
+  m_FogColor: {r: 0.8, g: 0.9254902, b: 1, a: 1}
+  m_FogMode: 1
+  m_FogDensity: 0.13
   m_LinearFogStart: 0
-  m_LinearFogEnd: 300
+  m_LinearFogEnd: 128
   m_AmbientSkyColor: {r: 0.212, g: 0.227, b: 0.259, a: 1}
   m_AmbientEquatorColor: {r: 0.114, g: 0.125, b: 0.133, a: 1}
   m_AmbientGroundColor: {r: 0.047, g: 0.043, b: 0.035, a: 1}
   m_AmbientIntensity: 1
   m_AmbientMode: 0
-  m_SubtractiveShadowColor: {r: 0.42, g: 0.478, b: 0.627, a: 1}
-  m_SkyboxMaterial: {fileID: 10304, guid: 0000000000000000f000000000000000, type: 0}
+  m_SubtractiveShadowColor: {r: 1, g: 0.43137255, b: 0.24313726, a: 1}
+  m_SkyboxMaterial: {fileID: 2100000, guid: 9105918681ea4ed40b8fb7137fbbeced, type: 2}
   m_HaloStrength: 0.5
   m_FlareStrength: 1
   m_FlareFadeSpeed: 3
@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 705507994}
-  m_IndirectSpecularColor: {r: 0.44657898, g: 0.4964133, b: 0.5748178, a: 1}
+  m_IndirectSpecularColor: {r: 0.38285652, g: 0.6782358, b: 0.995333, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -213,7 +213,7 @@ Light:
   serializedVersion: 10
   m_Type: 1
   m_Shape: 0
-  m_Color: {r: 1, g: 0.95686275, b: 0.8392157, a: 1}
+  m_Color: {r: 1, g: 0.73762757, b: 0.4481132, a: 1}
   m_Intensity: 1
   m_Range: 10
   m_SpotAngle: 30
@@ -416,6 +416,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1459124629}
   - component: {fileID: 1459124628}
+  - component: {fileID: 1459124630}
   m_Layer: 0
   m_Name: '@Scene'
   m_TagString: Untagged
@@ -450,6 +451,27 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1459124630
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1459124627}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e3870188cfd743b483b96e8932e32d51, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _waterMeshRenderer: {fileID: 2130088494}
+  _daySkybox: {fileID: 2100000, guid: 9105918681ea4ed40b8fb7137fbbeced, type: 2}
+  _nightSkybox: {fileID: 2100000, guid: fb114aa23dbf00142be112319127ba44, type: 2}
+  _directionalLight: {fileID: 705507994}
+--- !u!23 &2130088494 stripped
+MeshRenderer:
+  m_CorrespondingSourceObject: {fileID: 1955814964560016148, guid: d7d2e8dd0fde90d4897f5141062d3325, type: 3}
+  m_PrefabInstance: {fileID: 917375839760993312}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &917375839760993312
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -458,6 +480,14 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 10290506060894913, guid: d7d2e8dd0fde90d4897f5141062d3325, type: 3}
+      propertyPath: m_Name
+      value: Water
+      objectReference: {fileID: 0}
+    - target: {fileID: 10290506060894913, guid: d7d2e8dd0fde90d4897f5141062d3325, type: 3}
+      propertyPath: m_Layer
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 2270615646506130682, guid: d7d2e8dd0fde90d4897f5141062d3325, type: 3}
       propertyPath: m_LocalPosition.x
       value: 120
@@ -509,6 +539,7 @@ PrefabInstance:
     - {fileID: 5304063433881047471, guid: d7d2e8dd0fde90d4897f5141062d3325, type: 3}
     - {fileID: 4919425306679371216, guid: d7d2e8dd0fde90d4897f5141062d3325, type: 3}
     - {fileID: 181008927051927954, guid: d7d2e8dd0fde90d4897f5141062d3325, type: 3}
+    - {fileID: 5132573426826854008, guid: d7d2e8dd0fde90d4897f5141062d3325, type: 3}
     m_AddedGameObjects:
     - targetCorrespondingSourceObject: {fileID: 2270615646506130682, guid: d7d2e8dd0fde90d4897f5141062d3325, type: 3}
       insertIndex: -1

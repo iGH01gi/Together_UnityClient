@@ -237,14 +237,17 @@ public class PacketHandler
         
         Debug.Log("DSC_DayTimerStartHandler");
         
-        int daySeconds = dayTimerStartPacket.DaySeconds; //낮 시간(초)
+        float daySeconds = dayTimerStartPacket.DaySeconds; //낮 시간(초)
         float estimatedCurrentServerTimer = daySeconds - Managers.Time.GetEstimatedLatency(); //현재 서버 타이머 시간(예측)
         
         Managers.Player._myDediPlayer.GetComponent<PlayerInput>().DeactivateInput();
         
         UIPacketHandler.StartGameHandler();
-        UIPacketHandler.StartTimer(daySeconds);
+        UIPacketHandler.StartTimer((int)daySeconds);
         UIPacketHandler.CurrentServerTimerUpdate(estimatedCurrentServerTimer);
+        
+        //낮->일몰 효과를 설정함 (낮 시간의 2/3초동안은 낮상태 유지. 남은 낮 시간의 1/3초동안 일몰로 천천히 전환됨)
+        Managers.Scene.SimulateDayToSunset(daySeconds*2/3, daySeconds/3);
     }
 
     //데디케이트서버로부터 낮 타이머 싱크를 받았을때의 처리

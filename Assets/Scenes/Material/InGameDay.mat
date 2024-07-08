@@ -7,7 +7,7 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: Skybox Cubemap Extended Day
+  m_Name: InGameDay
   m_Shader: {fileID: 4800000, guid: 82881a2d011b0964696411c822cdd00b, type: 3}
   m_Parent: {fileID: 0}
   m_ModifiedSerializedProperties: 0
@@ -96,8 +96,8 @@ Material:
     - _Exposure: 1
     - _Float0: 0
     - _FogFill: 0
-    - _FogHeight: 0.7
-    - _FogIntensity: 0.213
+    - _FogHeight: 1
+    - _FogIntensity: 0.4
     - _FogMessage: 0
     - _FogPosition: 0
     - _FogSmoothness: 0.01
@@ -122,7 +122,7 @@ Material:
     - _ZWrite: 1
     - __dirty: 0
     m_Colors:
-    - _Color: {r: 1, g: 1, b: 1, a: 1}
+    - _Color: {r: 0, g: 0, b: 0, a: 0}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
     - _Tex_HDR: {r: 1, g: 1, b: 0, a: 0}
     - _TintColor: {r: 0.5, g: 0.5, b: 0.5, a: 1}

@@ -1,8 +1,7 @@
-﻿using System;
-using System.Collections;
+﻿using System.Collections;
 using UnityEngine;
 
-public class LobbySunsetEffect : MonoBehaviour
+public class InGameDayCycleEffect  : MonoBehaviour
 {
     public MeshRenderer _waterMeshRenderer;
     public Material _daySkybox;
@@ -14,13 +13,13 @@ public class LobbySunsetEffect : MonoBehaviour
     private float _dayWaterMetallic = 0;
     private Color _dayWaterDepthColor = new Color(0.01568627f, 0.4196078f, 0.6313725f); // 046BA1
     private Color _dayFogColor = new Color(0.8f, 0.9254902f, 1f); // CCECFF
-    private float _dayFogIntensity = 0;
-    private Color _dayDirectionalLightColor = new Color(0.9921569f, 0.8784314f, 0.7529412f); // FDE0C0
+    private float _dayFogIntensity = 0.2f;
+    private Color _dayDirectionalLightColor = new Color(1f, 0.7372549f, 0.4470588f); // FFBC72
     
     //일몰 값
     private float _sunsetWaterMetallic = 1;
     private Color _sunsetFogColor = new Color(1f, 0.4313725f, 0.2431373f); // FF6E3E
-    private float _sunsetFogIntensity = 0.8f;
+    private float _sunsetFogIntensity = 0.4f;
     private Color _sunsetDirectionalLightColor = new Color(1f, 0.5254902f, 0f); // FF8600
     
     //한밤중 값
@@ -33,14 +32,32 @@ public class LobbySunsetEffect : MonoBehaviour
     private void Start()
     {
         Init();
-        StartCoroutine(SimulateDayCycle());
     }
 
     /// <summary>
-    /// 초기 밝은 낮 설정
+    /// 기본 변수 세팅 + 초기 밝은 낮 설정 
     /// </summary>
     public void Init()
     {
+        //Map/Island/Water에 있는 MeshRenderer를 참조
+        if(_waterMeshRenderer == null)
+            _waterMeshRenderer = GameObject.Find("Map/Island/Water").GetComponent<MeshRenderer>();
+        
+        //Scenes/Material/InGameDay에 있는 _daySkybox 참조
+        if(_daySkybox == null)
+            _daySkybox = Resources.Load<Material>("Scenes/Material/InGameDay");
+        
+        //Scenes/Material/InGameNight에 있는 _nightSkybox 참조
+        if(_nightSkybox == null)
+            _nightSkybox = Resources.Load<Material>("Scenes/Material/InGameNight");
+        
+        //Directional Light 참조
+        if(_directionalLight == null)
+            _directionalLight = GameObject.Find("Directional Light").GetComponent<Light>();
+     
+        //skybox를 _daySkybox로 설정
+        RenderSettings.skybox = _daySkybox;
+        
         //_waterMeshRenderer의 metallic값을 0으로 설정 (밝은 바다 효과)
         _waterMeshRenderer.material.SetFloat("_Metallic", _dayWaterMetallic);
         
@@ -50,46 +67,64 @@ public class LobbySunsetEffect : MonoBehaviour
         //fog color를 CCECFF로 설정해서 밝은 낮 설정
         RenderSettings.fogColor = _dayFogColor;
         
-        //day스카이박스 머터리얼의 fog intensity를 0으로 설정해서 노을 없애기 설정
+        //day스카이박스 머터리얼의 fog intensity
         _daySkybox.SetFloat("_FogIntensity", _dayFogIntensity);
         
         //directionalLight의 color를 FDE0C0으로 설정해서 한낮 태양 색 설정
         _directionalLight.color = _dayDirectionalLightColor;
+        
+        //DynamicGI 업데이트 (글로벌 조명 즉시 업데이트)
+        DynamicGI.UpdateEnvironment();
     }
 
     /// <summary>
-    /// 낮->일몰->밤->낮 사이클 시뮬레이션
+    /// daySeconds만큼 낮을 유지하고, changeSeconds만큼 걸쳐서 일몰로 변화
     /// </summary>
-    /// <returns></returns>
-    public IEnumerator SimulateDayCycle()
+    /// <param name="daySeconds"></param>
+    /// <param name="changeSeconds"></param>
+    public IEnumerator IESimulateDayToSunset(float daySeconds, float changeSeconds )
     {
-        while (true)
-        {
-            //8초동안 낮 유지
-            yield return new WaitForSeconds(8);
-
-            //5초동안 천천히 일몰효과
-            StartCoroutine(StartSunsetEffect(5));
-            yield return new WaitForSeconds(5);
-
-            //8초동안 일몰상태 유지
-            yield return new WaitForSeconds(8);
-        
-            //5 천천히 밤으로 변화
-            StartCoroutine(StartNightEffectWithDelay(5));
-            yield return new WaitForSeconds(5);
-            //RenderSettings.skybox = _nightSkybox;
-        
-            //8초동안 밤 유지
-            yield return new WaitForSeconds(8);
-        
-            //5초동안 천천히 낮으로 변화
-            StartCoroutine(StartDayEffectWithDelay(5));
-            yield return new WaitForSeconds(5);
-            //RenderSettings.skybox = _daySkybox;
-        }
-        
+        yield return new WaitForSeconds(daySeconds); //낮 유지
+        StartCoroutine(StartSunsetEffect(changeSeconds)); //일몰로 변화
     }
+    public void SimulateDayToSunset(float daySeconds, float changeSeconds)
+    {
+        StartCoroutine(IESimulateDayToSunset(daySeconds, changeSeconds));
+    }
+    
+    /// <summary>
+    /// sunsetSeconds만큼 일몰을 유지하고, changeSeconds만큼 걸쳐서 한밤중으로 변화
+    /// </summary>
+    /// <param name="sunsetSeconds"></param>
+    /// <param name="changeSeconds"></param>
+    /// <returns></returns>
+    public IEnumerator IESimulateSunsetToNight(float sunsetSeconds, float changeSeconds)
+    {
+        yield return new WaitForSeconds(sunsetSeconds); //일몰 유지
+        StartCoroutine(StartNightEffectWithDelay(changeSeconds)); //한밤중으로 변화
+    }
+    public void SimulateSunsetToNight(float sunsetSeconds, float changeSeconds)
+    {
+        StartCoroutine(IESimulateSunsetToNight(sunsetSeconds, changeSeconds));
+    }
+    
+    /// <summary>
+    /// nightSeconds만큼 한밤중을 유지하고, changeSeconds만큼 걸쳐서 낮으로 변화
+    /// </summary>
+    /// <param name="nightSeconds"></param>
+    /// <param name="changeSeconds"></param>
+    /// <returns></returns>
+    public IEnumerator IESimulateNightToDay(float nightSeconds, float changeSeconds)
+    {
+        yield return new WaitForSeconds(nightSeconds); //한밤중 유지
+        StartCoroutine(StartDayEffectWithDelay(changeSeconds)); //낮으로 변화
+    }
+    public void SimulateNightToDay(float nightSeconds, float changeSeconds)
+    {
+        StartCoroutine(IESimulateNightToDay(nightSeconds, changeSeconds));
+    }
+
+   
     
     #region 낮 ->일몰 관련
 
@@ -226,9 +261,13 @@ public class LobbySunsetEffect : MonoBehaviour
             time += Time.deltaTime;
             float newValue = Mathf.Lerp(startValue, targetValue, time / duration);
             _waterMeshRenderer.material.SetFloat("_Metallic", newValue);
+            //DynamicGI 업데이트 (글로벌 조명 즉시 업데이트)
+            DynamicGI.UpdateEnvironment();
             yield return null;
         }
         _waterMeshRenderer.material.SetFloat("_Metallic", _nightWaterMetallic); 
+        //DynamicGI 업데이트 (글로벌 조명 즉시 업데이트)
+        DynamicGI.UpdateEnvironment();
     }
     
     /// <summary>
@@ -247,9 +286,13 @@ public class LobbySunsetEffect : MonoBehaviour
             time += Time.deltaTime;
             Color newValue = Color.Lerp(startColor, targetColor, time / duration);
             _waterMeshRenderer.material.SetColor("_ColorDepth", newValue);
+            //DynamicGI 업데이트 (글로벌 조명 즉시 업데이트)
+            DynamicGI.UpdateEnvironment();
             yield return null;
         }
         _waterMeshRenderer.material.SetColor("_ColorDepth", _nightWaterDepthColor); 
+        //DynamicGI 업데이트 (글로벌 조명 즉시 업데이트)
+        DynamicGI.UpdateEnvironment();
     }
     
     /// <summary>
@@ -267,9 +310,13 @@ public class LobbySunsetEffect : MonoBehaviour
         {
             time += Time.deltaTime;
             RenderSettings.fogColor = Color.Lerp(startColor, targetColor, time / duration);
+            //DynamicGI 업데이트 (글로벌 조명 즉시 업데이트)
+            DynamicGI.UpdateEnvironment();
             yield return null;
         }
         RenderSettings.fogColor = targetColor; // Ensure it ends at the target color
+        //DynamicGI 업데이트 (글로벌 조명 즉시 업데이트)
+        DynamicGI.UpdateEnvironment();
     }
     
     /// <summary>
@@ -288,9 +335,13 @@ public class LobbySunsetEffect : MonoBehaviour
             time += Time.deltaTime;
             float newValue = Mathf.Lerp(startValue, targetValue, time / duration);
             _daySkybox.SetFloat("_FogIntensity", newValue);
+            //DynamicGI 업데이트 (글로벌 조명 즉시 업데이트)
+            DynamicGI.UpdateEnvironment();
             yield return null;
         }
         _daySkybox.SetFloat("_FogIntensity", _nightFogIntensity); 
+        //DynamicGI 업데이트 (글로벌 조명 즉시 업데이트)
+        DynamicGI.UpdateEnvironment();
     }
     
     /// <summary>
@@ -308,9 +359,13 @@ public class LobbySunsetEffect : MonoBehaviour
         {
             time += Time.deltaTime;
             _directionalLight.color = Color.Lerp(startColor, targetColor, time / duration);
+            //DynamicGI 업데이트 (글로벌 조명 즉시 업데이트)
+            DynamicGI.UpdateEnvironment();
             yield return null;
         }
         _directionalLight.color = targetColor; 
+        //DynamicGI 업데이트 (글로벌 조명 즉시 업데이트)
+        DynamicGI.UpdateEnvironment();
     }
 
     #endregion
@@ -350,9 +405,13 @@ public class LobbySunsetEffect : MonoBehaviour
             time += Time.deltaTime;
             float newValue = Mathf.Lerp(startValue, targetValue, time / duration);
             _waterMeshRenderer.material.SetFloat("_Metallic", newValue);
+            //DynamicGI 업데이트 (글로벌 조명 즉시 업데이트)
+            DynamicGI.UpdateEnvironment();
             yield return null;
         }
         _waterMeshRenderer.material.SetFloat("_Metallic", _dayWaterMetallic); 
+        //DynamicGI 업데이트 (글로벌 조명 즉시 업데이트)
+        DynamicGI.UpdateEnvironment();
     }
     
     /// <summary>
@@ -371,9 +430,13 @@ public class LobbySunsetEffect : MonoBehaviour
             time += Time.deltaTime;
             Color newValue = Color.Lerp(startColor, targetColor, time / duration);
             _waterMeshRenderer.material.SetColor("_ColorDepth", newValue);
+            //DynamicGI 업데이트 (글로벌 조명 즉시 업데이트)
+            DynamicGI.UpdateEnvironment();
             yield return null;
         }
         _waterMeshRenderer.material.SetColor("_ColorDepth", _dayWaterDepthColor); 
+        //DynamicGI 업데이트 (글로벌 조명 즉시 업데이트)
+        DynamicGI.UpdateEnvironment();
     }
     
     /// <summary>
@@ -391,9 +454,13 @@ public class LobbySunsetEffect : MonoBehaviour
         {
             time += Time.deltaTime;
             RenderSettings.fogColor = Color.Lerp(startColor, targetColor, time / duration);
+            //DynamicGI 업데이트 (글로벌 조명 즉시 업데이트)
+            DynamicGI.UpdateEnvironment();
             yield return null;
         }
         RenderSettings.fogColor = targetColor; // Ensure it ends at the target color
+        //DynamicGI 업데이트 (글로벌 조명 즉시 업데이트)
+        DynamicGI.UpdateEnvironment();
     }
     
     /// <summary>
@@ -412,9 +479,13 @@ public class LobbySunsetEffect : MonoBehaviour
             time += Time.deltaTime;
             float newValue = Mathf.Lerp(startValue, targetValue, time / duration);
             _daySkybox.SetFloat("_FogIntensity", newValue);
+            //DynamicGI 업데이트 (글로벌 조명 즉시 업데이트)
+            DynamicGI.UpdateEnvironment();
             yield return null;
         }
         _daySkybox.SetFloat("_FogIntensity", _dayFogIntensity); 
+        //DynamicGI 업데이트 (글로벌 조명 즉시 업데이트)
+        DynamicGI.UpdateEnvironment();
     }
     
     /// <summary>
@@ -432,9 +503,13 @@ public class LobbySunsetEffect : MonoBehaviour
         {
             time += Time.deltaTime;
             _directionalLight.color = Color.Lerp(startColor, targetColor, time / duration);
+            //DynamicGI 업데이트 (글로벌 조명 즉시 업데이트)
+            DynamicGI.UpdateEnvironment();
             yield return null;
         }
         _directionalLight.color = targetColor; 
+        //DynamicGI 업데이트 (글로벌 조명 즉시 업데이트)
+        DynamicGI.UpdateEnvironment();
     }
 
     #endregion
@@ -448,17 +523,16 @@ public class LobbySunsetEffect : MonoBehaviour
     IEnumerator ChangeSkyboxMaterialOverTime(Material startMaterial, Material finalMaterial, float duration)
     {
         float time = 0;
-        Color startColor = startMaterial.GetColor("_Tint");
-        Color finalColor = finalMaterial.GetColor("_Tint");
-        
         while (time < duration)
         {
             time += Time.deltaTime;
-            Color currentColor = Color.Lerp(startColor, finalColor, time / duration);
-            RenderSettings.skybox.SetColor("_Tint", currentColor);
+            /*RenderSettings.skybox.Lerp(startMaterial, finalMaterial, time / duration);
+            DynamicGI.UpdateEnvironment();*/
             yield return null;
         }
         
         RenderSettings.skybox = finalMaterial;
+        //DynamicGI 업데이트 (글로벌 조명 즉시 업데이트)
+        DynamicGI.UpdateEnvironment();
     }
 }
