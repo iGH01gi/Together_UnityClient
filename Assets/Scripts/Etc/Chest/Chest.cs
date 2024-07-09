@@ -43,7 +43,7 @@ public class Chest : MonoBehaviour
     {
         //더 이상 트리거가 작동하지 않게 트리거 삭제
         _isOpened = true;
-        _anim.SetTrigger("ChestOpened"); //상자 여는 애니매이션 작동
+        _anim.SetBool("ChestOpened",true); //상자 여는 애니매이션 작동
         Managers.Sound.Play("Effects/ChestOpened",Define.Sound.Effects,transform.GetComponent<AudioSource>()); //상자 여는 효과음
         Managers.Resource.Destroy(transform.Find("TriggerCapsule").gameObject);
         //(꽝 상자일 경우 고려. point가 0인 경우가 꽝 상자임)
