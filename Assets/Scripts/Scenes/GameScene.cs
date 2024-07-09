@@ -11,6 +11,7 @@ public class GameScene : BaseScene
     {
         base.Init();
         Managers.UI.LoadPopupPanel<ProgressPopup>(true,false);
+        Managers.Game.GameScene();
 
         //Managers.Sound.Play("Bgm/test_bgm",Define.Sound.Bgm);
     }

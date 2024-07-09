@@ -6,6 +6,12 @@ using UnityEngine;
 public class TimerCountdownActivator : ClientTimer
 {
     //client 자체 카운트 다운
+
+    private void Awake()
+    {
+        _timerCountdownActivator = this;
+    }
+    
     void Update()
     {
         float old = _clientTimerValue;

@@ -83,6 +83,7 @@ public class Managers : MonoBehaviour
             _instance._ui.Init();
             _instance._input.Init();
             _instance._object.Init();
+            _instance._game.Init();
         }
     }
     
