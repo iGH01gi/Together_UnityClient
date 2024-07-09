@@ -12,10 +12,12 @@ public class Chest : MonoBehaviour
     public bool _isOpened = false; // 상자가 열렸는지 여부
 
     private Animator _anim; //상자 애니메이터
+    private CapsuleCollider _trigger; //상자 트리거
 
     private void Start()
     {
         _anim = transform.GetChild(0).GetComponent<Animator>();
+        _trigger = transform.Find("TriggerCapsule").GetComponent<CapsuleCollider>();
     }
 
     public void InitChest(int chestId, int chestLevel, int point)
@@ -24,6 +26,16 @@ public class Chest : MonoBehaviour
         _chestLevel = chestLevel;
         _point = point;
         _isOpened = false;
+        
+        if(_anim == null)
+            _anim = transform.GetChild(0).GetComponent<Animator>();
+        if(_trigger == null)
+            _trigger = transform.Find("TriggerCapsule").GetComponent<CapsuleCollider>();
+        
+        //TODO: 상자 닫힌 상태 애니메이션 실행하기
+        
+        //트리거(캡슐콜라이더) 키기
+        _trigger.enabled = true;
     }
 
     public void HighlightChest()
@@ -41,11 +53,10 @@ public class Chest : MonoBehaviour
     /// </summary>
     public void OpenChest()
     {
-        //더 이상 트리거가 작동하지 않게 트리거 삭제
         _isOpened = true;
         _anim.SetTrigger("ChestOpened"); //상자 여는 애니매이션 작동
         Managers.Sound.Play("Effects/ChestOpened",Define.Sound.Effects,transform.GetComponent<AudioSource>()); //상자 여는 효과음
-        Managers.Resource.Destroy(transform.Find("TriggerCapsule").gameObject);
+        _trigger.enabled = false; //트리거 비활성화
         //(꽝 상자일 경우 고려. point가 0인 경우가 꽝 상자임)
     }
 }
