@@ -237,15 +237,13 @@ public class PacketHandler
         
         Debug.Log("DSC_DayTimerStartHandler");
         
-        float daySeconds = dayTimerStartPacket.DaySeconds; //낮 시간(초)
+        int daySeconds = dayTimerStartPacket.DaySeconds; //낮 시간(초)
         float estimatedCurrentServerTimer = daySeconds - Managers.Time.GetEstimatedLatency(); //현재 서버 타이머 시간(예측)
-        
-        Managers.Player._myDediPlayer.GetComponent<PlayerInput>().DeactivateInput();
-        
-        UIPacketHandler.StartGameHandler();
-        UIPacketHandler.StartTimer((int)daySeconds);
-        UIPacketHandler.CurrentServerTimerUpdate(estimatedCurrentServerTimer);
-        
+
+        UIPacketHandler.StartGameHandler(); //게임 시작 팝업
+        Managers.Game._clientTimer.Init(daySeconds); //클라이언트 타이머 초기화
+        Managers.Game._clientTimer.CompareTimerValue(estimatedCurrentServerTimer); //클라이언트 타이머 시간 동기화
+
         //낮->일몰 효과를 설정함 (낮 시간의 2/3초동안은 낮상태 유지. 남은 낮 시간의 1/3초동안 일몰로 천천히 전환됨)
         Managers.Scene.SimulateDayToSunset(daySeconds*2/3, daySeconds/3);
     }
@@ -261,7 +259,7 @@ public class PacketHandler
         float currentServerTimer = dayTimerSyncPacket.CurrentServerTimer; 
         float estimatedCurrentServerTimer = currentServerTimer - Managers.Time.GetEstimatedLatency(); //현재 서버 타이머 시간(예측)
         
-        UIPacketHandler.CurrentServerTimerUpdate(estimatedCurrentServerTimer);
+        Managers.Game._clientTimer.CompareTimerValue(estimatedCurrentServerTimer); //클라이언트 타이머 시간 동기화
     }
 
     //데디케이트서버로부터 낮 타이머 종료를 받았을때의 처리
@@ -287,8 +285,8 @@ public class PacketHandler
         int nightSeconds = nightTimerStartPacket.NightSeconds; //밤 시간(초)
         float estimatedCurrentServerTimer = nightSeconds - Managers.Time.GetEstimatedLatency(); //현재 서버 타이머 시간(예측)
         
-        UIPacketHandler.StartTimer(nightSeconds);
-        UIPacketHandler.CurrentServerTimerUpdate(estimatedCurrentServerTimer);
+        Managers.Game._clientTimer.Init(nightSeconds); //클라이언트 타이머 초기화
+        Managers.Game._clientTimer.CompareTimerValue(estimatedCurrentServerTimer); //클라이언트 타이머 시간 동기화
     }
     
     //데디케이트서버로부터 밤 타이머 싱크를 받았을때의 처리
@@ -302,7 +300,7 @@ public class PacketHandler
         float currentServerTimer = nightTimerSyncPacket.CurrentServerTimer;
         float estimatedCurrentServerTimer = currentServerTimer - Managers.Time.GetEstimatedLatency(); //현재 서버 타이머 시간(예측)
         
-        UIPacketHandler.CurrentServerTimerUpdate(estimatedCurrentServerTimer);
+        Managers.Game._clientTimer.CompareTimerValue(estimatedCurrentServerTimer); //클라이언트 타이머 시간 동기화
     }
     
     //데디케이트서버로부터 밤 타이머 종료를 받았을때의 처리
@@ -313,6 +311,7 @@ public class PacketHandler
 
         Debug.Log("DSC_NightTimerEndHandler");
         
+        Managers.Player._myDediPlayer.GetComponent<PlayerInput>().DeactivateInput();
         UIPacketHandler.TimerEndedInServer();
     }
 

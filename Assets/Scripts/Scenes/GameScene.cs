@@ -11,6 +11,7 @@ public class GameScene : BaseScene
     {
         base.Init();
         Managers.UI.LoadPopupPanel<ProgressPopup>(true,false);
+        Managers.Player._myDediPlayer.GetComponent<PlayerInput>().DeactivateInput();
 
         //Managers.Sound.Play("Bgm/test_bgm",Define.Sound.Bgm);
     }

@@ -80,21 +80,11 @@ public class UIPacketHandler
     {
         Managers.UI.SceneUI.GetComponent<RoomUI>().RefreshButton();
     }
-
-    public static void StartTimer(int setTimerValue)
-    {
-        Managers.UI.GetComponentInSceneUI<ClientTimer>("TimerText").Init(setTimerValue);
-    }
-
-    public static void CurrentServerTimerUpdate(float currentServerTime)
-    {
-        Managers.UI.GetComponentInSceneUI<ClientTimer>("TimerText").CompareTimerValue(currentServerTime);
-    }
     
     public static void TimerEndedInServer()
     {
         Managers.Sound.Play("Effects/Start!");
-        Managers.UI.GetComponentInSceneUI<ClientTimer>("TimerText").EndTimer();
+        Managers.Game._clientTimer.EndTimer();
     }
 
     public static void StartGameHandler()

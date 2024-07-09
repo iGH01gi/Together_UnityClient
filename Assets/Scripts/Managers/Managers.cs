@@ -85,6 +85,7 @@ public class Managers : MonoBehaviour
             _instance._input.Init();
             _instance._object = go.GetComponent<ObjectManager>(); //특별처리 (모노비헤비어)
             _instance._object.Init();
+            _instance._game.Init();
         }
     }
     
