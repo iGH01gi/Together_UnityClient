@@ -32,7 +32,8 @@ public class Chest : MonoBehaviour
         if(_trigger == null)
             _trigger = transform.Find("TriggerCapsule").GetComponent<CapsuleCollider>();
         
-        //TODO: 상자 닫힌 상태 애니메이션 실행하기
+        //상자 닫힌 상태 애니메이션 실행하기
+        _anim.SetBool("ChestOpened",false);
         
         //트리거(캡슐콜라이더) 키기
         _trigger.enabled = true;
