@@ -20,7 +20,7 @@ public class Managers : MonoBehaviour
     InputManager _input = new InputManager();
     RoomManager _room = new RoomManager();
     DedicatedManager _dedicated = new DedicatedManager();
-    ObjectManager _object;
+    private ObjectManager _object = new ObjectManager();
     JobTimerManager _job = new JobTimerManager();
     TimeManager _time = new TimeManager();
     GameManager _game = new GameManager();
@@ -71,7 +71,6 @@ public class Managers : MonoBehaviour
             {
                 go = new GameObject { name = "@Managers" };
                 go.AddComponent<Managers>();
-                go.AddComponent<ObjectManager>(); //특별처리 (모노비헤비어)
             }
 
             DontDestroyOnLoad(go);
@@ -83,7 +82,6 @@ public class Managers : MonoBehaviour
             _instance._player.Init();
             _instance._ui.Init();
             _instance._input.Init();
-            _instance._object = go.GetComponent<ObjectManager>(); //특별처리 (모노비헤비어)
             _instance._object.Init();
         }
     }
