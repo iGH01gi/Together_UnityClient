@@ -14,12 +14,6 @@ public class ClientTimer : MonoBehaviour
     public static TMP_Text _timerUI;
     public static TimerCountdownActivator _timerCountdownActivator;
 
-    private void Awake()
-    {
-        _timerUI = Managers.UI.GetComponentInSceneUI<TMP_Text>("TimerText");
-    }
-    
-
     //타이머 UI 업데이트
     protected void UpdateTimerUI()
     {
@@ -32,6 +26,7 @@ public class ClientTimer : MonoBehaviour
     // 라운드 시작 패킷 받을 시, 라운드 시간을 변수로 콜
     public void Init(int newTimeToSet)
     {
+        _timerUI = Managers.UI.GetComponentInSceneUI<TMP_Text>("TimerText");
         _clientTimerValue = newTimeToSet;
         UpdateTimerUI();
         _timerCountdownActivator = transform.AddComponent<TimerCountdownActivator>();

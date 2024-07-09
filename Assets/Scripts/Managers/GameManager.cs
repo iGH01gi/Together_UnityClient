@@ -1,8 +1,9 @@
 ﻿using UnityEngine;
 public class GameManager
 {
-    public static GameObject root;
     public ClientTimer _clientTimer;
+    public static GameObject root;
+    
     public void Init()
     {
         root = GameObject.Find("@Game");
@@ -10,9 +11,12 @@ public class GameManager
         {
             root = new GameObject { name = "@Game" };
             Object.DontDestroyOnLoad(root);
-            
-            _clientTimer = root.AddComponent<ClientTimer>();
         }
+    }
+
+    public void GameScene()
+    {
+        _clientTimer = Util.GetOrAddComponent<ClientTimer>(root);
     }
 
     #region 근처 폭탄마 소리 처리
