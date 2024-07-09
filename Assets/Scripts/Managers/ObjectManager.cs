@@ -5,7 +5,7 @@ using UnityEngine;
 /// <summary>
 /// 인게임에 등장하는 모든 게임 오브젝트들을 관리하는 매니저(스폰, 제거, 이동, 상태변경 등)
 /// </summary>
-public class ObjectManager : MonoBehaviour
+public class ObjectManager
 {
     #region Chest관련
 
@@ -31,11 +31,6 @@ public class ObjectManager : MonoBehaviour
 
     public void Init()
     {
-        //상자 프리팹 로드
-        _level1Chest = Managers.Resource.Load<GameObject>(_level1ChestPath);
-        _level2Chest = Managers.Resource.Load<GameObject>(_level2ChestPath);
-        _level3Chest = Managers.Resource.Load<GameObject>(_level3ChestPath);
-        
         //상자들이 실제로 생성될 부모 오브젝트 초기화
         //Map/Chests가 존재하는지 검사
         if(GameObject.Find("Map/Chests") != null)
@@ -72,7 +67,7 @@ public class ObjectManager : MonoBehaviour
     {
         foreach (var chest in _chestList)
         {
-            Destroy(chest);
+            Managers.Resource.Destroy(chest);
         }
         _chestList.Clear();
         
@@ -86,13 +81,6 @@ public class ObjectManager : MonoBehaviour
     /// </summary>
     public void SpawnAllChest(DSC_NewChestsInfo dscNewChestsInfo)
     {
-        if(_level1Chest == null || _level2Chest == null || _level3Chest == null)
-        {
-            _level1Chest = Managers.Resource.Load<GameObject>(_level1ChestPath);
-            _level2Chest = Managers.Resource.Load<GameObject>(_level2ChestPath);
-            _level3Chest = Managers.Resource.Load<GameObject>(_level3ChestPath);
-        }
-        
         if(_chestsParent == null)
         {
             _chestsParent =  GameObject.Find("Map/Chests").transform;
@@ -114,19 +102,19 @@ public class ObjectManager : MonoBehaviour
             if(chestLevel == 1)
             {
                 _level1Count++;
-                chest = Instantiate(_level1Chest);
+                chest = Managers.Resource.Instantiate(_level1ChestPath, parent);
                 parent.name = $"Lv1Chest_{i}";
             }
             else if(chestLevel == 2)
             {
                 _level2Count++;
-                chest = Instantiate(_level2Chest);
+                chest = Managers.Resource.Instantiate(_level2ChestPath, parent);
                 parent.name = $"Lv2Chest_{i}";
             }
             else if(chestLevel == 3)
             {
                 _level3Count++;
-                chest = Instantiate(_level3Chest);
+                chest = Managers.Resource.Instantiate(_level3ChestPath, parent);
                 parent.name = $"Lv3Chest_{i}";
             }
             
