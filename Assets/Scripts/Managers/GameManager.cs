@@ -8,9 +8,11 @@ public class GameManager
     public ClientTimer _clientTimer;
     private PlayBombSound _playBombSound;
 
-    public static int _dokidokiDistance = 20;
-
-
+    public static int _dokidokiStart = 20;
+    public static int _dokidokiExtreme = 10;
+    public  bool gamestart = false;
+    
+    
     //Managers Init과 함께 불리는 Init
     public void Init()
     {
@@ -35,12 +37,14 @@ public class GameManager
     {
         //if(Managers.Player._otherDediPlayers.Count == 0) return;
         
-        //if(!gamestart) return;
-        
-        //_playBombSound.CheckPlayBombSound(Vector3.Distance(Managers.Player._myDediPlayer.transform.position,
-          //  Managers.Object._chestList[0].transform.position) < _dokidokiDistance);
+        if(!gamestart) return;
 
-        //if bomb player is within 10m, play sound
+        float distance = Vector3.Distance(Managers.Player._myDediPlayer.transform.position,
+            Managers.Object._chestList[0].transform.position);
+        
+        _playBombSound.CheckPlayBombSound(distance< _dokidokiStart, distance < _dokidokiExtreme);
+
+        //if bomb player is within _dokidokiDistance, play sound
         /*_playBombSound.CheckPlayBombSound((Vector3.Distance(Managers.Player._myDediPlayer.transform.position,
         Managers.Player._otherDediPlayers..transform.position) < _dokidokiDistance));*/
 
