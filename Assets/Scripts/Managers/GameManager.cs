@@ -4,15 +4,13 @@ using UnityEngine.Audio;
 public class GameManager
 {
     public static GameObject root;
+    public bool _isDay;
     
     public ClientTimer _clientTimer;
-    private PlayBombSound _playBombSound;
 
     public static int _dokidokiStart = 20;
     public static int _dokidokiExtreme = 10;
-    public  bool gamestart = false;
-    
-    
+
     //Managers Init과 함께 불리는 Init
     public void Init()
     {
@@ -32,22 +30,17 @@ public class GameManager
     }
 
     #region 근처 폭탄마 소리 처리
+    private PlayBombSound _playBombSound;
 
     public void PlayBombSound()
     {
-        //if(Managers.Player._otherDediPlayers.Count == 0) return;
+        if(Managers.Player.GetBomberId() == -1)
+            return;
         
-        if(!gamestart) return;
-
         float distance = Vector3.Distance(Managers.Player._myDediPlayer.transform.position,
-            Managers.Object._chestList[0].transform.position);
+            Managers.Player.GetBomberGameObject().transform.position);
         
         _playBombSound.CheckPlayBombSound(distance< _dokidokiStart, distance < _dokidokiExtreme);
-
-        //if bomb player is within _dokidokiDistance, play sound
-        /*_playBombSound.CheckPlayBombSound((Vector3.Distance(Managers.Player._myDediPlayer.transform.position,
-        Managers.Player._otherDediPlayers..transform.position) < _dokidokiDistance));*/
-
 
     }
 
