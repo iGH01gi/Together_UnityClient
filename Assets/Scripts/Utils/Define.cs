@@ -33,6 +33,7 @@ public class Define
     {
         Bgm,
         Effects,
+        Heartbeat,
     }
 
     public enum PlayerAction
