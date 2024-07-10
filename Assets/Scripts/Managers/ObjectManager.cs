@@ -167,7 +167,7 @@ public class ObjectManager
         chest.OpenChest();
 
         //플레이어 효과처리
-        Managers.Sound.Play("Effects/WarningNotification",Define.Sound.Effects,chest.transform.GetComponent<AudioSource>());
+        Managers.Sound.Play("WarningNotification",Define.Sound.Effects,chest.transform.GetComponent<AudioSource>());
     }
     
     /// <summary>
@@ -183,13 +183,13 @@ public class ObjectManager
         //내 플레이어 포인트 증가처리 및 효과처리
         if (chest._point > 0)
         {
-            Managers.Sound.Play("Effects/Success",Define.Sound.Effects,chest.transform.GetComponent<AudioSource>());
-            Managers.Sound.Play("Effects/CoinSound",Define.Sound.Effects,chest.transform.GetComponent<AudioSource>());
+            Managers.Sound.Play("Success",Define.Sound.Effects,chest.transform.GetComponent<AudioSource>());
+            Managers.Sound.Play("CoinSound",Define.Sound.Effects,chest.transform.GetComponent<AudioSource>());
             //Managers.  += chest._point;
         }
         else
         {
-            Managers.Sound.Play("Effects/Fail",Define.Sound.Effects,chest.transform.GetComponent<AudioSource>());
+            Managers.Sound.Play("Fail",Define.Sound.Effects,chest.transform.GetComponent<AudioSource>());
         }
     }
 

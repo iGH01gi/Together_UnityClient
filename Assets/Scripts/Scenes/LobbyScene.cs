@@ -9,7 +9,7 @@ public class LobbyScene : BaseScene
     {
         base.Init();
         Managers.UI.LoadScenePanel("MainMenuUI");
-        Managers.Sound.Play("bgm/MainMenuMusic",Define.Sound.Bgm);
+        Managers.Sound.Play("MainMenuMusic",Define.Sound.Bgm);
         
     }
 

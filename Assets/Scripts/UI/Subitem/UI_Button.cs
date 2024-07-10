@@ -8,12 +8,12 @@ public class UI_Button : UI_subitem
 {
     public void PlayButtonClick()
     {
-        Managers.Sound.Play("Effects/Confirm");
+        Managers.Sound.Play("Confirm");
     }
 
     public void PlayButtonHover()
     {
-        Managers.Sound.Play("Effects/ButtonClick");
+        Managers.Sound.Play("ButtonClick");
     }
     
     public void SetOnClick(Action func)

@@ -1,6 +1,8 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Object = UnityEngine.Object;
 
 public class SoundManager
 {
@@ -23,6 +25,7 @@ public class SoundManager
                 go.transform.parent = root.transform;
             }
             _audioSources[(int)Define.Sound.Bgm].loop = true;
+            _audioSources[(int)Define.Sound.Heartbeat].loop = true;
         }
     }
 
@@ -38,7 +41,19 @@ public class SoundManager
 
     public void Play(string path, Define.Sound type = Define.Sound.Effects, AudioSource audioSource = null, float pitch = 1.0f)
     {
-        AudioClip audioClip = GetOrAddAudioClip(path, type);
+	    switch (type)
+	    {
+		    case Define.Sound.Bgm:
+				path = String.Concat("Bgm/", path);
+			    break;
+		    case Define.Sound.Effects:
+			    path = String.Concat("Effects/", path);
+			    break;
+		    case Define.Sound.Heartbeat:
+			    path = String.Concat("Heartbeat/", path);
+			    break;
+	    }
+	    AudioClip audioClip = GetOrAddAudioClip(path, type);
         Play(audioClip, type, audioSource, pitch);
     }
 
@@ -46,6 +61,8 @@ public class SoundManager
 	{
 		if (audioClip == null)	
             return;
+
+
 		if (audioSource == null)
 		{
 			switch (type)
@@ -53,6 +70,17 @@ public class SoundManager
 				case Define.Sound.Bgm:
 				{
 					audioSource = _audioSources[(int)Define.Sound.Bgm];
+					if (audioSource.isPlaying)
+						audioSource.Stop();
+
+					audioSource.pitch = pitch;
+					audioSource.clip = audioClip;
+					audioSource.Play();
+					break;
+				}
+				case Define.Sound.Heartbeat:
+				{
+					audioSource = _audioSources[(int)Define.Sound.Heartbeat];
 					if (audioSource.isPlaying)
 						audioSource.Stop();
 
@@ -87,7 +115,7 @@ public class SoundManager
 
 		AudioClip audioClip = null;
 
-		if (type == Define.Sound.Bgm)
+		if (type == Define.Sound.Bgm || type == Define.Sound.Heartbeat)
 		{
 			audioClip = Managers.Resource.Load<AudioClip>(path);
 		}
@@ -105,4 +133,47 @@ public class SoundManager
 
 		return audioClip;
     }
+	
+	public void ChangePitch(Define.Sound type, float pitch)
+	{
+		_audioSources[(int)type].pitch = pitch;
+	}
+
+	public IEnumerator FadeIn(Define.Sound type, string path, float fadeTime = 1.0f, float fadeDuration = 0.05f)
+	{
+		AudioSource audioSource = _audioSources[(int)type];
+		float startVolume = 0.0f;
+		float endVolume = 1f;//replace with sound setting
+		float time = 0.0f;
+
+		audioSource.volume = startVolume;
+		Play(path, type);
+
+		while (time < fadeTime)
+		{
+			float volume = (endVolume)*(time/fadeTime);
+			audioSource.volume = volume;
+			time += fadeDuration;
+			yield return new WaitForSeconds(fadeDuration);
+		}
+		audioSource.volume = endVolume;
+	}
+	
+	public IEnumerator FadeOut(Define.Sound type, float fadeTime = 0.5f, float fadeDuration = 0.05f)
+	{
+		AudioSource audioSource = _audioSources[(int)type];
+		float endVolume = 0.0f;
+		float startVolume = 1f; //replace with sound setting
+		float time = 0.0f;
+
+		while (time < fadeTime)
+		{
+			float volume = startVolume - (startVolume-endVolume)*(time/fadeTime);
+			audioSource.volume = volume;
+			time += fadeDuration;
+			yield return new WaitForSeconds(fadeDuration);
+		}
+		audioSource.Stop();
+		audioSource.volume = startVolume;
+	}
 }
