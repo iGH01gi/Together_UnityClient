@@ -6,6 +6,8 @@ public class MyDediPlayer : MonoBehaviour
     public int PlayerId { get; set; }
     public string Name { get; set; }
     
+    public bool _isBomber = false; //폭탄마 여부
+    
     
     public void Init(int playerId, string name)
     {

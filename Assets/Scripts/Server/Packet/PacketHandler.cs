@@ -277,6 +277,9 @@ public class PacketHandler
 
         Debug.Log("DSC_DayTimerEndHandler");
         
+        int bomberId = Managers.Player.GetBomberId();
+        Managers.Player.SetBomber(bomberId, callback:()=>{}); //폭탄마 설정 + 그 이후 실행될 callback함수
+        
         Managers.Player._myDediPlayer.GetComponent<PlayerInput>().DeactivateInput();
         UIPacketHandler.TimerEndedInServer();
     }

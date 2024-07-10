@@ -8,6 +8,8 @@ public class OtherDediPlayer : MonoBehaviour
     public int PlayerId { get; set; }
     public string Name { get; set; }
     
+    public bool _isBomber = false; //폭탄마 여부
+    
     CharacterController _controller;
     public GameObject _ghost;
     public Vector3 _velocity;

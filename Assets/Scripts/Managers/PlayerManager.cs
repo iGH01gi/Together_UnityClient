@@ -134,8 +134,69 @@ public class PlayerManager
     {
         Managers.Resource.Destroy(ghostObj);
     }
-
-
     
+    /// <summary>
+    /// bomber를 지정함
+    /// </summary>
+    /// <param name="dediPlayerId">bomber로 지정할 데디플레이어id</param>
+    /// <param name="callback">bomber설정된 후 불릴 함수</param>
+    public void SetBomber(int dediPlayerId, Action callback = null)
+    {
+        ClearBomber();
+        
+        if (Managers.Player._myDediPlayerId == dediPlayerId)
+        {
+            Managers.Player._myDediPlayer.GetComponent<MyDediPlayer>()._isBomber = true;
+        }
+        else
+        {
+            Managers.Player._otherDediPlayers[dediPlayerId].GetComponent<OtherDediPlayer>()._isBomber = true;
+        }
+        
+        callback?.Invoke();
+    }
+
+    /// <summary>
+    /// 내 데디플레이어를 포함한 모든 데디플레이어의 isbomber를 false로 설정
+    /// </summary>
+    public void ClearBomber()
+    {
+        Managers.Player._myDediPlayer.GetComponent<MyDediPlayer>()._isBomber = false;
+        foreach (GameObject dediPlayer in Managers.Player._otherDediPlayers.Values)
+        {
+            dediPlayer.GetComponent<OtherDediPlayer>()._isBomber = false;
+        }
+    }
+    
+    /// <summary>
+    /// bomber의 id를 반환함
+    /// </summary>
+    /// <returns>만약 bomber가 없을시 -1을 반환</returns>
+    public int GetBomberId()
+    {
+        foreach (GameObject dediPlayer in Managers.Player._otherDediPlayers.Values)
+        {
+            if (dediPlayer.GetComponent<OtherDediPlayer>()._isBomber)
+            {
+                return dediPlayer.GetComponent<OtherDediPlayer>().PlayerId;
+            }
+        }
+        
+        if (Managers.Player._myDediPlayer.GetComponent<MyDediPlayer>()._isBomber)
+        {
+            return Managers.Player._myDediPlayerId;
+        }
+
+        return -1;
+    }
+    
+    /// <summary>
+    /// 내 데디플레이어가 bomber인지 확인
+    /// </summary>
+    /// <returns>'내'가 bomber이면 true, 아니면 false</returns>
+    public bool IsMyDediPlayerBomber()
+    {
+        return Managers.Player._myDediPlayer.GetComponent<MyDediPlayer>()._isBomber;
+    }
 
 }
