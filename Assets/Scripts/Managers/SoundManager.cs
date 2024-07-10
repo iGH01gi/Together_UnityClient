@@ -1,6 +1,8 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Object = UnityEngine.Object;
 
 public class SoundManager
 {
@@ -38,7 +40,19 @@ public class SoundManager
 
     public void Play(string path, Define.Sound type = Define.Sound.Effects, AudioSource audioSource = null, float pitch = 1.0f)
     {
-        AudioClip audioClip = GetOrAddAudioClip(path, type);
+	    switch (type)
+	    {
+		    case Define.Sound.Bgm:
+				path = String.Concat("Bgm/", path);
+			    break;
+		    case Define.Sound.Effects:
+			    path = String.Concat("Effects/", path);
+			    break;
+		    case Define.Sound.Heartbeat:
+			    path = String.Concat("Bgm/", "Heartbeat");
+			    break;
+	    }
+	    AudioClip audioClip = GetOrAddAudioClip(path, type);
         Play(audioClip, type, audioSource, pitch);
     }
 
@@ -46,6 +60,8 @@ public class SoundManager
 	{
 		if (audioClip == null)	
             return;
+
+
 		if (audioSource == null)
 		{
 			switch (type)
@@ -105,4 +121,41 @@ public class SoundManager
 
 		return audioClip;
     }
+
+	public IEnumerator FadeIn(Define.Sound type, string path, float fadeTime = 1.0f, float fadeDuration = 0.1f)
+	{
+		AudioSource audioSource = _audioSources[(int)type];
+		float startVolume = 0.0f;
+		float endVolume = audioSource.volume;
+		float time = 0.0f;
+
+		audioSource.volume = startVolume;
+		Play(path, type);
+
+		while (time < fadeTime)
+		{
+			float volume = Mathf.Lerp(startVolume, endVolume, time / fadeTime);
+			audioSource.volume = volume;
+			time += fadeDuration;
+			yield return new WaitForSeconds(fadeDuration);
+		}
+	}
+	
+	public IEnumerator FadeOut(Define.Sound type, float fadeTime = 1.0f, float fadeDuration = 0.1f)
+	{
+		AudioSource audioSource = _audioSources[(int)type];
+		float endVolume = 0.0f;
+		float startVolume = audioSource.volume;
+		float time = 0.0f;
+
+		while (time < fadeTime)
+		{
+			float volume = Mathf.Lerp(startVolume, endVolume, time / fadeTime);
+			audioSource.volume = volume;
+			time += fadeDuration;
+			yield return new WaitForSeconds(fadeDuration);
+		}
+		audioSource.Stop();
+		audioSource.volume = startVolume;
+	}
 }

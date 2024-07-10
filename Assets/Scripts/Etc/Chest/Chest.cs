@@ -56,7 +56,7 @@ public class Chest : MonoBehaviour
     {
         _isOpened = true;
         _anim.SetBool("ChestOpened",true); //상자 여는 애니매이션 작동
-        Managers.Sound.Play("Effects/ChestOpened",Define.Sound.Effects,transform.GetComponent<AudioSource>()); //상자 여는 효과음
+        Managers.Sound.Play("ChestOpened",Define.Sound.Effects,transform.GetComponent<AudioSource>()); //상자 여는 효과음
         _trigger.enabled = false; //트리거 비활성화
         //(꽝 상자일 경우 고려. point가 0인 경우가 꽝 상자임)
     }

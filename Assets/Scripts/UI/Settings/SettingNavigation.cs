@@ -41,7 +41,7 @@ public class SettingNavigation : MonoBehaviour
 
     void TurnOffAll()
     {
-        Managers.Sound.Play("Effects/test_effects");
+        Managers.Sound.Play("test_effects");
         DisplaySettingsPanel.SetActive(false);
         SoundSettingsPanel.SetActive(false);
         ControlSettingsPanel.SetActive(false);

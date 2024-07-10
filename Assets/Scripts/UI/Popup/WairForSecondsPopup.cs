@@ -26,7 +26,7 @@ public class WairForSecondsPopup : UI_popup
         transform.GetComponent<Image>().color= new Color(0,0,0,0);
         transform.Find("Seconds").GetComponent<TMP_Text>().text = "START!";
         
-        Managers.Sound.Play("Effects/Start!");
+        Managers.Sound.Play("Start!");
         ClosePopup();
     }
 }
