@@ -10,9 +10,9 @@ public class ObjectManager
     #region Chest관련
 
     public List<GameObject> _chestList = new List<GameObject>(); //상자 리스트(인덱스는 chestId)
-    public string _level1ChestPath = "Prefabs/Chest/Chest Standard";
-    public string _level2ChestPath = "Prefabs/Chest/Chest Royal";
-    public string _level3ChestPath = "Prefabs/Chest/Chest Mythical";
+    public string _level1ChestPath = "Chest/Chest Standard";
+    public string _level2ChestPath = "Chest/Chest Royal";
+    public string _level3ChestPath = "Chest/Chest Mythical";
     GameObject _level1Chest; //레벨1 상자 프리팹
     GameObject _level2Chest; //레벨2 상자 프리팹
     GameObject _level3Chest; //레벨3 상자 프리팹
@@ -122,6 +122,7 @@ public class ObjectManager
             chest.transform.SetParent(parent, false);
             chest.transform.localPosition = Vector3.zero;
             chest.transform.localRotation = Quaternion.identity;
+            chest.transform.localScale = Vector3.one;
             
             //상자에 전용 스크립트 부착 및 정보 입력
             Chest chestScript = chest.AddComponent<Chest>();
