@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEngine.Serialization;
 
 public class MyDediPlayer : MonoBehaviour
 {
@@ -6,7 +7,7 @@ public class MyDediPlayer : MonoBehaviour
     public int PlayerId { get; set; }
     public string Name { get; set; }
     
-    public bool _isBomber = false; //폭탄마 여부
+    public bool _isKiller = false; //킬러 여부
     
     
     public void Init(int playerId, string name)

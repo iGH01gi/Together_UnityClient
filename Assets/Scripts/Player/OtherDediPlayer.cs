@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 public class OtherDediPlayer : MonoBehaviour
 {
@@ -8,7 +9,7 @@ public class OtherDediPlayer : MonoBehaviour
     public int PlayerId { get; set; }
     public string Name { get; set; }
     
-    public bool _isBomber = false; //폭탄마 여부
+    public bool _isKiller = false; //킬러 여부
     
     CharacterController _controller;
     public GameObject _ghost;

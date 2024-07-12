@@ -31,7 +31,7 @@ public class GameManager
         _playBombSound = Util.GetOrAddComponent<PlayBombSound>(root);
     }
 
-    #region 근처 폭탄마 소리 처리
+    #region 근처 킬러 소리 처리
 
     public void PlayBombSound()
     {

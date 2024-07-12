@@ -227,7 +227,7 @@ public class PacketHandler
         //Debug.Log("DSC_MoveHandler");
         
         Managers.Player._syncMoveCtonroller.SyncOtherPlayerMove(movePacket);
-        Managers.Game.PlayBombSound(); //폭탄마가 근처에 있으면 심장소리 재생
+        Managers.Game.PlayBombSound(); //킬러가 근처에 있으면 심장소리 재생
     }
     
     //데디케이트서버로부터 낮 타이머 시작을 받았을때의 처리
@@ -253,6 +253,9 @@ public class PacketHandler
 
         //낮->일몰 효과를 설정함 (낮 시간의 2/3초동안은 낮상태 유지. 남은 낮 시간의 1/3초동안 일몰로 천천히 전환됨)
         Managers.Scene.SimulateDayToSunset(daySeconds*2/3, daySeconds/3);
+        
+        //킬러정보 초기화
+        Managers.Player.ClearKiller();
     }
 
     //데디케이트서버로부터 낮 타이머 싱크를 받았을때의 처리
@@ -277,8 +280,8 @@ public class PacketHandler
 
         Debug.Log("DSC_DayTimerEndHandler");
         
-        int bomberId = Managers.Player.GetBomberId();
-        Managers.Player.SetBomber(bomberId, callback:()=>{}); //폭탄마 설정 + 그 이후 실행될 callback함수
+        int bomberId = Managers.Player.GetKillerId();
+        Managers.Player.SetKiller(bomberId, callback:()=>{}); //킬러 설정 + 그 이후 실행될 callback함수
         
         Managers.Player._myDediPlayer.GetComponent<PlayerInput>().DeactivateInput();
         UIPacketHandler.TimerEndedInServer();
@@ -320,6 +323,9 @@ public class PacketHandler
         DedicatedServerSession dedicatedServerSession = session as DedicatedServerSession;
 
         Debug.Log("DSC_NightTimerEndHandler");
+        
+        //킬러정보 초기화
+        Managers.Player.ClearKiller();
         
         Managers.Player._myDediPlayer.GetComponent<PlayerInput>().DeactivateInput();
         UIPacketHandler.TimerEndedInServer();

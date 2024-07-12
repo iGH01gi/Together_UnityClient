@@ -136,53 +136,53 @@ public class PlayerManager
     }
     
     /// <summary>
-    /// bomber를 지정함
+    /// 킬러를 지정함
     /// </summary>
-    /// <param name="dediPlayerId">bomber로 지정할 데디플레이어id</param>
-    /// <param name="callback">bomber설정된 후 불릴 함수</param>
-    public void SetBomber(int dediPlayerId, Action callback = null)
+    /// <param name="dediPlayerId">킬러로 지정할 데디플레이어id</param>
+    /// <param name="callback">킬러 설정된 후 불릴 함수</param>
+    public void SetKiller(int dediPlayerId, Action callback = null)
     {
-        ClearBomber();
+        ClearKiller();
         
         if (Managers.Player._myDediPlayerId == dediPlayerId)
         {
-            Managers.Player._myDediPlayer.GetComponent<MyDediPlayer>()._isBomber = true;
+            Managers.Player._myDediPlayer.GetComponent<MyDediPlayer>()._isKiller = true;
         }
         else
         {
-            Managers.Player._otherDediPlayers[dediPlayerId].GetComponent<OtherDediPlayer>()._isBomber = true;
+            Managers.Player._otherDediPlayers[dediPlayerId].GetComponent<OtherDediPlayer>()._isKiller = true;
         }
         
         callback?.Invoke();
     }
 
     /// <summary>
-    /// 내 데디플레이어를 포함한 모든 데디플레이어의 isbomber를 false로 설정
+    /// 내 데디플레이어를 포함한 모든 데디플레이어의 isKiller를 false로 설정
     /// </summary>
-    public void ClearBomber()
+    public void ClearKiller()
     {
-        Managers.Player._myDediPlayer.GetComponent<MyDediPlayer>()._isBomber = false;
+        Managers.Player._myDediPlayer.GetComponent<MyDediPlayer>()._isKiller = false;
         foreach (GameObject dediPlayer in Managers.Player._otherDediPlayers.Values)
         {
-            dediPlayer.GetComponent<OtherDediPlayer>()._isBomber = false;
+            dediPlayer.GetComponent<OtherDediPlayer>()._isKiller = false;
         }
     }
     
     /// <summary>
-    /// bomber의 id를 반환함
+    /// killer의 id를 반환함
     /// </summary>
-    /// <returns>만약 bomber가 없을시 -1을 반환</returns>
-    public int GetBomberId()
+    /// <returns>만약 killer가 없을시 -1을 반환</returns>
+    public int GetKillerId()
     {
         foreach (GameObject dediPlayer in Managers.Player._otherDediPlayers.Values)
         {
-            if (dediPlayer.GetComponent<OtherDediPlayer>()._isBomber)
+            if (dediPlayer.GetComponent<OtherDediPlayer>()._isKiller)
             {
                 return dediPlayer.GetComponent<OtherDediPlayer>().PlayerId;
             }
         }
         
-        if (Managers.Player._myDediPlayer.GetComponent<MyDediPlayer>()._isBomber)
+        if (Managers.Player._myDediPlayer.GetComponent<MyDediPlayer>()._isKiller)
         {
             return Managers.Player._myDediPlayerId;
         }
@@ -191,12 +191,12 @@ public class PlayerManager
     }
     
     /// <summary>
-    /// 내 데디플레이어가 bomber인지 확인
+    /// 내 데디플레이어가 killer인지 확인
     /// </summary>
-    /// <returns>'내'가 bomber이면 true, 아니면 false</returns>
-    public bool IsMyDediPlayerBomber()
+    /// <returns>'내'가 killer이면 true, 아니면 false</returns>
+    public bool IsMyDediPlayerKiller()
     {
-        return Managers.Player._myDediPlayer.GetComponent<MyDediPlayer>()._isBomber;
+        return Managers.Player._myDediPlayer.GetComponent<MyDediPlayer>()._isKiller;
     }
 
 }
