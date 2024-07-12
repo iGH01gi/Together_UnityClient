@@ -230,7 +230,7 @@ public class PacketHandler
         
         //killer가 존재하고 내가 아닐시에 심장소리
         if(Managers.Player.GetKillerId()!= -1 && !Managers.Player.IsMyDediPlayerKiller()){
-            Managers.Game.PlayBombSound(); //킬러가 근처에 있으면 심장소리 재생
+            Managers.Game.PlayKillerSound(); //킬러가 근처에 있으면 심장소리 재생
         }
     }
     
