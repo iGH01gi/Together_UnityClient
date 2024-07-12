@@ -227,7 +227,11 @@ public class PacketHandler
         //Debug.Log("DSC_MoveHandler");
         
         Managers.Player._syncMoveCtonroller.SyncOtherPlayerMove(movePacket);
-        Managers.Game.PlayBombSound(); //킬러가 근처에 있으면 심장소리 재생
+        
+        //killer가 존재하고 내가 아닐시에 심장소리
+        if(Managers.Player.GetKillerId()!= -1 && !Managers.Player.IsMyDediPlayerKiller()){
+            Managers.Game.PlayBombSound(); //킬러가 근처에 있으면 심장소리 재생
+        }
     }
     
     //데디케이트서버로부터 낮 타이머 시작을 받았을때의 처리
@@ -241,11 +245,7 @@ public class PacketHandler
         int daySeconds = dayTimerStartPacket.DaySeconds; //낮 시간(초)
         float estimatedCurrentServerTimer = daySeconds - Managers.Time.GetEstimatedLatency(); //현재 서버 타이머 시간(예측)
 
-        
-        
-        Managers.Game.gamestart = true;
-        
-        
+        Managers.Game._isDay = true; //낮임을 설정
         
         UIPacketHandler.StartGameHandler(); //게임 시작 팝업
         Managers.Game._clientTimer.Init(daySeconds); //클라이언트 타이머 초기화
@@ -297,7 +297,8 @@ public class PacketHandler
 
         int nightSeconds = nightTimerStartPacket.NightSeconds; //밤 시간(초)
         float estimatedCurrentServerTimer = nightSeconds - Managers.Time.GetEstimatedLatency(); //현재 서버 타이머 시간(예측)
-        
+
+        Managers.Game._isDay = false; //밤임을 설정
         Managers.Game._clientTimer.Init(nightSeconds); //클라이언트 타이머 초기화
         Managers.Game._clientTimer.CompareTimerValue(estimatedCurrentServerTimer); //클라이언트 타이머 시간 동기화
     }

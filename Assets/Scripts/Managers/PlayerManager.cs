@@ -191,6 +191,20 @@ public class PlayerManager
     }
     
     /// <summary>
+    /// killer의 GameObject를 반환함
+    /// </summary>
+    /// <returns>만약 killer가 없을시 null을 반환</returns>
+    public GameObject GetKillerGameObject()
+    {
+        if (GetKillerId() == -1)
+        {
+            return null;
+        }
+        
+        return _otherDediPlayers[GetKillerId()];
+    }
+    
+    /// <summary>
     /// 내 데디플레이어가 killer인지 확인
     /// </summary>
     /// <returns>'내'가 killer이면 true, 아니면 false</returns>
