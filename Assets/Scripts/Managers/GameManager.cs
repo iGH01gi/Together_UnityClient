@@ -29,6 +29,19 @@ public class GameManager
         _playKillerSound = Util.GetOrAddComponent<PlayKillerSound>(root);
     }
 
+    public void ChangeToDay()
+    {
+        _isDay = true;
+        Managers.UI.GetComponentInSceneUI<InGameUI>().ChangeTimerPrefab();
+    }
+    
+    public void ChangeToNight()
+    {
+        _isDay = false;
+        Managers.UI.GetComponentInSceneUI<InGameUI>().ChangeTimerPrefab();
+    }
+    
+
     #region 근처 킬러 소리 처리
     private PlayKillerSound _playKillerSound;
 

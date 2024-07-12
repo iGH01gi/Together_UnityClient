@@ -245,7 +245,7 @@ public class PacketHandler
         int daySeconds = dayTimerStartPacket.DaySeconds; //낮 시간(초)
         float estimatedCurrentServerTimer = daySeconds - Managers.Time.GetEstimatedLatency(); //현재 서버 타이머 시간(예측)
 
-        Managers.Game._isDay = true; //낮임을 설정
+        Managers.Game.ChangeToDay(); //낮임을 설정
         
         UIPacketHandler.StartGameHandler(); //게임 시작 팝업
         Managers.Game._clientTimer.Init(daySeconds); //클라이언트 타이머 초기화
@@ -298,7 +298,8 @@ public class PacketHandler
         int nightSeconds = nightTimerStartPacket.NightSeconds; //밤 시간(초)
         float estimatedCurrentServerTimer = nightSeconds - Managers.Time.GetEstimatedLatency(); //현재 서버 타이머 시간(예측)
 
-        Managers.Game._isDay = false; //밤임을 설정
+        Managers.Game.ChangeToNight(); //밤임을 설정
+        Managers.Player._myDediPlayer.GetComponent<PlayerInput>().ActivateInput();
         Managers.Game._clientTimer.Init(nightSeconds); //클라이언트 타이머 초기화
         Managers.Game._clientTimer.CompareTimerValue(estimatedCurrentServerTimer); //클라이언트 타이머 시간 동기화
     }
@@ -313,7 +314,7 @@ public class PacketHandler
 
         float currentServerTimer = nightTimerSyncPacket.CurrentServerTimer;
         float estimatedCurrentServerTimer = currentServerTimer - Managers.Time.GetEstimatedLatency(); //현재 서버 타이머 시간(예측)
-        
+        Debug.Log(estimatedCurrentServerTimer);
         Managers.Game._clientTimer.CompareTimerValue(estimatedCurrentServerTimer); //클라이언트 타이머 시간 동기화
     }
     
