@@ -205,7 +205,7 @@ namespace RainbowArt.CleanFlatUI
             }
             if (hasText && (text != null))
             {
-                text.text = (int)((currentValue/maxValue)*100) + "%";
+                text.text =currentValue.ToString();
             }
         }
 

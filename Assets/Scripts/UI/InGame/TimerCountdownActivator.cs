@@ -18,7 +18,7 @@ public class TimerCountdownActivator : ClientTimer
         _clientTimerValue = Mathf.Max(0f, _clientTimerValue - Time.deltaTime);
         if (Mathf.CeilToInt(old)>Mathf.CeilToInt(_clientTimerValue))
         {
-            UpdateTimerUI();
+            Managers.UI.GetComponentInSceneUI<InGameUI>().ChangeCurrentTimerValue(_clientTimerValue);
         }
     }
 }

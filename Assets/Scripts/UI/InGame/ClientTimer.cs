@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using RainbowArt.CleanFlatUI;
 using TMPro;
 using Unity.VisualScripting;
 using UnityEngine;
@@ -11,14 +12,7 @@ public class ClientTimer : MonoBehaviour
     
     private static float _hardSnapMargin = 0.05f; //HardSanp 기준 시간 / Update 단위
     protected static float _clientTimerValue = 0; //현재 타이머 값
-    public static TMP_Text _timerUI;
     public static TimerCountdownActivator _timerCountdownActivator;
-
-    //타이머 UI 업데이트
-    protected void UpdateTimerUI()
-    {
-        _timerUI.text = Mathf.CeilToInt(_clientTimerValue).ToString();
-    }
     
     
     ////서버 관련 함수/////
@@ -26,9 +20,16 @@ public class ClientTimer : MonoBehaviour
     // 라운드 시작 패킷 받을 시, 라운드 시간을 변수로 콜
     public void Init(int newTimeToSet)
     {
-        _timerUI = Managers.UI.GetComponentInSceneUI<TMP_Text>("TimerText");
+        if (Managers.Game._isDay)
+        {
+            Managers.UI.GetComponentInSceneUI<InGameUI>().SetCurrentTimerValue(newTimeToSet);
+        }
+        else
+        {
+            Managers.UI.GetComponentInSceneUI<InGameUI>().SetCurrentTimerValue(newTimeToSet);
+        }
         _clientTimerValue = newTimeToSet;
-        UpdateTimerUI();
+        Managers.UI.GetComponentInSceneUI<InGameUI>().ChangeCurrentTimerValue(_clientTimerValue);
         _timerCountdownActivator = transform.AddComponent<TimerCountdownActivator>();
     }
 
@@ -38,7 +39,7 @@ public class ClientTimer : MonoBehaviour
         if (Math.Abs(serverTimerValue - _clientTimerValue) >= _hardSnapMargin)
         {
             _clientTimerValue = serverTimerValue;
-            UpdateTimerUI();
+            Managers.UI.GetComponentInSceneUI<InGameUI>().ChangeCurrentTimerValue(_clientTimerValue);
         }
     }
     

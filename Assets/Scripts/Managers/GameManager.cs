@@ -26,21 +26,21 @@ public class GameManager
     public void GameScene()
     {
         _clientTimer = Util.GetOrAddComponent<ClientTimer>(root);
-        _playBombSound = Util.GetOrAddComponent<PlayBombSound>(root);
+        _playKillerSound = Util.GetOrAddComponent<PlayKillerSound>(root);
     }
 
     #region 근처 폭탄마 소리 처리
-    private PlayBombSound _playBombSound;
+    private PlayKillerSound _playKillerSound;
 
-    public void PlayBombSound()
+    public void PlayKillerSound()
     {
-        if(Managers.Player.GetBomberId() == -1)
+        if(Managers.Player.GetKillerId() == -1)
             return;
         
         float distance = Vector3.Distance(Managers.Player._myDediPlayer.transform.position,
-            Managers.Player.GetBomberGameObject().transform.position);
+            Managers.Player.GetKillerGameObject().transform.position);
         
-        _playBombSound.CheckPlayBombSound(distance< _dokidokiStart, distance < _dokidokiExtreme);
+        _playKillerSound.CheckPlayKillerSound(distance< _dokidokiStart, distance < _dokidokiExtreme);
 
     }
 

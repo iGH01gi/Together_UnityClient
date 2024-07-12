@@ -2,12 +2,12 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayBombSound : MonoBehaviour
+public class PlayKillerSound : MonoBehaviour
 {
     private bool _isWithinRange = false;
     private bool currentlyHighPitch = false;
     
-    public void CheckPlayBombSound(bool currentlyInDokiRange, bool currentlyInDokiExtremeRange)
+    public void CheckPlayKillerSound(bool currentlyInDokiRange, bool currentlyInDokiExtremeRange)
     {
         if (currentlyInDokiExtremeRange ^ currentlyHighPitch)
         {

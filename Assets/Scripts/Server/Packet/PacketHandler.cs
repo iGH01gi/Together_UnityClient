@@ -244,8 +244,8 @@ public class PacketHandler
         
         int daySeconds = dayTimerStartPacket.DaySeconds; //낮 시간(초)
         float estimatedCurrentServerTimer = daySeconds - Managers.Time.GetEstimatedLatency(); //현재 서버 타이머 시간(예측)
-        
-        
+
+        Managers.Game._isDay = true; //낮임을 설정
         
         UIPacketHandler.StartGameHandler(); //게임 시작 팝업
         Managers.Game._clientTimer.Init(daySeconds); //클라이언트 타이머 초기화
@@ -278,7 +278,7 @@ public class PacketHandler
         Debug.Log("DSC_DayTimerEndHandler");
         
         int bomberId = Managers.Player.GetBomberId();
-        Managers.Player.SetBomber(bomberId, callback:()=>{}); //폭탄마 설정 + 그 이후 실행될 callback함수
+        Managers.Player.SetBomber(bomberId, callback:()=>{}); //TODO: 폭탄마 설정 + 그 이후 실행될 callback함수
         
         Managers.Player._myDediPlayer.GetComponent<PlayerInput>().DeactivateInput();
         UIPacketHandler.TimerEndedInServer();
@@ -294,7 +294,8 @@ public class PacketHandler
 
         int nightSeconds = nightTimerStartPacket.NightSeconds; //밤 시간(초)
         float estimatedCurrentServerTimer = nightSeconds - Managers.Time.GetEstimatedLatency(); //현재 서버 타이머 시간(예측)
-        
+
+        Managers.Game._isDay = false; //밤임을 설정
         Managers.Game._clientTimer.Init(nightSeconds); //클라이언트 타이머 초기화
         Managers.Game._clientTimer.CompareTimerValue(estimatedCurrentServerTimer); //클라이언트 타이머 시간 동기화
     }

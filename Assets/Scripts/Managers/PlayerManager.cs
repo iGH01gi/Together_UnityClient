@@ -142,7 +142,7 @@ public class PlayerManager
     /// <param name="callback">bomber설정된 후 불릴 함수</param>
     public void SetBomber(int dediPlayerId, Action callback = null)
     {
-        ClearBomber();
+        ClearKiller();
         
         if (Managers.Player._myDediPlayerId == dediPlayerId)
         {
@@ -159,7 +159,7 @@ public class PlayerManager
     /// <summary>
     /// 내 데디플레이어를 포함한 모든 데디플레이어의 isbomber를 false로 설정
     /// </summary>
-    public void ClearBomber()
+    public void ClearKiller()
     {
         Managers.Player._myDediPlayer.GetComponent<MyDediPlayer>()._isBomber = false;
         foreach (GameObject dediPlayer in Managers.Player._otherDediPlayers.Values)
@@ -194,7 +194,7 @@ public class PlayerManager
     /// bomber의 GameObject를 반환함
     /// </summary>
     /// <returns>만약 bomber가 없을시 null을 반환</returns>
-    public GameObject GetBomberGameObject()
+    public GameObject GetKillerGameObject()
     {
         if (GetBomberId() == -1)
         {
