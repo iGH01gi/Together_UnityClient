@@ -280,8 +280,8 @@ public class PacketHandler
 
         Debug.Log("DSC_DayTimerEndHandler");
         
-        int bomberId = Managers.Player.GetKillerId();
-        Managers.Player.SetKiller(bomberId, callback:()=>{}); //킬러 설정 + 그 이후 실행될 callback함수
+        int kiilerId = dayTimerEndPacket.KillerPlayerId;
+        Managers.Player.SetKiller(kiilerId, callback:()=>{}); //킬러 설정 + 그 이후 실행될 callback함수
         
         Managers.Player._myDediPlayer.GetComponent<PlayerInput>().DeactivateInput();
         UIPacketHandler.TimerEndedInServer();
