@@ -48,11 +48,11 @@ public class InGameUI : UI_scene
     {
         if (_timerDay.activeSelf)
         {
-            _timerDay.GetComponent<ProgressBar>().CurrentValue = Mathf.CeilToInt(value);
+            _timerDay.GetComponent<ProgressBar>().MaxValue = Mathf.CeilToInt(value);
         }
         else
         {
-            _timerNight.GetComponent<ProgressBarPatternCircular>().CurrentValue = Mathf.CeilToInt(value);
+            _timerNight.GetComponent<ProgressBarPatternCircular>().MaxValue = Mathf.CeilToInt(value);
         }
     }
 }
