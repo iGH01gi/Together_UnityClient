@@ -306,12 +306,15 @@ public class PacketHandler
         Managers.Game.SetAllGaugeDecreasePerSecond(playerGaugeDecreasePerSecond); //플레이어별 게이지 감소량을 모든 플레이어에게 적용
         Managers.Game.SetAllGauge(gaugeMax); //모든 플레이어의 gauge값을 gaugeMax로 초기화
 
-        //dediplayerId를 key로, value로 estimatedgauge로 해서 map형식으로 구함
+        //dediplayerId를 key로, value로 estimatedgauge로 해서 map형식으로 구함. 만약 value가 0보다 작으면 0으로 설정
         MapField<int,float> estimatedGauge = new MapField<int, float>();
-        estimatedGauge.Add(Managers.Player._myDediPlayerId, gaugeMax - playerGaugeDecreasePerSecond[Managers.Player._myDediPlayerId] * Managers.Time.GetEstimatedLatency());
-        foreach (int dediPlayerId in Managers.Player._otherDediPlayers.Keys)
+        foreach (int dediPlayerId in playerGaugeDecreasePerSecond.Keys)
         {
-            estimatedGauge.Add(dediPlayerId, gaugeMax - playerGaugeDecreasePerSecond[dediPlayerId] * Managers.Time.GetEstimatedLatency());
+            float estimatedValue = gaugeMax - playerGaugeDecreasePerSecond[dediPlayerId] * Managers.Time.GetEstimatedLatency();
+            if (estimatedValue<=0)
+                estimatedValue = 0;
+
+            estimatedGauge.Add(dediPlayerId, estimatedValue);
         }
         
         Managers.Game._isDay = false; //밤임을 설정
@@ -401,7 +404,17 @@ public class PacketHandler
             
         MapField<int,float> playerGauges = gaugeSyncPacket.PlayerGauges;
         MapField<int, float> playerGaugeDecreasePerSecond = gaugeSyncPacket.PlayerGaugeDecreasePerSecond;
-        
+        //dediplayerId를 key로, value로 estimatedgauge로 해서 map형식으로 구함
+        MapField<int,float> estimatedGauge = new MapField<int, float>();
+        foreach (int dediPlayerId in playerGauges.Keys)
+        {
+            float estimatedValue = playerGauges[dediPlayerId] -
+                                   playerGaugeDecreasePerSecond[dediPlayerId] * Managers.Time.GetEstimatedLatency();
+            if (estimatedValue<=0)
+                estimatedValue = 0;
+
+            estimatedGauge.Add(dediPlayerId, estimatedValue);
+        }
         
         Debug.Log("DSC_GaugeSyncHandler");
     }
