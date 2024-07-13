@@ -9,6 +9,9 @@ public class MyDediPlayer : MonoBehaviour
     
     public bool _isKiller = false; //킬러 여부
     
+    public float _gauge = 0; //생명력 게이지
+    public float _gaugeDecreasePerSecond = 0; //생명력 게이지 감소량
+    
     
     public void Init(int playerId, string name)
     {

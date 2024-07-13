@@ -1,8 +1,6 @@
 using System;
-using System.Collections;
 using System.Collections.Generic;
 using Google.Protobuf.Protocol;
-using Google.Protobuf.WellKnownTypes;
 using UnityEngine;
 
 /// <summary>
@@ -125,11 +123,11 @@ public class PlayerManager
     /// <summary>
     /// 플레이어를 게임상에서 제거하는 함수 (Destroy처리)
     /// </summary>
-    /// <param name="dediPlayer">Destroy할 플레이어 오브젝트</param>
+    /// <param name="dediPlayerObj">Destroy할 플레이어 오브젝트</param>
     public void DespawnPlayer(GameObject dediPlayerObj)
     {
         Managers.Resource.Destroy(dediPlayerObj);
-    }
+    } 
     public void DespawnGhost(GameObject ghostObj)
     {
         Managers.Resource.Destroy(ghostObj);
@@ -212,5 +210,4 @@ public class PlayerManager
     {
         return Managers.Player._myDediPlayer.GetComponent<MyDediPlayer>()._isKiller;
     }
-
 }

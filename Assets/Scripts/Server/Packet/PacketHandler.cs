@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Linq;
 using Google.Protobuf;
+using Google.Protobuf.Collections;
 using Google.Protobuf.Protocol;
 using ServerCore;
 using UnityEngine;
@@ -297,7 +298,23 @@ public class PacketHandler
 
         int nightSeconds = nightTimerStartPacket.NightSeconds; //밤 시간(초)
         float estimatedCurrentServerTimer = nightSeconds - Managers.Time.GetEstimatedLatency(); //현재 서버 타이머 시간(예측)
+        
+        float gaugeMax = nightTimerStartPacket.GaugeMax; //게이지 최대값 및 초기값
+        MapField<int,float> playerGaugeDecreasePerSecond = nightTimerStartPacket.PlayerGaugeDecreasePerSecond; //플레이어별 게이지 감소량
+        
+        Managers.Game._gaugeMax = gaugeMax; //게이지 최대값 설정
+        Managers.Game.SetAllGaugeDecreasePerSecond(playerGaugeDecreasePerSecond); //플레이어별 게이지 감소량을 모든 플레이어에게 적용
+        Managers.Game.SetAllGauge(gaugeMax); //모든 플레이어의 gauge값을 gaugeMax로 초기화
 
+        //dediplayerId를 key로, value로 estimatedgauge로 해서 map형식으로 구함
+        MapField<int,float> estimatedGauge = new MapField<int, float>();
+        estimatedGauge.Add(Managers.Player._myDediPlayerId, gaugeMax - playerGaugeDecreasePerSecond[Managers.Player._myDediPlayerId] * Managers.Time.GetEstimatedLatency());
+        foreach (int dediPlayerId in Managers.Player._otherDediPlayers.Keys)
+        {
+            estimatedGauge.Add(dediPlayerId, gaugeMax - playerGaugeDecreasePerSecond[dediPlayerId] * Managers.Time.GetEstimatedLatency());
+        }
+        
+        Managers.Game._isDay = false; //밤임을 설정
         Managers.Game.ChangeToNight(); //밤임을 설정
         Managers.Player._myDediPlayer.GetComponent<PlayerInput>().ActivateInput();
         Managers.Game._clientTimer.Init(nightSeconds); //클라이언트 타이머 초기화
@@ -377,5 +394,51 @@ public class PacketHandler
         //Debug.Log("DSC_ResponseTimestampHandler");
         
         Managers.Time.OnRecvDediServerTimeStamp(responseTimestampPacket);
+    }
+    
+    public static void DSC_GaugeSyncHandler(PacketSession session, IMessage packet)
+    {
+        DSC_GaugeSync gaugeSyncPacket = packet as DSC_GaugeSync;
+        DedicatedServerSession dedicatedServerSession = session as DedicatedServerSession;
+            
+        MapField<int,float> playerGauges = gaugeSyncPacket.PlayerGauges;
+        MapField<int, float> playerGaugeDecreasePerSecond = gaugeSyncPacket.PlayerGaugeDecreasePerSecond;
+        
+        
+        Debug.Log("DSC_GaugeSyncHandler");
+    }
+    
+    public static void DSC_PlayerDeathHandler(PacketSession session, IMessage packet)
+    {
+        DSC_PlayerDeath playerDeathPacket = packet as DSC_PlayerDeath;
+        DedicatedServerSession dedicatedServerSession = session as DedicatedServerSession;
+        
+        Debug.Log("DSC_PlayerDeathHandler");
+        
+        int playerId = playerDeathPacket.PlayerId;
+        DeathCause deathCause = playerDeathPacket.DeathCause;
+       
+        if(playerId == Managers.Player._myDediPlayerId) //'내'가 죽었을 경우
+        {
+            if (deathCause == DeathCause.TimeOver) //밤 시간이 끝나서 '킬러'인 '나' 사망
+            {
+                
+            }
+            else if (deathCause == DeathCause.GaugeOver) //게이지가 다 닳아서 '나' 사망
+            {
+                
+            }
+        }
+        else //다른 플레이어가 죽었을 경우
+        {
+            if (deathCause == DeathCause.TimeOver) //밤 시간이 끝나서 '킬러'인 '다른 플레이어' 사망
+            {
+                
+            }
+            else if (deathCause == DeathCause.GaugeOver) //게이지가 다 닳아서 '다른 플레이어' 사망
+            {
+                
+            }
+        }
     }
 }
