@@ -3,22 +3,17 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class TimerCountdownActivator : ClientTimer
+public class TimerCountdownActivator : MonoBehaviour
 {
     //client 자체 카운트 다운
-
-    private void Awake()
+     void Update()
     {
-        _timerCountdownActivator = this;
-    }
-    
-    void Update()
-    {
-        float old = _clientTimerValue;
-        _clientTimerValue = Mathf.Max(0f, _clientTimerValue - Time.deltaTime);
-        if (Mathf.CeilToInt(old)>Mathf.CeilToInt(_clientTimerValue))
+        float old = Managers.Game._clientTimer._clientTimerValue;
+        float cur = Mathf.Max(0f, old - Time.deltaTime);
+        Managers.Game._clientTimer._clientTimerValue = cur;
+        if (Mathf.CeilToInt(old)>Mathf.CeilToInt(cur))
         {
-            Managers.UI.GetComponentInSceneUI<InGameUI>().ChangeCurrentTimerValue(_clientTimerValue);
+            Managers.UI.GetComponentInSceneUI<InGameUI>().ChangeCurrentTimerValue(cur);
         }
     }
 }

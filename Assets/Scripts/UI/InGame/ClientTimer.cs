@@ -11,8 +11,8 @@ public class ClientTimer : MonoBehaviour
 {
     
     private static float _hardSnapMargin = 0.05f; //HardSanp 기준 시간 / Update 단위
-    protected static float _clientTimerValue = 0; //현재 타이머 값
-    public static TimerCountdownActivator _timerCountdownActivator;
+    public float _clientTimerValue = 0; //현재 타이머 값
+    TimerCountdownActivator _timerCountdownActivator;
     
     
     ////서버 관련 함수/////

@@ -17,7 +17,6 @@ public class GaugeActivator : ClientGauge
     {
         float old = GetMyGauge();
         DecreaseAllGaugeAuto();
-        Debug.Log(Managers.Player._myDediPlayer.GetComponent<MyDediPlayer>()._gauge);
         float cur = GetMyGauge();
         Managers.UI.GetComponentInSceneUI<InGameUI>().SetCurrentGauge(cur);
     }
