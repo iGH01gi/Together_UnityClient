@@ -16,7 +16,6 @@ public class ClientGauge : MonoBehaviour
     public void Init()
     {
         _gaugeActivator = transform.AddComponent<GaugeActivator>();
-        Debug.Log("MaxGauge: " + GetMyGauge());
         Managers.UI.GetComponentInSceneUI<InGameUI>().SetMaxGauge(GetMyGauge());
     }
     
@@ -53,7 +52,6 @@ public class ClientGauge : MonoBehaviour
         foreach (int dediPlayerId in Managers.Player._otherDediPlayers.Keys)
         {
             DecreaseGauge(dediPlayerId, GetGaugeDecreasePerSecond(dediPlayerId) * Time.deltaTime);
-            Debug.Log(GetMyGauge());
         }
     }
     
