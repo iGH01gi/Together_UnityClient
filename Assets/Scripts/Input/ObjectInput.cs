@@ -51,7 +51,6 @@ public class ObjectInput : MonoBehaviour
         }
         currentChest = newChest;
         currentChest.GetComponent<Chest>().HighlightChest();
-        Managers.UI.LoadPopupPanel<ChestOpenDialogue>(false,false);
     }
     
     
@@ -61,7 +60,6 @@ public class ObjectInput : MonoBehaviour
         if(currentChest != null)
         {
             Managers.Object.TryOpenChest(currentChest.GetComponent<Chest>()._chestId);
-            Managers.UI.ClosePopup();
         }
     }
 }

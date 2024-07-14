@@ -10,12 +10,15 @@ public class InGameUI : UI_scene
 {
     public GameObject _timerDay;
     public GameObject _timerNight;
+    public GameObject _gauge;
     private void Start()
     {
         Managers.UI.LoadPopupPanel<WairForSecondsPopup>(true,false); //3초 카운트 다운
         _timerDay = transform.Find("TimerDay").gameObject;
         _timerNight = transform.Find("TimerNight").gameObject;
+        _gauge = transform.Find("Gauge").gameObject;
         _timerNight.SetActive(false);
+        _gauge.SetActive(false);
     }
 
     public void ChangeTimerPrefab()
@@ -44,7 +47,7 @@ public class InGameUI : UI_scene
         }
     }
     
-    public void SetCurrentTimerValue(float value)
+    public void SetMaxTimerValue(float value)
     {
         if (_timerDay.activeSelf)
         {
@@ -55,4 +58,21 @@ public class InGameUI : UI_scene
             _timerNight.GetComponent<ProgressBarPatternCircular>().MaxValue = Mathf.CeilToInt(value);
         }
     }
+    
+    public void SetMaxGauge(float max)
+    {
+        _gauge.GetComponent<ProgressBarPattern>().MaxValue =max;
+        SetCurrentGauge(max);
+    }
+    
+    public void SetCurrentGauge(float cur)
+    {
+        _gauge.GetComponent<ProgressBarPattern>().CurrentValue = (cur);
+    }
+
+    public void ToggleGaugePrefab(bool setActive)
+    {
+        _gauge.SetActive(setActive);
+    }
+    
 }

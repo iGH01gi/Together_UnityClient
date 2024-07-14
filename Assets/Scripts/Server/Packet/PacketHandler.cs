@@ -246,11 +246,9 @@ public class PacketHandler
         int daySeconds = dayTimerStartPacket.DaySeconds; //낮 시간(초)
         float estimatedCurrentServerTimer = daySeconds - Managers.Time.GetEstimatedLatency(); //현재 서버 타이머 시간(예측)
 
-        Managers.Game.ChangeToDay(); //낮임을 설정
+        Managers.Game.ChangeToDay(estimatedCurrentServerTimer); //낮임을 설정
         
         UIPacketHandler.StartGameHandler(); //게임 시작 팝업
-        Managers.Game._clientTimer.Init(daySeconds); //클라이언트 타이머 초기화
-        Managers.Game._clientTimer.CompareTimerValue(estimatedCurrentServerTimer); //클라이언트 타이머 시간 동기화
 
         //낮->일몰 효과를 설정함 (낮 시간의 2/3초동안은 낮상태 유지. 남은 낮 시간의 1/3초동안 일몰로 천천히 전환됨)
         Managers.Scene.SimulateDayToSunset(daySeconds*2/3, daySeconds/3);
@@ -302,9 +300,9 @@ public class PacketHandler
         float gaugeMax = nightTimerStartPacket.GaugeMax; //게이지 최대값 및 초기값
         MapField<int,float> playerGaugeDecreasePerSecond = nightTimerStartPacket.PlayerGaugeDecreasePerSecond; //플레이어별 게이지 감소량
         
-        Managers.Game._gaugeMax = gaugeMax; //게이지 최대값 설정
-        Managers.Game.SetAllGaugeDecreasePerSecond(playerGaugeDecreasePerSecond); //플레이어별 게이지 감소량을 모든 플레이어에게 적용
-        Managers.Game.SetAllGauge(gaugeMax); //모든 플레이어의 gauge값을 gaugeMax로 초기화
+        Managers.Game._clientGauge._gaugeMax = gaugeMax; //게이지 최대값 설정
+        Managers.Game._clientGauge.SetAllGaugeDecreasePerSecond(playerGaugeDecreasePerSecond); //플레이어별 게이지 감소량을 모든 플레이어에게 적용
+        Managers.Game._clientGauge.SetAllGauge(gaugeMax); //모든 플레이어의 gauge값을 gaugeMax로 초기화
 
         //dediplayerId를 key로, value로 estimatedgauge로 해서 map형식으로 구함. 만약 value가 0보다 작으면 0으로 설정
         MapField<int,float> estimatedGauge = new MapField<int, float>();
@@ -318,10 +316,8 @@ public class PacketHandler
         }
         
         Managers.Game._isDay = false; //밤임을 설정
-        Managers.Game.ChangeToNight(); //밤임을 설정
+        Managers.Game.ChangeToNight(estimatedCurrentServerTimer); //밤임을 설정
         Managers.Player._myDediPlayer.GetComponent<PlayerInput>().ActivateInput();
-        Managers.Game._clientTimer.Init(nightSeconds); //클라이언트 타이머 초기화
-        Managers.Game._clientTimer.CompareTimerValue(estimatedCurrentServerTimer); //클라이언트 타이머 시간 동기화
     }
     
     //데디케이트서버로부터 밤 타이머 싱크를 받았을때의 처리
@@ -334,7 +330,6 @@ public class PacketHandler
 
         float currentServerTimer = nightTimerSyncPacket.CurrentServerTimer;
         float estimatedCurrentServerTimer = currentServerTimer - Managers.Time.GetEstimatedLatency(); //현재 서버 타이머 시간(예측)
-        Debug.Log(estimatedCurrentServerTimer);
         Managers.Game._clientTimer.CompareTimerValue(estimatedCurrentServerTimer); //클라이언트 타이머 시간 동기화
     }
     
@@ -406,8 +401,10 @@ public class PacketHandler
             
         MapField<int,float> playerGauges = gaugeSyncPacket.PlayerGauges;
         MapField<int, float> playerGaugeDecreasePerSecond = gaugeSyncPacket.PlayerGaugeDecreasePerSecond;
+        float hardSnapMargin = Managers.Game._clientGauge._hardSnapMargin;
+        
         //dediplayerId를 key로, value로 estimatedgauge로 해서 map형식으로 구함
-        MapField<int,float> estimatedGauge = new MapField<int, float>();
+        //MapField<int,float> estimatedGauge = new MapField<int, float>();
         foreach (int dediPlayerId in playerGauges.Keys)
         {
             float estimatedValue = playerGauges[dediPlayerId] -
@@ -415,7 +412,7 @@ public class PacketHandler
             if (estimatedValue<=0)
                 estimatedValue = 0;
 
-            estimatedGauge.Add(dediPlayerId, estimatedValue);
+            Managers.Game._clientGauge.CheckHardSnap(dediPlayerId,estimatedValue);
         }
         
         Debug.Log("DSC_GaugeSyncHandler");

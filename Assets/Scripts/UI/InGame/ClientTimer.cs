@@ -18,16 +18,9 @@ public class ClientTimer : MonoBehaviour
     ////서버 관련 함수/////
     
     // 라운드 시작 패킷 받을 시, 라운드 시간을 변수로 콜
-    public void Init(int newTimeToSet)
+    public void Init(float newTimeToSet)
     {
-        if (Managers.Game._isDay)
-        {
-            Managers.UI.GetComponentInSceneUI<InGameUI>().SetCurrentTimerValue(newTimeToSet);
-        }
-        else
-        {
-            Managers.UI.GetComponentInSceneUI<InGameUI>().SetCurrentTimerValue(newTimeToSet);
-        }
+        Managers.UI.GetComponentInSceneUI<InGameUI>().SetMaxTimerValue(newTimeToSet);
         _clientTimerValue = newTimeToSet;
         Managers.UI.GetComponentInSceneUI<InGameUI>().ChangeCurrentTimerValue(_clientTimerValue);
         _timerCountdownActivator = transform.AddComponent<TimerCountdownActivator>();

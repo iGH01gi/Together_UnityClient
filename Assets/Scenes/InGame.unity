@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 705507994}
-  m_IndirectSpecularColor: {r: 0.38285652, g: 0.6782358, b: 0.995333, a: 1}
+  m_IndirectSpecularColor: {r: 0.4009564, g: 0.68754303, b: 0.99564034, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -406,6 +406,154 @@ AudioListener:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 927849883}
   m_Enabled: 1
+--- !u!1001 &1289787396
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: -8679921383154817045, guid: f841e7d9a9d146f46a839013c2d226b8, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: f841e7d9a9d146f46a839013c2d226b8, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: f841e7d9a9d146f46a839013c2d226b8, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: f841e7d9a9d146f46a839013c2d226b8, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 91.76
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: f841e7d9a9d146f46a839013c2d226b8, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 7.68
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: f841e7d9a9d146f46a839013c2d226b8, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -85.59
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: f841e7d9a9d146f46a839013c2d226b8, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: f841e7d9a9d146f46a839013c2d226b8, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: f841e7d9a9d146f46a839013c2d226b8, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: f841e7d9a9d146f46a839013c2d226b8, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: f841e7d9a9d146f46a839013c2d226b8, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: f841e7d9a9d146f46a839013c2d226b8, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: f841e7d9a9d146f46a839013c2d226b8, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: f841e7d9a9d146f46a839013c2d226b8, type: 3}
+      propertyPath: m_Name
+      value: ImageToStl.com_agriels-crystal-altar (2)
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects:
+    - {fileID: -8700617353114198275, guid: f841e7d9a9d146f46a839013c2d226b8, type: 3}
+    - {fileID: 65702495048144492, guid: f841e7d9a9d146f46a839013c2d226b8, type: 3}
+    - {fileID: 2293913733242448194, guid: f841e7d9a9d146f46a839013c2d226b8, type: 3}
+    - {fileID: 1279131650287547678, guid: f841e7d9a9d146f46a839013c2d226b8, type: 3}
+    - {fileID: -8317758911326224102, guid: f841e7d9a9d146f46a839013c2d226b8, type: 3}
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: f841e7d9a9d146f46a839013c2d226b8, type: 3}
+--- !u!1001 &1409830721
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: -8679921383154817045, guid: f841e7d9a9d146f46a839013c2d226b8, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: f841e7d9a9d146f46a839013c2d226b8, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: f841e7d9a9d146f46a839013c2d226b8, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: f841e7d9a9d146f46a839013c2d226b8, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 133.17
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: f841e7d9a9d146f46a839013c2d226b8, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 1.92
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: f841e7d9a9d146f46a839013c2d226b8, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -52.31
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: f841e7d9a9d146f46a839013c2d226b8, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: f841e7d9a9d146f46a839013c2d226b8, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: f841e7d9a9d146f46a839013c2d226b8, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: f841e7d9a9d146f46a839013c2d226b8, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: f841e7d9a9d146f46a839013c2d226b8, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: f841e7d9a9d146f46a839013c2d226b8, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: f841e7d9a9d146f46a839013c2d226b8, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: f841e7d9a9d146f46a839013c2d226b8, type: 3}
+      propertyPath: m_Name
+      value: ImageToStl.com_agriels-crystal-altar (4)
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects:
+    - {fileID: -8700617353114198275, guid: f841e7d9a9d146f46a839013c2d226b8, type: 3}
+    - {fileID: 65702495048144492, guid: f841e7d9a9d146f46a839013c2d226b8, type: 3}
+    - {fileID: 2293913733242448194, guid: f841e7d9a9d146f46a839013c2d226b8, type: 3}
+    - {fileID: 1279131650287547678, guid: f841e7d9a9d146f46a839013c2d226b8, type: 3}
+    - {fileID: -8317758911326224102, guid: f841e7d9a9d146f46a839013c2d226b8, type: 3}
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: f841e7d9a9d146f46a839013c2d226b8, type: 3}
 --- !u!1 &1459124627
 GameObject:
   m_ObjectHideFlags: 0
@@ -467,6 +615,228 @@ MonoBehaviour:
   _daySkybox: {fileID: 2100000, guid: 9105918681ea4ed40b8fb7137fbbeced, type: 2}
   _nightSkybox: {fileID: 2100000, guid: fb114aa23dbf00142be112319127ba44, type: 2}
   _directionalLight: {fileID: 705507994}
+--- !u!1001 &1586144289
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: -8679921383154817045, guid: f841e7d9a9d146f46a839013c2d226b8, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: f841e7d9a9d146f46a839013c2d226b8, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: f841e7d9a9d146f46a839013c2d226b8, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: f841e7d9a9d146f46a839013c2d226b8, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 97.87
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: f841e7d9a9d146f46a839013c2d226b8, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 1.92
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: f841e7d9a9d146f46a839013c2d226b8, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -38.81
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: f841e7d9a9d146f46a839013c2d226b8, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: f841e7d9a9d146f46a839013c2d226b8, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: f841e7d9a9d146f46a839013c2d226b8, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: f841e7d9a9d146f46a839013c2d226b8, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: f841e7d9a9d146f46a839013c2d226b8, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: f841e7d9a9d146f46a839013c2d226b8, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: f841e7d9a9d146f46a839013c2d226b8, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: f841e7d9a9d146f46a839013c2d226b8, type: 3}
+      propertyPath: m_Name
+      value: ImageToStl.com_agriels-crystal-altar (3)
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects:
+    - {fileID: -8700617353114198275, guid: f841e7d9a9d146f46a839013c2d226b8, type: 3}
+    - {fileID: 65702495048144492, guid: f841e7d9a9d146f46a839013c2d226b8, type: 3}
+    - {fileID: 2293913733242448194, guid: f841e7d9a9d146f46a839013c2d226b8, type: 3}
+    - {fileID: 1279131650287547678, guid: f841e7d9a9d146f46a839013c2d226b8, type: 3}
+    - {fileID: -8317758911326224102, guid: f841e7d9a9d146f46a839013c2d226b8, type: 3}
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: f841e7d9a9d146f46a839013c2d226b8, type: 3}
+--- !u!1001 &1688214804
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: -8679921383154817045, guid: f841e7d9a9d146f46a839013c2d226b8, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: f841e7d9a9d146f46a839013c2d226b8, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: f841e7d9a9d146f46a839013c2d226b8, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: f841e7d9a9d146f46a839013c2d226b8, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 192.8
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: f841e7d9a9d146f46a839013c2d226b8, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 1.771
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: f841e7d9a9d146f46a839013c2d226b8, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -74.7
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: f841e7d9a9d146f46a839013c2d226b8, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: f841e7d9a9d146f46a839013c2d226b8, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: f841e7d9a9d146f46a839013c2d226b8, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: f841e7d9a9d146f46a839013c2d226b8, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: f841e7d9a9d146f46a839013c2d226b8, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: f841e7d9a9d146f46a839013c2d226b8, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: f841e7d9a9d146f46a839013c2d226b8, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: f841e7d9a9d146f46a839013c2d226b8, type: 3}
+      propertyPath: m_Name
+      value: ImageToStl.com_agriels-crystal-altar
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects:
+    - {fileID: -8700617353114198275, guid: f841e7d9a9d146f46a839013c2d226b8, type: 3}
+    - {fileID: 65702495048144492, guid: f841e7d9a9d146f46a839013c2d226b8, type: 3}
+    - {fileID: 2293913733242448194, guid: f841e7d9a9d146f46a839013c2d226b8, type: 3}
+    - {fileID: 1279131650287547678, guid: f841e7d9a9d146f46a839013c2d226b8, type: 3}
+    - {fileID: -8317758911326224102, guid: f841e7d9a9d146f46a839013c2d226b8, type: 3}
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: f841e7d9a9d146f46a839013c2d226b8, type: 3}
+--- !u!1001 &1711165825
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: -8679921383154817045, guid: f841e7d9a9d146f46a839013c2d226b8, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: f841e7d9a9d146f46a839013c2d226b8, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: f841e7d9a9d146f46a839013c2d226b8, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: f841e7d9a9d146f46a839013c2d226b8, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 145.45
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: f841e7d9a9d146f46a839013c2d226b8, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 1.771
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: f841e7d9a9d146f46a839013c2d226b8, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -22.87
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: f841e7d9a9d146f46a839013c2d226b8, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: f841e7d9a9d146f46a839013c2d226b8, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: f841e7d9a9d146f46a839013c2d226b8, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: f841e7d9a9d146f46a839013c2d226b8, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: f841e7d9a9d146f46a839013c2d226b8, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: f841e7d9a9d146f46a839013c2d226b8, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: f841e7d9a9d146f46a839013c2d226b8, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: f841e7d9a9d146f46a839013c2d226b8, type: 3}
+      propertyPath: m_Name
+      value: ImageToStl.com_agriels-crystal-altar (1)
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects:
+    - {fileID: -8700617353114198275, guid: f841e7d9a9d146f46a839013c2d226b8, type: 3}
+    - {fileID: 65702495048144492, guid: f841e7d9a9d146f46a839013c2d226b8, type: 3}
+    - {fileID: 2293913733242448194, guid: f841e7d9a9d146f46a839013c2d226b8, type: 3}
+    - {fileID: 1279131650287547678, guid: f841e7d9a9d146f46a839013c2d226b8, type: 3}
+    - {fileID: -8317758911326224102, guid: f841e7d9a9d146f46a839013c2d226b8, type: 3}
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: f841e7d9a9d146f46a839013c2d226b8, type: 3}
 --- !u!23 &2130088494 stripped
 MeshRenderer:
   m_CorrespondingSourceObject: {fileID: 1955814964560016148, guid: d7d2e8dd0fde90d4897f5141062d3325, type: 3}
@@ -559,3 +929,8 @@ SceneRoots:
   - {fileID: 1459124629}
   - {fileID: 917375839760993312}
   - {fileID: 927849887}
+  - {fileID: 1688214804}
+  - {fileID: 1289787396}
+  - {fileID: 1711165825}
+  - {fileID: 1586144289}
+  - {fileID: 1409830721}
