@@ -9,6 +9,8 @@ public class ObjectInput : MonoBehaviour
     private GameObject _currentChest;
     private GameObject _currentAlter;
 
+    private bool _isCurrentlyCleaning = false;
+
     private void Start()
     {
         GetComponent<PlayerInput>().DeactivateInput();
@@ -28,10 +30,9 @@ public class ObjectInput : MonoBehaviour
         }
         else
         {
-            if (other.CompareTag("Alter") && other.GetComponent<Alter>().isAvailable)
+            if (other.CompareTag("Alter") && other.transform.parent.GetComponent<Alter>()._isAvailable)
             {
-                //TODO: SHOW ALTER AVAILABLE POPUP
-                _currentAlter = other.gameObject;
+                _currentAlter = other.transform.parent.gameObject;
             }
         }
     }
@@ -80,7 +81,16 @@ public class ObjectInput : MonoBehaviour
         {
             if (_currentAlter != null)
             {
-                Managers.Object._alterController.TryCleanse(_currentAlter.GetComponent<Alter>().GetInstanceID());
+                if (!_isCurrentlyCleaning && value.isPressed)
+                {
+                    _isCurrentlyCleaning = true;
+                    Managers.Object._alterController.TryCleanse(_currentAlter.GetComponent<Alter>().GetInstanceID());
+                }
+                else if(_isCurrentlyCleaning && !value.isPressed)
+                {
+                    _isCurrentlyCleaning = false;
+                    _currentAlter.GetComponent<Alter>().QuitCleansing();
+                }
             }
         }
     }
