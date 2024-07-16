@@ -83,7 +83,6 @@ public class UIPacketHandler
     
     public static void TimerEndedInServer()
     {
-        Managers.Sound.Play("Start!");
         Managers.Game._clientTimer.EndTimer();
     }
 

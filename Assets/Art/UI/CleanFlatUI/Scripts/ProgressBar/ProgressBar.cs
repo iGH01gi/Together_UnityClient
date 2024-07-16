@@ -138,6 +138,11 @@ namespace RainbowArt.CleanFlatUI
             }
         }
 
+        public void ChangeForeground(Color32 color)
+        {
+            foreground.color = color;
+        }
+
         #if UNITY_EDITOR
         protected void OnValidate()
         {

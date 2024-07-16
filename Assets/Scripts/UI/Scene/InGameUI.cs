@@ -8,71 +8,54 @@ using UnityEngine.InputSystem;
 
 public class InGameUI : UI_scene
 {
-    public GameObject _timerDay;
-    public GameObject _timerNight;
+    public GameObject _timer;
     public GameObject _gauge;
     private void Start()
     {
         Managers.UI.LoadPopupPanel<WairForSecondsPopup>(true,false); //3초 카운트 다운
-        _timerDay = transform.Find("TimerDay").gameObject;
-        _timerNight = transform.Find("TimerNight").gameObject;
+        _timer = transform.Find("Timer").gameObject;
         _gauge = transform.Find("Gauge").gameObject;
-        _timerNight.SetActive(false);
         _gauge.SetActive(false);
     }
+    
+    Color _colorTimerDay = new Color(68f,68f,68f);
+    Color _colorTimerNight = new Color(210f,4f,45f);
 
     public void ChangeTimerPrefab()
     {
         if (Managers.Game._isDay)
         {
-            _timerDay.SetActive(true);
-            _timerNight.SetActive(false);
+            _timer.GetComponent<ProgressBar>().ChangeForeground(_colorTimerDay);
         }
         else
         {
-            _timerDay.SetActive(false);
-            _timerNight.SetActive(true);
+            _timer.GetComponent<ProgressBar>().ChangeForeground(_colorTimerNight);
         }
     }
 
     public void ChangeCurrentTimerValue(float value)
     {
-        if (_timerDay.activeSelf)
-        {
-            _timerDay.GetComponent<ProgressBar>().CurrentValue = Mathf.CeilToInt(value);
-        }
-        else
-        {
-            _timerNight.GetComponent<ProgressBarPatternCircular>().CurrentValue = Mathf.CeilToInt(value);
-        }
+        _timer.GetComponent<ProgressBar>().CurrentValue = Mathf.CeilToInt(value);
     }
     
     public void SetMaxTimerValue(float value)
     {
-        if (_timerDay.activeSelf)
-        {
-            _timerDay.GetComponent<ProgressBar>().MaxValue = Mathf.CeilToInt(value);
-        }
-        else
-        {
-            _timerNight.GetComponent<ProgressBarPatternCircular>().MaxValue = Mathf.CeilToInt(value);
-        }
+        _timer.GetComponent<ProgressBar>().MaxValue = Mathf.CeilToInt(value);
     }
     
     public void SetMaxGauge(float max)
     {
-        _gauge.GetComponent<ProgressBarPattern>().MaxValue =max;
-        SetCurrentGauge(max);
+        _gauge.GetComponent<ProgressBar>().MaxValue =max;
+        SetCurrentGauge();
     }
     
-    public void SetCurrentGauge(float cur)
+    public void SetCurrentGauge()
     {
-        _gauge.GetComponent<ProgressBarPattern>().CurrentValue = (cur);
+        _gauge.GetComponent<ProgressBar>().CurrentValue = Managers.Game._clientGauge.GetMyGauge();
     }
 
     public void ToggleGaugePrefab(bool setActive)
     {
         _gauge.SetActive(setActive);
     }
-    
 }

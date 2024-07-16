@@ -34,8 +34,8 @@ public class GameManager
 
     private void WhenChangeDayNight(float timeToSet)
     {
-        Managers.UI.GetComponentInSceneUI<InGameUI>().ChangeTimerPrefab();
         _clientTimer.Init(timeToSet);
+        Managers.UI.GetComponentInSceneUI<InGameUI>().ChangeTimerPrefab();
         Managers.UI.GetComponentInSceneUI<InGameUI>().ToggleGaugePrefab(!_isDay);
     }
 
