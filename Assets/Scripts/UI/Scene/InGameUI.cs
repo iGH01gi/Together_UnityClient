@@ -18,8 +18,8 @@ public class InGameUI : UI_scene
         _gauge.SetActive(false);
     }
     
-    Color _colorTimerDay = new Color(68f,68f,68f);
-    Color _colorTimerNight = new Color(210f,4f,45f);
+    Color _colorTimerDay = new Color(68f/ 255f,68f/ 255f,68f/ 255f);
+    Color _colorTimerNight = new Color(210f/ 255f,4f/ 255f,45f/ 255f);
 
     public void ChangeTimerPrefab()
     {

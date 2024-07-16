@@ -138,7 +138,7 @@ namespace RainbowArt.CleanFlatUI
             }
         }
 
-        public void ChangeForeground(Color32 color)
+        public void ChangeForeground(Color color)
         {
             foreground.color = color;
         }
