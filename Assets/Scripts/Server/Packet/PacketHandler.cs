@@ -453,7 +453,7 @@ public class PacketHandler
         }
     }
     
-    //초기 클린즈 정보를 받았을대의 처리
+    //데디케이티드서버로부터 초기 클린즈 정보를 받았을때의 처리
     public static void DSC_NewCleansesInfoHandler(PacketSession session, IMessage packet)
     {
         DSC_NewCleansesInfo newCleansesInfoPacket = packet as DSC_NewCleansesInfo;
@@ -461,6 +461,60 @@ public class PacketHandler
         
         Debug.Log("DSC_NewCleansesInfoHandler");
         
-        Managers.Object._cleanseController.SetAllCleanseInfo(newCleansesInfoPacket);
+        Managers.Object._cleanseController.SpawnAllCleanse(newCleansesInfoPacket);
     }
+    
+    //데디케이티드서버로부터 클린즈 사용 허락을 받았을때의 처리(나or다른플레이어)
+    public static void DSC_GiveCleansePermissionHandler(PacketSession session, IMessage packet)
+    {
+        DSC_GiveCleansePermission giveCleansePermissionPacket = packet as DSC_GiveCleansePermission;
+        DedicatedServerSession dedicatedServerSession = session as DedicatedServerSession;
+        
+        Debug.Log("DSC_GiveCleansePermissionHandler");
+        
+        int playerId = giveCleansePermissionPacket.PlayerId;
+        int cleanseId = giveCleansePermissionPacket.CleanseId;
+        
+        Managers.Object._cleanseController.OnGetPermission(playerId, cleanseId);
+    }
+    
+    public static void DSC_CleanseQuitHandler(PacketSession session, IMessage packet)
+    {
+        DSC_CleanseQuit cleanseQuitPacket = packet as DSC_CleanseQuit;
+        DedicatedServerSession dedicatedServerSession = session as DedicatedServerSession;
+        
+        Debug.Log("DSC_CleanseQuitHandler");
+        
+        int playerId = cleanseQuitPacket.PlayerId;
+        int cleanseId = cleanseQuitPacket.CleanseId;
+        
+        Managers.Object._cleanseController.OnOtherClientQuitCleanse(playerId, cleanseId);
+    }
+    
+    public static void DSC_CleanseSuccessHandler(PacketSession session, IMessage packet)
+    {
+        DSC_CleanseSuccess cleanseSuccessPacket = packet as DSC_CleanseSuccess;
+        DedicatedServerSession dedicatedServerSession = session as DedicatedServerSession;
+        
+        Debug.Log("DSC_CleanseSuccessHandler");
+        
+        int playerId = cleanseSuccessPacket.PlayerId;
+        int cleanseId = cleanseSuccessPacket.CleanseId;
+        
+        Managers.Object._cleanseController.OnClientCleanseSuccess(playerId, cleanseId);
+    }
+    
+    public static void DSC_CleanseCooltimeFinishHandler(PacketSession session, IMessage packet)
+    {
+        DSC_CleanseCooltimeFinish cleanseCooltimeFinishPacket = packet as DSC_CleanseCooltimeFinish;
+        DedicatedServerSession dedicatedServerSession = session as DedicatedServerSession;
+        
+        Debug.Log("DSC_CleanseCooltimeFinishHandler");
+        
+        int cleanseId = cleanseCooltimeFinishPacket.CleanseId;
+        
+        Managers.Object._cleanseController.OnCleanseCooltimeFinish(cleanseId);
+    }
+    
+    
 }

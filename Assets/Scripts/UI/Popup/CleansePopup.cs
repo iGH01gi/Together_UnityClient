@@ -4,28 +4,28 @@ using System.Collections.Generic;
 using RainbowArt.CleanFlatUI;
 using UnityEngine;
 
-public class AlterPopup : UI_popup
+public class CleansePopup : UI_popup
 {
     ProgressBar _progressBar;
-    public Alter _currentAlter = null;
+    public Cleanse _currentCleanse = null;
     void Start()
     {
         _progressBar = transform.Find("Gauge").GetComponent<ProgressBar>();
-        _progressBar.MaxValue = Managers.Object._alterController._timeToCleanse;
+        _progressBar.MaxValue = Managers.Object._cleanseController._cleanseDurationSeconds;
         _progressBar.CurrentValue = 0f;
     }
 
-    void Init(Alter alter)
+    void Init(Cleanse cleanse)
     {
-        _currentAlter = alter;
+        _currentCleanse = cleanse;
     }
 
     private void Update()
     {
         _progressBar.CurrentValue += Time.deltaTime;
-        if (_currentAlter != null)
+        if (_currentCleanse != null)
         {
-            _currentAlter.CurrentlyCleansing(_progressBar.CurrentValue);
+            _currentCleanse.CurrentlyCleansing(_progressBar.CurrentValue);
         }
     }
 }

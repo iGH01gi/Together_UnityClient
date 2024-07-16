@@ -79,7 +79,9 @@ class PacketManager
 		_onRecv.Add((ushort)MsgId.DscCleanseQuit, MakePacket<DSC_CleanseQuit>);
 		_handler.Add((ushort)MsgId.DscCleanseQuit, PacketHandler.DSC_CleanseQuitHandler);		
 		_onRecv.Add((ushort)MsgId.DscCleanseSuccess, MakePacket<DSC_CleanseSuccess>);
-		_handler.Add((ushort)MsgId.DscCleanseSuccess, PacketHandler.DSC_CleanseSuccessHandler);
+		_handler.Add((ushort)MsgId.DscCleanseSuccess, PacketHandler.DSC_CleanseSuccessHandler);		
+		_onRecv.Add((ushort)MsgId.DscCleanseCooltimeFinish, MakePacket<DSC_CleanseCooltimeFinish>);
+		_handler.Add((ushort)MsgId.DscCleanseCooltimeFinish, PacketHandler.DSC_CleanseCooltimeFinishHandler);
 	}
 
 	public void OnRecvPacket(PacketSession session, ArraySegment<byte> buffer)

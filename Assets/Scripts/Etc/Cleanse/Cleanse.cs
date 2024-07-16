@@ -1,4 +1,5 @@
-﻿using Google.Protobuf.Protocol;
+﻿using System.Collections;
+using Google.Protobuf.Protocol;
 using UnityEngine;
 
 public class Cleanse : MonoBehaviour
@@ -8,7 +9,11 @@ public class Cleanse : MonoBehaviour
     public float _cleansePoint = 0; //클린즈로 올라갈 게이지 정도
     public float _cleanseDurationSeconds = 0; //정화하는데 걸리는 시간
     public float _cleanseCoolTimeSeconds = 0; //클린즈를 사용한 후 쿨타임
-    private bool _isAvailable = true; // 클린즈 사용 가능 여부 (현재 쿨타임 중인지)
+    public bool _isAvailable = true; // 클린즈 사용 가능 여부
+    
+    private CapsuleCollider _trigger; 
+    private float _currentCleanseSeconds = 0f; //현재 정화를 몇초동안 했는지
+    
 
     /// <summary>
     /// 클린즈 정보 초기화
@@ -26,6 +31,89 @@ public class Cleanse : MonoBehaviour
         _cleanseDurationSeconds = durationSeconds;
         _cleanseCoolTimeSeconds = coolTimeSeconds;
         _isAvailable = true;
+        
+        //_transformInfo를 이용해서 위치, 회전 정보 설정
+        transform.position = new Vector3(_transformInfo.Position.PosX, _transformInfo.Position.PosY, _transformInfo.Position.PosZ);
+        transform.rotation = new Quaternion(_transformInfo.Rotation.RotX, _transformInfo.Rotation.RotY, _transformInfo.Rotation.RotZ, _transformInfo.Rotation.RotW);
+        
+        if(_trigger == null)
+            _trigger = transform.Find("TriggerCapsule").GetComponent<CapsuleCollider>();
+        _trigger.enabled = true;
     }
+    
+    /// <summary>
+    /// 클린징중일때, 클린징이 완료되었다면 처리하는것 까지 담당
+    /// </summary>
+    /// <param name="cleanseTime">현재 클린징을 몇초동안 했는지</param>
+    public void CurrentlyCleansing(float cleanseTime)
+    {
+        _currentCleanseSeconds = cleanseTime;
+        if(_currentCleanseSeconds>=_cleanseDurationSeconds)
+        {
+            Managers.Object._cleanseController.CleanseSuccess(_cleanseId);
+            Managers.UI.ClosePopup();
+            _isAvailable = false;
+            _trigger.enabled = false;
+            //testcode
+            StartCoroutine(Sdd());
+        }
+    }
+    
+    /// <summary>
+    /// 내 플레이어가 클린징 권한 얻었을때 처리
+    /// </summary>
+    public void OnMyPlayerGetPermission()
+    {
+        
+    }
+    
+    /// <summary>
+    /// 다른 플레이어가 클린징 권한 얻었을때 처리
+    /// </summary>
+    public void OnOtherPlayerGetPermission()
+    {
+        _isAvailable = false;
+        _trigger.enabled = false;
+    }
+
+    IEnumerator Sdd()
+    {
+        yield return new WaitForSeconds(3f);
+        _isAvailable = true;
+        _trigger.enabled = true;
+    }
+    
+    
+    /// <summary>
+    /// 플레이어가 클린징하던거 취소 했을때 처리
+    /// </summary>
+    /// <param name="dediPlayerId">데디플레이어id</param>
+    public void OnPlayerQuitCleansing()
+    {
+        _isAvailable = true;
+        _trigger.enabled = true;
+        _currentCleanseSeconds = 0f;
+    }
+    
+    /// <summary>
+    /// 누군가가 클린즈 성공했을때 처리(나 포함)
+    /// </summary>
+    public void OnCleanseSuccess()
+    {
+        _isAvailable = false;
+        _trigger.enabled = false;
+        _currentCleanseSeconds = 0f;
+    }
+
+    /// <summary>
+    /// 클린즈 쿨타임이 끝났을때 처리
+    /// </summary>
+    public void OnCleanseCooltimeFinish()
+    {
+        _isAvailable = true;
+        _trigger.enabled = true;
+        _currentCleanseSeconds = 0f;
+    }
+
 
 }

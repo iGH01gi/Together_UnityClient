@@ -7,7 +7,7 @@ using UnityEngine.InputSystem;
 public class ObjectInput : MonoBehaviour
 {
     private GameObject _currentChest;
-    private GameObject _currentAlter;
+    private GameObject _currentCleanse;
 
     private bool _isCurrentlyCleaning = false;
 
@@ -30,9 +30,9 @@ public class ObjectInput : MonoBehaviour
         }
         else
         {
-            if (other.CompareTag("Alter") && other.transform.parent.GetComponent<Alter>()._isAvailable)
+            if (other.CompareTag("Cleanse") && other.transform.parent.GetComponent<Cleanse>()._isAvailable)
             {
-                _currentAlter = other.transform.parent.gameObject;
+                _currentCleanse = other.transform.parent.gameObject;
             }
         }
     }
@@ -45,9 +45,9 @@ public class ObjectInput : MonoBehaviour
             _currentChest = null;
             Managers.UI.ClosePopup();
         }
-        else if (other.tag == "Alter")
+        else if (other.tag == "Cleanse")
         {
-            _currentAlter = null;
+            _currentCleanse = null;
             Managers.UI.ClosePopup();
         }
     }
@@ -79,17 +79,17 @@ public class ObjectInput : MonoBehaviour
         }
         else
         {
-            if (_currentAlter != null)
+            if (_currentCleanse != null)
             {
                 if (!_isCurrentlyCleaning && value.isPressed)
                 {
                     _isCurrentlyCleaning = true;
-                    Managers.Object._alterController.TryCleanse(_currentAlter.GetComponent<Alter>().GetInstanceID());
+                    Managers.Object._cleanseController.TryCleanse(_currentCleanse.GetComponent<Cleanse>()._cleanseId);
                 }
                 else if(_isCurrentlyCleaning && !value.isPressed)
                 {
                     _isCurrentlyCleaning = false;
-                    _currentAlter.GetComponent<Alter>().QuitCleansing();
+                    Managers.Object._cleanseController.QuitCleansing(_currentCleanse.GetComponent<Cleanse>()._cleanseId);
                 }
             }
         }
