@@ -394,6 +394,7 @@ public class PacketHandler
         Managers.Time.OnRecvDediServerTimeStamp(responseTimestampPacket);
     }
     
+    //데디케이티드서버로부터 게이지싱크를 받았을때의 처리
     public static void DSC_GaugeSyncHandler(PacketSession session, IMessage packet)
     {
         DSC_GaugeSync gaugeSyncPacket = packet as DSC_GaugeSync;
@@ -418,6 +419,7 @@ public class PacketHandler
         Debug.Log("DSC_GaugeSyncHandler");
     }
     
+    //데디케이티드서버로부터 플레이어 사망패킷을 받았을때의 처리
     public static void DSC_PlayerDeathHandler(PacketSession session, IMessage packet)
     {
         DSC_PlayerDeath playerDeathPacket = packet as DSC_PlayerDeath;
@@ -450,5 +452,16 @@ public class PacketHandler
                 
             }
         }
+    }
+    
+    //초기 클린즈 정보를 받았을대의 처리
+    public static void DSC_NewCleansesInfoHandler(PacketSession session, IMessage packet)
+    {
+        DSC_NewCleansesInfo newCleansesInfoPacket = packet as DSC_NewCleansesInfo;
+        DedicatedServerSession dedicatedServerSession = session as DedicatedServerSession;
+        
+        Debug.Log("DSC_NewCleansesInfoHandler");
+        
+        Managers.Object._cleanseController.SetAllCleanseInfo(newCleansesInfoPacket);
     }
 }
