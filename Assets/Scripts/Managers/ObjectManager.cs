@@ -10,6 +10,7 @@ public class ObjectManager
     public GameObject root;
     
     public ChestController _chestController;
+    public AlterController _alterController;
     
     //Managers Init에서 호출
     public void Init()
@@ -22,6 +23,8 @@ public class ObjectManager
         }
         
         _chestController = Util.GetOrAddComponent<ChestController>(root);
+        _alterController = Util.GetOrAddComponent<AlterController>(root);
         _chestController.Init();
+        _alterController.Init();
     }
 }

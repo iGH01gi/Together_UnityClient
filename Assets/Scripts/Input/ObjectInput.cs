@@ -6,8 +6,9 @@ using UnityEngine.InputSystem;
 
 public class ObjectInput : MonoBehaviour
 {
-    private GameObject currentChest;
-    
+    private GameObject _currentChest;
+    private GameObject _currentAlter;
+
     private void Start()
     {
         GetComponent<PlayerInput>().DeactivateInput();
@@ -18,48 +19,69 @@ public class ObjectInput : MonoBehaviour
     private void OnTriggerEnter(Collider other)
     {
         Debug.Log(other.tag);
-        if (other.CompareTag("Chest"))
+        if (Managers.Game._isDay)
         {
-            if(!other.transform.parent.GetComponent<Chest>()._isOpened)
+            if(other.CompareTag("Chest") && !other.transform.parent.GetComponent<Chest>()._isOpened)
             {
                 ChangeHighlightChest(other.transform.parent.gameObject);
+            }
+        }
+        else
+        {
+            if (other.CompareTag("Alter") && other.GetComponent<Alter>().isAvailable)
+            {
+                //TODO: SHOW ALTER AVAILABLE POPUP
+                _currentAlter = other.gameObject;
             }
         }
     }
 
     private void OnTriggerExit(Collider other)
     {
-        if(other.tag == "Chest" && currentChest.Equals(other.transform.parent.gameObject))
+        if(other.tag == "Chest" && _currentChest.Equals(other.transform.parent.gameObject))
         {
-            currentChest.GetComponent<Chest>().UnHighlightChest();
-            currentChest = null;
+            _currentChest.GetComponent<Chest>().UnHighlightChest();
+            _currentChest = null;
+            Managers.UI.ClosePopup();
+        }
+        else if (other.tag == "Alter")
+        {
+            _currentAlter = null;
             Managers.UI.ClosePopup();
         }
     }
     
     private void ChangeHighlightChest(GameObject newChest)
     {
-        if (currentChest != null)
+        if (_currentChest != null)
         {
             if(
-            Vector3.Angle(transform.forward, currentChest.transform.position - transform.position)<
+            Vector3.Angle(transform.forward, _currentChest.transform.position - transform.position)<
             Vector3.Angle(transform.forward, newChest.transform.position - transform.position))
             {
                 return;
             }
-            currentChest.GetComponent<Chest>().UnHighlightChest();
+            _currentChest.GetComponent<Chest>().UnHighlightChest();
         }
-        currentChest = newChest;
-        currentChest.GetComponent<Chest>().HighlightChest();
+        _currentChest = newChest;
+        _currentChest.GetComponent<Chest>().HighlightChest();
     }
-    
-    
-    
+
     void OnInteract(InputValue value)
     {
-        if(currentChest != null)
+        if (Managers.Game._isDay)
         {
-            Managers.Object._chestController.TryOpenChest(currentChest.GetComponent<Chest>()._chestId);
+            if (_currentChest != null)
+            {
+                Managers.Object._chestController.TryOpenChest(_currentChest.GetComponent<Chest>()._chestId);
+            }
+        }
+        else
+        {
+            if (_currentAlter != null)
+            {
+                Managers.Object._alterController.TryCleanse(_currentAlter.GetComponent<Alter>().GetInstanceID());
+            }
         }
     }
 }
