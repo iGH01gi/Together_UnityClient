@@ -59,7 +59,7 @@ public class ObjectInput : MonoBehaviour
     {
         if(currentChest != null)
         {
-            Managers.Object.TryOpenChest(currentChest.GetComponent<Chest>()._chestId);
+            Managers.Object._chestController.TryOpenChest(currentChest.GetComponent<Chest>()._chestId);
         }
     }
 }

@@ -356,7 +356,7 @@ public class PacketHandler
         
         Debug.Log("DSC_NewChestsInfoHandler");
         
-        Managers.Object.ChestSetAllInOne(newChestsInfoPacket);
+        Managers.Object._chestController.ChestSetAllInOne(newChestsInfoPacket);
     }
 
     //데디케이티드서버가 누군가가 상자를 여는데 성공했음을 알려줄때의 처리
@@ -374,12 +374,12 @@ public class PacketHandler
         if(playerId == Managers.Player._myDediPlayerId)
         {
             //나의 상자 열기 성공 처리
-            Managers.Object.OnMyPlayerOpenChestSuccess(chestId);
+            Managers.Object._chestController.OnMyPlayerOpenChestSuccess(chestId);
         }
         else
         {
             //다른 유저의 상자 열기 성공 처리
-            Managers.Object.OnOtherPlayerOpenChestSuccess(chestId, playerId);
+            Managers.Object._chestController.OnOtherPlayerOpenChestSuccess(chestId, playerId);
         }
     }
     
