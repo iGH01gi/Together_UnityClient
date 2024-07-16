@@ -169,7 +169,7 @@ MonoBehaviour:
   - {fileID: 1903323454607685578}
   - {fileID: 5467283423210749678}
   m_Instructions:
-  - m_FullHash: 1432961145
+  - m_FullHash: 0
     m_VirtualCamera: {fileID: 4117950205291814977}
     m_ActivateAfter: 0.1
     m_MinDuration: 0
@@ -192,57 +192,13 @@ MonoBehaviour:
       m_RotationOrder: 4
   m_CustomBlends: {fileID: 0}
   m_ParentHash:
-  - m_Hash: 1399858759
-    m_ParentHash: 756556552
-  - m_Hash: 533282942
-    m_ParentHash: 756556552
   - m_Hash: 1432961145
-    m_ParentHash: 756556552
-  - m_Hash: 1355815490
-    m_ParentHash: 756556552
-  - m_Hash: -946407516
-    m_ParentHash: 756556552
-  - m_Hash: 358088473
-    m_ParentHash: 756556552
-  - m_Hash: 304031059
-    m_ParentHash: 756556552
-  - m_Hash: -1961462551
-    m_ParentHash: 756556552
-  - m_Hash: 304293996
-    m_ParentHash: 756556552
-  - m_Hash: 788460410
-    m_ParentHash: 756556552
-  - m_Hash: -729815479
-    m_ParentHash: 756556552
-  - m_Hash: 41265806
-    m_ParentHash: 756556552
-  - m_Hash: -1686308044
-    m_ParentHash: 756556552
-  - m_Hash: -327431262
-    m_ParentHash: 756556552
-  - m_Hash: 1718862356
-    m_ParentHash: 756556552
-  - m_Hash: -1571065594
-    m_ParentHash: 756556552
-  - m_Hash: 1481919589
-    m_ParentHash: 756556552
-  - m_Hash: 1914658305
-    m_ParentHash: 756556552
-  - m_Hash: -95076781
-    m_ParentHash: 756556552
-  - m_Hash: 1352962488
     m_ParentHash: 756556552
   - m_Hash: 81563449
     m_ParentHash: 756556552
-  - m_Hash: 885627960
-    m_ParentHash: 756556552
-  - m_Hash: 1881945837
+  - m_Hash: 1718862356
     m_ParentHash: 756556552
   - m_Hash: -383424681
-    m_ParentHash: 756556552
-  - m_Hash: 1270784554
-    m_ParentHash: 756556552
-  - m_Hash: -1043258741
     m_ParentHash: 756556552
   - m_Hash: -839651456
     m_ParentHash: 756556552

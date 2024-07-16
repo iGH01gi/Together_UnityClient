@@ -415,7 +415,6 @@ public class PacketHandler
 
             Managers.Game._clientGauge.CheckHardSnap(dediPlayerId,estimatedValue);
         }
-        
         Debug.Log("DSC_GaugeSyncHandler");
     }
     

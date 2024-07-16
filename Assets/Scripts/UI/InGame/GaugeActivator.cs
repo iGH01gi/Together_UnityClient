@@ -10,5 +10,6 @@ public class GaugeActivator : MonoBehaviour
     void Update()
     {
         Managers.Game._clientGauge.DecreaseAllGaugeAuto();
+        Managers.UI.GetComponentInSceneUI<InGameUI>().SetCurrentGauge();
     }
 }

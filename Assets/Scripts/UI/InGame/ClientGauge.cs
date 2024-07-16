@@ -34,7 +34,7 @@ public class ClientGauge : MonoBehaviour
             SetGauge(dediPlayerId, serverGaugeValue);
             if (Managers.Player._myDediPlayerId == dediPlayerId)
             {
-                Managers.UI.GetComponentInSceneUI<InGameUI>().SetCurrentGauge(GetMyGauge());
+                Managers.UI.GetComponentInSceneUI<InGameUI>().SetCurrentGauge();
             }
         }
     }
@@ -222,6 +222,6 @@ public class ClientGauge : MonoBehaviour
     public void SetMyGauge(float amount)
     {
         SetGauge(Managers.Player._myDediPlayerId, amount);
-        Managers.UI.GetComponentInSceneUI<InGameUI>().SetCurrentGauge(GetMyGauge());
+        Managers.UI.GetComponentInSceneUI<InGameUI>().SetCurrentGauge();
     }
 }
