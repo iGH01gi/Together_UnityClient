@@ -345,6 +345,7 @@ public class PacketHandler
 
         Debug.Log("DSC_NightTimerEndHandler");
         
+        Managers.Game._clientGauge.EndGauge();
         Managers.UI.CloseAllPopup();
         Managers.Object._cleanseController.NightIsOver();
         Managers.UI.LoadPopupPanel<WairForSecondsPopup>(true,false); //3초 카운트 다운

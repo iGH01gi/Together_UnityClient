@@ -26,30 +26,32 @@ public class MovementInput : MonoBehaviour
     private Transform _camera;
     private Transform _player;
     private Transform _prefab; //얘가 프리팹 본체
+    PlayerAnimController _playerAnimController;
 
     public static bool _isRunning = false;
     private void ChangeAnim()
     {
-        _player.GetComponent<PlayerAnimController>().PlayAnim();
+        _playerAnimController.PlayAnim();
     }
     
     void OnMove(InputValue value)
     {
         _moveInput = value.Get<Vector2>();
-        PlayerAnimController.isWalking = _moveInput.magnitude > 0;
+        _playerAnimController.isWalking = _moveInput.magnitude > 0;
         ChangeAnim();
     }
 
     void OnRun(InputValue value)
     {
         _isRunning = value.isPressed;
-        PlayerAnimController.isWalking = _isRunning;
+        _playerAnimController.isWalking = _isRunning;
         ChangeAnim();
     }
 
     private void Start()
     {
         _controller = GetComponent<CharacterController>();
+        _playerAnimController = transform.GetComponentInChildren<PlayerAnimController>();
         _mouseSensitivity = Managers.Data.Player.MouseSensitivity *sensitivityAdjuster;
         _prefab = gameObject.transform;
         _camera = _prefab.transform.GetChild(0);

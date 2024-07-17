@@ -6,10 +6,10 @@ using UnityEngine;
 public class PlayerAnimController : MonoBehaviour
 {
     private Animator _anim;
-    public static bool isRunning = false;
-    public static bool isWalking = false;
-    public static bool isDigging = false;
-    public static bool isPraying = false;
+    public bool isRunning = false;
+    public bool isWalking = false;
+    public bool isDigging = false;
+    public bool isPraying = false;
     
     private void Start()
     {

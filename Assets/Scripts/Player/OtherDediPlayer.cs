@@ -13,7 +13,8 @@ public class OtherDediPlayer : MonoBehaviour
     
     public float _gauge = 0; //생명력 게이지
     public float _gaugeDecreasePerSecond = 0; //생명력 게이지 감소량
-    
+
+    private PlayerAnimController _playerAnimController;
     CharacterController _controller;
     public GameObject _ghost;
     public Vector3 _velocity;
@@ -31,6 +32,7 @@ public class OtherDediPlayer : MonoBehaviour
 
     private void Start()
     {
+        _playerAnimController = transform.GetChild(0).GetComponent<PlayerAnimController>();
         _controller = GetComponent<CharacterController>();
         _velocity = new Vector3(0f, 0f, 0f);
         _isRunning = false;
@@ -42,7 +44,7 @@ public class OtherDediPlayer : MonoBehaviour
         {
             _ghost = GameObject.Find("Ghost_" + PlayerId);
         }
-        
+        SyncAnim();
         FollowGhost();
     }
 
@@ -86,4 +88,10 @@ public class OtherDediPlayer : MonoBehaviour
         }
     }
 
+    public void SyncAnim()
+    {
+        _playerAnimController.isRunning = _isRunning;
+        _playerAnimController.isWalking = _isWalking;
+        _playerAnimController.PlayAnim();
+    }
 }

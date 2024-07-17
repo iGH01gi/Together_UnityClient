@@ -183,24 +183,9 @@ public class SyncMoveCtonroller
     {
         if (Managers.Player._otherDediPlayers.TryGetValue(dediPlayerId, out GameObject playerObj))
         {
-            //keyboardInput에 runbit가 켜져있고 up,left,down,right bit중에 한개라도 켜져있으면 _isRunning = true로 설정
-            if((keyboardInput & _runBit) != 0 && (keyboardInput & (_upBit | _leftBit | _downBit | _rightBit)) != 0)
-            {
-                playerObj.GetComponent<OtherDediPlayer>()._isRunning = true;
-                playerObj.GetComponent<OtherDediPlayer>()._isWalking = false;
-            }
-            //keyboardInput에 runbit가 꺼져있고 up,left,down,right bit중에 한개라도 켜져있으면 _isWalking = true로 설정
-            else if((keyboardInput & _runBit) == 0 && (keyboardInput & (_upBit | _leftBit | _downBit | _rightBit)) != 0)
-            {
-                playerObj.GetComponent<OtherDediPlayer>()._isRunning = false;
-                playerObj.GetComponent<OtherDediPlayer>()._isWalking = true;
-            }
-            else
-            {
-                playerObj.GetComponent<OtherDediPlayer>()._isRunning = false;
-                playerObj.GetComponent<OtherDediPlayer>()._isWalking = false;
-            }
-
+            playerObj.GetComponent<OtherDediPlayer>()._isRunning = (keyboardInput & _runBit) != 0;
+            playerObj.GetComponent<OtherDediPlayer>()._isWalking =
+                (keyboardInput & (_upBit | _leftBit | _downBit | _rightBit)) != 0;
         }
     }
     
