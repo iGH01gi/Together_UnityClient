@@ -48,6 +48,10 @@ public class CleanseController : MonoBehaviour
     /// <param name="cleanseId">사용시도하는 클린즈id</param>
     public void TryCleanse(int cleanseId)
     {
+        //킬러라면 불가능처리
+        if(Managers.Player.IsMyDediPlayerKiller())
+            return;
+        
         //서버에게 cleanseId를 보내서 사용 가능여부 확인
         CDS_RequestCleansePermission requestCleansePermission = new CDS_RequestCleansePermission();
         requestCleansePermission.MyDediplayerId = Managers.Player._myDediPlayerId;
