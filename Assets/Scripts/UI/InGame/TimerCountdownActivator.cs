@@ -11,9 +11,6 @@ public class TimerCountdownActivator : MonoBehaviour
         float old = Managers.Game._clientTimer._clientTimerValue;
         float cur = Mathf.Max(0f, old - Time.deltaTime);
         Managers.Game._clientTimer._clientTimerValue = cur;
-        if (Mathf.CeilToInt(old)>Mathf.CeilToInt(cur))
-        {
-            Managers.UI.GetComponentInSceneUI<InGameUI>().ChangeCurrentTimerValue(cur);
-        }
+        Managers.UI.GetComponentInSceneUI<InGameUI>().ChangeCurrentTimerValue(cur);
     }
 }
