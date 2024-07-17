@@ -35,12 +35,12 @@ public class InGameUI : UI_scene
 
     public void ChangeCurrentTimerValue(float value)
     {
-        _timer.GetComponent<ProgressBar>().CurrentValue = Mathf.CeilToInt(value);
+        _timer.GetComponent<ProgressBar>().CurrentValue = value;
     }
     
     public void SetMaxTimerValue(float value)
     {
-        _timer.GetComponent<ProgressBar>().MaxValue = Mathf.CeilToInt(value);
+        _timer.GetComponent<ProgressBar>().MaxValue = value;
     }
     
     public void SetMaxGauge(float max)
