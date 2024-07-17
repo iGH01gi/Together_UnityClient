@@ -287,6 +287,7 @@ public class PacketHandler
         
         Managers.Player._myDediPlayer.GetComponent<PlayerInput>().DeactivateInput();
         UIPacketHandler.TimerEndedInServer();
+        Managers.Object._chestController.ClearAllChest();
     }
     
     //데디케이트서버로부터 밤 타이머 시작을 받았을때의 처리
@@ -345,6 +346,7 @@ public class PacketHandler
         Debug.Log("DSC_NightTimerEndHandler");
         
         Managers.UI.CloseAllPopup();
+        Managers.Object._cleanseController.NightIsOver();
         Managers.UI.LoadPopupPanel<WairForSecondsPopup>(true,false); //3초 카운트 다운
 
         //낮 되기 전에 미리 한번 플레이어 정보 초기화
