@@ -134,7 +134,7 @@ namespace RainbowArt.CleanFlatUI
             }
             if (hasText && (text != null))
             {
-                text.text = Mathf.CeilToInt(currentValue).ToString();
+                text.text = Mathf.RoundToInt(currentValue).ToString();
             }
         }
 
