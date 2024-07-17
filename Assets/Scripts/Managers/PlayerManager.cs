@@ -210,4 +210,21 @@ public class PlayerManager
     {
         return Managers.Player._myDediPlayer.GetComponent<MyDediPlayer>()._isKiller;
     }
+    
+    /// <summary>
+    /// 낮 시작할때 모든 플레이어를 초기화
+    /// </summary>
+    public void ResetPlayerOnDayStart()
+    {
+        Managers.Player._myDediPlayer.GetComponent<MyDediPlayer>()._isKiller = false;
+        Managers.Player._myDediPlayer.GetComponent<MyDediPlayer>()._gauge = 0;
+        Managers.Player._myDediPlayer.GetComponent<MyDediPlayer>()._totalPoint = 0;
+        
+        foreach (KeyValuePair<int, GameObject> a in _otherDediPlayers)
+        {
+            a.Value.GetComponent<OtherDediPlayer>()._isKiller = false;
+            a.Value.GetComponent<OtherDediPlayer>()._gauge = 0;
+            a.Value.GetComponent<OtherDediPlayer>()._totalPoint = 0;
+        }
+    }
 }

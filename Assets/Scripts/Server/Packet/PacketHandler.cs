@@ -253,8 +253,8 @@ public class PacketHandler
         //낮->일몰 효과를 설정함 (낮 시간의 2/3초동안은 낮상태 유지. 남은 낮 시간의 1/3초동안 일몰로 천천히 전환됨)
         Managers.Scene.SimulateDayToSunset(daySeconds*2/3, daySeconds/3);
         
-        //킬러정보 초기화
-        Managers.Player.ClearKiller();
+        //낮 시작할때 플레이어 정보 초기화
+        Managers.Player.ResetPlayerOnDayStart();
     }
 
     //데디케이트서버로부터 낮 타이머 싱크를 받았을때의 처리
@@ -281,6 +281,9 @@ public class PacketHandler
         
         int kiilerId = dayTimerEndPacket.KillerPlayerId;
         Managers.Player.SetKiller(kiilerId, callback:()=>{}); //킬러 설정 + 그 이후 실행될 callback함수
+        
+        //일몰->밤 효과를 설정함(0초동안 일몰 유지, 3초 동안 밤으로 천천히 전환됨)
+        Managers.Scene.SimulateSunsetToNight(0,3);
         
         Managers.Player._myDediPlayer.GetComponent<PlayerInput>().DeactivateInput();
         UIPacketHandler.TimerEndedInServer();
@@ -341,11 +344,14 @@ public class PacketHandler
 
         Debug.Log("DSC_NightTimerEndHandler");
         
-        //킬러정보 초기화
-        Managers.Player.ClearKiller();
+        //낮 되기 전에 미리 한번 플레이어 정보 초기화
+        Managers.Player.ResetPlayerOnDayStart();
         
         Managers.Player._myDediPlayer.GetComponent<PlayerInput>().DeactivateInput();
         UIPacketHandler.TimerEndedInServer();
+        
+        //밤->낮 효과를 설정함(0초동안 밤 유지, 3초 동안 낮으로 천천히 전환됨)
+        Managers.Scene.SimulateNightToSunrise(0,3);
     }
 
     //데디케이트서버로부터 새로운 상자 정보를 받았을때의 처리
@@ -367,19 +373,19 @@ public class PacketHandler
         
         Debug.Log("DSC_ChestOpenSuccessHandler");
         
-        int chestId = chestOpenSuccessPacket.ChestId;
         int playerId = chestOpenSuccessPacket.PlayerId;
+        
         
         //여는데 성공한것이 나인가? 남인가?
         if(playerId == Managers.Player._myDediPlayerId)
         {
             //나의 상자 열기 성공 처리
-            Managers.Object._chestController.OnMyPlayerOpenChestSuccess(chestId);
+            Managers.Object._chestController.OnMyPlayerOpenChestSuccess(chestOpenSuccessPacket);
         }
         else
         {
             //다른 유저의 상자 열기 성공 처리
-            Managers.Object._chestController.OnOtherPlayerOpenChestSuccess(chestId, playerId);
+            Managers.Object._chestController.OnOtherPlayerOpenChestSuccess(chestOpenSuccessPacket);
         }
     }
     
@@ -418,40 +424,6 @@ public class PacketHandler
         Debug.Log("DSC_GaugeSyncHandler");
     }
     
-    //데디케이티드서버로부터 플레이어 사망패킷을 받았을때의 처리
-    public static void DSC_PlayerDeathHandler(PacketSession session, IMessage packet)
-    {
-        DSC_PlayerDeath playerDeathPacket = packet as DSC_PlayerDeath;
-        DedicatedServerSession dedicatedServerSession = session as DedicatedServerSession;
-        
-        Debug.Log("DSC_PlayerDeathHandler");
-        
-        int playerId = playerDeathPacket.PlayerId;
-        DeathCause deathCause = playerDeathPacket.DeathCause;
-       
-        if(playerId == Managers.Player._myDediPlayerId) //'내'가 죽었을 경우
-        {
-            if (deathCause == DeathCause.TimeOver) //밤 시간이 끝나서 '킬러'인 '나' 사망
-            {
-                
-            }
-            else if (deathCause == DeathCause.GaugeOver) //게이지가 다 닳아서 '나' 사망
-            {
-                
-            }
-        }
-        else //다른 플레이어가 죽었을 경우
-        {
-            if (deathCause == DeathCause.TimeOver) //밤 시간이 끝나서 '킬러'인 '다른 플레이어' 사망
-            {
-                
-            }
-            else if (deathCause == DeathCause.GaugeOver) //게이지가 다 닳아서 '다른 플레이어' 사망
-            {
-                
-            }
-        }
-    }
     
     //데디케이티드서버로부터 초기 클린즈 정보를 받았을때의 처리
     public static void DSC_NewCleansesInfoHandler(PacketSession session, IMessage packet)
@@ -500,6 +472,24 @@ public class PacketHandler
         
         int playerId = cleanseSuccessPacket.PlayerId;
         int cleanseId = cleanseSuccessPacket.CleanseId;
+        float gauge = cleanseSuccessPacket.Gauge;
+
+        float estimatedGauge;
+        //내 데디
+        if(playerId == Managers.Player._myDediPlayerId)
+        {
+            estimatedGauge = gauge - Managers.Player._myDediPlayer.GetComponent<MyDediPlayer>()._gaugeDecreasePerSecond * Managers.Time.GetEstimatedLatency();
+            if (estimatedGauge<=0)
+                estimatedGauge = 0;
+            Managers.Game._clientGauge.CheckHardSnap(playerId,estimatedGauge);
+        }
+        else
+        {
+            estimatedGauge = gauge - Managers.Player._otherDediPlayers[playerId].GetComponent<OtherDediPlayer>()._gaugeDecreasePerSecond * Managers.Time.GetEstimatedLatency();
+            if (estimatedGauge<=0)
+                estimatedGauge = 0;
+            Managers.Game._clientGauge.CheckHardSnap(playerId,estimatedGauge);
+        }
         
         Managers.Object._cleanseController.OnClientCleanseSuccess(playerId, cleanseId);
     }

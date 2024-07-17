@@ -155,36 +155,57 @@ public class ChestController : MonoBehaviour
     /// </summary>
     /// <param name="chestId">상자id</param>
     /// <param name="otherDediPlayerId">열은 데디플레이어id</param>
-    public void OnOtherPlayerOpenChestSuccess(int chestId, int otherDediPlayerId)
+    public void OnOtherPlayerOpenChestSuccess(DSC_ChestOpenSuccess chestOpenSuccessPacket)
     {
+        int chestId = chestOpenSuccessPacket.ChestId;
+        int dediPlayerId = chestOpenSuccessPacket.PlayerId;
+        int getPoint = chestOpenSuccessPacket.GetPoint; //얻은 포인트
+        int totalPoint = chestOpenSuccessPacket.TotalPoint; //총 포인트
+        
         //상자 열었다는 정보기록,이펙트,사운드 처리
         Chest chest = _chestList[chestId].GetComponent<Chest>();
         chest.OpenChest();
+        
+        Managers.Player._otherDediPlayers[dediPlayerId].GetComponent<OtherDediPlayer>()._totalPoint = totalPoint;
 
-        //플레이어 효과처리
-        Managers.Sound.Play("WarningNotification",Define.Sound.Effects,chest.transform.GetComponent<AudioSource>());
+        if (chest._point > 0) //꽝 상자 아님
+        {
+            //플레이어 효과처리
+            Managers.Sound.Play("WarningNotification",Define.Sound.Effects,chest.transform.GetComponent<AudioSource>());
+        }
+        else //꽝 상자임
+        {
+            //플레이어 효과처리
+            Managers.Sound.Play("WarningNotification",Define.Sound.Effects,chest.transform.GetComponent<AudioSource>());
+        }
     }
     
     /// <summary>
     /// 내 플레이어가 상자를 열었을때 처리
     /// </summary>
     /// <param name="chestId">상자id</param>
-    public void OnMyPlayerOpenChestSuccess(int chestId)
+    public void OnMyPlayerOpenChestSuccess(DSC_ChestOpenSuccess chestOpenSuccessPacket)
     {
+        int chestId = chestOpenSuccessPacket.ChestId;
+        int getPoint = chestOpenSuccessPacket.GetPoint; //얻은 포인트
+        int totalPoint = chestOpenSuccessPacket.TotalPoint; //총 포인트
+        
+        
         //상자 열었다는 정보기록,이펙트,사운드 처리
         Chest chest = _chestList[chestId].GetComponent<Chest>();
         chest.OpenChest();
         
         //내 플레이어 포인트 증가처리 및 효과처리
-        if (chest._point > 0)
+        if (chest._point > 0) //꽝 상자 아님
         {
             Managers.Sound.Play("Success",Define.Sound.Effects,chest.transform.GetComponent<AudioSource>());
             Managers.Sound.Play("CoinSound",Define.Sound.Effects,chest.transform.GetComponent<AudioSource>());
-            //Managers.  += chest._point;
+            Managers.Player._myDediPlayer.GetComponent<MyDediPlayer>()._totalPoint = totalPoint;
         }
-        else
+        else //꽝 상자임
         {
             Managers.Sound.Play("Fail",Define.Sound.Effects,chest.transform.GetComponent<AudioSource>());
+            Managers.Player._myDediPlayer.GetComponent<MyDediPlayer>()._totalPoint = totalPoint;
         }
     }
 }

@@ -73,7 +73,7 @@ public class SyncMoveCtonroller
 
             if (Managers.Player._otherDediPlayers.TryGetValue(playerId, out GameObject playerObj))
             {
-                SetPlayerRunState(playerId, keyboardInput); //플레이어 뛰는 상태 동기화
+                SetPlayerAnimationState(playerId, keyboardInput); //플레이어 뛰는 상태 동기화
                 
                 //회전해야하는 값 세팅해주기
                 playerObj.GetComponent<OtherDediPlayer>()._targetRotation = pastLocalRotation;
@@ -175,23 +175,32 @@ public class SyncMoveCtonroller
     }
     
     /// <summary>
-    /// 다른 플레이어 뛰는 상태 동기화
+    /// 다른 플레이어 애니메이션에 필요한 변수 세팅
     /// </summary>
     /// <param name="dediPlayerId">데디플레이어id</param>
     /// <param name="keyboardInput">키보드인풋비트</param>
-    public void SetPlayerRunState(int dediPlayerId,int keyboardInput)
+    public void SetPlayerAnimationState(int dediPlayerId,int keyboardInput)
     {
         if (Managers.Player._otherDediPlayers.TryGetValue(dediPlayerId, out GameObject playerObj))
         {
-            
-            if ((keyboardInput & _runBit) != _runBit)
+            //keyboardInput에 runbit가 켜져있고 up,left,down,right bit중에 한개라도 켜져있으면 _isRunning = true로 설정
+            if((keyboardInput & _runBit) != 0 && (keyboardInput & (_upBit | _leftBit | _downBit | _rightBit)) != 0)
+            {
+                playerObj.GetComponent<OtherDediPlayer>()._isRunning = true;
+                playerObj.GetComponent<OtherDediPlayer>()._isWalking = false;
+            }
+            //keyboardInput에 runbit가 꺼져있고 up,left,down,right bit중에 한개라도 켜져있으면 _isWalking = true로 설정
+            else if((keyboardInput & _runBit) == 0 && (keyboardInput & (_upBit | _leftBit | _downBit | _rightBit)) != 0)
             {
                 playerObj.GetComponent<OtherDediPlayer>()._isRunning = false;
+                playerObj.GetComponent<OtherDediPlayer>()._isWalking = true;
             }
             else
             {
-                playerObj.GetComponent<OtherDediPlayer>()._isRunning = true;
+                playerObj.GetComponent<OtherDediPlayer>()._isRunning = false;
+                playerObj.GetComponent<OtherDediPlayer>()._isWalking = false;
             }
+
         }
     }
     
