@@ -18,7 +18,7 @@ public class CleanseController : MonoBehaviour
         //TODO: 이닛 함수 구현
         _myPlayerCurrentCleanse = null;
     }
-    
+
     /// <summary>
     /// 패킷 정보를 바탕으로 클린즈 생성 및 정보 입력
     /// </summary>
@@ -27,33 +27,28 @@ public class CleanseController : MonoBehaviour
     {
         if (_cleanseParent == null)
         {
-            //newClenasesInfo에 있는 클린즈 정보를 이용해서 클린즈 생성
-            foreach (CleanseInfo cleanseInfo in newCleansesInfo.Cleanses)
-            {
-                GameObject cleanse = Managers.Resource.Instantiate(_cleansePrefabPath, _cleanseParent.transform);
-                Cleanse cleanseComponent = Util.GetOrAddComponent<Cleanse>(cleanse);
-                cleanseComponent.InitCleanse(cleanseInfo.CleanseId, cleanseInfo.CleanseTransform,
-                    cleanseInfo.CleansePoint, cleanseInfo.CleanseDurationSeconds, cleanseInfo.CleanseCoolTimeSeconds);
-                _cleansetList.Add(cleanse);
-            }
             _cleanseParent = GameObject.Find(_cleanseParentPath);
         }
-        else
+        _cleanseParent.SetActive(true);
+        
+        //기존 클린즈들이 있다면 삭제
+        foreach (GameObject cleanse in _cleansetList)
         {
-            _cleanseParent.SetActive(true);
-            //newClenasesInfo에 있는 클린즈 정보를 이용해서 클린즈 정보 재설정
-            foreach (CleanseInfo cleanseInfo in newCleansesInfo.Cleanses)
-            {
-                Cleanse cleanse = _cleansetList[cleanseInfo.CleanseId].GetComponent<Cleanse>();
-                cleanse.InitCleanse(cleanseInfo.CleanseId, cleanseInfo.CleanseTransform,
-                    cleanseInfo.CleansePoint, cleanseInfo.CleanseDurationSeconds, cleanseInfo.CleanseCoolTimeSeconds);
-            }
+            Managers.Resource.Destroy(cleanse);
         }
         _cleansetList.Clear();
         
-        
+        //newClenasesInfo에 있는 클린즈 정보를 이용해서 클린즈 생성
+        foreach (CleanseInfo cleanseInfo in newCleansesInfo.Cleanses)
+        {
+            GameObject cleanse = Managers.Resource.Instantiate(_cleansePrefabPath, _cleanseParent.transform);
+            Cleanse cleanseComponent = Util.GetOrAddComponent<Cleanse>(cleanse);
+            cleanseComponent.InitCleanse(cleanseInfo.CleanseId, cleanseInfo.CleanseTransform,
+                cleanseInfo.CleansePoint, cleanseInfo.CleanseDurationSeconds, cleanseInfo.CleanseCoolTimeSeconds);
+            _cleansetList.Add(cleanse);
+        }
     }
-    
+
     /// <summary>
     /// 내 플레이어가 클린즈 사용 시도(서버로부터 사용 가능여부 확인)
     /// </summary>
@@ -61,16 +56,16 @@ public class CleanseController : MonoBehaviour
     public void TryCleanse(int cleanseId)
     {
         //킬러라면 불가능처리
-        if(Managers.Player.IsMyDediPlayerKiller())
+        if (Managers.Player.IsMyDediPlayerKiller())
             return;
-        
+
         //서버에게 cleanseId를 보내서 사용 가능여부 확인
         CDS_RequestCleansePermission requestCleansePermission = new CDS_RequestCleansePermission();
         requestCleansePermission.MyDediplayerId = Managers.Player._myDediPlayerId;
         requestCleansePermission.CleanseId = cleanseId;
         Managers.Network._dedicatedServerSession.Send(requestCleansePermission);
     }
-    
+
     /// <summary>
     /// 내 플레이어가 클린즈하던거 취소
     /// </summary>
@@ -83,10 +78,10 @@ public class CleanseController : MonoBehaviour
         cleanseQuit.MyDediplayerId = Managers.Player._myDediPlayerId;
         cleanseQuit.CleanseId = cleanseId;
         Managers.Network._dedicatedServerSession.Send(cleanseQuit);
-        
+
         Cleanse cleanse = _cleansetList[cleanseId].GetComponent<Cleanse>();
         cleanse.OnPlayerQuitCleansing();
-        
+
         Debug.Log("Cleanse Quit");
     }
 
@@ -116,15 +111,15 @@ public class CleanseController : MonoBehaviour
             //TODO: 내 플레이어가 클린징 시작했을때의 필요한 처리 + 내 플레이어 클렌징 모션 실행시키기
             _myPlayerCurrentCleanse = _cleansetList[cleanseId].GetComponent<Cleanse>();
             _myPlayerCurrentCleanse.OnMyPlayerGetPermission(); //딱히 이때는 처리할거 없는듯?
-            
+
             //클린징  시작
             Managers.UI.LoadPopupPanel<CleansePopup>(true, false);
         }
         else //다른 플레이어 일때
         {
             //TODO: 다른 플레이어가 클린징 시작했을때의 필요한 처리
-             _cleansetList[cleanseId].GetComponent<Cleanse>().OnOtherPlayerGetPermission();
-            
+            _cleansetList[cleanseId].GetComponent<Cleanse>().OnOtherPlayerGetPermission();
+
             //TODO: 해당 플레이어 클렌징 모션 실행시키기
         }
     }
@@ -137,12 +132,12 @@ public class CleanseController : MonoBehaviour
     public void OnOtherClientQuitCleanse(int playerId, int cleanseId)
     {
         //내 플레이어가 클린징 취소한거는 이미 처리했으니까 처리할 필요 없음
-        if(playerId == Managers.Player._myDediPlayerId)
+        if (playerId == Managers.Player._myDediPlayerId)
             return;
-        
+
         Cleanse cleanse = _cleansetList[cleanseId].GetComponent<Cleanse>();
         cleanse.OnPlayerQuitCleansing();
-        
+
         //TODO: 해당 플레이어 클렌징 취소 모션 실행시키기
     }
 
@@ -158,14 +153,15 @@ public class CleanseController : MonoBehaviour
             _myPlayerCurrentCleanse.OnCleanseSuccess();
             _myPlayerCurrentCleanse = null;
         }
-        else//다른 플레이어 일때
+        else //다른 플레이어 일때
         {
             Cleanse cleanse = _cleansetList[cleanseId].GetComponent<Cleanse>();
             cleanse.OnCleanseSuccess();
         }
-        Managers.Game._clientGauge.IncreaseGauge( playerId,_cleansePoint);
+
+        Managers.Game._clientGauge.IncreaseGauge(playerId, _cleansePoint);
     }
-    
+
     /// <summary>
     /// 클린즈 쿨타임이 끝났을때 호출
     /// </summary>
@@ -178,7 +174,7 @@ public class CleanseController : MonoBehaviour
 
     public void NightIsOver()
     {
-        if(_myPlayerCurrentCleanse != null)
+        if (_myPlayerCurrentCleanse != null)
             QuitCleansing(_myPlayerCurrentCleanse._cleanseId);
         _myPlayerCurrentCleanse = null;
         _cleanseParent.SetActive(false);

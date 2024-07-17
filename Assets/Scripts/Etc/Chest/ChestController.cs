@@ -120,7 +120,7 @@ public class ChestController : MonoBehaviour
             chest.transform.localScale = Vector3.one;
             
             //상자에 전용 스크립트 부착 및 정보 입력
-            Chest chestScript = chest.AddComponent<Chest>();
+            Chest chestScript = Util.GetOrAddComponent<Chest>(chest);
             chestScript.InitChest(chestInfo.ChestId, chestLevel, chestInfo.ChestPoint);
             
             //상자 리스트에 추가(인덱스는 상자의 고유 ID)

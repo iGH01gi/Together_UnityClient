@@ -357,6 +357,9 @@ public class PacketHandler
         
         //밤->낮 효과를 설정함(0초동안 밤 유지, 3초 동안 낮으로 천천히 전환됨)
         Managers.Scene.SimulateNightToSunrise(0,3);
+        
+        //이제 낮이니까 클린즈 안보이게 처리
+        Managers.Object._cleanseController._cleanseParent.SetActive(false);
     }
 
     //데디케이트서버로부터 새로운 상자 정보를 받았을때의 처리
