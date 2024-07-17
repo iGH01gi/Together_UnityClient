@@ -9,6 +9,7 @@ public class PlayerAnimController : MonoBehaviour
     public static bool isRunning = false;
     public static bool isWalking = false;
     public static bool isDigging = false;
+    public static bool isPraying = false;
     
     private void Start()
     {
@@ -17,9 +18,10 @@ public class PlayerAnimController : MonoBehaviour
 
     public void PlayAnim()
     {
-        _anim.SetBool("isRunning", isRunning);
+        _anim.SetBool("isRunning",isRunning);
         _anim.SetBool("isWalking",isWalking);
         _anim.SetBool("isDigging",isDigging);
+        _anim.SetBool("isPraying",isPraying);
     }
     
     void PlayerAnimClear()
@@ -27,5 +29,6 @@ public class PlayerAnimController : MonoBehaviour
         isRunning = false;
         isWalking = false;
         isDigging = false;
+        isPraying = false;
     }
 }

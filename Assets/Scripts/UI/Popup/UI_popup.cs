@@ -18,7 +18,7 @@ public class UI_popup : UI_base
         SettingsPopup,
         WairForSecondsPopup,
         InGameDialogue,
-        AlterPopup
+        CleansePopup,
     }
     
     protected void ClosePopup()

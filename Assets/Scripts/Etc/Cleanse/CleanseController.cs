@@ -10,10 +10,12 @@ public class CleanseController : MonoBehaviour
     public float _cleansePoint = 0; //클린즈로 올라갈 게이지 정도
     public float _cleanseDurationSeconds = 0; //정화하는데 걸리는 시간(초 단위)
     public float _cleanseCoolTimeSeconds = 0; //클린즈를 사용한 후 쿨타임(초 단위)
+    public Cleanse _myPlayerCurrentCleanse; //내 플레이어가 현재 클린징중인 클린즈
     
     public void Init()
     {
         //TODO: 이닛 함수 구현
+        _myPlayerCurrentCleanse = null;
     }
     
     /// <summary>
@@ -48,6 +50,7 @@ public class CleanseController : MonoBehaviour
     {
         //서버에게 cleanseId를 보내서 사용 가능여부 확인
         CDS_RequestCleansePermission requestCleansePermission = new CDS_RequestCleansePermission();
+        requestCleansePermission.MyDediplayerId = Managers.Player._myDediPlayerId;
         requestCleansePermission.CleanseId = cleanseId;
         Managers.Network._dedicatedServerSession.Send(requestCleansePermission);
     }
@@ -57,6 +60,8 @@ public class CleanseController : MonoBehaviour
     /// </summary>
     public void QuitCleansing(int cleanseId)
     {
+        Managers.UI.ClosePopup();
+        _myPlayerCurrentCleanse = null;
         //서버에게 클린즈 중단을 알림
         CDS_CleanseQuit cleanseQuit = new CDS_CleanseQuit();
         cleanseQuit.MyDediplayerId = Managers.Player._myDediPlayerId;
@@ -66,7 +71,6 @@ public class CleanseController : MonoBehaviour
         Cleanse cleanse = _cleansetList[cleanseId].GetComponent<Cleanse>();
         cleanse.OnPlayerQuitCleansing();
         
-        Managers.UI.ClosePopup();
         Debug.Log("Cleanse Quit");
     }
 
@@ -94,8 +98,8 @@ public class CleanseController : MonoBehaviour
         if (playerId == Managers.Player._myDediPlayerId) //내 플레이어 일때
         {
             //TODO: 내 플레이어가 클린징 시작했을때의 필요한 처리 + 내 플레이어 클렌징 모션 실행시키기
-            Cleanse cleanse = _cleansetList[cleanseId].GetComponent<Cleanse>();
-            cleanse.OnMyPlayerGetPermission(); //딱히 이때는 처리할거 없는듯?
+            _myPlayerCurrentCleanse = _cleansetList[cleanseId].GetComponent<Cleanse>();
+            _myPlayerCurrentCleanse.OnMyPlayerGetPermission(); //딱히 이때는 처리할거 없는듯?
             
             //클린징  시작
             Managers.UI.LoadPopupPanel<CleansePopup>(true, false);
@@ -103,8 +107,7 @@ public class CleanseController : MonoBehaviour
         else //다른 플레이어 일때
         {
             //TODO: 다른 플레이어가 클린징 시작했을때의 필요한 처리
-            Cleanse cleanse = _cleansetList[cleanseId].GetComponent<Cleanse>();
-            cleanse.OnOtherPlayerGetPermission();
+             _cleansetList[cleanseId].GetComponent<Cleanse>().OnOtherPlayerGetPermission();
             
             //TODO: 해당 플레이어 클렌징 모션 실행시키기
         }
@@ -136,17 +139,15 @@ public class CleanseController : MonoBehaviour
     {
         if (playerId == Managers.Player._myDediPlayerId) //내 플레이어 일때
         {
-            Cleanse cleanse = _cleansetList[cleanseId].GetComponent<Cleanse>();
-            cleanse.OnCleanseSuccess();
-            
-            //TODO: 게이지 처리 필요!
-            
+            _myPlayerCurrentCleanse.OnCleanseSuccess();
+            _myPlayerCurrentCleanse = null;
         }
         else//다른 플레이어 일때
         {
             Cleanse cleanse = _cleansetList[cleanseId].GetComponent<Cleanse>();
             cleanse.OnCleanseSuccess();
         }
+        Managers.Game._clientGauge.IncreaseGauge( playerId,_cleansePoint);
     }
     
     /// <summary>

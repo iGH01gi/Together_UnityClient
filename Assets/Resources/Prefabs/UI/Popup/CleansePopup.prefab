@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 6710967646386159710}
   - component: {fileID: 5021792600709389092}
   m_Layer: 5
-  m_Name: AlterPopup
+  m_Name: CleansePopup
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

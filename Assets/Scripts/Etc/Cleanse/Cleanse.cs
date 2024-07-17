@@ -1,9 +1,11 @@
 ﻿using System.Collections;
 using Google.Protobuf.Protocol;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class Cleanse : MonoBehaviour
 {
+    //INIT INFOS
     public int _cleanseId = 0; // 클린즈의 고유 ID (0부터 시작)
     public TransformInfo _transformInfo = new TransformInfo(); // 클린즈의 위치 정보
     public float _cleansePoint = 0; //클린즈로 올라갈 게이지 정도
@@ -11,8 +13,10 @@ public class Cleanse : MonoBehaviour
     public float _cleanseCoolTimeSeconds = 0; //클린즈를 사용한 후 쿨타임
     public bool _isAvailable = true; // 클린즈 사용 가능 여부
     
+    //RUNTIME INFOS
     private CapsuleCollider _trigger; 
     private float _currentCleanseSeconds = 0f; //현재 정화를 몇초동안 했는지
+    public float _currentCooltimeSeconds = 0; //현재 클린즈 쿨타임이 몇초 남았는지
     
 
     /// <summary>
@@ -50,12 +54,8 @@ public class Cleanse : MonoBehaviour
         _currentCleanseSeconds = cleanseTime;
         if(_currentCleanseSeconds>=_cleanseDurationSeconds)
         {
-            Managers.Object._cleanseController.CleanseSuccess(_cleanseId);
             Managers.UI.ClosePopup();
-            _isAvailable = false;
-            _trigger.enabled = false;
-            //testcode
-            StartCoroutine(Sdd());
+            Managers.Object._cleanseController.CleanseSuccess(_cleanseId);
         }
     }
     
@@ -64,7 +64,8 @@ public class Cleanse : MonoBehaviour
     /// </summary>
     public void OnMyPlayerGetPermission()
     {
-        
+        _isAvailable = true;
+        _isAvailable = true;
     }
     
     /// <summary>
@@ -76,20 +77,13 @@ public class Cleanse : MonoBehaviour
         _trigger.enabled = false;
     }
 
-    IEnumerator Sdd()
-    {
-        yield return new WaitForSeconds(3f);
-        _isAvailable = true;
-        _trigger.enabled = true;
-    }
-    
-    
     /// <summary>
     /// 플레이어가 클린징하던거 취소 했을때 처리
     /// </summary>
     /// <param name="dediPlayerId">데디플레이어id</param>
     public void OnPlayerQuitCleansing()
     {
+        Debug.Log("OnPlayerQuitCleansing");
         _isAvailable = true;
         _trigger.enabled = true;
         _currentCleanseSeconds = 0f;
@@ -100,6 +94,7 @@ public class Cleanse : MonoBehaviour
     /// </summary>
     public void OnCleanseSuccess()
     {
+        Debug.Log("OnCleanseSuccess");
         _isAvailable = false;
         _trigger.enabled = false;
         _currentCleanseSeconds = 0f;
@@ -110,10 +105,10 @@ public class Cleanse : MonoBehaviour
     /// </summary>
     public void OnCleanseCooltimeFinish()
     {
+        Debug.Log("OnCleanseCooltimeFinish");
         _isAvailable = true;
         _trigger.enabled = true;
         _currentCleanseSeconds = 0f;
+        _currentCooltimeSeconds = 0f;
     }
-
-
 }

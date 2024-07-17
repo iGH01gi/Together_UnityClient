@@ -149,6 +149,19 @@ public class UIManager
         }
     }
     
+    /// <summary>
+    /// 모든 Popup을 삭제한다.
+    /// </summary>
+    public void CloseAllPopup()
+    {
+        if(PopupActive())
+            foreach (var cur in _popupLinkedList)
+            {
+                Managers.Resource.Destroy(cur);
+                _popupLinkedList.Remove(cur);
+            }
+    }
+    
     public T GetComponentInSceneUI<T>(string childName = null) where T : MonoBehaviour
     {
         if(childName == null)

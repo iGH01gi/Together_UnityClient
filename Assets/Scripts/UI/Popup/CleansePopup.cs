@@ -7,25 +7,18 @@ using UnityEngine;
 public class CleansePopup : UI_popup
 {
     ProgressBar _progressBar;
-    public Cleanse _currentCleanse = null;
+    Cleanse _currentCleanse;
     void Start()
     {
+        _currentCleanse = Managers.Object._cleanseController._myPlayerCurrentCleanse;
         _progressBar = transform.Find("Gauge").GetComponent<ProgressBar>();
-        _progressBar.MaxValue = Managers.Object._cleanseController._cleanseDurationSeconds;
+        _progressBar.MaxValue = _currentCleanse._cleanseDurationSeconds;
         _progressBar.CurrentValue = 0f;
-    }
-
-    void Init(Cleanse cleanse)
-    {
-        _currentCleanse = cleanse;
     }
 
     private void Update()
     {
         _progressBar.CurrentValue += Time.deltaTime;
-        if (_currentCleanse != null)
-        {
-            _currentCleanse.CurrentlyCleansing(_progressBar.CurrentValue);
-        }
+        _currentCleanse.CurrentlyCleansing(_progressBar.CurrentValue);
     }
 }

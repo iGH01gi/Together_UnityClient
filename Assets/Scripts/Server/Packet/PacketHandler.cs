@@ -344,6 +344,9 @@ public class PacketHandler
 
         Debug.Log("DSC_NightTimerEndHandler");
         
+        Managers.UI.CloseAllPopup();
+        Managers.UI.LoadPopupPanel<WairForSecondsPopup>(true,false); //3초 카운트 다운
+
         //낮 되기 전에 미리 한번 플레이어 정보 초기화
         Managers.Player.ResetPlayerOnDayStart();
         

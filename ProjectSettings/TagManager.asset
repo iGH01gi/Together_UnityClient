@@ -6,7 +6,7 @@ TagManager:
   tags:
   - Chest
   - UIButton
-  - Alter
+  - Cleanse
   layers:
   - Default
   - TransparentFX

@@ -9,8 +9,6 @@ public class ObjectInput : MonoBehaviour
     private GameObject _currentChest;
     private GameObject _currentCleanse;
 
-    private bool _isCurrentlyCleaning = false;
-
     private void Start()
     {
         GetComponent<PlayerInput>().DeactivateInput();
@@ -48,7 +46,8 @@ public class ObjectInput : MonoBehaviour
         else if (other.tag == "Cleanse")
         {
             _currentCleanse = null;
-            Managers.UI.ClosePopup();
+            if (Managers.Object._cleanseController._myPlayerCurrentCleanse != null)
+                Managers.UI.ClosePopup();
         }
     }
     
@@ -70,6 +69,7 @@ public class ObjectInput : MonoBehaviour
 
     void OnInteract(InputValue value)
     {
+        Debug.Log("OnInteract");
         if (Managers.Game._isDay)
         {
             if (_currentChest != null)
@@ -81,14 +81,12 @@ public class ObjectInput : MonoBehaviour
         {
             if (_currentCleanse != null)
             {
-                if (!_isCurrentlyCleaning && value.isPressed)
+                if ((Managers.Object._cleanseController._myPlayerCurrentCleanse == null) && value.isPressed)
                 {
-                    _isCurrentlyCleaning = true;
                     Managers.Object._cleanseController.TryCleanse(_currentCleanse.GetComponent<Cleanse>()._cleanseId);
                 }
-                else if(_isCurrentlyCleaning && !value.isPressed)
+                else if((Managers.Object._cleanseController._myPlayerCurrentCleanse != null) && value.isPressed)
                 {
-                    _isCurrentlyCleaning = false;
                     Managers.Object._cleanseController.QuitCleansing(_currentCleanse.GetComponent<Cleanse>()._cleanseId);
                 }
             }
