@@ -6,12 +6,13 @@ public class CleanseController : MonoBehaviour
 {
     public string _cleansePrefabPath = "Cleanse/Cleanse"; //클린즈 프리팹 경로
     public string _cleanseParentPath = "Map/Cleanses"; //클린즈들이 실제로 생성될 부모 오브젝트
+    public GameObject _cleanseParent; //클린즈들이 실제로 생성될 부모 오브젝트
     public List<GameObject> _cleansetList = new List<GameObject>(); //클린즈 리스트(인덱스는 클린즈 고유 ID)
     public float _cleansePoint = 0; //클린즈로 올라갈 게이지 정도
     public float _cleanseDurationSeconds = 0; //정화하는데 걸리는 시간(초 단위)
     public float _cleanseCoolTimeSeconds = 0; //클린즈를 사용한 후 쿨타임(초 단위)
     public Cleanse _myPlayerCurrentCleanse; //내 플레이어가 현재 클린징중인 클린즈
-    
+
     public void Init()
     {
         //TODO: 이닛 함수 구현
@@ -24,22 +25,33 @@ public class CleanseController : MonoBehaviour
     /// <param name="newCleansesInfo">서버로부터 받은 클린즈들 정보</param>
     public void SpawnAllCleanse(DSC_NewCleansesInfo newCleansesInfo)
     {
-        Transform cleanseParent = GameObject.Find(_cleanseParentPath).transform;
-        //기존 클렌즈가 존재했다면 전부 제거
-        foreach (GameObject cleanse in _cleansetList)
+        if (_cleanseParent == null)
         {
-            Managers.Resource.Destroy(cleanse);
+            //newClenasesInfo에 있는 클린즈 정보를 이용해서 클린즈 생성
+            foreach (CleanseInfo cleanseInfo in newCleansesInfo.Cleanses)
+            {
+                GameObject cleanse = Managers.Resource.Instantiate(_cleansePrefabPath, _cleanseParent.transform);
+                Cleanse cleanseComponent = Util.GetOrAddComponent<Cleanse>(cleanse);
+                cleanseComponent.InitCleanse(cleanseInfo.CleanseId, cleanseInfo.CleanseTransform,
+                    cleanseInfo.CleansePoint, cleanseInfo.CleanseDurationSeconds, cleanseInfo.CleanseCoolTimeSeconds);
+                _cleansetList.Add(cleanse);
+            }
+            _cleanseParent = GameObject.Find(_cleanseParentPath);
+        }
+        else
+        {
+            _cleanseParent.SetActive(true);
+            //newClenasesInfo에 있는 클린즈 정보를 이용해서 클린즈 정보 재설정
+            foreach (CleanseInfo cleanseInfo in newCleansesInfo.Cleanses)
+            {
+                Cleanse cleanse = _cleansetList[cleanseInfo.CleanseId].GetComponent<Cleanse>();
+                cleanse.InitCleanse(cleanseInfo.CleanseId, cleanseInfo.CleanseTransform,
+                    cleanseInfo.CleansePoint, cleanseInfo.CleanseDurationSeconds, cleanseInfo.CleanseCoolTimeSeconds);
+            }
         }
         _cleansetList.Clear();
         
-        //newClenasesInfo에 있는 클린즈 정보를 이용해서 클린즈 생성
-        foreach (CleanseInfo cleanseInfo in newCleansesInfo.Cleanses)
-        {
-            GameObject cleanse = Managers.Resource.Instantiate(_cleansePrefabPath, cleanseParent);
-            Cleanse cleanseComponent = Util.GetOrAddComponent<Cleanse>(cleanse);
-            cleanseComponent.InitCleanse(cleanseInfo.CleanseId, cleanseInfo.CleanseTransform, cleanseInfo.CleansePoint, cleanseInfo.CleanseDurationSeconds, cleanseInfo.CleanseCoolTimeSeconds);
-            _cleansetList.Add(cleanse);
-        }
+        
     }
     
     /// <summary>
@@ -158,5 +170,13 @@ public class CleanseController : MonoBehaviour
     {
         Cleanse cleanse = _cleansetList[cleanseId].GetComponent<Cleanse>();
         cleanse.OnCleanseCooltimeFinish();
+    }
+
+    public void NightIsOver()
+    {
+        if(_myPlayerCurrentCleanse != null)
+            QuitCleansing(_myPlayerCurrentCleanse._cleanseId);
+        _myPlayerCurrentCleanse = null;
+        _cleanseParent.SetActive(false);
     }
 }
