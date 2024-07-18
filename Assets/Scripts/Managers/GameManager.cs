@@ -48,6 +48,7 @@ public class GameManager
     
     public void ChangeToNight(float timeToSet)
     {
+        _playKillerSound.Init(_dokidokiStart, _dokidokiClose, _dokidokiExtreme);
         _isDay = false;
         WhenChangeDayNight(timeToSet);
         _clientGauge.Init();
@@ -64,7 +65,13 @@ public class GameManager
         float distance = Vector3.Distance(Managers.Player._myDediPlayer.transform.position,
             Managers.Player.GetKillerGameObject().transform.position);
         _playKillerSound.CheckPlayKillerSound(distance);
-
+    }
+    
+    public void ResetKillerSound()
+    {
+        if(_playKillerSound == null)
+            return;
+        _playKillerSound.CheckPlayKillerSound(float.MaxValue);
     }
 
     #endregion

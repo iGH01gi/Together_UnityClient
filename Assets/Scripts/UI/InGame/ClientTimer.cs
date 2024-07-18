@@ -23,7 +23,7 @@ public class ClientTimer : MonoBehaviour
         Managers.UI.GetComponentInSceneUI<InGameUI>().SetMaxTimerValue(newTimeToSet);
         _clientTimerValue = newTimeToSet;
         Managers.UI.GetComponentInSceneUI<InGameUI>().ChangeCurrentTimerValue(_clientTimerValue);
-        _timerCountdownActivator = transform.AddComponent<TimerCountdownActivator>();
+        _timerCountdownActivator = Util.GetOrAddComponent<TimerCountdownActivator>(transform.gameObject);
     }
 
     //서버 시간과 비교. hardsnap 마진보다 차이 날 시 hardsnap

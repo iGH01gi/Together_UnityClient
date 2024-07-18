@@ -278,15 +278,16 @@ public class PacketHandler
         DedicatedServerSession dedicatedServerSession = session as DedicatedServerSession;
 
         Debug.Log("DSC_DayTimerEndHandler");
-        
+        Managers.Game._clientTimer.EndTimer();
+
         int kiilerId = dayTimerEndPacket.KillerPlayerId;
         Managers.Player.SetKiller(kiilerId, callback:()=>{}); //킬러 설정 + 그 이후 실행될 callback함수
         Managers.Sound.SetupKillerAudioSource();
+        
         //일몰->밤 효과를 설정함(0초동안 일몰 유지, 3초 동안 밤으로 천천히 전환됨)
         Managers.Scene.SimulateSunsetToNight(0,3);
         
         Managers.Player._myDediPlayer.GetComponent<PlayerInput>().DeactivateInput();
-        UIPacketHandler.TimerEndedInServer();
         Managers.Object._chestController.ClearAllChest();
     }
     
@@ -346,8 +347,9 @@ public class PacketHandler
         Debug.Log("DSC_NightTimerEndHandler");
         
         Managers.Game._clientGauge.EndGauge();
+        Managers.Game._clientTimer.EndTimer();
         Managers.Object._cleanseController.NightIsOver();
-        Managers.Sound.Stop(Define.Sound.Heartbeat);
+        Managers.Game.ResetKillerSound();
         Managers.UI.CloseAllPopup();
         Managers.UI.LoadPopupPanel<WairForSecondsPopup>(true,false); //3초 카운트 다운
 
@@ -355,7 +357,6 @@ public class PacketHandler
         Managers.Player.ResetPlayerOnDayStart();
         
         Managers.Player._myDediPlayer.GetComponent<PlayerInput>().DeactivateInput();
-        UIPacketHandler.TimerEndedInServer();
         
         //밤->낮 효과를 설정함(0초동안 밤 유지, 3초 동안 낮으로 천천히 전환됨)
         Managers.Scene.SimulateNightToSunrise(0,3);

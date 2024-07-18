@@ -81,11 +81,6 @@ public class UIPacketHandler
         Managers.UI.SceneUI.GetComponent<RoomUI>().RefreshButton();
     }
     
-    public static void TimerEndedInServer()
-    {
-        Managers.Game._clientTimer.EndTimer();
-    }
-
     public static void StartGameHandler()
     {
         Managers.UI.GetComponentInPopup<WairForSecondsPopup>().GameStart();

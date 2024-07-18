@@ -11,7 +11,8 @@ public class PlayKillerSound : MonoBehaviour
     
     public void Init(float _dokidokiStart, float _dokidokiClose, float _dokidokiExtreme)
     {
-        isDoki = false;
+        isDoki = (Vector3.Distance(Managers.Player._myDediPlayer.transform.position,
+            Managers.Player.GetKillerGameObject().transform.position)<=_dokidokiStart);
         this._dokidokiStart = _dokidokiStart;
         this._dokidokiClose = _dokidokiClose;
         this._dokidokiExtreme = _dokidokiExtreme;

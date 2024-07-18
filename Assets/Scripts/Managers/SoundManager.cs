@@ -143,7 +143,7 @@ public class SoundManager
 	public IEnumerator FadeIn(Define.Sound type, string path, float fadeTime = 1.0f, float fadeDuration = 0.05f)
 	{
 		AudioSource audioSource = _audioSources[(int)type];
-		float startVolume = 0.0f;
+		float startVolume = 0f;
 		float endVolume = 1f;//replace with sound setting
 		float time = 0.0f;
 
