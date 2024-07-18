@@ -10,8 +10,9 @@ public class GameManager
     public ClientTimer _clientTimer;
     public ClientGauge _clientGauge;
 
-    public static int _dokidokiStart = 20;
-    public static int _dokidokiExtreme = 10;
+    private float _dokidokiStart = 20;
+    private float _dokidokiClose = 10;
+    private float _dokidokiExtreme = 4;
 
     //Managers Init과 함께 불리는 Init
     public void Init()
@@ -30,6 +31,7 @@ public class GameManager
         _clientTimer = Util.GetOrAddComponent<ClientTimer>(root);
         _clientGauge = Util.GetOrAddComponent<ClientGauge>(root);
         _playKillerSound = Util.GetOrAddComponent<PlayKillerSound>(root);
+        _playKillerSound.Init(_dokidokiStart, _dokidokiClose, _dokidokiExtreme);
     }
 
     private void WhenChangeDayNight(float timeToSet)
@@ -57,13 +59,11 @@ public class GameManager
 
     public void PlayKillerSound()
     {
-        if(Managers.Player.GetKillerId() == -1)
+        if(_playKillerSound == null)
             return;
-        
         float distance = Vector3.Distance(Managers.Player._myDediPlayer.transform.position,
             Managers.Player.GetKillerGameObject().transform.position);
-        
-        _playKillerSound.CheckPlayKillerSound(distance< _dokidokiStart, distance < _dokidokiExtreme);
+        _playKillerSound.CheckPlayKillerSound(distance);
 
     }
 

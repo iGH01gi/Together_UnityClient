@@ -293,6 +293,7 @@ GameObject:
   - component: {fileID: 876352543390764745}
   - component: {fileID: 7752565634186519116}
   - component: {fileID: 5129760243139036368}
+  - component: {fileID: -6767579307555420276}
   m_Layer: 7
   m_Name: MyPlayer
   m_TagString: Untagged
@@ -399,6 +400,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 37245b8275ab5704cb09c8eed9c0dd8d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!81 &-6767579307555420276
+AudioListener:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4377372798501684588}
+  m_Enabled: 1
 --- !u!1 &4807155887532184663
 GameObject:
   m_ObjectHideFlags: 0
@@ -1260,6 +1269,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 474b1c82bb024b543a72f8c152c064c3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  isRunning: 0
+  isWalking: 0
+  isDigging: 0
+  isPraying: 0
 --- !u!4 &3443851821599222615 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4000010509604822, guid: 4a2d2c00183719d48b35d6a1c1ce38b1, type: 3}

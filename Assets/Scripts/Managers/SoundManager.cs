@@ -81,9 +81,10 @@ public class SoundManager
 				case Define.Sound.Heartbeat:
 				{
 					audioSource = _audioSources[(int)Define.Sound.Heartbeat];
-					if (audioSource.isPlaying)
-						audioSource.Stop();
-
+					if (audioSource == null)
+					{
+						return;
+					}
 					audioSource.pitch = pitch;
 					audioSource.clip = audioClip;
 					audioSource.Play();
@@ -175,5 +176,21 @@ public class SoundManager
 		}
 		audioSource.Stop();
 		audioSource.volume = startVolume;
+	}
+	
+	public void SetupKillerAudioSource()
+	{
+		if(!Managers.Player.IsMyDediPlayerKiller()){
+			_audioSources[(int)Define.Sound.Heartbeat] = Managers.Player.GetKillerGameObject().GetComponent<AudioSource>(); //킬러의 AudioSource 설정
+		}
+		else
+		{
+			_audioSources[(int)Define.Sound.Heartbeat] = null;
+		}
+	}
+	
+	public void Stop(Define.Sound type)
+	{
+		_audioSources[(int)type].Stop();
 	}
 }

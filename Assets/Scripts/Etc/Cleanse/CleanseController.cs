@@ -174,8 +174,14 @@ public class CleanseController : MonoBehaviour
     public void NightIsOver()
     {
         if (_myPlayerCurrentCleanse != null)
+        {
             QuitCleansing(_myPlayerCurrentCleanse._cleanseId);
+        }
+
         _myPlayerCurrentCleanse = null;
-        _cleanseParent.SetActive(false);
+        if (_cleanseParent != null)
+        {
+            _cleanseParent.SetActive(false);
+        }
     }
 }

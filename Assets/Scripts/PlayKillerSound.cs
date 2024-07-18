@@ -4,37 +4,45 @@ using UnityEngine;
 
 public class PlayKillerSound : MonoBehaviour
 {
-    private bool _isWithinRange = false;
-    private bool currentlyHighPitch = false;
+    private float _dokidokiStart;
+    private float _dokidokiClose;
+    private float _dokidokiExtreme;
+    private bool isDoki;
     
-    public void CheckPlayKillerSound(bool currentlyInDokiRange, bool currentlyInDokiExtremeRange)
+    public void Init(float _dokidokiStart, float _dokidokiClose, float _dokidokiExtreme)
     {
-        if (currentlyInDokiExtremeRange ^ currentlyHighPitch)
+        isDoki = false;
+        this._dokidokiStart = _dokidokiStart;
+        this._dokidokiClose = _dokidokiClose;
+        this._dokidokiExtreme = _dokidokiExtreme;
+    }
+    
+    public void CheckPlayKillerSound(float currentDistance)
+    {
+        if (!isDoki && currentDistance<= _dokidokiStart)
         {
-            currentlyHighPitch = currentlyInDokiExtremeRange;
-            if (currentlyInDokiExtremeRange)
-            {
-                Managers.Sound.ChangePitch(Define.Sound.Heartbeat,1.5f);
-            }
-            else
-            {
-                Managers.Sound.ChangePitch(Define.Sound.Heartbeat,1.0f);
-            }
+            isDoki = true;
+            StartCoroutine(Managers.Sound.FadeIn(Define.Sound.Heartbeat, "Heartbeat"));
+            StartCoroutine(Managers.Sound.FadeOut(Define.Sound.Bgm));
         }
-        if (_isWithinRange ^ currentlyInDokiRange)
+        else if (isDoki && (currentDistance >_dokidokiStart))
         {
-            _isWithinRange = currentlyInDokiRange;
-            if (currentlyInDokiRange)
-            {
-                StartCoroutine(Managers.Sound.FadeIn(Define.Sound.Heartbeat, "Heartbeat"));
-                StartCoroutine(Managers.Sound.FadeOut(Define.Sound.Bgm));
-            }
-            else
-            {
-                StartCoroutine(Managers.Sound.FadeOut(Define.Sound.Heartbeat));
-                StartCoroutine(Managers.Sound.FadeIn(Define.Sound.Bgm,"tense-horror-background"));
-            }
+            StartCoroutine(Managers.Sound.FadeIn(Define.Sound.Bgm,"tense-horror-background"));
+            StartCoroutine(Managers.Sound.FadeOut(Define.Sound.Heartbeat));
+            isDoki = false;
         }
         
+        if (currentDistance <= _dokidokiExtreme)
+        {
+            Managers.Sound.ChangePitch(Define.Sound.Heartbeat,2.0f);
+        }
+        else if (currentDistance <= _dokidokiClose)
+        {
+            Managers.Sound.ChangePitch(Define.Sound.Heartbeat, 1.5f);
+        }
+        else if (currentDistance <= _dokidokiStart)
+        {
+            Managers.Sound.ChangePitch(Define.Sound.Heartbeat, 1.0f);
+        }
     }
 }
