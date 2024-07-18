@@ -54,13 +54,13 @@ public class InGameUI : UI_scene
     
     public void SetMaxGauge(float max)
     {
-        _gauge.GetComponent<ProgressBar>().MaxValue =max;
+        _gauge.GetComponent<ProgressBarPattern>().MaxValue =max;
         SetCurrentGauge();
     }
     
     public void SetCurrentGauge()
     {
-        _gauge.GetComponent<ProgressBar>().CurrentValue = Managers.Game._clientGauge.GetMyGauge();
+        _gauge.GetComponent<ProgressBarPattern>().CurrentValue = Managers.Game._clientGauge.GetMyGauge();
     }
     
     public void SetCurrentCoin(int coinTotal)
