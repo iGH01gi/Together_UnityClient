@@ -79,8 +79,7 @@ public class CleanseController : MonoBehaviour
         cleanseQuit.CleanseId = cleanseId;
         Managers.Network._dedicatedServerSession.Send(cleanseQuit);
 
-        Cleanse cleanse = _cleansetList[cleanseId].GetComponent<Cleanse>();
-        cleanse.OnPlayerQuitCleansing();
+        _cleansetList[cleanseId].GetComponent<Cleanse>().OnPlayerQuitCleansing();
 
         Debug.Log("Cleanse Quit");
     }
