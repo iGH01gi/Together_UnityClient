@@ -45,9 +45,11 @@ public class ObjectInput : MonoBehaviour
         }
         else if (other.tag == "Cleanse")
         {
-            _currentCleanse = null;
             if (Managers.Object._cleanseController._myPlayerCurrentCleanse != null)
-                Managers.UI.ClosePopup();
+            {
+                Managers.Object._cleanseController.QuitCleansing(Managers.Object._cleanseController._myPlayerCurrentCleanse._cleanseId);
+            }
+            _currentCleanse = null;
         }
     }
     
