@@ -388,6 +388,7 @@ public class PacketHandler
         //여는데 성공한것이 나인가? 남인가?
         if(playerId == Managers.Player._myDediPlayerId)
         {
+            
             //나의 상자 열기 성공 처리
             Managers.Object._chestController.OnMyPlayerOpenChestSuccess(chestOpenSuccessPacket);
         }

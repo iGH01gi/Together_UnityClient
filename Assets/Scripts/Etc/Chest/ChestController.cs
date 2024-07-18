@@ -201,6 +201,8 @@ public class ChestController : MonoBehaviour
             Managers.Sound.Play("Success",Define.Sound.Effects,chest.transform.GetComponent<AudioSource>());
             Managers.Sound.Play("CoinSound",Define.Sound.Effects,chest.transform.GetComponent<AudioSource>());
             Managers.Player._myDediPlayer.GetComponent<MyDediPlayer>()._totalPoint = totalPoint;
+            Managers.UI.GetComponentInSceneUI<InGameUI>().SetCurrentCoin(totalPoint);
+            Managers.UI.GetComponentInSceneUI<InGameUI>().AddGetCoin(getPoint);
         }
         else //꽝 상자임
         {
