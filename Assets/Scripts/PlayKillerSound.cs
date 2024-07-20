@@ -11,8 +11,7 @@ public class PlayKillerSound : MonoBehaviour
     
     public void Init(float _dokidokiStart, float _dokidokiClose, float _dokidokiExtreme)
     {
-        isDoki = (Vector3.Distance(Managers.Player._myDediPlayer.transform.position,
-            Managers.Player.GetKillerGameObject().transform.position)<=_dokidokiStart);
+        isDoki = false;
         this._dokidokiStart = _dokidokiStart;
         this._dokidokiClose = _dokidokiClose;
         this._dokidokiExtreme = _dokidokiExtreme;
@@ -23,14 +22,14 @@ public class PlayKillerSound : MonoBehaviour
         if (!isDoki && currentDistance<= _dokidokiStart)
         {
             isDoki = true;
-            StartCoroutine(Managers.Sound.FadeIn(Define.Sound.Heartbeat, "Heartbeat"));
+            //StartCoroutine(Managers.Sound.FadeIn(Define.Sound.Heartbeat, "Heartbeat"));
             StartCoroutine(Managers.Sound.FadeOut(Define.Sound.Bgm));
         }
         else if (isDoki && (currentDistance >_dokidokiStart))
         {
-            StartCoroutine(Managers.Sound.FadeIn(Define.Sound.Bgm,"tense-horror-background"));
-            StartCoroutine(Managers.Sound.FadeOut(Define.Sound.Heartbeat));
             isDoki = false;
+            StartCoroutine(Managers.Sound.FadeIn(Define.Sound.Bgm,"tense-horror-background"));
+            //StartCoroutine(Managers.Sound.FadeOut(Define.Sound.Heartbeat));
         }
         
         if (currentDistance <= _dokidokiExtreme)

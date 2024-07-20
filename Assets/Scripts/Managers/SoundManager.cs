@@ -39,6 +39,14 @@ public class SoundManager
         _audioClips.Clear();
     }
 
+    public void ResetVolume()
+    {
+	    foreach (AudioSource audioSource in _audioSources)
+	    {
+		    audioSource.volume = 1;
+	    }
+    }
+
     public void Play(string path, Define.Sound type = Define.Sound.Effects, AudioSource audioSource = null, float pitch = 1.0f)
     {
 	    switch (type)
@@ -180,13 +188,7 @@ public class SoundManager
 	
 	public void SetupKillerAudioSource()
 	{
-		if(!Managers.Player.IsMyDediPlayerKiller()){
-			_audioSources[(int)Define.Sound.Heartbeat] = Managers.Player.GetKillerGameObject().GetComponent<AudioSource>(); //킬러의 AudioSource 설정
-		}
-		else
-		{
-			_audioSources[(int)Define.Sound.Heartbeat] = null;
-		}
+		_audioSources[(int)Define.Sound.Heartbeat] = Managers.Player.GetKillerGameObject().GetComponent<AudioSource>(); //킬러의 AudioSource 설정
 	}
 	
 	public void Stop(Define.Sound type)

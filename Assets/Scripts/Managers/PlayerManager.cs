@@ -199,6 +199,11 @@ public class PlayerManager
             return null;
         }
         
+        else if (IsMyDediPlayerKiller())
+        {
+            return _myDediPlayer;
+        }
+        
         return _otherDediPlayers[GetKillerId()];
     }
     

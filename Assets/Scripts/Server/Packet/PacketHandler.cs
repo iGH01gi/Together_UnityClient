@@ -230,7 +230,7 @@ public class PacketHandler
         Managers.Player._syncMoveCtonroller.SyncOtherPlayerMove(movePacket);
         
         //killer가 존재하고 내가 아닐시에 심장소리
-        if(Managers.Player.GetKillerId()!= -1 && !Managers.Player.IsMyDediPlayerKiller()){
+        if(!Managers.Game._isDay && Managers.Player.GetKillerId()!= -1 && !Managers.Player.IsMyDediPlayerKiller()){
             Managers.Game.PlayKillerSound(); //킬러가 근처에 있으면 심장소리 재생
         }
     }
@@ -282,13 +282,11 @@ public class PacketHandler
 
         int kiilerId = dayTimerEndPacket.KillerPlayerId;
         Managers.Player.SetKiller(kiilerId, callback:()=>{}); //킬러 설정 + 그 이후 실행될 callback함수
-        Managers.Sound.SetupKillerAudioSource();
-        
         //일몰->밤 효과를 설정함(0초동안 일몰 유지, 3초 동안 밤으로 천천히 전환됨)
         Managers.Scene.SimulateSunsetToNight(0,3);
         
-        Managers.Player._myDediPlayer.GetComponent<PlayerInput>().DeactivateInput();
         Managers.Object._chestController.ClearAllChest();
+        Managers.Player._myDediPlayer.GetComponent<PlayerInput>().DeactivateInput();
     }
     
     //데디케이트서버로부터 밤 타이머 시작을 받았을때의 처리
@@ -322,6 +320,7 @@ public class PacketHandler
         
         Managers.Game._isDay = false; //밤임을 설정
         Managers.Game.ChangeToNight(estimatedCurrentServerTimer); //밤임을 설정
+        Managers.Game.SetUpKillerSound(); //킬러 두근두근 소리 Init
         Managers.Player._myDediPlayer.GetComponent<PlayerInput>().ActivateInput();
     }
     
@@ -348,11 +347,11 @@ public class PacketHandler
         
         Managers.Game._clientGauge.EndGauge();
         Managers.Game._clientTimer.EndTimer();
+        Managers.Sound.Stop(Define.Sound.Heartbeat);
         Managers.Object._cleanseController.NightIsOver();
-        Managers.Game.ResetKillerSound();
         Managers.UI.CloseAllPopup();
         Managers.UI.LoadPopupPanel<WairForSecondsPopup>(true,false); //3초 카운트 다운
-
+        
         //낮 되기 전에 미리 한번 플레이어 정보 초기화
         Managers.Player.ResetPlayerOnDayStart();
         

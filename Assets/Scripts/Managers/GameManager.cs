@@ -31,7 +31,6 @@ public class GameManager
         _clientTimer = Util.GetOrAddComponent<ClientTimer>(root);
         _clientGauge = Util.GetOrAddComponent<ClientGauge>(root);
         _playKillerSound = Util.GetOrAddComponent<PlayKillerSound>(root);
-        _playKillerSound.Init(_dokidokiStart, _dokidokiClose, _dokidokiExtreme);
     }
 
     private void WhenChangeDayNight(float timeToSet)
@@ -48,7 +47,6 @@ public class GameManager
     
     public void ChangeToNight(float timeToSet)
     {
-        _playKillerSound.Init(_dokidokiStart, _dokidokiClose, _dokidokiExtreme);
         _isDay = false;
         WhenChangeDayNight(timeToSet);
         _clientGauge.Init();
@@ -58,20 +56,19 @@ public class GameManager
     #region 근처 킬러 소리 처리
     private PlayKillerSound _playKillerSound;
 
+    public void SetUpKillerSound()
+    {
+        if (!Managers.Player.IsMyDediPlayerKiller())
+        {
+            Managers.Sound.SetupKillerAudioSource();
+            _playKillerSound.Init(_dokidokiStart, _dokidokiClose, _dokidokiExtreme);
+        }
+    }
     public void PlayKillerSound()
     {
-        if(_playKillerSound == null)
-            return;
         float distance = Vector3.Distance(Managers.Player._myDediPlayer.transform.position,
             Managers.Player.GetKillerGameObject().transform.position);
         _playKillerSound.CheckPlayKillerSound(distance);
-    }
-    
-    public void ResetKillerSound()
-    {
-        if(_playKillerSound == null)
-            return;
-        _playKillerSound.CheckPlayKillerSound(float.MaxValue);
     }
 
     #endregion
