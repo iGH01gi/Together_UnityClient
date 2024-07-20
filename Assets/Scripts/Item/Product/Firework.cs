@@ -17,6 +17,11 @@
     
     public void Use()
     {
+
+    }
+    
+    public void OnHold()
+    {
         
     }
 }
