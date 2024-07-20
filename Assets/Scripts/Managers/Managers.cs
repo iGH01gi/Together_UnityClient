@@ -24,6 +24,7 @@ public class Managers : MonoBehaviour
     JobTimerManager _job = new JobTimerManager();
     TimeManager _time = new TimeManager();
     GameManager _game = new GameManager();
+    ItemManager _item = new ItemManager();
     
     
     public static  ResourceManager Resource { get { return Instance._resource;} }
@@ -42,6 +43,7 @@ public class Managers : MonoBehaviour
     public static TimeManager Time { get { return Instance._time; } }
     public static JobTimerManager Job { get { return Instance._job; } }
     public static GameManager Game { get { return Instance._game; } }
+    public static ItemManager Item { get; private set; }
 
 
     void Start()
@@ -84,6 +86,7 @@ public class Managers : MonoBehaviour
             _instance._input.Init();
             _instance._object.Init();
             _instance._game.Init();
+            _instance._item.Init();
         }
     }
     
