@@ -1,4 +1,6 @@
-﻿public class Firework : IItem
+﻿using UnityEngine;
+
+public class Firework : MonoBehaviour, IItem 
 {
     //아이템 공통 보유 속성
     public int Id { get; set; }

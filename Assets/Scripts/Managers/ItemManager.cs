@@ -77,6 +77,10 @@ public class ItemManager
         }
     }
     
+    /// <summary>
+    /// 아이템 선택시 기능 실행
+    /// </summary>
+    /// <param name="itemId">아이템id</param>
     public void OnHoldItem(int itemId)
     {
         //인벤토리에 해당 아이템이 있는지 확인
@@ -143,6 +147,16 @@ public class ItemManager
     }
     
     /// <summary>
+    /// 서버로부터 받은 json데이터를 저장함
+    /// </summary>
+    /// <param name="jsonData">json 문자열</param>
+    public void SaveJsonData(string jsonData)
+    {
+        //_jsonPath에다가 jsonData를 저장. 이미 존재한다면 지우고 덮어쓰기
+        File.WriteAllText(_jsonPath, jsonData);
+    }
+    
+    /// <summary>
     /// 아이템 데이터를 로드후 파싱(서버로부터 json데이터를 받은 후)
     /// </summary>
     public void LoadItemData()
@@ -168,7 +182,7 @@ public class ItemManager
     private void ParseItemData()
     {
         var itemsData = JObject.Parse(_itemsDataJson)["Items"];
-        var items = new Dictionary<int, IItem>();
+        _items = new Dictionary<int, IItem>();
         
         foreach (var itemData in itemsData)
         {
@@ -183,7 +197,7 @@ public class ItemManager
             
             if (item != null)
             {
-                items.Add(item.Id, item);
+                _items.Add(item.Id, item);
             }
         }
     }

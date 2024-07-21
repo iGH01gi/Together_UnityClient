@@ -32,19 +32,18 @@ public class Inventory
     /// <param name="itemId">제거할 아이템id</param>
     public void RemoveOneItem(int itemId)
     {
-        if(_itemCount.ContainsKey(itemId))
+        if(_itemCount.ContainsKey(itemId) && _ownedItems.ContainsKey(itemId))
         {
             _itemCount[itemId]--;
+            _ownedItems[itemId].RemoveAt(0);
             
             if(_itemCount[itemId] == 0)
             {
                 _itemCount.Remove(itemId);
-
-                _ownedItems[itemId].RemoveAt(0);
-                if(_ownedItems[itemId].Count == 0)
-                {
-                    _ownedItems.Remove(itemId);
-                }
+            }
+            if(_ownedItems[itemId].Count == 0)
+            {
+                _ownedItems.Remove(itemId);
             }
         }
     }

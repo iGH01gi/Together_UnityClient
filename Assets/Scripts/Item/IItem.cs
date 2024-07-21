@@ -16,7 +16,6 @@
     /// <summary>
     /// 아이템 사용시 기능 구현
     /// </summary>
-    /// <returns>사용 성공하면 true, 아니면 false</returns>
     void Use();
 
     /// <summary>
