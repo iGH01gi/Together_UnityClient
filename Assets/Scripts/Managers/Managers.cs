@@ -26,6 +26,7 @@ public class Managers : MonoBehaviour
     GameManager _game = new GameManager();
     ItemManager _item = new ItemManager();
     KillerManager _killer = new KillerManager();
+    SteamManager _steam = new SteamManager();
     
     
     public static  ResourceManager Resource { get { return Instance._resource;} }
@@ -46,6 +47,7 @@ public class Managers : MonoBehaviour
     public static GameManager Game { get { return Instance._game; } }
     public static ItemManager Item { get { return Instance._item; } }
     public static KillerManager Killer { get { return Instance._killer; } }
+    public static SteamManager Steam { get { return Instance._steam; } }
 
 
     void Start()
@@ -90,6 +92,7 @@ public class Managers : MonoBehaviour
             _instance._game.Init();
             _instance._item.Init();
             _instance._killer.Init();
+            _instance._steam.Init();
         }
     }
     

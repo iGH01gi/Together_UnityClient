@@ -55,7 +55,7 @@ public class KillerManager
     /// </summary>
     private void ParseKillerData()
     {
-        var killersData = JObject.Parse(_killersDataJson)["Items"];
+        var killersData = JObject.Parse(_killersDataJson)["Killers"];
         _killers = new Dictionary<int, IKiller>();
         
         foreach (var killerData in killersData)
