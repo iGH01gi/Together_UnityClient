@@ -66,9 +66,7 @@ public class GameManager
     }
     public void PlayKillerSound()
     {
-        float distance = Vector3.Distance(Managers.Player._myDediPlayer.transform.position,
-            Managers.Player.GetKillerGameObject().transform.position);
-        _playKillerSound.CheckPlayKillerSound(distance);
+        _playKillerSound.CheckPlayKillerSound();
     }
 
     #endregion

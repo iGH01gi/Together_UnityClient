@@ -149,6 +149,11 @@ public class SoundManager
 	{
 		_audioSources[(int)type].pitch = pitch;
 	}
+	
+	public void ChangePanStereo(Define.Sound type, float panValue)
+	{
+		_audioSources[(int)type].panStereo = panValue;
+	}
 
 	public IEnumerator FadeIn(Define.Sound type, string path, float fadeTime = 1.0f, float fadeDuration = 0.05f)
 	{
