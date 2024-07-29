@@ -22,6 +22,8 @@ public class SoundManager
             {
                 GameObject go = new GameObject { name = soundNames[i] };
                 _audioSources[i] = go.AddComponent<AudioSource>();
+                _audioSources[i].spatialize = false;
+                _audioSources[i].rolloffMode = AudioRolloffMode.Custom;
                 go.transform.parent = root.transform;
             }
             _audioSources[(int)Define.Sound.Bgm].loop = true;
