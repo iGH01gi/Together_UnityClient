@@ -10,7 +10,8 @@ public class PlayerAnimController : MonoBehaviour
     public bool isWalking = false;
     public bool isDigging = false;
     public bool isPraying = false;
-    
+    public bool isKiller = false;
+
     private void Start()
     {
         _anim = GetComponent<Animator>();
@@ -22,6 +23,7 @@ public class PlayerAnimController : MonoBehaviour
         _anim.SetBool("isWalking",isWalking);
         _anim.SetBool("isDigging",isDigging);
         _anim.SetBool("isPraying",isPraying);
+        _anim.SetBool("isKiller",isKiller);
     }
     
     void PlayerAnimClear()
@@ -30,5 +32,6 @@ public class PlayerAnimController : MonoBehaviour
         isWalking = false;
         isDigging = false;
         isPraying = false;
+        isKiller = false;
     }
 }

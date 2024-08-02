@@ -19,6 +19,7 @@ public class UI_popup : UI_base
         WairForSecondsPopup,
         InGameDialogue,
         CleansePopup,
+        DayToNightPopup,
     }
     
     protected void ClosePopup()

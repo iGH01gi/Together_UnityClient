@@ -203,6 +203,10 @@ MonoBehaviour:
     m_Key: ChestOpenDialogue
     m_Metadata:
       m_Items: []
+  - m_Id: 76467623850840064
+    m_Key: SurvivorText
+    m_Metadata:
+      m_Items: []
   m_Metadata:
     m_Items: []
   m_KeyGenerator:
