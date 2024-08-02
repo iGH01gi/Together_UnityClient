@@ -14,7 +14,15 @@ public class KillerManager
 
     public void Init()
     {
-        _jsonPath = Application.streamingAssetsPath + "/Data/Killer/Killers.json";
+        _jsonPath = Application.persistentDataPath + "/Data/Killer/Killers.json";
+        if (!Directory.Exists(Path.GetDirectoryName(_jsonPath)))
+        {
+            Directory.CreateDirectory(Path.GetDirectoryName(_jsonPath));
+        }
+        if (!File.Exists(_jsonPath))
+        {
+            File.WriteAllText(_jsonPath, "{}"); // Create an empty JSON file
+        }
         InitKillerFactories();
     }
     
