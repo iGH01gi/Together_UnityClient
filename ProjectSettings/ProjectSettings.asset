@@ -645,7 +645,7 @@ PlayerSettings:
   webGLPowerPreference: 2
   scriptingDefineSymbols:
     Android: STEAMAUDIO_ENABLED
-    Standalone: STEAMAUDIO_ENABLED
+    Standalone: STEAMAUDIO_ENABLED;STEAMWORKS_NET
     iPhone: STEAMAUDIO_ENABLED
   additionalCompilerArguments: {}
   platformArchitecture: {}

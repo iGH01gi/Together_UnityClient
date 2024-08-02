@@ -14,11 +14,15 @@ public class MyDediPlayer : MonoBehaviour
     
     public int _totalPoint = 0; //상자로 얻은 총 포인트(낮마다 초기화)
     
+    public Inventory _inventory; //인벤토리
+    
     
     public void Init(int playerId, string name)
     {
         PlayerId = playerId;
         Name = name;
+        
+        _inventory = new Inventory();
     }
 
 }
