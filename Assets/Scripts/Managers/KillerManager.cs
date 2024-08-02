@@ -62,7 +62,9 @@ public class KillerManager
         {
             IKiller killer = null;
             string className = killerData["EnglishName"].ToString();
-            
+            //className의 띄어쓰기 제거
+            className = className.Replace(" ", "");
+
             Type type = Type.GetType(className);
             if (type != null)
             {
