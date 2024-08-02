@@ -212,9 +212,9 @@ public class PacketHandler
         DSC_StartGame startGamePacket = packet as DSC_StartGame;
         DedicatedServerSession dedicatedServerSession = session as DedicatedServerSession;
 
-        string itemDataJson = startGamePacket.Items;
+        /*string itemDataJson = startGamePacket.Items;
         Managers.Item.SaveJsonData(itemDataJson); //아이템 데이터 저장
-        Managers.Item.LoadItemData(); //저장했으면 아이템 데이터 로드
+        Managers.Item.LoadItemData(); //저장했으면 아이템 데이터 로드*/
         
         string killerDataJson = startGamePacket.Killers;
         Managers.Killer.SaveJsonData(killerDataJson); //킬러 데이터 저장
@@ -223,7 +223,7 @@ public class PacketHandler
         
         Debug.Log("DSC_StartGameHandler");
         Managers.UI.ClosePopup(); //현재 띄워져 있는 progressPopup을 닫는다
-        //Managers.UI.ClosePopup(); //현재 띄워져 있는 progressPopup을 닫는다
+        Managers.UI.ClosePopup(); //현재 띄워져 있는 progressPopup을 닫는다
         Managers.UI.LoadScenePanel("InGameUI"); //Timer를 포함한 인게임UI 부르기.
         Managers.Player._myDediPlayer.GetComponent<PlayerInput>().DeactivateInput();
     }
