@@ -13,14 +13,14 @@ public class SteamManager : MonoBehaviour
     //Managers Init과 함께 불리는 Init
     public void Init()
     {
-        /*root = GameObject.Find("@Steam");
+        root = GameObject.Find("@Steam");
         if (root == null)
         {
             root = new GameObject { name = "@Steam" };
             Object.DontDestroyOnLoad(root);
         }
 
-        if (SteamAPI.Init())
+        /*if (SteamAPI.Init())
         {
             _isSteamInitialized = true;
             Debug.Log("Steamworks initialized successfully.");
