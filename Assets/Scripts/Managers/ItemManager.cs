@@ -18,7 +18,15 @@ public class ItemManager
     
     public void Init()
     {
-        _jsonPath = Application.streamingAssetsPath + "/Data/Item/Items.json";
+        _jsonPath = Application.persistentDataPath + "/Data/Item/Items.json";
+        if (!Directory.Exists(Path.GetDirectoryName(_jsonPath)))
+        {
+            Directory.CreateDirectory(Path.GetDirectoryName(_jsonPath));
+        }
+        if (!File.Exists(_jsonPath))
+        {
+            File.WriteAllText(_jsonPath, "{}"); // Create an empty JSON file
+        }
         /*InitItemFactories();
         LoadItemPrefabs();*/
     }
