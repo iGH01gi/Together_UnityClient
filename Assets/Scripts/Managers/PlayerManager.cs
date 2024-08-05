@@ -24,13 +24,14 @@ public class PlayerManager
     
     public void Init()
     {
+        _myRoomPlayer = new MyRoomPlayer();
         if(_syncMoveCtonroller == null)
             _syncMoveCtonroller = new SyncMoveCtonroller();
     }
     
     public void Clear()
     {
-        _myRoomPlayer = null;
+        _myRoomPlayer.Clear();
         _otherRoomPlayers.Clear();
         
         ClearDedi();

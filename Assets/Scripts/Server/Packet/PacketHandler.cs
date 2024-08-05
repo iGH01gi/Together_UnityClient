@@ -37,7 +37,7 @@ public class PacketHandler
             Managers.Room.AddRoom(makeRoomPacket.Room.RoomId,gameRoom);
             
             //방 생성이 성공했다면, 해당 방 입장을 요청
-            Managers.Room.RequestEnterRoom(makeRoomPacket.Room.RoomId, makeRoomPacket.Password, name: "TestName");
+            Managers.Room.RequestEnterRoom(makeRoomPacket.Room.RoomId, makeRoomPacket.Password, name: Managers.Player._myRoomPlayer.Name);
         }
     }
     
