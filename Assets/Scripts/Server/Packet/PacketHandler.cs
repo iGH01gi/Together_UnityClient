@@ -290,7 +290,9 @@ public class PacketHandler
         Managers.Game._clientTimer.EndTimer();
 
         int kiilerId = dayTimerEndPacket.KillerPlayerId;
-        Managers.Player.SetKiller(kiilerId, callback:()=>{}); //킬러 설정 + 그 이후 실행될 callback함수
+        int killerType = dayTimerEndPacket.KillerType;
+        
+        Managers.Player.SetKiller(kiilerId,killerType, callback:()=>{}); //킬러 설정 + 그 이후 실행될 callback함수
         //일몰->밤 효과를 설정함(0초동안 일몰 유지, 3초 동안 밤으로 천천히 전환됨)
         Managers.Scene.SimulateSunsetToNight(0,3);
         

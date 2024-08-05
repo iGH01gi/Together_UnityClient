@@ -138,32 +138,37 @@ public class PlayerManager
     /// 킬러를 지정함
     /// </summary>
     /// <param name="dediPlayerId">킬러로 지정할 데디플레이어id</param>
+    /// <param name="killerType">킬러의 종류</param>
     /// <param name="callback">킬러 설정된 후 불릴 함수</param>
-    public void SetKiller(int dediPlayerId, Action callback = null)
+    public void SetKiller(int dediPlayerId, int killerType, Action callback = null)
     {
         ClearKiller();
         
         if (Managers.Player._myDediPlayerId == dediPlayerId)
         {
             Managers.Player._myDediPlayer.GetComponent<MyDediPlayer>()._isKiller = true;
+            Managers.Player._myDediPlayer.GetComponent<MyDediPlayer>()._killerType = killerType;
         }
         else
         {
             Managers.Player._otherDediPlayers[dediPlayerId].GetComponent<OtherDediPlayer>()._isKiller = true;
+            Managers.Player._otherDediPlayers[dediPlayerId].GetComponent<OtherDediPlayer>()._killerType = killerType;
         }
         
         callback?.Invoke();
     }
 
     /// <summary>
-    /// 내 데디플레이어를 포함한 모든 데디플레이어의 isKiller를 false로 설정
+    /// 내 데디플레이어를 포함한 모든 데디플레이어의 isKiller를 false로 설정 + 킬러타입도 -1로 초기화
     /// </summary>
     public void ClearKiller()
     {
         Managers.Player._myDediPlayer.GetComponent<MyDediPlayer>()._isKiller = false;
+        Managers.Player._myDediPlayer.GetComponent<MyDediPlayer>()._killerType = -1;
         foreach (GameObject dediPlayer in Managers.Player._otherDediPlayers.Values)
         {
             dediPlayer.GetComponent<OtherDediPlayer>()._isKiller = false;
+            dediPlayer.GetComponent<OtherDediPlayer>()._killerType = -1;
         }
     }
     
