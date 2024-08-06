@@ -39,7 +39,7 @@ public class Room_Info : UI_subitem
         else
         {
             UIPacketHandler.WaitForPacket();
-            Managers.Room.RequestEnterRoom(myroom.Info.RoomId,"","TEST");
+            Managers.Room.RequestEnterRoom(myroom.Info.RoomId,"",Managers.Player._myRoomPlayer.Name);
         }
     }
 }

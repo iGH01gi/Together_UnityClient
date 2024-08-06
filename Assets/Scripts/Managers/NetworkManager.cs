@@ -16,11 +16,11 @@ public class NetworkManager
     /// </summary>
     public void Init()
     {
-        //DNS
-        string host = Dns.GetHostName();
-        IPHostEntry ipHost = Dns.GetHostEntry(host);
-        IPAddress ipAddr = ipHost.AddressList[0];
+        //ec2 룸서버 켜놨을때
         //IPAddress ipAddr = IPAddress.Parse("3.37.243.26");
+        
+        //로컬 개발 환경일때
+        IPAddress ipAddr = IPAddress.Parse("127.0.0.1");
         
         IPEndPoint endPoint = new IPEndPoint(ipAddr, 7777);
 

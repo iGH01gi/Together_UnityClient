@@ -20,10 +20,13 @@ public class SteamManager : MonoBehaviour
             Object.DontDestroyOnLoad(root);
         }
 
-        /*if (SteamAPI.Init())
+        if (SteamAPI.Init())
         {
             _isSteamInitialized = true;
             Debug.Log("Steamworks initialized successfully.");
+            
+            //내 스팀 이름 가져와서 저장
+            SetName();
 
             // 게임 초대 수락시 호출되는 콜백 함수
             lobbyInviteCallback = Callback<GameLobbyJoinRequested_t>.Create(OnGameLobbyJoinRequested);
@@ -34,6 +37,7 @@ public class SteamManager : MonoBehaviour
             _isSteamInitialized = false;
         }
 
+        /*
         GetFriendsList();
         InviteFriendToGame();*/
     }
@@ -94,5 +98,17 @@ public class SteamManager : MonoBehaviour
         Debug.Log("Game lobby join requested by: " + joinRequested.m_steamIDFriend);
         Debug.Log("Lobby ID: " + joinRequested.m_steamIDLobby); // 이건 스팀에서 제공하는 로비 아이디인데, 자체 로비id로 어떻게
         //읽어올지는 고민해봐야 할듯
+    }
+
+    /// <summary>
+    /// 내 스팀 이름을 가져와서 저장 및 사용
+    /// </summary>
+    private void SetName()
+    {
+        string steamUserName = SteamFriends.GetPersonaName();
+        Debug.Log("My Steam Name: " + steamUserName);
+        
+        //이름 저장
+        Managers.Player._myRoomPlayer.Name = steamUserName;
     }
 }
