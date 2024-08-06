@@ -470,7 +470,7 @@ GameObject:
   - component: {fileID: 54977902146701826}
   - component: {fileID: 114514019946251902}
   m_Layer: 0
-  m_Name: The Heartless
+  m_Name: The Heartless (Other)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

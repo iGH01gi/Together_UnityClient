@@ -13,16 +13,16 @@ public class DayToNightPopup : UI_popup
     private void Start()
     {
         _backgroundAnim = transform.GetComponent<Animator>();
+        _text = transform.Find("SurvivorText").GetComponent<TMP_Text>();
+        _survivorText = _text.text;
+        _text.text = "";
         if (Managers.Player.IsMyDediPlayerKiller())
         {
-            Managers.Resource.Destroy(transform.Find("PlayerPrefab").gameObject);
             //킬러일 경우
+            
         }
         else
         {
-            _text = transform.Find("SurvivorText").GetComponent<TMP_Text>();
-            _survivorText = _text.text;
-            _text.text = "";
             StartCoroutine(ShowText());
         }
     }
@@ -43,8 +43,8 @@ public class DayToNightPopup : UI_popup
         {
             _text.text += _survivorText[i];
             Managers.Sound.Play("Typewriter");
-            yield return new WaitForSeconds(0.2f);
+            yield return new WaitForSeconds(0.15f);
         }
-        Managers.Sound.Play("BoomTransition");
+        Managers.Sound.Play("SurvivorBoom");
     }
 }

@@ -50,6 +50,8 @@ public class GameManager
         _isDay = false;
         WhenChangeDayNight(timeToSet);
         _clientGauge.Init();
+        //플레이어 프리팹 바꾸기
+        
     }
     
 
@@ -71,9 +73,24 @@ public class GameManager
 
     #endregion
 
-    #region 게이지 관련
-    
-    
+    #region 프리팹 관련
+
+    public void SetKillerPrefab(string killerName)
+    {
+        if (Managers.Player.IsMyDediPlayerKiller())
+        {
+            
+        }
+        else
+        {
+            Managers.Player.GetKillerGameObject().transform.Find("PlayerPrefab").gameObject.SetActive(false);
+        }
+    }
+
+    public void KillerToSurvivorPrefab()
+    {
+        //Managers.Player.GetKillerGameObject().transform.Find()
+    }
     
     #endregion
 

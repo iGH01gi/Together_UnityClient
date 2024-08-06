@@ -797,7 +797,7 @@ GameObject:
   - component: {fileID: 54552712736826492}
   - component: {fileID: 114003160707090814}
   m_Layer: 0
-  m_Name: Sample82
+  m_Name: The Detector
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

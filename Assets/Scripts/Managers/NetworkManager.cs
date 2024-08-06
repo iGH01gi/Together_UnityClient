@@ -20,6 +20,8 @@ public class NetworkManager
         string host = Dns.GetHostName();
         IPHostEntry ipHost = Dns.GetHostEntry(host);
         IPAddress ipAddr = ipHost.AddressList[0];
+        //IPAddress ipAddr = IPAddress.Parse("3.37.243.26");
+        
         IPEndPoint endPoint = new IPEndPoint(ipAddr, 7777);
 
         Connector connector = new Connector();
