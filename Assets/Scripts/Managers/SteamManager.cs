@@ -8,7 +8,7 @@ public class SteamManager : MonoBehaviour
     public static GameObject root;
     public bool _isSteamInitialized = false;
 
-    private Callback<GameLobbyJoinRequested_t> lobbyInviteCallback;
+    private Callback<GameRichPresenceJoinRequested_t> lobbyInviteCallback;
 
     //Managers Init과 함께 불리는 Init
     public void Init()
@@ -24,22 +24,29 @@ public class SteamManager : MonoBehaviour
         {
             _isSteamInitialized = true;
             Debug.Log("Steamworks initialized successfully.");
-            
+
             //내 스팀 이름 가져와서 저장
             SetName();
 
             // 게임 초대 수락시 호출되는 콜백 함수
-            lobbyInviteCallback = Callback<GameLobbyJoinRequested_t>.Create(OnGameLobbyJoinRequested);
+            lobbyInviteCallback = Callback<GameRichPresenceJoinRequested_t>.Create(OnGameRoomJoinRequested);
         }
         else
         {
             Debug.LogError("Failed to initialize Steamworks.");
             _isSteamInitialized = false;
         }
+    }
 
-        /*
-        GetFriendsList();
-        InviteFriendToGame();*/
+    public void SetRichPresenceForInvite(int roomId, string password)
+    {
+        // 연결 문자열을 설정합니다. 예를 들어, 로비 ID를 포함한 연결 문자열을 설정합니다.
+        string connectString = "roomId=" + roomId + "/password=" + password;
+
+        // 풍부한 존재감 데이터를 설정합니다.
+        SteamFriends.SetRichPresence("connect", connectString);
+
+        Debug.Log("Rich presence set with connect string: " + connectString);
     }
 
     public void GetFriendsList()
@@ -80,6 +87,7 @@ public class SteamManager : MonoBehaviour
             friends.Add(friendSteamID);
         }
 
+
         // 친구 목록을 출력하거나 필요한 작업을 수행합니다
         foreach (var friend in friends)
         {
@@ -93,11 +101,30 @@ public class SteamManager : MonoBehaviour
         }
     }
 
-    private void OnGameLobbyJoinRequested(GameLobbyJoinRequested_t joinRequested)
+    private void OnGameRoomJoinRequested(GameRichPresenceJoinRequested_t joinRequested)
     {
-        Debug.Log("Game lobby join requested by: " + joinRequested.m_steamIDFriend);
-        Debug.Log("Lobby ID: " + joinRequested.m_steamIDLobby); // 이건 스팀에서 제공하는 로비 아이디인데, 자체 로비id로 어떻게
-        //읽어올지는 고민해봐야 할듯
+        //joinRequested.m_steamIDFriend를 가지고 스팀이름을 얻어오기
+        string friendName = SteamFriends.GetFriendPersonaName(joinRequested.m_steamIDFriend);
+        Debug.Log("Game lobby join requested by: " + friendName);
+
+        //joinRequested.m_rgchConnect내용 출력
+        Debug.Log("Connect string: " + joinRequested.m_rgchConnect);
+        
+        int roomId=-1;
+        string password="";
+
+        // '/'로 분리하여 각각의 파트를 얻음
+        string[] parts = joinRequested.m_rgchConnect.Split('/');
+        
+        // 각 파트를 '='로 분리하여 키와 값을 추출
+        roomId = int.Parse(parts[0].Split('=')[1]);
+        password = parts[1].Split('=')[1];
+        
+        Debug.Log("Room ID: " + roomId);
+        Debug.Log("Password: " + password);
+
+        //TODO: 룸id를 가지고 입장 
+        Managers.Room.RequestEnterRoom(roomId, password, Managers.Player._myRoomPlayer.Name);
     }
 
     /// <summary>
@@ -107,7 +134,7 @@ public class SteamManager : MonoBehaviour
     {
         string steamUserName = SteamFriends.GetPersonaName();
         Debug.Log("My Steam Name: " + steamUserName);
-        
+
         //이름 저장
         Managers.Player._myRoomPlayer.Name = steamUserName;
     }
