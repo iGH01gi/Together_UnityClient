@@ -70,6 +70,9 @@ public class RoomManager
 
         /*if (!_rooms.ContainsKey(packet.Room.RoomId))
             return;*/
+        
+        //스팀 친구초대를 위해서 연결 문자열을 설정함
+        Managers.Steam.SetRichPresenceForInvite(packet.Room.RoomId, packet.Password);
 
         //입장한 방에 서버로부터 받은 정보 넣기
         GameRoom gameRoom = _rooms[packet.Room.RoomId];

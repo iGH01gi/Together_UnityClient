@@ -14,7 +14,7 @@ public class EnterPasswordPopup : InputFieldPopup
     protected override void OnButtonClick()
     {
         UIPacketHandler.WaitForPacket();
-        Managers.Room.RequestEnterRoom(thisRoom.Info.RoomId,transform.GetChild(2).GetChild(0).GetComponent<UI_InputField>().GetInputText(),"TEST");
+        Managers.Room.RequestEnterRoom(thisRoom.Info.RoomId,transform.GetChild(2).GetChild(0).GetComponent<UI_InputField>().GetInputText(),Managers.Player._myRoomPlayer.Name);
         ClosePopup();
     }
 }

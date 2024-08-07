@@ -17,7 +17,7 @@ public class Dash : MonoBehaviour, IItem
     public void Setting()
     {
         //아이템 매니저로부터 아이템 데이터를 받아와서 설정
-        Dash dashData = Managers.Item._items[1] as Dash;
+        Dash dashData = Managers.Item._items[0] as Dash;
         
         Id = dashData.Id;
         Price = dashData.Price;

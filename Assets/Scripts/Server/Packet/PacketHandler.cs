@@ -217,7 +217,7 @@ public class PacketHandler
         Managers.Item.LoadItemData(); //저장했으면 아이템 데이터 로드*/
         
         string killerDataJson = startGamePacket.Killers;
-        //Managers.Killer.SaveJsonData(killerDataJson); //킬러 데이터 저장
+        Managers.Killer.SaveJsonData(killerDataJson); //킬러 데이터 저장
         Managers.Killer.LoadKillerData(); //저장했으면 킬러 데이터 로드
         
         
@@ -292,7 +292,7 @@ public class PacketHandler
         int kiilerId = dayTimerEndPacket.KillerPlayerId;
         int killerType = dayTimerEndPacket.KillerType;
         
-        Managers.Player.SetKiller(kiilerId,killerType, callback:()=>{}); //킬러 설정 + 그 이후 실행될 callback함수
+        Managers.Player.OnKillerAssigned(kiilerId,killerType, callback:()=>{}); //킬러 설정 + 그 이후 실행될 callback함수
         //일몰->밤 효과를 설정함(0초동안 일몰 유지, 3초 동안 밤으로 천천히 전환됨)
         Managers.Scene.SimulateSunsetToNight(0,3);
         

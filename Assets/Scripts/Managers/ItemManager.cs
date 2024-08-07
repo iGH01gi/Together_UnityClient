@@ -27,8 +27,8 @@ public class ItemManager
         {
             File.WriteAllText(_jsonPath, "{}"); // Create an empty JSON file
         }
-        /*InitItemFactories();
-        LoadItemPrefabs();*/
+        InitItemFactories();
+        //LoadItemPrefabs();
     }
     
     /// <summary>
@@ -50,10 +50,7 @@ public class ItemManager
         myDediPlayer._totalPoint -= price;
         
         //아이템 생성
-        GameObject itemObject = GameObject.Instantiate(_itemPrefabs[itemId]);
-        IItem itemScript = CreateItem(itemId);
-        itemObject.AddComponent(itemScript.GetType());
-        itemObject.transform.SetParent(Managers.Player._myDediPlayer.transform);
+        GameObject itemObject = CreateItem(itemId);
         
         //인벤토리에 생성된 아이템 추가
         myDediPlayer._inventory.AddOneItem(itemObject);
@@ -111,15 +108,21 @@ public class ItemManager
     
     
     /// <summary>
-    /// 아이템 생성
+    /// 아이템 세팅 및 생성
     /// </summary>
     /// <param name="itemId">아이템Id</param>
     /// <returns>초기 데이터 세팅까지 완료된 아이템 </returns>
-    public IItem CreateItem(int itemId)
+    public GameObject CreateItem(int itemId)
     {
         if (_itemFactories.ContainsKey(itemId))
         {
-            return _itemFactories[itemId].CreateItem();
+            GameObject itemObject = GameObject.Instantiate(_itemPrefabs[itemId]);
+            itemObject.transform.SetParent(Managers.Player._myDediPlayer.transform);
+            
+            IItem itemScript = _itemFactories[itemId].CreateItem();
+            itemObject.AddComponent(itemScript.GetType());
+
+            return itemObject;
         }
         else
         {
@@ -137,8 +140,8 @@ public class ItemManager
         _items = new Dictionary<int, IItem>();
         
         //아이템 팩토리 생성
-        _itemFactories.Add(1, new DashFactory());
-        _itemFactories.Add(2, new FireworkFactory());
+        _itemFactories.Add(0, new DashFactory());
+        _itemFactories.Add(1, new FireworkFactory());
     }
     
     /// <summary>

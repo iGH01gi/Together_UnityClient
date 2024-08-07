@@ -22,9 +22,6 @@ public class PlayerManager
     public string _tempOtherPlayerPrefabPath = "Player/OtherPlayer";
     public string _tempTargetGhost = "Player/TargetGhost";
     
-    public string _myPlayerKillerPrefabPath = "Player/MyPlayerKiller/";
-    public string _otherPlayerKillerPrefabPath = "Player/OtherPlayerKiller/";
-    
     public void Init()
     {
         _myRoomPlayer = new MyRoomPlayer();
@@ -143,7 +140,7 @@ public class PlayerManager
     /// <param name="dediPlayerId">킬러로 지정할 데디플레이어id</param>
     /// <param name="killerType">킬러의 종류</param>
     /// <param name="callback">킬러 설정된 후 불릴 함수</param>
-    public void SetKiller(int dediPlayerId, int killerType, Action callback = null)
+    public void OnKillerAssigned(int dediPlayerId, int killerType, Action callback = null)
     {
         ClearKiller();
         if (Managers.Player._myDediPlayerId == dediPlayerId)
@@ -154,8 +151,7 @@ public class PlayerManager
             
 
             _myDediPlayer.transform.Find("PlayerPrefab").gameObject.SetActive(false);
-            string killerPrefabPath = String.Concat(_myPlayerKillerPrefabPath, Managers.Killer._killers[killerType].EnglishName);
-            Managers.Resource.Instantiate(killerPrefabPath, _myDediPlayer.transform);
+            Managers.Killer.CreateKiller(dediPlayerId, killerType);
         }
 
         else
@@ -164,8 +160,7 @@ public class PlayerManager
             Managers.Player._otherDediPlayers[dediPlayerId].GetComponent<OtherDediPlayer>()._killerType = killerType;
             
             _otherDediPlayers[dediPlayerId].transform.Find("PlayerPrefab").gameObject.SetActive(false);
-            string killerPrefabPath = String.Concat(_otherPlayerKillerPrefabPath, Managers.Killer._killers[killerType].EnglishName);
-            Managers.Resource.Instantiate(killerPrefabPath, _otherDediPlayers[dediPlayerId].transform);
+            Managers.Killer.CreateKiller(dediPlayerId, killerType);
         }
         
         callback?.Invoke();
