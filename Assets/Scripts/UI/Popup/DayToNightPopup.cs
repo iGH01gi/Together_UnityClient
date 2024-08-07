@@ -63,6 +63,8 @@ public class DayToNightPopup : UI_popup
         _killerDescriptionText.text = String.Empty;
         _camera.enabled = false;
         _backgroundAnim.SetTrigger("OpenEyes");
+        
+        Managers.Player.ActivateInput();
     }
 
     public IEnumerator ShowText()
