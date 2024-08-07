@@ -20,7 +20,21 @@ public class TheHeartless : MonoBehaviour, IKiller
     
     public void Setting()
     {
-
+        //킬러 매니저로부터 킬러 데이터를 받아와서 설정
+        TheHeartless theHeartlessData = Managers.Killer._killers[0] as TheHeartless;
+        
+        Id = theHeartlessData.Id;
+        EnglishName = theHeartlessData.EnglishName;
+        KoreanName = theHeartlessData.KoreanName;
+        EnglishDescription = theHeartlessData.EnglishDescription;
+        KoreanDescription = theHeartlessData.KoreanDescription;
+        EnglishAbilityName = theHeartlessData.EnglishAbilityName;
+        KoreanAbilityName = theHeartlessData.KoreanAbilityName;
+        EnglishAbilityDescription = theHeartlessData.EnglishAbilityDescription;
+        KoreanAbilityDescription = theHeartlessData.KoreanAbilityDescription;
+        SkillCoolTimeSeconds = theHeartlessData.SkillCoolTimeSeconds;
+        
+        HeartlessSeconds = theHeartlessData.HeartlessSeconds;
     }
 
     public void Use()
