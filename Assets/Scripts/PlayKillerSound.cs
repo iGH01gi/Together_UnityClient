@@ -25,6 +25,7 @@ public class PlayKillerSound : MonoBehaviour
         Vector3 myPlayerPos = myPlayer.position;
         float currentDistance = Vector3.Distance(myPlayerPos,killerPos);
         
+        
         //거리에 따라 두근두근 재생 여부 확인
         if (!isDoki && currentDistance<= _dokidokiStart)
         {
@@ -56,7 +57,9 @@ public class PlayKillerSound : MonoBehaviour
             }
             
             //방향에 따른 소리의 방향 계산
-            float panStereoVal = Vector3.SignedAngle(killerPos - myPlayerPos, myPlayer.forward, Vector3.up)/180f;
+            Vector3 directionToKiller = (killerPos - myPlayerPos).normalized;
+            float dotProduct = Vector3.Dot(myPlayer.transform.right, directionToKiller);
+            float panStereoVal = Mathf.Sign(dotProduct);
             Managers.Sound.ChangePanStereo(Define.Sound.Heartbeat,panStereoVal);
         }
     }

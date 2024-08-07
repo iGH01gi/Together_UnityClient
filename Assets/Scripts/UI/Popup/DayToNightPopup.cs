@@ -15,6 +15,7 @@ public class DayToNightPopup : UI_popup
     private Camera _camera;
     private bool _canOpenEyes;
     private TMP_Text _killerText;
+    private TMP_Text _killerDescriptionText;
 
     private void Start()
     {
@@ -26,6 +27,7 @@ public class DayToNightPopup : UI_popup
         _camera = GameObject.Find(String.Concat(_killerPrefabPath,"/RenderCamera")).transform.GetComponent<Camera>();
         _camera.enabled = false;
         _killerText = transform.Find("KillerText").GetComponent<TMP_Text>();
+        _killerDescriptionText = transform.Find("KillerDescription").GetComponent<TMP_Text>();
         if (Managers.Player.IsMyDediPlayerKiller())
         {
             StartCoroutine(ShowKiller());
@@ -58,6 +60,7 @@ public class DayToNightPopup : UI_popup
         _survivorText = String.Empty;
         Managers.UI.ChangeCanvasRenderMode(RenderMode.ScreenSpaceOverlay); 
         _killerText.text = String.Empty;
+        _killerDescriptionText.text = String.Empty;
         _camera.enabled = false;
         _backgroundAnim.SetTrigger("OpenEyes");
     }
@@ -85,20 +88,23 @@ public class DayToNightPopup : UI_popup
        Transform positions = _camera.transform.parent.Find("Positions");
        for (int i = 0; i < (positions.childCount) ; i++)
         {
-            _camera.GetComponent<Transform>().position= positions.GetChild(i).GetComponent<Transform>().position;
+            _camera.GetComponent<Transform>().position = positions.GetChild(i).GetComponent<Transform>().position;
+            _camera.GetComponent<Transform>().rotation = positions.GetChild(i).GetComponent<Transform>().rotation;
             Managers.Sound.Play("BoomTransition");
             yield return new WaitForSeconds(0.9f);
         }
         if (CultureInfo.CurrentCulture.Name == "ko-KR")
         {
             _killerText.text = Managers.Killer._killers[Managers.Player._myDediPlayer.GetComponent<MyDediPlayer>()._killerType].KoreanName;
+            _killerDescriptionText.text = Managers.Killer._killers[Managers.Player._myDediPlayer.GetComponent<MyDediPlayer>()._killerType].KoreanDescription;
         }
         else
         {
             _killerText.text = Managers.Killer._killers[Managers.Player._myDediPlayer.GetComponent<MyDediPlayer>()._killerType].EnglishName;
+            _killerDescriptionText.text = Managers.Killer._killers[Managers.Player._myDediPlayer.GetComponent<MyDediPlayer>()._killerType].EnglishDescription;
         }
         Managers.Sound.Play("SurvivorBoom");
-        yield return new WaitForSeconds(1.8f);
+        yield return new WaitForSeconds(3f);
         if (_canOpenEyes)
         {
             OpenEyes();
