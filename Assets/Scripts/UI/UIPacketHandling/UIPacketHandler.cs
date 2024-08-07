@@ -84,6 +84,6 @@ public class UIPacketHandler
     public static void StartGameHandler()
     {
         Managers.UI.GetComponentInPopup<WairForSecondsPopup>().GameStart();
-        Managers.Player._myDediPlayer.GetComponent<PlayerInput>().ActivateInput();
+        Managers.Player.ActivateInput();
     }
 }

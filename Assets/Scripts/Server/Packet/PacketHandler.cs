@@ -225,7 +225,7 @@ public class PacketHandler
         Managers.UI.ClosePopup(); //현재 띄워져 있는 progressPopup을 닫는다
         Managers.UI.ClosePopup(); //현재 띄워져 있는 progressPopup을 닫는다
         Managers.UI.LoadScenePanel("InGameUI"); //Timer를 포함한 인게임UI 부르기.
-        Managers.Player._myDediPlayer.GetComponent<PlayerInput>().DeactivateInput();
+        Managers.Player.DeactivateInput();
     }
     
     //데디케이트서버로부터 유저의 움직임을 받았을때의 처리
@@ -297,7 +297,7 @@ public class PacketHandler
         Managers.Scene.SimulateSunsetToNight(0,3);
         
         Managers.Object._chestController.ClearAllChest();
-        Managers.Player._myDediPlayer.GetComponent<PlayerInput>().DeactivateInput();
+        Managers.Player.DeactivateInput();
         Managers.UI.LoadPopupPanel<DayToNightPopup>(true,false); //눈 감는 팝업 띄우기
     }
     
@@ -334,7 +334,6 @@ public class PacketHandler
         Managers.Game._isDay = false; //밤임을 설정
         Managers.Game.ChangeToNight(estimatedCurrentServerTimer); //밤임을 설정
         Managers.Game.SetUpKillerSound(); //킬러 두근두근 소리 Init
-        Managers.Player._myDediPlayer.GetComponent<PlayerInput>().ActivateInput();
     }
     
     //데디케이트서버로부터 밤 타이머 싱크를 받았을때의 처리
@@ -368,7 +367,7 @@ public class PacketHandler
         //낮 되기 전에 미리 한번 플레이어 정보 초기화
         Managers.Player.ResetPlayerOnDayStart();
         
-        Managers.Player._myDediPlayer.GetComponent<PlayerInput>().DeactivateInput();
+        Managers.Player.DeactivateInput();
         
         //밤->낮 효과를 설정함(0초동안 밤 유지, 3초 동안 낮으로 천천히 전환됨)
         Managers.Scene.SimulateNightToSunrise(0,3);

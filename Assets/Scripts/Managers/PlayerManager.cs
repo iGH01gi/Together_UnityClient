@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using Google.Protobuf.Protocol;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 /// <summary>
 /// 룸서버와 데디서버의 플레이어 정보를 들고있는 매니저
@@ -260,5 +261,15 @@ public class PlayerManager
             a.Value.GetComponent<OtherDediPlayer>()._gauge = 0;
             a.Value.GetComponent<OtherDediPlayer>()._totalPoint = 0;
         }
+    }
+    
+    public void ActivateInput()
+    {
+        _myDediPlayer.GetComponent<PlayerInput>().ActivateInput();
+    }
+    
+    public void DeactivateInput()
+    {
+        _myDediPlayer.GetComponent<PlayerInput>().DeactivateInput();
     }
 }
