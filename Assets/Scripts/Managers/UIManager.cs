@@ -42,6 +42,15 @@ public class UIManager
         }
     }
     
+    public void ChangeCanvasRenderMode(RenderMode renderMode)
+    {
+        root.GetComponent<Canvas>().renderMode = renderMode;
+        if (renderMode == RenderMode.ScreenSpaceCamera)
+        {
+            root.GetComponent<Canvas>().worldCamera = GameObject.Find("KillerChangeGO/RenderCamera").GetComponent<Camera>();
+        }
+    }
+    
     /// <summary>
     /// 씬패널 로드 함수 (씬!=Unity Scene. 같은 로비 씬 내에서도 로비, 룸 등 여러 씬패널이 있다)
     /// *** ScenePanel Prefab명과 동일한 SceneUI 클래스가 존재해야한다. 그 클래스가 씬패널의 기능을 담당한다.***

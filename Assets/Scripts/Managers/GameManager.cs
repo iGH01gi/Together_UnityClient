@@ -73,25 +73,4 @@ public class GameManager
 
     #endregion
 
-    #region 프리팹 관련
-
-    public void SetKillerPrefab(string killerName)
-    {
-        if (Managers.Player.IsMyDediPlayerKiller())
-        {
-            
-        }
-        else
-        {
-            Managers.Player.GetKillerGameObject().transform.Find("PlayerPrefab").gameObject.SetActive(false);
-        }
-    }
-
-    public void KillerToSurvivorPrefab()
-    {
-        //Managers.Player.GetKillerGameObject().transform.Find()
-    }
-    
-    #endregion
-
 }
