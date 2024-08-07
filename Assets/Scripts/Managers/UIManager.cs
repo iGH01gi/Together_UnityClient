@@ -163,12 +163,14 @@ public class UIManager
     /// </summary>
     public void CloseAllPopup()
     {
-        if(PopupActive())
-            foreach (var cur in _popupLinkedList)
+        if (PopupActive())
+        {
+            for(int i = 0; i<_popupLinkedList.Count; i++)
             {
-                Managers.Resource.Destroy(cur);
-                _popupLinkedList.Remove(cur);
+                Managers.Resource.Destroy(_popupLinkedList.Last.Value);
+                _popupLinkedList.RemoveLast();
             }
+        }
     }
     
     public T GetComponentInSceneUI<T>(string childName = null) where T : MonoBehaviour

@@ -25,6 +25,6 @@ public class TheHeartless : MonoBehaviour, IKiller
 
     public void Use()
     {
-
+        //TODO: 심장소리를 일정 시간동안 들리지 않게 하는 기능을 구현 + 이펙트
     }
 }
