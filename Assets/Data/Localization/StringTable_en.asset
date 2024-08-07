@@ -210,6 +210,10 @@ MonoBehaviour:
     m_Localized: To open chest
     m_Metadata:
       m_Items: []
+  - m_Id: 76467623850840064
+    m_Localized: Survive
+    m_Metadata:
+      m_Items: []
   references:
     version: 2
     RefIds: []

@@ -79,4 +79,9 @@ public class Define
         UIInputHandler
     }
 
+    public enum Killers
+    {
+        Heartless,
+        Detector,
+    }
 }

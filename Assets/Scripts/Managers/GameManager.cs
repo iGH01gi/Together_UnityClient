@@ -50,6 +50,8 @@ public class GameManager
         _isDay = false;
         WhenChangeDayNight(timeToSet);
         _clientGauge.Init();
+        //플레이어 프리팹 바꾸기
+        
     }
     
 
@@ -66,17 +68,9 @@ public class GameManager
     }
     public void PlayKillerSound()
     {
-        float distance = Vector3.Distance(Managers.Player._myDediPlayer.transform.position,
-            Managers.Player.GetKillerGameObject().transform.position);
-        _playKillerSound.CheckPlayKillerSound(distance);
+        _playKillerSound.CheckPlayKillerSound();
     }
 
-    #endregion
-
-    #region 게이지 관련
-    
-    
-    
     #endregion
 
 }

@@ -217,7 +217,7 @@ public class PacketHandler
         Managers.Item.LoadItemData(); //저장했으면 아이템 데이터 로드*/
         
         string killerDataJson = startGamePacket.Killers;
-        Managers.Killer.SaveJsonData(killerDataJson); //킬러 데이터 저장
+        //Managers.Killer.SaveJsonData(killerDataJson); //킬러 데이터 저장
         Managers.Killer.LoadKillerData(); //저장했으면 킬러 데이터 로드
         
         
@@ -298,6 +298,7 @@ public class PacketHandler
         
         Managers.Object._chestController.ClearAllChest();
         Managers.Player._myDediPlayer.GetComponent<PlayerInput>().DeactivateInput();
+        Managers.UI.LoadPopupPanel<DayToNightPopup>(true,false); //눈 감는 팝업 띄우기
     }
     
     //데디케이트서버로부터 밤 타이머 시작을 받았을때의 처리
@@ -311,6 +312,7 @@ public class PacketHandler
         int nightSeconds = nightTimerStartPacket.NightSeconds; //밤 시간(초)
         float estimatedCurrentServerTimer = nightSeconds - Managers.Time.GetEstimatedLatency(); //현재 서버 타이머 시간(예측)
         
+        Managers.UI.GetComponentInPopup<DayToNightPopup>().StartNight();
         float gaugeMax = nightTimerStartPacket.GaugeMax; //게이지 최대값 및 초기값
         MapField<int,float> playerGaugeDecreasePerSecond = nightTimerStartPacket.PlayerGaugeDecreasePerSecond; //플레이어별 게이지 감소량
         

@@ -22,6 +22,8 @@ public class SoundManager
             {
                 GameObject go = new GameObject { name = soundNames[i] };
                 _audioSources[i] = go.AddComponent<AudioSource>();
+                _audioSources[i].spatialize = false;
+                _audioSources[i].rolloffMode = AudioRolloffMode.Custom;
                 go.transform.parent = root.transform;
             }
             _audioSources[(int)Define.Sound.Bgm].loop = true;
@@ -146,6 +148,11 @@ public class SoundManager
 	public void ChangePitch(Define.Sound type, float pitch)
 	{
 		_audioSources[(int)type].pitch = pitch;
+	}
+	
+	public void ChangePanStereo(Define.Sound type, float panValue)
+	{
+		_audioSources[(int)type].panStereo = panValue;
 	}
 
 	public IEnumerator FadeIn(Define.Sound type, string path, float fadeTime = 1.0f, float fadeDuration = 0.05f)
