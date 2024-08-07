@@ -1,5 +1,7 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using UnityEngine;
+using UnityEngine.Rendering;
 
 public class InGameDayCycleEffect  : MonoBehaviour
 {
@@ -7,7 +9,7 @@ public class InGameDayCycleEffect  : MonoBehaviour
     public Material _daySkybox;
     public Material _nightSkybox;
     public Light _directionalLight;
-    
+
     
     //해 쨍쨍 값
     private float _dayWaterMetallic = 0;
@@ -15,19 +17,23 @@ public class InGameDayCycleEffect  : MonoBehaviour
     private Color _dayFogColor = new Color(0.8f, 0.9254902f, 1f); // CCECFF
     private float _dayFogIntensity = 0.2f;
     private Color _dayDirectionalLightColor = new Color(1f, 0.7372549f, 0.4470588f); // FFBC72
+    private float _dayFogEnd = 128;
     
     //일몰 값
     private float _sunsetWaterMetallic = 1;
     private Color _sunsetFogColor = new Color(1f, 0.4313725f, 0.2431373f); // FF6E3E
     private float _sunsetFogIntensity = 0.4f;
     private Color _sunsetDirectionalLightColor = new Color(1f, 0.5254902f, 0f); // FF8600
+    private float _sunsetFogEnd = 128;
     
     //한밤중 값
     private float _nightWaterMetallic = 1;
     private Color _nightWaterDepthColor = Color.black; // 000000
-    private Color _nightFogColor = new Color(0.7843137f, 0.2117647f, 0.5882353f); // C83696
+    private Color _nightFogColor = Color.black; // C83696
     private float _nightFogIntensity = 1f;
     private Color _nightDirectionalLightColor = new Color(0.2627451f, 0.4f, 0.9803922f); // 4366FA
+    private float _nightKillerFogEnd = 128;
+    private float _nightSurvivorFogEnd = 4.5f;
 
     private void Start()
     {
@@ -240,6 +246,8 @@ public class InGameDayCycleEffect  : MonoBehaviour
         StartCoroutine(ChangeFogColorToNightOverTime(nightSeconds));
         StartCoroutine(ChangeFogIntensityToNightOverTime(nightSeconds));
         StartCoroutine(ChangeDirectionalLightColorToNightOverTime(nightSeconds));
+        StartCoroutine(ChangeEnvironmentLightingSourceToNightOverTime(nightSeconds));
+        StartCoroutine(ChangeFogEndToNightOverTime(nightSeconds));
         
         StartCoroutine(ChangeSkyboxMaterialOverTime(_daySkybox, _nightSkybox, nightSeconds));
         yield return null;
@@ -368,6 +376,50 @@ public class InGameDayCycleEffect  : MonoBehaviour
         DynamicGI.UpdateEnvironment();
     }
 
+    /// <summary>
+    /// 시간에 따라 환경 조명 소스를 변경 (skybox -> color)
+    /// </summary>
+    /// <param name="duration">몇초뒤에 바꿀건지</param>
+    /// <returns></returns>
+    IEnumerator ChangeEnvironmentLightingSourceToNightOverTime(float duration)
+    {
+        float time = 0;
+        while (time < duration)
+        {
+            time += Time.deltaTime;
+            yield return null;
+        }
+
+        RenderSettings.ambientMode = AmbientMode.Flat;
+        RenderSettings.ambientLight = Color.black;
+    }
+    
+    /// <summary>
+    /// 시간에 따라 안개의 끝을 변경 (킬러냐 생존자에 따라서 값이 다름)
+    /// </summary>
+    /// <param name="duration">몇초후에 바꿀건지</param>
+    /// <returns></returns>
+    IEnumerator ChangeFogEndToNightOverTime(float duration)
+    {
+        float time = 0;
+
+        while (time < duration)
+        {
+            time += Time.deltaTime;
+
+            yield return null;
+        }
+
+        if (Managers.Player.IsMyDediPlayerKiller())
+        {
+            RenderSettings.fogEndDistance = _nightKillerFogEnd;
+        }
+        else
+        {
+            RenderSettings.fogEndDistance = _nightSurvivorFogEnd;
+        }
+    }
+
     #endregion
 
     #region 밤->낮 관련
@@ -384,6 +436,8 @@ public class InGameDayCycleEffect  : MonoBehaviour
         StartCoroutine(ChangeFogColorToDayOverTime(daySeconds));
         StartCoroutine(ChangeFogIntensityToDayOverTime(daySeconds));
         StartCoroutine(ChangeDirectionalLightColorToDayOverTime(daySeconds));
+        StartCoroutine(ChangeEnvironmentLightingSourceToDayOverTime(daySeconds));
+        StartCoroutine(ChangeFogEndToDayOverTime(daySeconds));
         
         StartCoroutine(ChangeSkyboxMaterialOverTime(_nightSkybox, _daySkybox, daySeconds));
         yield return null;
@@ -508,6 +562,48 @@ public class InGameDayCycleEffect  : MonoBehaviour
             yield return null;
         }
         _directionalLight.color = targetColor; 
+        //DynamicGI 업데이트 (글로벌 조명 즉시 업데이트)
+        DynamicGI.UpdateEnvironment();
+    }
+    
+    /// <summary>
+    /// 시간에 따라 환경 조명 소스를 변경 (color -> skybox)
+    /// </summary>
+    /// <param name="duration">몇초뒤에 바꿀건지</param>
+    /// <returns></returns>
+    IEnumerator ChangeEnvironmentLightingSourceToDayOverTime(float duration)
+    {
+        float time = 0;
+        while (time < duration)
+        {
+            time += Time.deltaTime;
+            yield return null;
+        }
+
+        RenderSettings.ambientMode = AmbientMode.Skybox;
+    }
+    
+    /// <summary>
+    /// 시간에 따라 안개의 끝을 변경 (원복)
+    /// </summary>
+    /// <param name="duration">몇초에 걸쳐서 바꿀건지</param>
+    /// <returns></returns>
+    IEnumerator ChangeFogEndToDayOverTime(float duration)
+    {
+        float time = 0;
+        float startValue = RenderSettings.fogEndDistance;
+        float targetValue = _dayFogEnd;
+
+        while (time < duration)
+        {
+            time += Time.deltaTime;
+            RenderSettings.fogEndDistance = Mathf.Lerp(startValue, targetValue, time / duration);
+            //DynamicGI 업데이트 (글로벌 조명 즉시 업데이트)
+            DynamicGI.UpdateEnvironment();
+            yield return null;
+        }
+
+        RenderSettings.fogEndDistance = _dayFogEnd;
         //DynamicGI 업데이트 (글로벌 조명 즉시 업데이트)
         DynamicGI.UpdateEnvironment();
     }

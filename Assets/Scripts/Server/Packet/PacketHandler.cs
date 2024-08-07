@@ -217,7 +217,7 @@ public class PacketHandler
         Managers.Item.LoadItemData(); //저장했으면 아이템 데이터 로드*/
         
         string killerDataJson = startGamePacket.Killers;
-        Managers.Killer.SaveJsonData(killerDataJson); //킬러 데이터 저장
+        //Managers.Killer.SaveJsonData(killerDataJson); //킬러 데이터 저장
         Managers.Killer.LoadKillerData(); //저장했으면 킬러 데이터 로드
         
         
