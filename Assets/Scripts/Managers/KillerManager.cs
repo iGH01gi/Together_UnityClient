@@ -26,7 +26,6 @@ public class KillerManager
         InitKillerFactories();
     }
     
-    
     /// <summary>
     /// 킬러 팩토리 초기화
     /// </summary>
@@ -35,8 +34,8 @@ public class KillerManager
         _killerFactories = new Dictionary<int, KillerFactory>();
         _killers = new Dictionary<int, IKiller>();
         
-        //아이템 팩토리 생성
-        _killerFactories.Add(1, new TheHeartlessFactory());
+        //킬러 팩토리 생성
+        _killerFactories.Add(0, new TheHeartlessFactory());
     }
     
     /// <summary>
