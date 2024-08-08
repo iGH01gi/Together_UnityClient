@@ -1,7 +1,11 @@
-﻿public class FireworkFactory : ItemFactory
+﻿using UnityEngine;
+
+public class FireworkFactory : ItemFactory
 {
-    protected override IItem CreateProduct()
+    protected override GameObject CreateProduct()
     {
-        return new Firework();
+        GameObject fireworkObj = GameObject.Instantiate(Managers.Item._itemPrefabs[1]);
+        fireworkObj.AddComponent<Firework>();
+        return fireworkObj;
     }
 }

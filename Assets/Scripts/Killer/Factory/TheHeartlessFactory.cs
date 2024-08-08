@@ -1,7 +1,21 @@
-﻿public class TheHeartlessFactory : KillerFactory
+﻿using UnityEngine;
+
+public class TheHeartlessFactory : KillerFactory
 {
-    protected override IKiller CreateProduct()
+    protected override GameObject CreateProduct(bool isMyPlayer)
     {
-        return new TheHeartless();
+        if (isMyPlayer)
+        {
+            GameObject theHeartlessObj = GameObject.Instantiate(Managers.Killer._myKillerPrefabs[0]);
+            theHeartlessObj.AddComponent<TheHeartless>();
+            return theHeartlessObj;
+        }
+        else
+        {
+            GameObject theHeartlessObj = GameObject.Instantiate(Managers.Killer._otherPlayerKillerPrefabs[0]);
+            theHeartlessObj.AddComponent<TheHeartless>();
+            return theHeartlessObj;
+        }
+        
     }
 }

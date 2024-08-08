@@ -9,10 +9,12 @@ public class KillerManager
     private string _jsonPath;
     private Dictionary<int, KillerFactory> _killerFactories; //key: 킬러Id, value: 킬러 팩토리 객체
     public Dictionary<int, IKiller> _killers; //key: 킬러Id, value: 킬러 객체(킬러별 데이터 저장용. 전시품이라고 생각)
+    public Dictionary<int,GameObject> _myKillerPrefabs; //key: 킬러Id, value: 내 킬러 프리팹
+    public Dictionary<int,GameObject> _otherPlayerKillerPrefabs; //key: 킬러Id, value: 다른 플레이어 킬러 프리팹
     private static string _killersDataJson; //json이 들어 있게 됨(파싱 해야 함)
     
-    public string _myPlayerKillerPrefabPath = "Player/MyPlayerKiller/"; //내 킬러 프리팹 경로
-    public string _otherPlayerKillerPrefabPath = "Player/OtherPlayerKiller/"; //다른 플레이어 킬러 프리팹 경로
+    public string _myPlayerKillerPrefabPath = "Prefabs/Player/MyPlayerKiller/"; //내 킬러 프리팹 경로
+    public string _otherPlayerKillerPrefabPath = "Prefabs/Player/OtherPlayerKiller/"; //다른 플레이어 킬러 프리팹 경로
 
 
 
@@ -29,6 +31,7 @@ public class KillerManager
             File.WriteAllText(_jsonPath, "{}"); // Create an empty JSON file
         }
         InitKillerFactories();
+        LoadKillerPrefabs();
     }
     
     /// <summary>
@@ -42,12 +45,8 @@ public class KillerManager
         {
             if(_killerFactories.ContainsKey(killerType))
             {
-                string killerPrefabPath = String.Concat(_myPlayerKillerPrefabPath, _killers[killerType].EnglishName);
-                GameObject killerObj = Managers.Resource.Instantiate(killerPrefabPath, Managers.Player._myDediPlayer.transform);
-                
-                IKiller killerScript = _killerFactories[killerType].CreateKiller();
-                killerObj.AddComponent(killerScript.GetType());
-                killerObj.name = killerScript.EnglishName;
+                GameObject killerObj = _killerFactories[killerType].CreateKiller(isMyPlayer:true);
+                killerObj.transform.SetParent(Managers.Player._myDediPlayer.transform,false);
 
                 return killerObj;
             }
@@ -56,13 +55,9 @@ public class KillerManager
         {
             if(_killerFactories.ContainsKey(killerType))
             {
-                string killerPrefabPath = String.Concat(_otherPlayerKillerPrefabPath, _killers[killerType].EnglishName);
-                GameObject killerObj = Managers.Resource.Instantiate(killerPrefabPath, Managers.Player._otherDediPlayers[dediPlayerId].transform);
-                
-                IKiller killerScript = _killerFactories[killerType].CreateKiller();
-                killerObj.AddComponent(killerScript.GetType());
-                killerObj.name = killerScript.EnglishName;
-                
+                GameObject killerObj = _killerFactories[killerType].CreateKiller(isMyPlayer:false);
+                killerObj.transform.SetParent(Managers.Player._otherDediPlayers[dediPlayerId].transform,false);
+
                 return killerObj;
             }
         }
@@ -94,6 +89,21 @@ public class KillerManager
         //킬러 팩토리 생성
         _killerFactories.Add(0, new TheHeartlessFactory());
         _killerFactories.Add(1, new TheDetectorFactory());
+    }
+    
+    /// <summary>
+    /// 킬러 프리팹 로드(반드시 아이템 팩토리 초기화 이후에 호출해야 함)
+    /// </summary>
+    public void LoadKillerPrefabs()
+    {
+        _myKillerPrefabs = new Dictionary<int, GameObject>();
+        _otherPlayerKillerPrefabs = new Dictionary<int, GameObject>();
+        
+        _myKillerPrefabs.Add(0, Managers.Resource.Load<GameObject>(_myPlayerKillerPrefabPath + "The Heartless"));
+        _otherPlayerKillerPrefabs.Add(0, Managers.Resource.Load<GameObject>(_otherPlayerKillerPrefabPath + "The Heartless"));
+        
+        _myKillerPrefabs.Add(1, Managers.Resource.Load<GameObject>(_myPlayerKillerPrefabPath + "The Detector"));
+        _otherPlayerKillerPrefabs.Add(1, Managers.Resource.Load<GameObject>(_otherPlayerKillerPrefabPath + "The Detector"));
     }
     
     /// <summary>

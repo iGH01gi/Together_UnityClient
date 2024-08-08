@@ -1,7 +1,11 @@
-﻿public class DashFactory : ItemFactory
+﻿using UnityEngine;
+
+public class DashFactory : ItemFactory
 {
-    protected override IItem CreateProduct()
+    protected override GameObject CreateProduct()
     {
-        return new Dash();
+        GameObject dashObj = GameObject.Instantiate(Managers.Item._itemPrefabs[0]);
+        dashObj.AddComponent<Dash>();
+        return dashObj;
     }
 }

@@ -116,13 +116,9 @@ public class ItemManager
     {
         if (_itemFactories.ContainsKey(itemId))
         {
-            GameObject itemObject = GameObject.Instantiate(_itemPrefabs[itemId]);
-            itemObject.transform.SetParent(Managers.Player._myDediPlayer.transform);
-            
-            IItem itemScript = _itemFactories[itemId].CreateItem();
-            itemObject.AddComponent(itemScript.GetType());
-
-            return itemObject;
+            GameObject itemObj = _itemFactories[itemId].CreateItem();
+            itemObj.transform.SetParent(Managers.Player._myDediPlayer.transform);
+            return itemObj;
         }
         else
         {
@@ -151,11 +147,8 @@ public class ItemManager
     {
         _itemPrefabs = new Dictionary<int, GameObject>();
         
-        foreach (var itemFactory in _itemFactories)
-        {
-            GameObject itemPrefab = Managers.Resource.Load<GameObject>(_itemPrefabFolderPath + itemFactory.Key);
-            _itemPrefabs.Add(itemFactory.Key, itemPrefab);
-        }
+        _itemPrefabs.Add(0, Managers.Resource.Load<GameObject>(_itemPrefabFolderPath + "Dash"));
+        _itemPrefabs.Add(1, Managers.Resource.Load<GameObject>(_itemPrefabFolderPath + "Firework"));
     }
     
     /// <summary>
