@@ -10,7 +10,6 @@ public class PlayerAnimController : MonoBehaviour
     public bool isWalking = false;
     public bool isDigging = false;
     public bool isPraying = false;
-    public bool isKiller = false;
 
     private void Start()
     {
@@ -23,15 +22,23 @@ public class PlayerAnimController : MonoBehaviour
         _anim.SetBool("isWalking",isWalking);
         _anim.SetBool("isDigging",isDigging);
         _anim.SetBool("isPraying",isPraying);
-        _anim.SetBool("isKiller",isKiller);
     }
-    
+
+    public void KillerBaseAttack()
+    {
+        _anim.SetTrigger("Attack");
+    }
+
+    public bool IsAttacking()
+    {
+        return _anim.GetCurrentAnimatorStateInfo(_anim.GetLayerIndex("Base Layer")).IsName("Attack");
+    }
+
     void PlayerAnimClear()
     {
         isRunning = false;
         isWalking = false;
         isDigging = false;
         isPraying = false;
-        isKiller = false;
     }
 }

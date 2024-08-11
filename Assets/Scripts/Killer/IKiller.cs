@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System.Collections;
+using UnityEngine;
 
 public interface IKiller
 {
@@ -25,6 +26,9 @@ public interface IKiller
     /// </summary>
     void Use()
     {
-        Debug.Log("Skill used");
+    }
+
+    void BaseAttack()
+    {
     }
 }

@@ -21,6 +21,7 @@ public class ObjectInput : MonoBehaviour
         Debug.Log(other.tag);
         if (Managers.Game._isDay)
         {
+            //상자 트리거 처리
             if(other.CompareTag("Chest") && !other.transform.parent.GetComponent<Chest>()._isOpened)
             {
                 ChangeHighlightChest(other.transform.parent.gameObject);
@@ -28,9 +29,21 @@ public class ObjectInput : MonoBehaviour
         }
         else
         {
-            if (other.CompareTag("Cleanse") && other.transform.parent.GetComponent<Cleanse>()._isAvailable)
+            //킬러일 때 생존자 공격 트리거 처리
+            if (Managers.Player.IsMyDediPlayerKiller())
             {
-                _currentCleanse = other.transform.parent.gameObject;
+                if (other.CompareTag("Player") && Managers.Player._myDediPlayer.transform.GetComponentInChildren<PlayerAnimController>().IsAttacking())
+                {
+                    Debug.Log("Attacked Player with ID: "+other.transform.parent.GetComponent<OtherDediPlayer>().PlayerId);
+                }
+            }
+            else
+            {
+                //생존자일 때 클렌즈 처리
+                if (other.CompareTag("Cleanse") && other.transform.parent.GetComponent<Cleanse>()._isAvailable)
+                {
+                    _currentCleanse = other.transform.parent.gameObject;
+                }
             }
         }
     }
@@ -81,16 +94,25 @@ public class ObjectInput : MonoBehaviour
         }
         else
         {
-            if (_currentCleanse != null)
+            if (!Managers.Player.IsMyDediPlayerKiller())
             {
-                if ((Managers.Object._cleanseController._myPlayerCurrentCleanse == null) && value.isPressed)
+                if (_currentCleanse != null)
                 {
-                    Managers.Object._cleanseController.TryCleanse(_currentCleanse.GetComponent<Cleanse>()._cleanseId);
+                    if ((Managers.Object._cleanseController._myPlayerCurrentCleanse == null) && value.isPressed)
+                    {
+                        Managers.Object._cleanseController.TryCleanse(
+                            _currentCleanse.GetComponent<Cleanse>()._cleanseId);
+                    }
+                    else if ((Managers.Object._cleanseController._myPlayerCurrentCleanse != null) && value.isPressed)
+                    {
+                        Managers.Object._cleanseController.QuitCleansing(_currentCleanse.GetComponent<Cleanse>()
+                            ._cleanseId);
+                    }
                 }
-                else if((Managers.Object._cleanseController._myPlayerCurrentCleanse != null) && value.isPressed)
-                {
-                    Managers.Object._cleanseController.QuitCleansing(_currentCleanse.GetComponent<Cleanse>()._cleanseId);
-                }
+            }
+            else
+            {
+                Managers.Killer.BaseAttack(Managers.Player._myDediPlayerId);
             }
         }
     }

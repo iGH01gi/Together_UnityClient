@@ -36,4 +36,9 @@ public class TheDetector : MonoBehaviour, IKiller
     {
 
     }
+
+    public void BaseAttack()
+    {
+        transform.GetComponent<PlayerAnimController>().KillerBaseAttack();
+    }
 }

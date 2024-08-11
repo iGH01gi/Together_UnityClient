@@ -237,11 +237,7 @@ MonoBehaviour:
   m_AnimatedTarget: {fileID: 3356504437351311137}
   m_LayerIndex: 0
   m_ShowDebugText: 0
-  m_ChildCameras:
-  - {fileID: 4117950205291814977}
-  - {fileID: 1903323454607685578}
-  - {fileID: 5467283423210749678}
-  - {fileID: 8900003992911870652}
+  m_ChildCameras: []
   m_Instructions:
   - m_FullHash: 0
     m_VirtualCamera: {fileID: 4117950205291814977}
@@ -413,7 +409,7 @@ GameObject:
   - component: {fileID: 368944552771327941}
   - component: {fileID: 126710317098822558}
   m_Layer: 7
-  m_Name: Capsule
+  m_Name: PlayerTrigger
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1269,7 +1265,6 @@ MonoBehaviour:
   isWalking: 0
   isDigging: 0
   isPraying: 0
-  isKiller: 0
 --- !u!114 &1529827085955308146
 MonoBehaviour:
   m_ObjectHideFlags: 0

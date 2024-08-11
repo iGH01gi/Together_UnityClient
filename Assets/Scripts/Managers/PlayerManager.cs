@@ -150,10 +150,11 @@ public class PlayerManager
             Managers.Player._myDediPlayer.GetComponent<MyDediPlayer>()._killerType = killerType;
             Managers.Player._myDediPlayer.GetComponent<MyDediPlayer>()._killerEngName = Managers.Killer._killers[killerType].EnglishName;
             
-
             _myDediPlayer.transform.Find("PlayerPrefab").gameObject.SetActive(false);
             Managers.Killer.CreateKiller(dediPlayerId, killerType);
-            
+
+            //무기 콜라이더만 쓰도록 기존 콜라이더 끄기
+            Managers.Player._myDediPlayer.transform.Find("PlayerTrigger").GetComponent<CapsuleCollider>().enabled = false;
             Managers.Game.ChangeToKiller(); //킬러일시 처리 (스킬 UI 등)
         }
 
@@ -162,6 +163,8 @@ public class PlayerManager
             Managers.Player._otherDediPlayers[dediPlayerId].GetComponent<OtherDediPlayer>()._isKiller = true;
             Managers.Player._otherDediPlayers[dediPlayerId].GetComponent<OtherDediPlayer>()._killerType = killerType;
             
+            //기존 콜라이더 키기
+            Managers.Player._myDediPlayer.transform.Find("PlayerTrigger").GetComponent<CapsuleCollider>().enabled = true;
             _otherDediPlayers[dediPlayerId].transform.Find("PlayerPrefab").gameObject.SetActive(false);
             Managers.Killer.CreateKiller(dediPlayerId, killerType);
             
@@ -183,6 +186,8 @@ public class PlayerManager
             Managers.Resource.Destroy(_myDediPlayer.transform.Find(Managers.Killer._killers[killerType].EnglishName).gameObject);
             _myDediPlayer.GetComponent<MyDediPlayer>()._isKiller = false;
             _myDediPlayer.GetComponent<MyDediPlayer>()._killerType = -1;
+            //기존 콜라이더 키기
+            Managers.Player._myDediPlayer.transform.Find("PlayerTrigger").GetComponent<CapsuleCollider>().enabled = true;
         }
         
         foreach (GameObject dediPlayer in Managers.Player._otherDediPlayers.Values)

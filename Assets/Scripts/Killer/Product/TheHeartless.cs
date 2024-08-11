@@ -41,4 +41,9 @@ public class TheHeartless : MonoBehaviour, IKiller
     {
         //TODO: 심장소리를 일정 시간동안 들리지 않게 하는 기능을 구현 + 이펙트
     }
+    
+    public void BaseAttack()
+    {
+        transform.GetComponent<PlayerAnimController>().KillerBaseAttack();
+    }
 }

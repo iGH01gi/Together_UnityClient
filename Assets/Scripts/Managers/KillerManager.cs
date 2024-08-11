@@ -62,6 +62,24 @@ public class KillerManager
 
         return null;
     }
+
+    /// <summary>
+    /// 킬러 기본 공격
+    /// </summary>
+    public void BaseAttack(int dediPlayerId)
+    {
+        GameObject killerPlayer =  dediPlayerId == Managers.Player._myDediPlayerId ? Managers.Player._myDediPlayer : Managers.Player._otherDediPlayers[dediPlayerId];
+        IKiller killer = killerPlayer.GetComponentInChildren<IKiller>();
+        //만약 공격중이라면 공격 못하게 막아두기
+        if (!killerPlayer.transform.GetComponentInChildren<PlayerAnimController>().IsAttacking())
+        {
+            killer.BaseAttack();
+            //TODO:: 공격 중일시 속도를 반으로 줄이기
+            //TODO:: 공격 패킷 보내기
+        }
+        
+    }
+    
     /// <summary>
     /// 킬러 스킬 사용 처리
     /// </summary>
