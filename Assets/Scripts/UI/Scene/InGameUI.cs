@@ -29,11 +29,12 @@ public class InGameUI : UI_scene
     Color _colorTimerDay = new Color(68f/ 255f,68f/ 255f,68f/ 255f);
     Color _colorTimerNight = new Color(210f/ 255f,4f/ 255f,45f/ 255f);
 
-    public void ChangeDayNightUIPrefab()
+    public void ChangeDayNightUI()
     {
         bool isDay = Managers.Game._isDay;
         if (Managers.Game._isDay)
         {
+            IsNotKiller();
             _timer.GetComponent<ProgressBar>().ChangeForeground(_colorTimerDay);
         }
         else
