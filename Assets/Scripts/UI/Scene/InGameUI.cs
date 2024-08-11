@@ -12,6 +12,7 @@ public class InGameUI : UI_scene
     public GameObject _gauge;
     public GameObject _coin;
     public GameObject _coinCollect;
+    public GameObject _killerSkill;
     private void Start()
     {
         Managers.UI.LoadPopupPanel<WairForSecondsPopup>(true,false); //3초 카운트 다운
@@ -19,8 +20,10 @@ public class InGameUI : UI_scene
         _gauge = transform.Find("Gauge").gameObject;
         _coin = transform.Find("Coin").gameObject;
         _coinCollect = transform.Find("CoinCollect").gameObject;
+        _killerSkill = transform.Find("KillerSkill").gameObject;
         _gauge.SetActive(false);
         _coinCollect.SetActive(false);
+        _killerSkill.SetActive(false);
     }
     
     Color _colorTimerDay = new Color(68f/ 255f,68f/ 255f,68f/ 255f);
@@ -72,5 +75,21 @@ public class InGameUI : UI_scene
     {
         _coinCollect.SetActive(true);
         _coinCollect.AddComponent<AddCoinEffect>().Init(coinAdded);
+    }
+
+    public void SetSkillCooltime(float skillCooltime)
+    {
+        _killerSkill.SetActive(true);
+        _killerSkill.GetComponent<ProgressBar>().MaxValue = skillCooltime;
+    }
+
+    public void IsNotKiller()
+    {
+        _killerSkill.SetActive(false);
+    }
+
+    public void SetKillerSkillValue(float value)
+    {
+        _killerSkill.GetComponent<ProgressBar>().CurrentValue = value;
     }
 }

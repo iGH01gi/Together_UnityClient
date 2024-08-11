@@ -1,4 +1,6 @@
-﻿public interface IKiller
+﻿using UnityEngine;
+
+public interface IKiller
 {
     //킬러 공통 보유 속성
     public int Id { get; set; }
@@ -21,5 +23,8 @@
     /// <summary>
     /// 스킬 사용시 기능 구현
     /// </summary>
-    void Use();
+    void Use()
+    {
+        Debug.Log("Skill used");
+    }
 }

@@ -50,7 +50,6 @@ public class InGameInputOld : MonoBehaviour
         isRunning = value.isPressed;
         ChangeAnim();
     }
-
     private void Start()
     {
         mouseSensitivity = Managers.Data.Player.MouseSensitivity *sensitivityAdjuster;

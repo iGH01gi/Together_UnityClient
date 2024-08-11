@@ -90,9 +90,9 @@ public class DayToNightPopup : UI_popup
        Transform positions = _camera.transform.parent.Find("Positions");
        for (int i = 0; i < (positions.childCount) ; i++)
         {
+            Managers.Sound.Play("BoomTransition");
             _camera.GetComponent<Transform>().position = positions.GetChild(i).GetComponent<Transform>().position;
             _camera.GetComponent<Transform>().rotation = positions.GetChild(i).GetComponent<Transform>().rotation;
-            Managers.Sound.Play("BoomTransition");
             yield return new WaitForSeconds(0.9f);
         }
         if (CultureInfo.CurrentCulture.Name == "ko-KR")

@@ -15,9 +15,7 @@ public class KillerManager
     
     public string _myPlayerKillerPrefabPath = "Prefabs/Player/MyPlayerKiller/"; //내 킬러 프리팹 경로
     public string _otherPlayerKillerPrefabPath = "Prefabs/Player/OtherPlayerKiller/"; //다른 플레이어 킬러 프리팹 경로
-
-
-
+    
     
     public void Init()
     {
@@ -64,18 +62,25 @@ public class KillerManager
 
         return null;
     }
-
     /// <summary>
     /// 킬러 스킬 사용 처리
     /// </summary>
     /// <param name="dediPlayerId">스킬을 사용한 현재 킬러의 데디플레이어id</param>
-    /// <param name="killerType">어떤 타입의 킬러인지</param>
-    public void UseSkill(int dediPlayerId , int killerType)
+    public void UseSkill(int dediPlayerId)
     {
-        GameObject killerPlayer = dediPlayerId == Managers.Player._myDediPlayerId ? Managers.Player._myDediPlayer : Managers.Player._otherDediPlayers[dediPlayerId];
-        IKiller killer = killerPlayer.GetComponent<IKiller>();
-        
+        bool isMyPlayer = dediPlayerId == Managers.Player._myDediPlayerId;
+        GameObject killerPlayer =  isMyPlayer ? Managers.Player._myDediPlayer : Managers.Player._otherDediPlayers[dediPlayerId];
+        IKiller killer = killerPlayer.GetComponentInChildren<IKiller>();
+        if (isMyPlayer)
+        {
+            //TODO:: Send packet that my killer used skill
+        }
         killer.Use();
+    }
+
+    public IKiller GetMyKillerInfo()
+    {
+        return _killers[Managers.Player._myDediPlayer.GetComponent<MyDediPlayer>()._killerType];
     }
     
     /// <summary>

@@ -153,6 +153,8 @@ public class PlayerManager
 
             _myDediPlayer.transform.Find("PlayerPrefab").gameObject.SetActive(false);
             Managers.Killer.CreateKiller(dediPlayerId, killerType);
+            
+            Managers.Game.ChangeToKiller(); //킬러일시 처리 (스킬 UI 등)
         }
 
         else
@@ -162,6 +164,8 @@ public class PlayerManager
             
             _otherDediPlayers[dediPlayerId].transform.Find("PlayerPrefab").gameObject.SetActive(false);
             Managers.Killer.CreateKiller(dediPlayerId, killerType);
+            
+            Managers.Game.IsNotKiller(); //킬러가 아닐 시 처리
         }
         
         callback?.Invoke();
@@ -177,9 +181,8 @@ public class PlayerManager
             int killerType = Managers.Player._myDediPlayer.GetComponent<MyDediPlayer>()._killerType;
             _myDediPlayer.transform.Find("PlayerPrefab").gameObject.SetActive(true);
             Managers.Resource.Destroy(_myDediPlayer.transform.Find(Managers.Killer._killers[killerType].EnglishName).gameObject);
-
-            Managers.Player._myDediPlayer.GetComponent<MyDediPlayer>()._isKiller = false;
-            Managers.Player._myDediPlayer.GetComponent<MyDediPlayer>()._killerType = -1;
+            _myDediPlayer.GetComponent<MyDediPlayer>()._isKiller = false;
+            _myDediPlayer.GetComponent<MyDediPlayer>()._killerType = -1;
         }
         
         foreach (GameObject dediPlayer in Managers.Player._otherDediPlayers.Values)
@@ -189,7 +192,6 @@ public class PlayerManager
                 int killerType = dediPlayer.GetComponent<OtherDediPlayer>()._killerType;
                 dediPlayer.transform.Find("PlayerPrefab").gameObject.SetActive(true);
                 Managers.Resource.Destroy(dediPlayer.transform.Find(Managers.Killer._killers[killerType].EnglishName).gameObject);
-                
                 dediPlayer.GetComponent<OtherDediPlayer>()._isKiller = false;
                 dediPlayer.GetComponent<OtherDediPlayer>()._killerType = -1;
             }

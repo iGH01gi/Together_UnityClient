@@ -9,6 +9,7 @@ public class GameManager
     
     public ClientTimer _clientTimer;
     public ClientGauge _clientGauge;
+    public MyKillerSkill _myKillerSkill;
 
     private float _dokidokiStart = 20;
     private float _dokidokiClose = 10;
@@ -31,6 +32,7 @@ public class GameManager
         _clientTimer = Util.GetOrAddComponent<ClientTimer>(root);
         _clientGauge = Util.GetOrAddComponent<ClientGauge>(root);
         _playKillerSound = Util.GetOrAddComponent<PlayKillerSound>(root);
+        _myKillerSkill = Util.GetOrAddComponent<MyKillerSkill>(root);
     }
 
     private void WhenChangeDayNight(float timeToSet)
@@ -51,9 +53,17 @@ public class GameManager
         WhenChangeDayNight(timeToSet);
         _clientGauge.Init();
         //플레이어 프리팹 바꾸기
-        
     }
-    
+
+    public void ChangeToKiller()
+    {
+        _myKillerSkill.Init();
+    }
+
+    public void IsNotKiller()
+    {
+        Managers.UI.GetComponentInSceneUI<InGameUI>().IsNotKiller();
+    }
 
     #region 근처 킬러 소리 처리
     private PlayKillerSound _playKillerSound;
