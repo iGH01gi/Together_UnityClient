@@ -147,11 +147,13 @@ public class PlayKillerSound : MonoBehaviour
 
     private bool CheckCurrentlyChasing()
     {
+        float radius = 0.1f;
         RaycastHit hit;
         Transform current = Managers.Player.GetKillerGameObject().transform;
-        var position = current.position;
-        Physics.Raycast(position,current.TransformDirection(Vector3.forward), out hit,_dokidokiExtreme);
-        return hit.collider != null && hit.collider.CompareTag("KillerTrigger");
+        Vector3 position = current.position;
+        Vector3 direction = current.TransformDirection(Vector3.forward);
+        return Physics.SphereCast(position, radius, direction, out hit, _dokidokiExtreme, LayerMask.GetMask($"Player"),QueryTriggerInteraction.Collide);
+        //Physics.Raycast(position,current.TransformDirection(Vector3.forward), out hit,_dokidokiExtreme);
     }
 
     private void PlayChaseSound()
