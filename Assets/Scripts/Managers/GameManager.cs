@@ -12,8 +12,8 @@ public class GameManager
     public MyKillerSkill _myKillerSkill;
 
     private float _dokidokiStart = 20;
-    private float _dokidokiClose = 10;
-    private float _dokidokiExtreme = 4;
+    private float _dokidokiClose = 15;
+    private float _dokidokiExtreme = 10;
 
     //Managers Init과 함께 불리는 Init
     public void Init()
@@ -66,7 +66,7 @@ public class GameManager
     }
 
     #region 근처 킬러 소리 처리
-    private PlayKillerSound _playKillerSound;
+    public PlayKillerSound _playKillerSound;
 
     public void SetUpKillerSound()
     {
@@ -76,9 +76,9 @@ public class GameManager
             _playKillerSound.Init(_dokidokiStart, _dokidokiClose, _dokidokiExtreme);
         }
     }
-    public void PlayKillerSound()
+    public void PlayChaseSound()
     {
-        _playKillerSound.CheckPlayKillerSound();
+        _playKillerSound.CheckPlayChaseSound();
     }
 
     #endregion

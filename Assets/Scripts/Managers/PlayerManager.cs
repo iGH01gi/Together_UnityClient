@@ -240,7 +240,6 @@ public class PlayerManager
         {
             return _myDediPlayer;
         }
-        
         return _otherDediPlayers[GetKillerId()];
     }
     

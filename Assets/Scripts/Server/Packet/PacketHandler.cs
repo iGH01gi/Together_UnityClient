@@ -238,10 +238,10 @@ public class PacketHandler
         
         Managers.Player._syncMoveCtonroller.SyncOtherPlayerMove(movePacket);
         
-        //killer가 존재하고 내가 아닐시에 심장소리
-        if(!Managers.Game._isDay && Managers.Player.GetKillerId()!= -1 && !Managers.Player.IsMyDediPlayerKiller()){
-            Managers.Game.PlayKillerSound(); //킬러가 근처에 있으면 심장소리 재생
-        }
+        //밤이고 인풋이 가능할 시 (킬러 생존자 시작 다름) 킬러 소리 체크
+        Debug.Log("Check killer sound");
+        Managers.Game.PlayChaseSound(); //킬러가 근처에 있으면 심장소리 재생
+        
     }
     
     //데디케이트서버로부터 낮 타이머 시작을 받았을때의 처리
@@ -356,7 +356,8 @@ public class PacketHandler
         DedicatedServerSession dedicatedServerSession = session as DedicatedServerSession;
 
         Debug.Log("DSC_NightTimerEndHandler");
-        
+
+        Managers.Game._playKillerSound._checkForSound = false;
         Managers.Game._clientGauge.EndGauge();
         Managers.Game._clientTimer.EndTimer();
         Managers.Sound.Stop(Define.Sound.Heartbeat);

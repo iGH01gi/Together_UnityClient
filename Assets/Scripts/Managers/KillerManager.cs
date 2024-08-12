@@ -95,6 +95,23 @@ public class KillerManager
         }
         killer.Use();
     }
+    
+    /// <summary>
+    /// 킬러 영어 이름 리턴
+    /// </summary>
+    public string GetKillerEnglishName()
+    {
+        if (Managers.Player.IsMyDediPlayerKiller())
+        {
+            return Managers.Player._myDediPlayer.GetComponentInChildren<MyDediPlayer>()
+                ._killerEngName;
+        }
+        else
+        {
+            return _killers[Managers.Player.GetKillerGameObject().GetComponentInChildren<OtherDediPlayer>()
+                ._killerType].EnglishName;
+        }
+    }
 
     public IKiller GetMyKillerInfo()
     {

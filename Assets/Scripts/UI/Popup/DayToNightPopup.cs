@@ -63,6 +63,8 @@ public class DayToNightPopup : UI_popup
         _killerDescriptionText.text = String.Empty;
         _camera.enabled = false;
         _backgroundAnim.SetTrigger("OpenEyes");
+
+        Managers.Game._playKillerSound._checkForSound = true; //킬러 소리 체크 시작
         
         Managers.Player.ActivateInput();
     }

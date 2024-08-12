@@ -47,4 +47,9 @@ public class InputManager
     {
         _inputActionAsset.Disable();
     }
+    
+    public bool IsReceivingInput()
+    {
+        return _inputActionAsset.enabled;
+    }
 }

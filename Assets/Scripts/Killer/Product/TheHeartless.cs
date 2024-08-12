@@ -14,7 +14,6 @@ public class TheHeartless : MonoBehaviour, IKiller
     public string KoreanAbilityDescription { get; set; }
     public float SkillCoolTimeSeconds { get; set; } //스킬 쿨타임 초
     
-    
     //이 킬러만의 속성
     public float HeartlessSeconds { get; set; } //심장소리 안들리게 할 시간
     

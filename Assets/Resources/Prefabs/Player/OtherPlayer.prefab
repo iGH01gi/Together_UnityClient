@@ -12,8 +12,8 @@ GameObject:
   - component: {fileID: 4337716035439473713}
   - component: {fileID: 4116242937867513098}
   m_Layer: 7
-  m_Name: Capsule
-  m_TagString: Untagged
+  m_Name: KillerTrigger
+  m_TagString: KillerTrigger
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -551,7 +551,6 @@ MonoBehaviour:
   isWalking: 0
   isDigging: 0
   isPraying: 0
-  isKiller: 0
 --- !u!4 &3443851821599222615 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4000010509604822, guid: 4a2d2c00183719d48b35d6a1c1ce38b1, type: 3}
