@@ -8,7 +8,7 @@ public class UI_Button : UI_subitem
 {
     public void PlayButtonClick()
     {
-        Managers.Sound.Play("Confirm");
+        Managers.Sound.Play("Paper");
     }
 
     public void PlayButtonHover()
