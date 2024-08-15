@@ -30,83 +30,7 @@ public class ItemManager
         InitItemFactories();
         //LoadItemPrefabs();
     }
-    
-    /// <summary>
-    /// 아이템을 구매해서 인벤토리에 추가
-    /// </summary>
-    /// <param name="itemId">구매하려는 아이템id</param>
-    /// <returns>구매 성공 여부</returns>
-    public bool BuyItem(int itemId)
-    {
-        //아이템 가격만큼 포인트 차감
-        int price = GetItemPrice(itemId);
-        MyDediPlayer myDediPlayer = Managers.Player._myDediPlayer.GetComponent<MyDediPlayer>();
-        if(myDediPlayer._totalPoint < price)
-        {
-            Debug.Log("아이템 구매 포인트가 부족함.");
-            return false;
-        }
 
-        myDediPlayer._totalPoint -= price;
-        
-        //아이템 생성
-        GameObject itemObject = CreateItem(itemId);
-        
-        //인벤토리에 생성된 아이템 추가
-        myDediPlayer._inventory.AddOneItem(itemObject);
-        
-        //TODO: 아이템 추가시 UI 갱신
-        
-        return true;
-    }
-
-    /// <summary>
-    /// 아이템 사용
-    /// </summary>
-    /// <param name="itemId">사용할 아이템</param>
-    public void UseItem(int itemId)
-    {
-        //인벤토리에 해당 아이템이 있는지 확인
-        MyDediPlayer myDediPlayer = Managers.Player._myDediPlayer.GetComponent<MyDediPlayer>();
-        if (myDediPlayer._inventory._itemCount.ContainsKey(itemId))
-        {
-            //아이템 사용
-            IItem item = myDediPlayer._inventory._ownedItems[itemId][0].GetComponent<IItem>();
-            item.Use();
-            
-            //인벤토리에서 아이템 제거
-            myDediPlayer._inventory.RemoveOneItem(itemId);
-        }
-        else
-        {
-            Debug.Log($"인벤토리에 {itemId} 아이템이 없음.");
-        }
-    }
-    
-    /// <summary>
-    /// 아이템 선택시 기능 실행
-    /// </summary>
-    /// <param name="itemId">아이템id</param>
-    public void OnHoldItem(int itemId)
-    {
-        //인벤토리에 해당 아이템이 있는지 확인
-        MyDediPlayer myDediPlayer = Managers.Player._myDediPlayer.GetComponent<MyDediPlayer>();
-        if (myDediPlayer._inventory._itemCount.ContainsKey(itemId))
-        {
-            //아이템 선택시 기능 실행
-            IItem item = myDediPlayer._inventory._ownedItems[itemId][0].GetComponent<IItem>();
-            item.OnHold();
-        }
-        else
-        {
-            Debug.Log($"인벤토리에 {itemId} 아이템이 없음.");
-        }
-    }
-    
-    
-    
-    
-    
     /// <summary>
     /// 아이템 세팅 및 생성
     /// </summary>
@@ -272,5 +196,46 @@ public class ItemManager
             return null;
     }
     
+    /// <summary>
+    /// 아이템 사용
+    /// </summary>
+    /// <param name="itemId">사용할 아이템</param>
+    public void UseItem(int itemId)
+    {
+        //인벤토리에 해당 아이템이 있는지 확인
+        if (Managers.Inventory._ownedItems.ContainsKey(itemId))
+        {
+            //아이템 사용
+            IItem item = _items[itemId];
+            item.Use();
+            
+            //인벤토리에서 아이템 제거
+        //TODO: 아이템 사용 패킷 서버에 보내기 만약에 서버에서 사용 불가 응답이 오면 아래 코드 리버스 해야함.
+            Managers.Inventory.RemoveItemOnce(itemId);
+        }
+        else
+        {
+            Debug.Log($"인벤토리에 {itemId} 아이템이 없음.");
+        }
+    }
     
+    /// <summary>
+    /// 아이템 선택시 기능 실행
+    /// </summary>
+    /// <param name="itemId">아이템id</param>
+    public void OnHoldItem(int itemId)
+    {
+        //인벤토리에 해당 아이템이 있는지 확인
+        MyDediPlayer myDediPlayer = Managers.Player._myDediPlayer.GetComponent<MyDediPlayer>();
+        if (myDediPlayer._inventory._itemCount.ContainsKey(itemId))
+        {
+            //아이템 선택시 기능 실행
+            IItem item = myDediPlayer._inventory._ownedItems[itemId][0].GetComponent<IItem>();
+            item.OnHold();
+        }
+        else
+        {
+            Debug.Log($"인벤토리에 {itemId} 아이템이 없음.");
+        }
+    }
 }

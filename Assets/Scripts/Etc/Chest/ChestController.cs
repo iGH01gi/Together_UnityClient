@@ -196,18 +196,18 @@ public class ChestController : MonoBehaviour
         chest.OpenChest();
         
         //내 플레이어 포인트 증가처리 및 효과처리
+        Managers.Inventory.SetTotalPoint(totalPoint);//포인트 증가 처리
+        
         if (chest._point > 0) //꽝 상자 아님
         {
             Managers.Sound.Play("Success",Define.Sound.Effects,chest.transform.GetComponent<AudioSource>());
             Managers.Sound.Play("CoinSound",Define.Sound.Effects,chest.transform.GetComponent<AudioSource>());
-            Managers.Player._myDediPlayer.GetComponent<MyDediPlayer>()._totalPoint = totalPoint;
             Managers.UI.GetComponentInSceneUI<InGameUI>().SetCurrentCoin(totalPoint);
             Managers.UI.GetComponentInSceneUI<InGameUI>().AddGetCoin(getPoint);
         }
         else //꽝 상자임
         {
             Managers.Sound.Play("Fail",Define.Sound.Effects,chest.transform.GetComponent<AudioSource>());
-            Managers.Player._myDediPlayer.GetComponent<MyDediPlayer>()._totalPoint = totalPoint;
         }
     }
 }

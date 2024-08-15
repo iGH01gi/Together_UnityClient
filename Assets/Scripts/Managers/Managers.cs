@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class Managers : MonoBehaviour
@@ -27,6 +28,7 @@ public class Managers : MonoBehaviour
     ItemManager _item = new ItemManager();
     KillerManager _killer = new KillerManager();
     SteamManager _steam = new SteamManager();
+    InventoryManager _inventory = new InventoryManager();
     
     
     public static  ResourceManager Resource { get { return Instance._resource;} }
@@ -48,6 +50,8 @@ public class Managers : MonoBehaviour
     public static ItemManager Item { get { return Instance._item; } }
     public static KillerManager Killer { get { return Instance._killer; } }
     public static SteamManager Steam { get { return Instance._steam; } }
+    
+    public static InventoryManager Inventory { get { return Instance._inventory; } }
 
 
     void Start()
@@ -103,6 +107,7 @@ public class Managers : MonoBehaviour
         Scene.Clear();
         UI.Clear();
         Pool.Clear();
+        Inventory.Clear();
     }
 
     private void OnApplicationQuit()

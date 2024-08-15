@@ -52,7 +52,7 @@ public class GameManager
         _isDay = false;
         WhenChangeDayNight(timeToSet);
         _clientGauge.Init();
-        //플레이어 프리팹 바꾸기
+        Managers.Inventory.ResetPoint();
     }
 
     public void ChangeToKiller()

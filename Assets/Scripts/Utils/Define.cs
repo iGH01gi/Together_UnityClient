@@ -68,20 +68,9 @@ public class Define
         Patch,
     }
 
-    public enum Popup
+    public enum SupportedLanguages
     {
-        Undefined,
-        YesNo
-    }
-
-    public enum InputType
-    {
-        UIInputHandler
-    }
-
-    public enum Killers
-    {
-        Heartless,
-        Detector,
+        Korean,
+        English
     }
 }

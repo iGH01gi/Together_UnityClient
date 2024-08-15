@@ -1,7 +1,6 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using System.Globalization;
 using Cinemachine;
 using TMPro;
 using UnityEngine;
@@ -97,7 +96,7 @@ public class DayToNightPopup : UI_popup
             _camera.GetComponent<Transform>().rotation = positions.GetChild(i).GetComponent<Transform>().rotation;
             yield return new WaitForSeconds(0.9f);
         }
-        if (CultureInfo.CurrentCulture.Name == "ko-KR")
+        if (Util.CheckLocale(Define.SupportedLanguages.Korean))
         {
             _killerText.text = Managers.Killer._killers[Managers.Player._myDediPlayer.GetComponent<MyDediPlayer>()._killerType].KoreanName;
             _killerDescriptionText.text = Managers.Killer._killers[Managers.Player._myDediPlayer.GetComponent<MyDediPlayer>()._killerType].KoreanDescription;

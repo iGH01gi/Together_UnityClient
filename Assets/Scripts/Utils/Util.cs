@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
-using UnityEngine.Localization.Components;
+using UnityEngine.Localization.Settings;
 
 public class Util
 {
@@ -75,5 +75,22 @@ public class Util
     public static int GetIndexOfEnum<E>(E e)
     {
         return Array.IndexOf(Enum.GetValues(e.GetType()), e);
+    }
+
+    public static bool CheckLocale(Define.SupportedLanguages lang)
+    {
+        string currentLocale = LocalizationSettings.SelectedLocale.Identifier.Code;
+
+        switch (lang)
+        {
+            case Define.SupportedLanguages.English:
+                return string.Equals(currentLocale, "en");
+                break;
+            case Define.SupportedLanguages.Korean:
+                return string.Equals(currentLocale, "kr");
+                break;
+            default:
+                return string.Equals(currentLocale, "en");
+        }
     }
 }
