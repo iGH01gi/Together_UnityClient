@@ -32,8 +32,8 @@ RectTransform:
   m_Children:
   - {fileID: 7437031750636084612}
   - {fileID: 1976643843884876925}
-  - {fileID: 5380136676820595504}
   - {fileID: 1540983493301296583}
+  - {fileID: 5380136676820595504}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0.75}
@@ -73,7 +73,7 @@ MonoBehaviour:
     m_Top: 0
     m_Bottom: 0
   m_ChildAlignment: 4
-  m_Spacing: 20
+  m_Spacing: 0
   m_ChildForceExpandWidth: 0
   m_ChildForceExpandHeight: 1
   m_ChildControlWidth: 0
@@ -115,7 +115,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3070728224494617866, guid: ec1cb53c33b085d4e8e7c1f7406db44b, type: 3}
       propertyPath: m_SizeDelta.x
-      value: 384
+      value: 512
       objectReference: {fileID: 0}
     - target: {fileID: 3070728224494617866, guid: ec1cb53c33b085d4e8e7c1f7406db44b, type: 3}
       propertyPath: m_SizeDelta.y
@@ -217,7 +217,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3070728224494617866, guid: ec1cb53c33b085d4e8e7c1f7406db44b, type: 3}
       propertyPath: m_SizeDelta.x
-      value: 384
+      value: 512
       objectReference: {fileID: 0}
     - target: {fileID: 3070728224494617866, guid: ec1cb53c33b085d4e8e7c1f7406db44b, type: 3}
       propertyPath: m_SizeDelta.y
@@ -319,7 +319,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3070728224494617866, guid: ec1cb53c33b085d4e8e7c1f7406db44b, type: 3}
       propertyPath: m_SizeDelta.x
-      value: 384
+      value: 512
       objectReference: {fileID: 0}
     - target: {fileID: 3070728224494617866, guid: ec1cb53c33b085d4e8e7c1f7406db44b, type: 3}
       propertyPath: m_SizeDelta.y
@@ -421,7 +421,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3070728224494617866, guid: ec1cb53c33b085d4e8e7c1f7406db44b, type: 3}
       propertyPath: m_SizeDelta.x
-      value: 384
+      value: 512
       objectReference: {fileID: 0}
     - target: {fileID: 3070728224494617866, guid: ec1cb53c33b085d4e8e7c1f7406db44b, type: 3}
       propertyPath: m_SizeDelta.y

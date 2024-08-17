@@ -19,6 +19,15 @@ public class InventoryInput : MonoBehaviour
         }
     }
     
+    void OnUseItem(InputValue value)
+    {
+        int itemID = Managers.Inventory._hotbar.CurrentSelectedItemID();
+        if(itemID != -1)
+        {
+            Managers.Item._items[itemID].Use();
+        }
+    }
+    
     void OnHotbar0(InputValue value)
     {
         Managers.Inventory._hotbar.ChangeSelected(0);

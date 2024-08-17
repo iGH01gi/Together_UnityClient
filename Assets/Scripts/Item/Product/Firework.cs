@@ -29,7 +29,7 @@ public class Firework : MonoBehaviour, IItem
     
     public void Use()
     {
-
+        Debug.Log("Item Firework Use");
     }
     
     public void OnHold()

@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class InventoryManager : MonoBehaviour
 {
+    InGameUI _inGameUI;
     public Hotbar _hotbar;
     public PlayerInventory _inventory;
     public Shop _shop;
@@ -16,9 +17,10 @@ public class InventoryManager : MonoBehaviour
     {
         _totalPoint = 0;
         _ownedItems = new Dictionary<int, int>();
-        _hotbar = Managers.UI.GetComponentInSceneUI<InGameUI>()._hotbar.GetComponent<Hotbar>();
-        _inventory = Managers.UI.GetComponentInSceneUI<InGameUI>()._inventory.GetComponent<PlayerInventory>();
-        _shop = Managers.UI.GetComponentInSceneUI<InGameUI>()._shop.GetComponent<Shop>();
+        _inGameUI = Managers.UI.GetComponentInSceneUI<InGameUI>();
+        _hotbar = _inGameUI._hotbar.GetComponent<Hotbar>();
+        _inventory = _inGameUI._inventory.GetComponent<PlayerInventory>();
+        _shop = _inGameUI._shop.GetComponent<Shop>();
         _shop.Init();
     }
     
@@ -41,11 +43,13 @@ public class InventoryManager : MonoBehaviour
     }
     
     /// <summary>
-    /// 포인트 리셋
+    /// 포인트와 아이템 리셋
     /// </summary>
-    public void ResetPoint()
+    public void ResetInventory()
     {
         _totalPoint = 0;
+        _inventory.ClearInventory();
+        _hotbar.ClearSlot();
     }
     
     #endregion
@@ -82,8 +86,8 @@ public class InventoryManager : MonoBehaviour
         Managers.Sound.Play("PurchaseSuccess");
         int price = Managers.Item._items[itemID].Price;
         _totalPoint -=price;
-        Managers.UI.GetComponentInSceneUI<InGameUI>().SetCurrentCoin(_totalPoint);
-        Managers.UI.GetComponentInSceneUI<InGameUI>().AddGetCoin(price,false);
+        _inGameUI.SetCurrentCoin(_totalPoint);
+        _inGameUI.AddGetCoin(price,false);
         if(_ownedItems.ContainsKey(itemID))
         {
             _ownedItems[itemID]++;
@@ -91,6 +95,7 @@ public class InventoryManager : MonoBehaviour
         else
         {
             _ownedItems.Add(itemID, 1);
+            _inventory.AddNewItem(itemID);
         }
     }
     #endregion
@@ -103,6 +108,11 @@ public class InventoryManager : MonoBehaviour
             if(_ownedItems[itemID] == 0)
             {
                 _ownedItems.Remove(itemID);
+                _inventory.RemoveItem(itemID);
+            }
+            else
+            {
+                _inventory.ChangeItemAmount(itemID);
             }
         }
     }

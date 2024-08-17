@@ -30,7 +30,7 @@ public class Dash : MonoBehaviour, IItem
 
     public void Use()
     {
-
+        Debug.Log("Item Dash Use");
     }
     
     public void OnHold()
