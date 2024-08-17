@@ -4,13 +4,17 @@ using UnityEngine;
 
 public class Shop : MonoBehaviour
 {
+    string _viewContentPath = "Scroll View/Viewport/Content";
+    string _slotPath = "UI/Inventory/InventoryParts/ShopSlot";
+    private Dictionary<int, ShopSlot> _shopSlots;
     public void Init()
     {
+        _shopSlots = new Dictionary<int, ShopSlot>();
         foreach (KeyValuePair<int, IItem> entry in Managers.Item._items)
         {
-            //instantiate slot
-            //set item icon to slot
-            //set item cost to slot
+            ShopSlot temp = Managers.Resource.Instantiate(_slotPath,transform.Find(_viewContentPath)).GetComponent<ShopSlot>();
+            _shopSlots.Add(entry.Key, temp);
+            temp.Init(entry.Key);
         }
     }
 }

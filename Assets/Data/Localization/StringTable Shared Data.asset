@@ -207,6 +207,10 @@ MonoBehaviour:
     m_Key: SurvivorText
     m_Metadata:
       m_Items: []
+  - m_Id: 82078301827534848
+    m_Key: Buy
+    m_Metadata:
+      m_Items: []
   m_Metadata:
     m_Items: []
   m_KeyGenerator:

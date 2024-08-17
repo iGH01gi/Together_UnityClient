@@ -32,8 +32,8 @@ public class InGameUI : UI_scene
         _gauge.SetActive(false);
         _coinCollect.SetActive(false);
         _killerSkill.SetActive(false);
-        CloseInventory();
         Managers.Inventory.Init();
+        CloseInventory();
     }
     
     Color _colorTimerDay = new Color(68f/ 255f,68f/ 255f,68f/ 255f);

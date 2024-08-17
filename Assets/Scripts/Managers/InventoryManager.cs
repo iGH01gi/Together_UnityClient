@@ -19,6 +19,7 @@ public class InventoryManager : MonoBehaviour
         _hotbar = Managers.UI.GetComponentInSceneUI<InGameUI>()._hotbar.GetComponent<Hotbar>();
         _inventory = Managers.UI.GetComponentInSceneUI<InGameUI>()._inventory.GetComponent<PlayerInventory>();
         _shop = Managers.UI.GetComponentInSceneUI<InGameUI>()._shop.GetComponent<Shop>();
+        _shop.Init();
     }
     
     public void Clear()
@@ -40,7 +41,7 @@ public class InventoryManager : MonoBehaviour
     }
     
     /// <summary>
-    /// 포인트 fltpt
+    /// 포인트 리셋
     /// </summary>
     public void ResetPoint()
     {
