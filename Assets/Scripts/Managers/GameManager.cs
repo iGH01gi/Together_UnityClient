@@ -45,7 +45,6 @@ public class GameManager
     {
         _isDay = true;
         WhenChangeDayNight(timeToSet);
-        Managers.Inventory.ResetInventory();
     }
     
     public void ChangeToNight(float timeToSet)

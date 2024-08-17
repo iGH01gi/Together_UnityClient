@@ -13,7 +13,7 @@ public class PlayerInventory : MonoBehaviour
     string _linePath = "UI/Inventory/InventoryParts/InventoryLine";
 
     List<GameObject> _lines = new List<GameObject>(); //라인들의 게임 오브젝트
-    private List<bool[]> _availability; // 슬롯 사용여부
+    private List<bool[]> _availability = new List<bool[]>(); // 슬롯 사용여부
     Dictionary<int,int> _address = new Dictionary<int, int>(); //key: 아이템Id, value: 아이템 위치
 
     void Start()
@@ -28,7 +28,7 @@ public class PlayerInventory : MonoBehaviour
     {
         GameObject cur = Managers.Resource.Instantiate(_linePath, transform.Find(_viewContentPath));
         _lines.Add(cur);
-        cur.GetComponent<HorizontalLayoutGroup>().spacing = Screen.width / 100;
+        cur.GetComponent<HorizontalLayoutGroup>().spacing = Screen.width / 300;
         _availability.Add(new bool[5]);
     }
 
