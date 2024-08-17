@@ -56,10 +56,7 @@ public class ObjectInput : MonoBehaviour
         }
         else if (other.tag == "Cleanse")
         {
-            if (Managers.Object._cleanseController._myPlayerCurrentCleanse != null)
-            {
-                Managers.Object._cleanseController.QuitCleansing(Managers.Object._cleanseController._myPlayerCurrentCleanse._cleanseId);
-            }
+            QuitCleansing();
             _currentCleanse = null;
         }
     }
@@ -101,10 +98,9 @@ public class ObjectInput : MonoBehaviour
                         Managers.Object._cleanseController.TryCleanse(
                             _currentCleanse.GetComponent<Cleanse>()._cleanseId);
                     }
-                    else if ((Managers.Object._cleanseController._myPlayerCurrentCleanse != null) && value.isPressed)
+                    else if (value.isPressed)
                     {
-                        Managers.Object._cleanseController.QuitCleansing(_currentCleanse.GetComponent<Cleanse>()
-                            ._cleanseId);
+                        QuitCleansing();
                     }
                 }
             }
@@ -124,43 +120,11 @@ public class ObjectInput : MonoBehaviour
         }
     }
 
-    void OnInventory(InputValue value)
+    public void QuitCleansing()
     {
-        InGameUI inGameUI = Managers.UI.GetComponentInSceneUI<InGameUI>();
-        if (inGameUI._isInventoryOpen)
+        if ((Managers.Object._cleanseController._myPlayerCurrentCleanse != null))
         {
-            Managers.Input.DisableCursor();
-            inGameUI.CloseInventory();
+            Managers.Object._cleanseController.QuitCleansing(_currentCleanse.GetComponent<Cleanse>()._cleanseId);
         }
-        else
-        {
-            Managers.Input.EnableCursor();
-            inGameUI.OpenInventory();
-        }
-    }
-    
-    void OnHotbar0(InputValue value)
-    {
-        Managers.Inventory._hotbar.ChangeSelected(0);
-    }
-    
-    void OnHotbar1(InputValue value)
-    {
-        Managers.Inventory._hotbar.ChangeSelected(1);
-    }
-    
-    void OnHotbar2(InputValue value)
-    {
-        Managers.Inventory._hotbar.ChangeSelected(2);
-    }
-    
-    void OnHotbar3(InputValue value)
-    {
-        Managers.Inventory._hotbar.ChangeSelected(3);
-    }
-    
-    void OnHotbar4(InputValue value)
-    {
-        Managers.Inventory._hotbar.ChangeSelected(4);
     }
 }

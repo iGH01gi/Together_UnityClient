@@ -34,7 +34,7 @@ public class PlayerAnimController : MonoBehaviour
         return _anim.GetCurrentAnimatorStateInfo(_anim.GetLayerIndex("Base Layer")).IsName("Attack");
     }
 
-    void PlayerAnimClear()
+    public void PlayerAnimClear()
     {
         isRunning = false;
         isWalking = false;
