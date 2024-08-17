@@ -77,7 +77,7 @@ public class GameManager
         }
     }
     public void PlayChaseSound()
-    {
+    {if(_playKillerSound!=null)
         _playKillerSound.CheckPlayChaseSound();
     }
 

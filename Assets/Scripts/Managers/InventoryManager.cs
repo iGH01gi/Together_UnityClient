@@ -4,9 +4,9 @@ using UnityEngine;
 
 public class InventoryManager : MonoBehaviour
 {
-    public static GameObject _inventory;
-    public static Shop _shop;
-    public static GameObject _hotbar;
+    public Hotbar _hotbar;
+    public PlayerInventory _inventory;
+    public Shop _shop;
     
     private int _totalPoint = 0; //상자로 얻은 총 포인트(낮마다 초기화)
     
@@ -16,6 +16,9 @@ public class InventoryManager : MonoBehaviour
     {
         _totalPoint = 0;
         _ownedItems = new Dictionary<int, int>();
+        _hotbar = Managers.UI.GetComponentInSceneUI<InGameUI>()._hotbar.GetComponent<Hotbar>();
+        _inventory = Managers.UI.GetComponentInSceneUI<InGameUI>()._inventory.GetComponent<PlayerInventory>();
+        _shop = Managers.UI.GetComponentInSceneUI<InGameUI>()._shop.GetComponent<Shop>();
     }
     
     public void Clear()

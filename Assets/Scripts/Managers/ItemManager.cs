@@ -130,7 +130,6 @@ public class ItemManager
             }
         }
     }
-
     /// <summary>
     /// 아이템 가격 반환
     /// </summary>
@@ -227,10 +226,10 @@ public class ItemManager
     {
         //인벤토리에 해당 아이템이 있는지 확인
         MyDediPlayer myDediPlayer = Managers.Player._myDediPlayer.GetComponent<MyDediPlayer>();
-        if (myDediPlayer._inventory._itemCount.ContainsKey(itemId))
+        if (Managers.Inventory._ownedItems.ContainsKey(itemId))
         {
             //아이템 선택시 기능 실행
-            IItem item = myDediPlayer._inventory._ownedItems[itemId][0].GetComponent<IItem>();
+            IItem item = _items[itemId];
             item.OnHold();
         }
         else

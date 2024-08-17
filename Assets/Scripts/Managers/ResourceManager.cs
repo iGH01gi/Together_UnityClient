@@ -50,4 +50,9 @@ public class ResourceManager
 
         Object.Destroy(go);
     }
+
+    public Sprite GetIcon(string name)
+    {
+        return Resources.Load<Sprite>($"Icon/Item/{name}");
+    }
 }

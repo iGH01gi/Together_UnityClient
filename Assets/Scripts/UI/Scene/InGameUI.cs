@@ -13,6 +13,11 @@ public class InGameUI : UI_scene
     public GameObject _coin;
     public GameObject _coinCollect;
     public GameObject _killerSkill;
+    public GameObject _inventory;
+    public GameObject _shop;
+    public GameObject _hotbar;
+    
+    public bool _isInventoryOpen;
     private void Start()
     {
         Managers.UI.LoadPopupPanel<WairForSecondsPopup>(true,false); //3초 카운트 다운
@@ -21,9 +26,14 @@ public class InGameUI : UI_scene
         _coin = transform.Find("Coin").gameObject;
         _coinCollect = transform.Find("CoinCollect").gameObject;
         _killerSkill = transform.Find("KillerSkill").gameObject;
+        _inventory = transform.Find("Inventory").gameObject;
+        _shop = transform.Find("Shop").gameObject;
+        _hotbar = transform.Find("Hotbar").gameObject;
         _gauge.SetActive(false);
         _coinCollect.SetActive(false);
         _killerSkill.SetActive(false);
+        CloseInventory();
+        Managers.Inventory.Init();
     }
     
     Color _colorTimerDay = new Color(68f/ 255f,68f/ 255f,68f/ 255f);
@@ -36,14 +46,39 @@ public class InGameUI : UI_scene
         {
             IsNotKiller();
             _timer.GetComponent<ProgressBar>().ChangeForeground(_colorTimerDay);
+            if (_isInventoryOpen)
+            {
+                _shop.SetActive(true);
+            }
         }
         else
         {
             _timer.GetComponent<ProgressBar>().ChangeForeground(_colorTimerNight);
             SetCurrentCoin(0);
+            if (_isInventoryOpen)
+            {
+                _shop.SetActive(false);
+            }
         }
         _gauge.SetActive(!isDay);
         _coin.SetActive(isDay);
+    }
+    
+    public void OpenInventory()
+    {
+        _inventory.SetActive(true);
+        if (Managers.Game._isDay)
+        {
+            _shop.SetActive(true);
+        }
+        _isInventoryOpen = true;
+    }
+
+    public void CloseInventory()
+    {
+        _shop.SetActive(false);
+        _inventory.SetActive(false);
+        _isInventoryOpen = false;
     }
 
     public void ChangeCurrentTimerValue(float value)

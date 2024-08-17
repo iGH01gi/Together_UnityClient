@@ -259,7 +259,7 @@ public class PlayerManager
     {
         Managers.Player._myDediPlayer.GetComponent<MyDediPlayer>()._isKiller = false;
         Managers.Player._myDediPlayer.GetComponent<MyDediPlayer>()._gauge = 0;
-        Managers.Inventory._totalPoint = 0;
+        Managers.Inventory.SetTotalPoint(0);
         
         foreach (KeyValuePair<int, GameObject> a in _otherDediPlayers)
         {

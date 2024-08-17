@@ -14,8 +14,6 @@ public class ObjectInput : MonoBehaviour
         GetComponent<PlayerInput>().DeactivateInput();
     }
     
-    
-    
     private void OnTriggerEnter(Collider other)
     {
         Debug.Log(other.tag);
@@ -124,5 +122,43 @@ public class ObjectInput : MonoBehaviour
         {
             Managers.Game._myKillerSkill.TryUseSkill();
         }
+    }
+
+    void OnInventory(InputValue value)
+    {
+        InGameUI inGameUI = Managers.UI.GetComponentInSceneUI<InGameUI>();
+        if (inGameUI._isInventoryOpen)
+        {
+            inGameUI.CloseInventory();
+        }
+        else
+        {
+            inGameUI.OpenInventory();
+        }
+    }
+    
+    void OnHotbar0(InputValue value)
+    {
+        Managers.Inventory._hotbar.ChangeSelected(0);
+    }
+    
+    void OnHotbar1(InputValue value)
+    {
+        Managers.Inventory._hotbar.ChangeSelected(1);
+    }
+    
+    void OnHotbar2(InputValue value)
+    {
+        Managers.Inventory._hotbar.ChangeSelected(2);
+    }
+    
+    void OnHotbar3(InputValue value)
+    {
+        Managers.Inventory._hotbar.ChangeSelected(3);
+    }
+    
+    void OnHotbar4(InputValue value)
+    {
+        Managers.Inventory._hotbar.ChangeSelected(4);
     }
 }
