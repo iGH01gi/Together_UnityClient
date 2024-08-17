@@ -58,7 +58,14 @@ public class InventoryManager : MonoBehaviour
     /// <param name = "itemID">구매하려는 아이템id</param>
     public void TryBuyItem(int itemID)
     {
-        //TODO: 아이템 구매 서버 리퀘스트 보내기
+        if(_totalPoint < Managers.Item._items[itemID].Price)
+        {
+            Managers.Sound.Play("Error", Define.Sound.Effects,null,1.3f);
+        }
+        else
+        {
+            //TODO: 아이템 구매 서버 리퀘스트 보내기
+        }
     }
     
 
@@ -72,6 +79,11 @@ public class InventoryManager : MonoBehaviour
     /// <param name="itemID">구매 가능한 아이템id</param>
     public void BuyItemSuccess(int itemID)
     {
+        Managers.Sound.Play("PurchaseSuccess");
+        int price = Managers.Item._items[itemID].Price;
+        _totalPoint -=price;
+        Managers.UI.GetComponentInSceneUI<InGameUI>().SetCurrentCoin(_totalPoint);
+        Managers.UI.GetComponentInSceneUI<InGameUI>().AddGetCoin(price,false);
         if(_ownedItems.ContainsKey(itemID))
         {
             _ownedItems[itemID]++;

@@ -13,14 +13,21 @@ public class AddCoinEffect : MonoBehaviour
     private Vector3 _originalPos;
     private float _finalUpLen;
 
-    public void Init(int coinAdded)
+    public void Init(int coinAdded,bool isAddCoin = true)
     {
         _originalPos = transform.position;
         _tmpText = GetComponent<TMP_Text>();
         _tmpText.alpha = 0;
         _time = 0;
         _finalUpLen = Screen.height * 0.03f;
-        _tmpText.text = String.Concat("+", coinAdded.ToString());
+        if(isAddCoin)
+        {
+            _tmpText.text = String.Concat("+", coinAdded.ToString());
+        }
+        else
+        {
+            _tmpText.text = String.Concat("-", coinAdded.ToString());
+        }
     }
 
     // Update is called once per frame

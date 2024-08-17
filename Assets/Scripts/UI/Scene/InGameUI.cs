@@ -107,10 +107,10 @@ public class InGameUI : UI_scene
         _coin.transform.Find("CoinText").GetComponent<TMP_Text>().text = coinTotal.ToString();
     }
 
-    public void AddGetCoin(int coinAdded)
+    public void AddGetCoin(int coinAdded,bool isAddCoin = true)
     {
         _coinCollect.SetActive(true);
-        _coinCollect.AddComponent<AddCoinEffect>().Init(coinAdded);
+        _coinCollect.AddComponent<AddCoinEffect>().Init(coinAdded,isAddCoin);
     }
 
     public void SetSkillCooltime(float skillCooltime)
