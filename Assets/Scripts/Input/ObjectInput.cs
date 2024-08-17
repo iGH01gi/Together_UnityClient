@@ -129,10 +129,12 @@ public class ObjectInput : MonoBehaviour
         InGameUI inGameUI = Managers.UI.GetComponentInSceneUI<InGameUI>();
         if (inGameUI._isInventoryOpen)
         {
+            Managers.Input.DisableCursor();
             inGameUI.CloseInventory();
         }
         else
         {
+            Managers.Input.EnableCursor();
             inGameUI.OpenInventory();
         }
     }

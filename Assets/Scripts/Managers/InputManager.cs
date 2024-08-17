@@ -6,15 +6,14 @@ using UnityEngine.InputSystem;
 
 public class InputManager
 {
-    public Vector2 moveVal;
-    static GameObject root;
     private InputActionAsset _inputActionAsset;
-    private GameObject LobbyInput;
-    private GameObject InGameInput;
-    
+    private bool _isCursorVisible;
+    private MovementInput _movementInput;
+
     public void Init()
     {
         _inputActionAsset = Resources.Load<InputActionAsset>("playerInput");
+        _isCursorVisible = false;
         /*
         root = GameObject.Find("@Input");
        /* if (root == null)
@@ -47,9 +46,26 @@ public class InputManager
     {
         _inputActionAsset.Disable();
     }
-    
-    public bool IsReceivingInput()
+
+    public void EnableCursor()
     {
-        return _inputActionAsset.enabled;
+        if (_movementInput == null )
+        {
+            _movementInput = Managers.Player._myDediPlayer.GetComponent<MovementInput>();
+        }
+        _movementInput.enabled = false;
+        Cursor.visible = true;
+        _isCursorVisible = true;
+    }
+    
+    public void DisableCursor()
+    {
+        if (_movementInput == null )
+        {
+            _movementInput = Managers.Player._myDediPlayer.GetComponent<MovementInput>();
+        }
+        _movementInput.enabled = true;
+        Cursor.visible = false;
+        _isCursorVisible = false;
     }
 }
