@@ -49,11 +49,6 @@ public class ItemDragDrop : MonoBehaviour,IBeginDragHandler,IDragHandler,IEndDra
             
             droppedLocation.transform.SetParent(_originaSlot);
             droppedLocation.transform.localPosition = _localPos;
-
-            //InventorySlot에 아이템 교체 정보 업데이트
-            int temp = current.itemID;
-            current.SetID(target.itemID);
-            target.SetID(temp);
             Debug.Log("Swap Complete");
         }
         else

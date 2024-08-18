@@ -39,9 +39,4 @@ public class InventorySlot : MonoBehaviour
     {
         _amount.text = Managers.Inventory._ownedItems[itemID].ToString();
     }
-    
-    public void SetID(int id)
-    {
-        itemID = id;
-    }
 }
