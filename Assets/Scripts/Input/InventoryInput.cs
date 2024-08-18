@@ -22,9 +22,10 @@ public class InventoryInput : MonoBehaviour
     void OnUseItem(InputValue value)
     {
         int itemID = Managers.Inventory._hotbar.CurrentSelectedItemID();
+        Debug.Log("Current selected item ID = " + itemID);
         if(itemID != -1)
         {
-            Managers.Item._items[itemID].Use();
+            Managers.Item.UseItem(itemID);
         }
     }
     

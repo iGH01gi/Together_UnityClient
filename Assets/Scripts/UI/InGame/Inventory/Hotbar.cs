@@ -8,9 +8,9 @@ public class Hotbar : MonoBehaviour
 {
     //Hotbar의 child는 5개의 슬롯만 있다는 가정 하에 구현
     Transform _currentSlot;
-    private Color _unselectColor = Color.white;
-    private Color _selectedColor = Color.black;
-
+    private Color _selectedColor = Color.white;
+    private Color _unselectColor= Color.black;
+    
     private void Start()
     {
         _currentSlot = GetSlot(0);
@@ -49,6 +49,7 @@ public class Hotbar : MonoBehaviour
         _currentSlot.Find("Paint").GetComponent<Image>().color = _unselectColor;
         _currentSlot = GetSlot(index);
         _currentSlot.Find("Paint").GetComponent<Image>().color = _selectedColor;
+        Debug.Log("Current Slot : " + index);
     }
 
     public int CurrentSelectedItemID()

@@ -32,8 +32,11 @@ public class ItemDragDrop : MonoBehaviour,IBeginDragHandler,IDragHandler,IEndDra
     public void OnEndDrag(PointerEventData eventData)
     {
         
-        GameObject droppedLocation = eventData.pointerCurrentRaycast.gameObject.transform.parent.gameObject;
-        Debug.Log("Dropped value = " + droppedLocation.name);
+        GameObject droppedLocation = eventData.pointerCurrentRaycast.gameObject;
+        if (droppedLocation != null)
+        {
+            droppedLocation = droppedLocation.transform.parent.gameObject;
+        }
         if (droppedLocation != null && droppedLocation.GetComponent<InventorySlot>() != null)
         {
             InventorySlot current = transform.GetComponent<InventorySlot>();
