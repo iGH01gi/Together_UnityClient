@@ -62,7 +62,7 @@ public class InventoryManager : MonoBehaviour
     /// <param name = "itemID">구매하려는 아이템id</param>
     public void TryBuyItem(int itemID)
     {
-        if(_totalPoint < Managers.Item._items[itemID].Price)
+        if((_totalPoint < Managers.Item._items[itemID].Price)&&(Managers.Game._isDay))
         {
             Managers.Sound.Play("Error", Define.Sound.Effects,null,1.3f);
         }

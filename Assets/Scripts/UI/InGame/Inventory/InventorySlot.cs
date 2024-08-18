@@ -7,7 +7,7 @@ using UnityEngine.UI;
 
 public class InventorySlot : MonoBehaviour
 {
-    int itemID;
+    public int itemID;
     Image _sprite;
     TMP_Text _amount;
 
@@ -40,8 +40,13 @@ public class InventorySlot : MonoBehaviour
         _amount.text = Managers.Inventory._ownedItems[itemID].ToString();
     }
     
-    public int GetItemID()
+    //<summary>
+    //아이템 슬롯 교체 (Item GameObject가 먼저!!! 바뀌고 InventorySlot이 바뀌어야 함)
+    //</summary>
+    public void SwapSlots(int id)
     {
-        return itemID;
+        itemID = id;
+        _sprite = transform.Find($"Item/Sprite").GetComponent<Image>();
+        _amount = transform.Find($"Item/Amount").GetComponent<TMP_Text>();
     }
 }

@@ -53,7 +53,7 @@ public class Hotbar : MonoBehaviour
 
     public int CurrentSelectedItemID()
     {
-        return _currentSlot.GetComponent<InventorySlot>().GetItemID();
+        return _currentSlot.GetComponent<InventorySlot>().itemID;
     }
     
     public void ClearSlot()
