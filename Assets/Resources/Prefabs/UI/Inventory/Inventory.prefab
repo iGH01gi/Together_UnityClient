@@ -33,7 +33,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: 0.0006979457}
+  m_AnchoredPosition: {x: 0, y: 82.79591}
   m_SizeDelta: {x: 0, y: 300}
   m_Pivot: {x: 0, y: 1}
 --- !u!114 &6568274581218297015
@@ -384,7 +384,7 @@ MonoBehaviour:
   m_HandleRect: {fileID: 187549971989943001}
   m_Direction: 2
   m_Value: 0
-  m_Size: 0.99999785
+  m_Size: 0.792721
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
@@ -509,7 +509,6 @@ GameObject:
   - component: {fileID: 7862509899183850988}
   - component: {fileID: 2565015434082596013}
   - component: {fileID: 3117186796918859852}
-  - component: {fileID: 1371012727096006264}
   m_Layer: 5
   m_Name: Inventory
   m_TagString: Untagged
@@ -585,17 +584,5 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 14f278ca0c9f4584aab43a7bb67f6a20, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &1371012727096006264
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7695364221896337607}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e4799458cb282a046a77fe3964f2dec3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 

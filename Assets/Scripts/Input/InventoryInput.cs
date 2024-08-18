@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.InputSystem;
 public class InventoryInput : MonoBehaviour
 {
@@ -7,8 +8,7 @@ public class InventoryInput : MonoBehaviour
         InGameUI inGameUI = Managers.UI.GetComponentInSceneUI<InGameUI>();
         if (inGameUI._isInventoryOpen)
         {
-            Managers.Input.DisableCursor();
-            inGameUI.CloseInventory();
+            CloseInventory();
         }
         else
         {
@@ -52,5 +52,16 @@ public class InventoryInput : MonoBehaviour
     void OnHotbar4(InputValue value)
     {
         Managers.Inventory._hotbar.ChangeSelected(4);
+    }
+
+    public void OnCancelUI(InputValue value)
+    {
+        CloseInventory();
+    }
+
+    private void CloseInventory()
+    {
+        Managers.Input.DisableCursor();
+        Managers.UI.GetComponentInSceneUI<InGameUI>().CloseInventory();
     }
 }
