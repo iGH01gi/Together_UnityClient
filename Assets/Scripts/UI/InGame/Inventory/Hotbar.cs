@@ -13,7 +13,7 @@ public class Hotbar : MonoBehaviour
 
     private void Start()
     {
-        _currentSlot = transform.GetChild(0);
+        _currentSlot = GetSlot(0);
         ChangeSelected(0);
     }
 
@@ -24,7 +24,7 @@ public class Hotbar : MonoBehaviour
             Debug.Log("Hotbar Slot Index Out of Range");
             return;
         }
-        transform.GetChild(slot).GetComponent<InventorySlot>().Init(slot);
+        GetSlot(slot).GetComponent<InventorySlot>().Init(slot);
     }
 
     public void RemoveFromSlot(int slot)
@@ -34,7 +34,7 @@ public class Hotbar : MonoBehaviour
             Debug.Log("Hotbar Slot Index Out of Range");
             return;
         }
-        transform.GetChild(slot).GetComponent<InventorySlot>().ClearSlot();
+        GetSlot(slot).GetComponent<InventorySlot>().ClearSlot();
     }
 
     public void ChangeSelected(int index)
@@ -47,7 +47,7 @@ public class Hotbar : MonoBehaviour
         }
         //이전 슬롯과 현재 슬롯 색상 변경
         _currentSlot.Find("Paint").GetComponent<Image>().color = _unselectColor;
-        _currentSlot = transform.GetChild(index);
+        _currentSlot = GetSlot(index);
         _currentSlot.Find("Paint").GetComponent<Image>().color = _selectedColor;
     }
 
@@ -61,12 +61,17 @@ public class Hotbar : MonoBehaviour
         //TODO:만약 들고 있는 아이템이 있다면 아이템을 해제
         for (int i = 0; i < transform.childCount; i++)
         {
-            transform.GetChild(i).GetComponent<InventorySlot>().ClearSlot();
+            GetSlot(i).GetComponent<InventorySlot>().ClearSlot();
         }
     }
     
     private bool BadIndexCheck(int index)
     {
         return index >= transform.childCount || index < 0;
+    }
+    
+    private Transform GetSlot(int index)
+    {
+        return transform.GetChild(index);
     }
 }
