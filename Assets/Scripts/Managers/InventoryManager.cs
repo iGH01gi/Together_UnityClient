@@ -63,7 +63,7 @@ public class InventoryManager : MonoBehaviour
     public void TryBuyItem(int itemID)
     {
         BuyItemSuccess(itemID);
-        /*if((_totalPoint < Managers.Item._items[itemID].Price)&&(Managers.Game._isDay))
+        if((_totalPoint < Managers.Item._items[itemID].Price)&&(Managers.Game._isDay))
         {
             Managers.Sound.Play("Error", Define.Sound.Effects,null,1.3f);
         }
@@ -71,7 +71,7 @@ public class InventoryManager : MonoBehaviour
         {
             //TODO: 아이템 구매 서버 리퀘스트 보내기
             BuyItemSuccess(itemID);
-        }*/
+        }
     }
     
 
