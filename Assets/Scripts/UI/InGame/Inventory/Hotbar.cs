@@ -4,10 +4,13 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
+/// <summary>
+/// Hotbar UI를 관리하는 클래스.
+/// ***Hotbar는 5개의 슬롯만 있다는 가정하에 구현***
+/// </summary>
 public class Hotbar : MonoBehaviour
 {
-    //Hotbar의 child는 5개의 슬롯만 있다는 가정 하에 구현
-    Transform _currentSlot;
+    Transform _currentSlot; //현재 하이라이트 된 슬롯. Item이 아닌 슬롯을 가리킴!
     private Color _selectedColor = Color.white;
     private Color _unselectColor= Color.black;
     
@@ -17,6 +20,11 @@ public class Hotbar : MonoBehaviour
         ChangeSelected(0);
     }
 
+    /// <summary>
+    /// 슬롯에 아이템 추가
+    /// </summary>
+    /// <param name="slot"> 슬롯 index</param>
+    /// <param name="itemID"></param>
     public void AddToSlot(int slot, int itemID)
     {
         if (BadIndexCheck(slot))
@@ -27,6 +35,10 @@ public class Hotbar : MonoBehaviour
         GetSlot(slot).GetComponentInChildren<InventorySlot>().Init(slot);
     }
 
+    /// <summary>
+    /// 슬롯에서 아이템 제거
+    /// </summary>
+    /// <param name="slot"></param>
     public void RemoveFromSlot(int slot)
     {
         if (BadIndexCheck(slot))
@@ -36,7 +48,11 @@ public class Hotbar : MonoBehaviour
         }
         GetSlot(slot).GetComponentInChildren<InventorySlot>().ClearSlot();
     }
-
+    
+    /// <summary>
+    /// 선택된 슬롯 변경
+    /// </summary>
+    /// <param name="index">슬롯 index</param>
     public void ChangeSelected(int index)
     {
         //인덱스 체크
@@ -52,25 +68,29 @@ public class Hotbar : MonoBehaviour
         Debug.Log("Current Slot : " + index);
     }
 
+    /// <summary>
+    /// 현재 선택된 슬롯의 아이템 ID 반환
+    /// </summary>
+    /// <returns>현재 선택된 슬롯의 아이템 ID</returns>
     public int CurrentSelectedItemID()
     {
         return _currentSlot.GetComponentInChildren<InventorySlot>().itemID;
     }
     
-    public void ClearSlot()
-    {
-        //TODO:만약 들고 있는 아이템이 있다면 아이템을 해제
-        for (int i = 0; i < transform.childCount; i++)
-        {
-            GetSlot(i).GetComponentInChildren<InventorySlot>().ClearSlot();
-        }
-    }
     
+    /// <summary>
+    /// 잘못된 인덱스 체크 (Out of Range 방지)
+    /// </summary>
+    /// <param name="index"> 슬롯 index</param>
+    /// <returns>문제가 있을 시 true. 괜찮으면 false</returns>
     private bool BadIndexCheck(int index)
     {
         return index >= transform.childCount || index < 0;
     }
     
+    /// <summary>
+    /// 슬롯 반환
+    /// </summary>
     private Transform GetSlot(int index)
     {
         return transform.GetChild(index);

@@ -2,6 +2,9 @@ using System;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
+/// <summary>
+/// 아이템 드래그 앤 드롭을 관리하는 클래스. !슬롯!의 !아이템!에만 붙어있어야 한다.
+/// </summary>
 public class ItemDragDrop : MonoBehaviour,IBeginDragHandler,IDragHandler,IEndDragHandler
 {
     private Transform _originaSlot;
@@ -16,6 +19,9 @@ public class ItemDragDrop : MonoBehaviour,IBeginDragHandler,IDragHandler,IEndDra
         _localPos = transform.localPosition;
     }
 
+    /// <summary>
+    /// 드래그 시작 시 호출되는 함수
+    /// </summary>
     public void OnBeginDrag(PointerEventData eventData)
     {
         _originaSlot = transform.parent; //드래그 시작 시 부모 저장
@@ -24,19 +30,27 @@ public class ItemDragDrop : MonoBehaviour,IBeginDragHandler,IDragHandler,IEndDra
         _canvasGroup.alpha = 0.6f; //드래그 중 투명도 조절
     }
 
+    /// <summary>
+    /// 드래그 중 호출되는 함수
+    /// </summary>
     public void OnDrag(PointerEventData eventData)
     {
         _rectTransform.position = Input.mousePosition; //드래그 중 마우스 위치로 이동
     }
 
+    /// <summary>
+    /// 드래그 종료 시 호출되는 함수
+    /// </summary>
     public void OnEndDrag(PointerEventData eventData)
     {
         
         GameObject droppedLocation = eventData.pointerCurrentRaycast.gameObject;
+        //입력되는 게임 오브젝트가 Item이 아닌 child인 Icon이기에 부모를 찾아야함
         if (droppedLocation != null)
         {
             droppedLocation = droppedLocation.transform.parent.gameObject;
         }
+        //드롭 위치가 InventorySlot일 경우 슬롯끼리 교체
         if (droppedLocation != null && droppedLocation.GetComponent<InventorySlot>() != null)
         {
             InventorySlot current = transform.GetComponent<InventorySlot>();
@@ -51,6 +65,7 @@ public class ItemDragDrop : MonoBehaviour,IBeginDragHandler,IDragHandler,IEndDra
             droppedLocation.transform.localPosition = _localPos;
             Debug.Log("Swap Complete");
         }
+        //드롭 위치가 InventorySlot이 아닐 경우 원래 위치로 복귀
         else
         {
             transform.SetParent(_originaSlot);

@@ -1,8 +1,13 @@
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.InputSystem;
+
+//<summary>
+//인벤토리 관련 입력 처리
+//</summary>
 public class InventoryInput : MonoBehaviour
 {
+    
     void OnInventory(InputValue value)
     {
         InGameUI inGameUI = Managers.UI.GetComponentInSceneUI<InGameUI>();
