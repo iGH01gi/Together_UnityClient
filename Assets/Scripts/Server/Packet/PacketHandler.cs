@@ -212,8 +212,8 @@ public class PacketHandler
         DSC_StartGame startGamePacket = packet as DSC_StartGame;
         DedicatedServerSession dedicatedServerSession = session as DedicatedServerSession;
 
-        /*string itemDataJson = startGamePacket.Items;
-        Managers.Item.SaveJsonData(itemDataJson); //아이템 데이터 저장*/
+        string itemDataJson = startGamePacket.Items;
+        Managers.Item.SaveJsonData(itemDataJson); //아이템 데이터 저장
         Managers.Item.LoadItemData(); //저장했으면 아이템 데이터 로드
         
         string killerDataJson = startGamePacket.Killers;
@@ -477,7 +477,8 @@ public class PacketHandler
         
         Managers.Object._cleanseController.OnGetPermission(playerId, cleanseId);
     }
-    
+
+    //데디케이티드서버로부터 클린즈 사용을 포기했을때의 처리
     public static void DSC_CleanseQuitHandler(PacketSession session, IMessage packet)
     {
         DSC_CleanseQuit cleanseQuitPacket = packet as DSC_CleanseQuit;
@@ -490,7 +491,8 @@ public class PacketHandler
         
         Managers.Object._cleanseController.OnOtherClientQuitCleanse(playerId, cleanseId);
     }
-    
+
+    //데디케이티드서버로부터 클린즈 사용 성공했을때의 처리
     public static void DSC_CleanseSuccessHandler(PacketSession session, IMessage packet)
     {
         DSC_CleanseSuccess cleanseSuccessPacket = packet as DSC_CleanseSuccess;
@@ -521,7 +523,8 @@ public class PacketHandler
         
         Managers.Object._cleanseController.OnClientCleanseSuccess(playerId, cleanseId);
     }
-    
+
+    //데디케이티드서버로부터 클린즈 사용 쿨타임 시작했을때의 처리
     public static void DSC_CleanseCooltimeFinishHandler(PacketSession session, IMessage packet)
     {
         DSC_CleanseCooltimeFinish cleanseCooltimeFinishPacket = packet as DSC_CleanseCooltimeFinish;
@@ -533,6 +536,21 @@ public class PacketHandler
         
         Managers.Object._cleanseController.OnCleanseCooltimeFinish(cleanseId);
     }
-    
-    
+
+    //데디케이티드서버로부터 아이템 구매 결과를 받았을때의 처리
+    public static void DSC_ItemBuyResultHandler(PacketSession session, IMessage packet)
+    {
+        DSC_ItemBuyResult itemBuyResultPacket = packet as DSC_ItemBuyResult;
+        DedicatedServerSession dedicatedServerSession = session as DedicatedServerSession;
+        
+        Debug.Log("DSC_ItemBuyResultHandler");
+        
+        int playerId = itemBuyResultPacket.PlayerId;
+        int itemId = itemBuyResultPacket.ItemId;
+        int itemTotalCount = itemBuyResultPacket.ItemTotalCount;
+        bool isBuySuccess = itemBuyResultPacket.IsSuccess;
+        int remainPoint = itemBuyResultPacket.RemainMoney;
+
+        //TODO : 아이템 구매 결과 처리 (isBuySuccess가 true면 구매 성공, false면 구매 실패)
+    }
 }
