@@ -39,5 +39,6 @@ public class ShopSlot : MonoBehaviour
         //Managers.Inventory.TryBuyItem(itemID);
         //테스트 용 바로 아이템 구매로 넘어가기
         Managers.Inventory.BuyItemSuccess(itemID);
+        Debug.Log("Buy " +itemID);
     }
 }

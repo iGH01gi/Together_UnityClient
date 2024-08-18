@@ -13,7 +13,7 @@ public class PlayerInventory : MonoBehaviour
     string _linePath = "UI/Inventory/InventoryParts/InventoryLine";
 
     List<GameObject> _lines = new List<GameObject>(); //라인들의 게임 오브젝트
-    private List<bool[]> _availability = new List<bool[]>(); // 슬롯 사용여부
+    private List<bool[]> _slotUsed = new List<bool[]>(); // 슬롯 사용여부
     Dictionary<int,int> _address = new Dictionary<int, int>(); //key: 아이템Id, value: 아이템 위치
 
     void Start()
@@ -29,27 +29,29 @@ public class PlayerInventory : MonoBehaviour
         GameObject cur = Managers.Resource.Instantiate(_linePath, transform.Find(_viewContentPath));
         _lines.Add(cur);
         cur.GetComponent<HorizontalLayoutGroup>().spacing = Screen.width / 300;
-        _availability.Add(new bool[5]);
+        _slotUsed.Add(new bool[5]);
     }
 
     public void AddNewItem(int itemId)
     {
         //비어있는 슬롯이 있을 경우
-        for(int i=0;i<_availability.Count;i++)
+        for(int i=0;i<_slotUsed.Count;i++)
         {
-            for(int j=0;j<_availability[i].Length;j++)
+            for(int j=0;j<_slotUsed[i].Length;j++)
             {
-                if (_availability[i][j])
+                if (!_slotUsed[i][j])
                 {
-                    _availability[i][j] = false;
+                    _address.Add(itemId, i * _slotsInLine + j);
+                    _slotUsed[i][j] = true;
                     _lines[i].transform.GetChild(j).GetComponent<InventorySlot>().Init(itemId);
                     return;
                 }
             }
         }
         //모든 슬롯이 차있을 경우
+        _address.Add(itemId, _slotUsed.Count * _slotsInLine);
         MakeNewLine();
-        _availability[_availability.Count - 1][0] = false;
+        _slotUsed[_slotUsed.Count - 1][0] = true;
         _lines[_lines.Count - 1].transform.GetChild(0).GetComponent<InventorySlot>().Init(itemId);
     }
     
@@ -60,7 +62,6 @@ public class PlayerInventory : MonoBehaviour
             int line = _address[itemId] / _slotsInLine;
             int slot = _address[itemId] % _slotsInLine;
             _lines[line].transform.GetChild(slot).GetComponent<InventorySlot>().UpdateAmount();
-            _availability[line][slot] = false;
         }
     }
     
@@ -71,7 +72,7 @@ public class PlayerInventory : MonoBehaviour
             int line = _address[itemId] / _slotsInLine;
             int slot = _address[itemId] % _slotsInLine;
             _lines[line].transform.GetChild(slot).GetComponent<InventorySlot>().ClearSlot();
-            _availability[line][slot] = true;
+            _slotUsed[line][slot] = true;
         }
     }
     

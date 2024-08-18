@@ -93,9 +93,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 8620666199804201362}
-        m_TargetAssemblyTypeName: UI_Button, Assembly-CSharp
-        m_MethodName: PlayButtonClick
+      - m_Target: {fileID: 7597392369379401575}
+        m_TargetAssemblyTypeName: ShopSlot, Assembly-CSharp
+        m_MethodName: BuyButtonClicked
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
