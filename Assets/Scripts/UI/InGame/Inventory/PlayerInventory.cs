@@ -11,11 +11,7 @@ public class PlayerInventory : MonoBehaviour
     static int _initialLines = 3;
     string _viewContentPath = "Scroll View/Viewport/Content";
     string _linePath = "UI/Inventory/InventoryParts/InventoryLine";
-
-    List<GameObject> _lines = new List<GameObject>(); //라인들의 게임 오브젝트
-    private List<bool[]> _slotUsed = new List<bool[]>(); // 슬롯 사용여부
-    Dictionary<int,int> _address = new Dictionary<int, int>(); //key: 아이템Id, value: 아이템 위치
-
+    
     void Start()
     {
         transform.Find(_viewContentPath).GetComponent<VerticalLayoutGroup>().spacing = Screen.width / 300;
@@ -28,63 +24,31 @@ public class PlayerInventory : MonoBehaviour
     void MakeNewLine()
     {
         GameObject cur = Managers.Resource.Instantiate(_linePath, transform.Find(_viewContentPath));
-        _lines.Add(cur);
         cur.GetComponent<HorizontalLayoutGroup>().spacing = Screen.width / 300;
-        _slotUsed.Add(new bool[5]);
     }
 
     public void AddNewItem(int itemId)
     {
+        InventorySlot slot;
         //비어있는 슬롯이 있을 경우
-        for(int i=0;i<_slotUsed.Count;i++)
+        Transform _lineTransform = transform.Find(_viewContentPath);
+        foreach(Transform child in _lineTransform)
         {
-            for(int j=0;j<_slotUsed[i].Length;j++)
+            for(int i=0;i<child.childCount;i++)
             {
-                if (!_slotUsed[i][j])
+                slot = child.GetChild(i).GetComponentInChildren<InventorySlot>();
+                if (slot.itemID == -1)
                 {
-                    _address.Add(itemId, i * _slotsInLine + j);
-                    _slotUsed[i][j] = true;
-                    _lines[i].transform.GetChild(j).GetComponentInChildren<InventorySlot>().Init(itemId);
+                    slot.Init(itemId);
+                    Managers.Inventory._address.Add(itemId,slot);
                     return;
                 }
             }
         }
         //모든 슬롯이 차있을 경우
-        _address.Add(itemId, _slotUsed.Count * _slotsInLine);
         MakeNewLine();
-        _slotUsed[_slotUsed.Count - 1][0] = true;
-        _lines[_lines.Count - 1].transform.GetChild(0).GetComponentInChildren<InventorySlot>().Init(itemId);
-    }
-    
-    public void ChangeItemAmount(int itemId)
-    {
-        if (_address.ContainsKey(itemId))
-        {
-            int line = _address[itemId] / _slotsInLine;
-            int slot = _address[itemId] % _slotsInLine;
-            _lines[line].transform.GetChild(slot).GetComponentInChildren<InventorySlot>().UpdateAmount();
-        }
-    }
-    
-    public void RemoveItem(int itemId)
-    {
-        if (_address.ContainsKey(itemId))
-        {
-            int line = _address[itemId] / _slotsInLine;
-            int slot = _address[itemId] % _slotsInLine;
-            _lines[line].transform.GetChild(slot).GetComponentInChildren<InventorySlot>().ClearSlot();
-            _slotUsed[line][slot] = true;
-        }
-    }
-    
-    public void ClearInventory()
-    {
-        foreach (var line in _lines)
-        {
-            for (int i = 0; i < _slotsInLine; i++)
-            {
-                line.transform.GetChild(i).GetComponentInChildren<InventorySlot>().ClearSlot();
-            }
-        }
+        slot = _lineTransform.GetChild(_lineTransform.childCount-1).GetChild(0).GetComponentInChildren<InventorySlot>();
+        slot.Init(itemId);
+        Managers.Inventory._address.Add(itemId,slot);
     }
 }

@@ -11,12 +11,13 @@ public class InventoryManager : MonoBehaviour
     
     private int _totalPoint = 0; //상자로 얻은 총 포인트(낮마다 초기화)
     
-    public Dictionary<int,int> _ownedItems; //key: 아이템Id, value: 아이템 개수
+    //하나 더 생기면 걍 클래스를 만들자...
+    public Dictionary<int,int> _ownedItems = new Dictionary<int, int>(); //key: 아이템Id, value: 아이템 개수
+    public Dictionary<int,InventorySlot> _address = new Dictionary<int, InventorySlot>();
 
     public void Init()
     {
         _totalPoint = 0;
-        _ownedItems = new Dictionary<int, int>();
         _inGameUI = Managers.UI.GetComponentInSceneUI<InGameUI>();
         _hotbar = _inGameUI._hotbar.GetComponent<Hotbar>();
         _inventory = _inGameUI._inventory.GetComponent<PlayerInventory>();
@@ -27,7 +28,12 @@ public class InventoryManager : MonoBehaviour
     public void Clear()
     {
         _totalPoint = 0;
+        foreach (var key in _address.Keys)
+        {
+            _address[key].ClearSlot();
+        }
         _ownedItems.Clear();
+        _address.Clear();
     }
     
     
@@ -45,13 +51,7 @@ public class InventoryManager : MonoBehaviour
     /// <summary>
     /// 포인트와 아이템 리셋
     /// </summary>
-    public void ResetInventory()
-    {
-        _totalPoint = 0;
-        _inventory.ClearInventory();
-        _hotbar.ClearSlot();
-    }
-    
+
     #endregion
 
     #region 아이템 서버 요청 함수
@@ -94,7 +94,7 @@ public class InventoryManager : MonoBehaviour
         if(_ownedItems.ContainsKey(itemID))
         {
             _ownedItems[itemID]++;
-            _inventory.ChangeItemAmount(itemID);
+            _address[itemID].UpdateAmount();
         }
         else
         {
@@ -111,12 +111,12 @@ public class InventoryManager : MonoBehaviour
             _ownedItems[itemID]--;
             if(_ownedItems[itemID] == 0)
             {
+                _address[itemID].ClearSlot();
                 _ownedItems.Remove(itemID);
-                _inventory.RemoveItem(itemID);
             }
             else
             {
-                _inventory.ChangeItemAmount(itemID);
+                _address[itemID].UpdateAmount();
             }
         }
     }
