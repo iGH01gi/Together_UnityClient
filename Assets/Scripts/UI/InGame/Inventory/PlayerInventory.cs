@@ -18,6 +18,7 @@ public class PlayerInventory : MonoBehaviour
 
     void Start()
     {
+        transform.Find(_viewContentPath).GetComponent<VerticalLayoutGroup>().spacing = Screen.width / 300;
         for(int i =0;i<_initialLines;i++)
         {
             MakeNewLine();
