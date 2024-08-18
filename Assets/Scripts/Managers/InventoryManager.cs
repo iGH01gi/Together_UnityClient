@@ -69,6 +69,7 @@ public class InventoryManager : MonoBehaviour
         else
         {
             //TODO: 아이템 구매 서버 리퀘스트 보내기
+            BuyItemSuccess(itemID);
         }
     }
     
@@ -84,11 +85,11 @@ public class InventoryManager : MonoBehaviour
     public void BuyItemSuccess(int itemID)
     {
         Managers.Sound.Play("PurchaseSuccess");
-        /*int price = Managers.Item._items[itemID].Price;
+        int price = Managers.Item._items[itemID].Price;
         _totalPoint -=price;
         _inGameUI.SetCurrentCoin(_totalPoint);
         _inGameUI.AddGetCoin(price,false);
-        */
+        
         if(_ownedItems.ContainsKey(itemID))
         {
             _ownedItems[itemID]++;
