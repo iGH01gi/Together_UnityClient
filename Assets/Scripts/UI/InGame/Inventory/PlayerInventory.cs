@@ -44,7 +44,7 @@ public class PlayerInventory : MonoBehaviour
                 {
                     _address.Add(itemId, i * _slotsInLine + j);
                     _slotUsed[i][j] = true;
-                    _lines[i].transform.GetChild(j).GetComponent<InventorySlot>().Init(itemId);
+                    _lines[i].transform.GetChild(j).GetComponentInChildren<InventorySlot>().Init(itemId);
                     return;
                 }
             }
@@ -53,7 +53,7 @@ public class PlayerInventory : MonoBehaviour
         _address.Add(itemId, _slotUsed.Count * _slotsInLine);
         MakeNewLine();
         _slotUsed[_slotUsed.Count - 1][0] = true;
-        _lines[_lines.Count - 1].transform.GetChild(0).GetComponent<InventorySlot>().Init(itemId);
+        _lines[_lines.Count - 1].transform.GetChild(0).GetComponentInChildren<InventorySlot>().Init(itemId);
     }
     
     public void ChangeItemAmount(int itemId)
@@ -62,7 +62,7 @@ public class PlayerInventory : MonoBehaviour
         {
             int line = _address[itemId] / _slotsInLine;
             int slot = _address[itemId] % _slotsInLine;
-            _lines[line].transform.GetChild(slot).GetComponent<InventorySlot>().UpdateAmount();
+            _lines[line].transform.GetChild(slot).GetComponentInChildren<InventorySlot>().UpdateAmount();
         }
     }
     
@@ -72,7 +72,7 @@ public class PlayerInventory : MonoBehaviour
         {
             int line = _address[itemId] / _slotsInLine;
             int slot = _address[itemId] % _slotsInLine;
-            _lines[line].transform.GetChild(slot).GetComponent<InventorySlot>().ClearSlot();
+            _lines[line].transform.GetChild(slot).GetComponentInChildren<InventorySlot>().ClearSlot();
             _slotUsed[line][slot] = true;
         }
     }
@@ -83,7 +83,7 @@ public class PlayerInventory : MonoBehaviour
         {
             for (int i = 0; i < _slotsInLine; i++)
             {
-                line.transform.GetChild(i).GetComponent<InventorySlot>().ClearSlot();
+                line.transform.GetChild(i).GetComponentInChildren<InventorySlot>().ClearSlot();
             }
         }
     }
