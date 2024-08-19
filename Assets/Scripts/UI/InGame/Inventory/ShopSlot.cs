@@ -19,8 +19,8 @@ public class ShopSlot : MonoBehaviour
     /// <param name="itemId"></param>
     public void Init(int itemId)
     {
-        transform.Find($"ItemName").GetComponent<TMP_Text>().fontSize = Screen.height/ 30;
-        transform.Find($"ItemDescription").GetComponent<TMP_Text>().fontSize = Screen.height/ 46;
+        transform.Find($"ItemName").GetComponent<TMP_Text>().fontSize = (Screen.height/ 1080) * 36;
+        transform.Find($"ItemDescription").GetComponent<TMP_Text>().fontSize = (Screen.height/ 1080) * 24;
         itemID = itemId;
         var info = Managers.Item._items[itemID];
         price = info.Price;
