@@ -50,11 +50,6 @@ public class InventoryManager : MonoBehaviour
     {
         _totalPoint = point;
     }
-    
-    /// <summary>
-    /// 포인트와 아이템 리셋
-    /// </summary>
-
     #endregion
 
     #region 아이템 서버 요청 함수
@@ -119,6 +114,7 @@ public class InventoryManager : MonoBehaviour
             if(_ownedItems[itemID] == 0)
             {
                 _address[itemID].ClearSlot();
+                _address.Remove(itemID);
                 _ownedItems.Remove(itemID);
             }
             else
