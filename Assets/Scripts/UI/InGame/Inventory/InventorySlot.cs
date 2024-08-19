@@ -10,14 +10,14 @@ using UnityEngine.UI;
 /// </summary>
 public class InventorySlot : MonoBehaviour
 {
-    public int itemID;
+    public int _itemID;
     Image _icon;
     TMP_Text _amount;
     private Sprite _baseSprite; //기본 투명 이미지의 아이콘
 
     private void Start()
     {
-        itemID = -1;
+        _itemID = -1;
         _icon = transform.Find($"Icon").GetComponent<Image>();
         _baseSprite = _icon.sprite;
         _amount = transform.Find($"Amount").GetComponent<TMP_Text>();
@@ -29,11 +29,11 @@ public class InventorySlot : MonoBehaviour
     /// <param name="itemId"></param>
     public void Init(int itemId)
     {
-        itemID = itemId;
+        _itemID = itemId;
         //아이템 아이콘 설정
-        _icon.sprite = Managers.Resource.GetIcon(itemID.ToString());
+        _icon.sprite = Managers.Resource.GetIcon(_itemID.ToString());
         //아이템 개수 설정
-        _amount.text = Managers.Inventory._ownedItems[itemID].ToString();
+        _amount.text = Managers.Inventory._ownedItems[_itemID].ToString();
     }
     
     /// <summary>
@@ -43,7 +43,7 @@ public class InventorySlot : MonoBehaviour
     {
         _icon.sprite = _baseSprite;
         _amount.text = string.Empty;
-        itemID = -1;
+        _itemID = -1;
     }
 
     /// <summary>
@@ -51,6 +51,6 @@ public class InventorySlot : MonoBehaviour
     /// </summary>
     public void UpdateAmount()
     {
-        _amount.text = Managers.Inventory._ownedItems[itemID].ToString();
+        _amount.text = Managers.Inventory._ownedItems[_itemID].ToString();
     }
 }

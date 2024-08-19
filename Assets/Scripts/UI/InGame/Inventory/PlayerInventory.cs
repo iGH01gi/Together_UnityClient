@@ -50,7 +50,7 @@ public class PlayerInventory : MonoBehaviour
             for(int i=0;i<child.childCount;i++)
             {
                 slot = child.GetChild(i).GetComponentInChildren<InventorySlot>();
-                if (slot.itemID == -1)
+                if (slot._itemID == -1)
                 {
                     slot.Init(itemId);
                     Managers.Inventory._address.Add(itemId,slot);

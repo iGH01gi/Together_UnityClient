@@ -67,6 +67,9 @@ public class ItemDragDrop : MonoBehaviour,IBeginDragHandler,IDragHandler,IEndDra
             droppedLocationRect.SetSizeWithCurrentAnchors(RectTransform.Axis.Horizontal, transformRect.rect.width);
             droppedLocationRect.SetSizeWithCurrentAnchors(RectTransform.Axis.Vertical, transformRect.rect.height);
             
+            //HoldHotbarItem 호출
+            Managers.Inventory._hotbar.HoldHotbarItem();
+            
             Debug.Log("Swap Complete");
         }
         //드롭 위치가 InventorySlot이 아닐 경우 원래 위치로 복귀

@@ -225,14 +225,8 @@ public class PlayerManager
         return -1;
     }
     
-    public void ChangeHoldingItem(int playerId, int itemId)
+    public void ChangeHoldingItem(int itemId,int playerId)
     {
-        //킬러는 아이템을 들면 안됨.
-        if (playerId == GetKillerId())
-        {
-            return;
-        }
-        
         if (playerId == Managers.Player._myDediPlayerId)
         {
             Transform t = Util.FindChild(_myDediPlayer, "WeaponR_Parent", true).transform;
@@ -240,8 +234,12 @@ public class PlayerManager
             {
                 Util.DestroyAllChildren(t);
             }
-            Managers.Resource.Instantiate(string.Concat("Items", itemId.ToString()), t);
-            _myDediPlayer.GetComponent<MyDediPlayer>()._currentItemID = itemId;
+            
+            if (playerId != GetKillerId() && itemId != -1)
+            {
+                Managers.Resource.Instantiate(string.Concat("Items/", itemId.ToString()), t).transform.localPosition = Vector3.zero;
+                _myDediPlayer.GetComponent<MyDediPlayer>()._currentItemID = itemId;
+            }
         }
         else
         {
@@ -250,8 +248,12 @@ public class PlayerManager
             {
                 Util.DestroyAllChildren(t);
             }
-            Managers.Resource.Instantiate(string.Concat("Items", itemId.ToString()), t);
-            _otherDediPlayers[playerId].GetComponent<OtherDediPlayer>()._currentItemID = itemId;
+            
+            if (playerId != GetKillerId() && itemId != -1)
+            {
+                Managers.Resource.Instantiate(string.Concat("Items/", itemId.ToString()), t).transform.localPosition = Vector3.zero;
+                _otherDediPlayers[playerId].GetComponent<OtherDediPlayer>()._currentItemID = itemId;
+            }
         }
     }
     

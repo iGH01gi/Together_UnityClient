@@ -45,7 +45,7 @@ public class ItemManager
         }
         else
         {
-               Debug.LogError("해당 아이템이 존재하지 않습니다.");
+            Debug.LogError("해당 아이템이 존재하지 않습니다.");
         }
     }
 

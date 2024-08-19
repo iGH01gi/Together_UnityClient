@@ -30,6 +30,7 @@ public class InventoryInput : MonoBehaviour
         Debug.Log("Current selected item ID = " + itemID);
         if(itemID != -1)
         {
+            Debug.Log("Try use item");
             Managers.Item.UseItem(itemID);
         }
     }
