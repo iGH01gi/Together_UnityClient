@@ -2,10 +2,18 @@
 
 public class DashFactory : ItemFactory
 {
-    protected override GameObject CreateProduct()
+    public float DashDistance { get; set; }
+    
+    public DashFactory(int id, int price, string englishName, string koreanName, string englishDescription,
+        string koreanDescription, float dashDistance)
     {
-        GameObject dashObj = GameObject.Instantiate(Managers.Item._itemPrefabs[0]);
-        dashObj.AddComponent<Dash>();
-        return dashObj;
+        base.FactoryInit(id, price, englishName, koreanName, englishDescription, koreanDescription);
+        DashDistance = dashDistance;
+    }
+    
+    public override ItemProduct CreateItem()
+    {
+        //if else를 통해 여기서 맞는 아이템을 생성
+        return null;
     }
 }
