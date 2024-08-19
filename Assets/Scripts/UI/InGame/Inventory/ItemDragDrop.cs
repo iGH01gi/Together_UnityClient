@@ -10,13 +10,11 @@ public class ItemDragDrop : MonoBehaviour,IBeginDragHandler,IDragHandler,IEndDra
     private Transform _originaSlot;
     private RectTransform _rectTransform;
     private CanvasGroup _canvasGroup;
-    private Vector3 _localPos;
 
     public void Start()
     {
         _rectTransform = GetComponent<RectTransform>();
         _canvasGroup = GetComponent<CanvasGroup>(); //드래그 중에는 레이캐스트를 막아야함
-        _localPos = transform.localPosition;
     }
 
     /// <summary>
@@ -57,19 +55,25 @@ public class ItemDragDrop : MonoBehaviour,IBeginDragHandler,IDragHandler,IEndDra
             InventorySlot target = droppedLocation.GetComponent<InventorySlot>();
             //기존 슬롯의 아이템을 신규 슬롯에 보내기
             transform.SetParent(droppedLocation.transform.parent);
-            transform.localPosition = _localPos;
-            
+            transform.localPosition = Vector3.zero;
+
             //신규 슬롯의 아이템을 기존 슬롯에 보내기
-            
             droppedLocation.transform.SetParent(_originaSlot);
-            droppedLocation.transform.localPosition = _localPos;
+            droppedLocation.transform.localPosition = Vector3.zero;
+
+            //신규 위치와 기존 위치의 크기 맞추기
+            RectTransform droppedLocationRect = droppedLocation.GetComponent<RectTransform>();
+            RectTransform transformRect = transform.GetComponent<RectTransform>();
+            droppedLocationRect.SetSizeWithCurrentAnchors(RectTransform.Axis.Horizontal, transformRect.rect.width);
+            droppedLocationRect.SetSizeWithCurrentAnchors(RectTransform.Axis.Vertical, transformRect.rect.height);
+            
             Debug.Log("Swap Complete");
         }
         //드롭 위치가 InventorySlot이 아닐 경우 원래 위치로 복귀
         else
         {
             transform.SetParent(_originaSlot);
-            transform.localPosition = _localPos;
+            transform.localPosition = Vector3.zero;
         }
         _canvasGroup.blocksRaycasts = true; //드래그 종료 시 레이캐스트 허용
         _canvasGroup.alpha = 1f; //드래그 종료 시 투명도 원상복귀
