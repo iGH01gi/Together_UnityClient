@@ -13,7 +13,7 @@ public class ItemManager
     private string _itemPrefabFolderPath = "Items/"; //아이템 프리팹들이 들어있는 폴더 경로. 아이템id가 해당 폴더에서 프리팹의 이름
     private static string _itemsDataJson; //json이 들어 있게 됨(파싱 해야 함)
     public Dictionary<int, ItemFactory> _itemFactories = new Dictionary<int, ItemFactory>(); //아이템 팩토리들을 저장하는 딕셔너리
-    
+
     public void Init()
     {
         _jsonPath = Application.persistentDataPath + "/Data/Item/Items.json";
@@ -26,8 +26,30 @@ public class ItemManager
             File.WriteAllText(_jsonPath, "{}"); // Create an empty JSON file
         }
     }
+    
+    /// <summary>
+    /// 아이템을 들고 있는 상태로 변경
+    /// </summary>
+    /// <param name="itemId"></param>
+    /// <param name="playerID"></param>
+    public void HoldItem(int itemId, int playerID)
+    {
+        Managers.Player.ChangeHoldingItem(itemId, playerID);
+    }
 
+    public void UseItem(int itemId)
+    {
+        if (_itemFactories.ContainsKey(itemId))
+        { 
+            //TODO: 아이템 사용 구현
+        }
+        else
+        {
+            Debug.LogError("해당 아이템이 존재하지 않습니다.");
+        }
+    }
 
+    
     #region json관련
     /// <summary>
     /// 서버로부터 받은 json데이터를 저장함
@@ -58,7 +80,7 @@ public class ItemManager
         //파싱
         ParseItemData();
     }
-    #endregion
+    
 
     /// <summary>
     /// json파일을 이미 받은 상태에서 아이템 데이터를 파싱
@@ -101,18 +123,8 @@ public class ItemManager
             }
         }
     }
+    #endregion
     
-    public void UseItem(int id)
-    {
-        if (_itemFactories.ContainsKey(id))
-        {
-            _itemFactories[id].CreateItem().Use();
-        }
-        else
-        {
-            Debug.LogError("해당 아이템이 존재하지 않습니다.");
-        }
-    }
 
     #region GetterMethods
 

@@ -3,15 +3,22 @@ using UnityEngine;
 
 public class Dash : MonoBehaviour, IItem
 {
-    public int itemID;
+    //IItem 인터페이스 구현
+    public int itemID { get; set; }
+
+    //이 아이템만의 속성
     public float DashDistance { get; set; }
     
-    public void Init(int itemID, float dashDistance = 0)
+    public void Init(int itemId)
     {
-        this.itemID = itemID;
+        this.itemID = itemId;
+    }
+    
+    public void Init(int itemId, float dashDistance)
+    {
+        this.itemID = itemId;
         DashDistance = dashDistance;
     }
-
 
     public void Use()
     {
@@ -21,5 +28,9 @@ public class Dash : MonoBehaviour, IItem
     public void OnHold()
     {
         //예상 대시 경로, 또는 도착지점을 보여준다던지 하는 기능을 실행
+    }
+    
+    public void OnHit()
+    {
     }
 }

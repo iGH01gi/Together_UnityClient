@@ -10,14 +10,14 @@ using UnityEngine.UI;
 /// </summary>
 public class Hotbar : MonoBehaviour
 {
-    Transform _currentSlot; //현재 하이라이트 된 슬롯. Item이 아닌 슬롯을 가리킴!
+    public Transform _currentSlot; //현재 하이라이트 된 슬롯. Item이 아닌 슬롯을 가리킴!
     private Color _selectedColor = Color.white;
     private Color _unselectColor= Color.black;
     
     private void Start()
     {
         _currentSlot = GetSlot(0);
-        ChangeSelected(0);
+        _currentSlot.Find("Paint").GetComponent<Image>().color = _selectedColor;
     }
 
     /// <summary>
@@ -48,7 +48,7 @@ public class Hotbar : MonoBehaviour
         }
         GetSlot(slot).GetComponentInChildren<InventorySlot>().ClearSlot();
     }
-    
+
     /// <summary>
     /// 선택된 슬롯 변경
     /// </summary>
@@ -61,11 +61,21 @@ public class Hotbar : MonoBehaviour
             Debug.Log("Hotbar Slot Index Out of Range");
             return;
         }
+
         //이전 슬롯과 현재 슬롯 색상 변경
         _currentSlot.Find("Paint").GetComponent<Image>().color = _unselectColor;
         _currentSlot = GetSlot(index);
         _currentSlot.Find("Paint").GetComponent<Image>().color = _selectedColor;
         Debug.Log("Current Slot : " + index);
+
+
+        //아이템 들고 있는 처리
+        HoldHotbarItem();
+    }
+    
+    public void HoldHotbarItem()
+    {
+        Managers.Item.HoldItem(CurrentSelectedItemID(), Managers.Player._myDediPlayerId);
     }
 
     /// <summary>
@@ -74,7 +84,7 @@ public class Hotbar : MonoBehaviour
     /// <returns>현재 선택된 슬롯의 아이템 ID</returns>
     public int CurrentSelectedItemID()
     {
-        return _currentSlot.GetComponentInChildren<InventorySlot>().itemID;
+        return _currentSlot.GetComponentInChildren<InventorySlot>()._itemID;
     }
     
     
