@@ -16,8 +16,8 @@ public class MyDediPlayer : MonoBehaviour
     public float _gaugeDecreasePerSecond = 0; //생명력 게이지 감소량
 
     //public Dictionary<int,int> _ownedItems = new Dictionary<int, int>(); //key: 아이템Id, value: 아이템 개수
+    public int _currentItemID = -1; //현재 가지고 있는 아이템 ID
 
-    
     public void Init(int playerId, string name)
     {
         PlayerId = playerId;

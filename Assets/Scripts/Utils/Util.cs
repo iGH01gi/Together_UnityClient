@@ -57,6 +57,19 @@ public class Util
         return null;
     }
 
+    public static void DestroyAllChildren(Transform t)
+    {
+        if (t == null)
+        {
+            return;
+        }
+        
+        for (int i = 0; i < t.transform.childCount; i++)
+        {
+            Managers.Resource.Destroy(t.GetChild(0).gameObject);
+        }
+    }
+
     public static List<String> EnumToString<T> ()
     {
         return Enum.GetValues(typeof(T)).Cast<T>().ToList().Select(s => s.ToString()).ToList();

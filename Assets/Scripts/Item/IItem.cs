@@ -13,9 +13,9 @@ public interface IItem
     /// 아이템 사용시 기능 구현
     /// </summary>
     public abstract void Use();
-
+    
     /// <summary>
-    /// 아이템 선택시 기능 구현(사용은 안하고 들고만 있는 상태)
+    /// 아이템 맞았을 때의 기능
     /// </summary>
-    public abstract void OnHold(); //(설치 가능여부 이런것도 여기서 구현 가능)
+    public abstract void OnHit();
 }

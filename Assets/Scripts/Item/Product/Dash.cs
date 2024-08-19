@@ -29,4 +29,8 @@ public class Dash : MonoBehaviour, IItem
     {
         //예상 대시 경로, 또는 도착지점을 보여준다던지 하는 기능을 실행
     }
+    
+    public void OnHit()
+    {
+    }
 }

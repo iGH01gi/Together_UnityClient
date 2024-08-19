@@ -225,6 +225,36 @@ public class PlayerManager
         return -1;
     }
     
+    public void ChangeHoldingItem(int playerId, int itemId)
+    {
+        //킬러는 아이템을 들면 안됨.
+        if (playerId == GetKillerId())
+        {
+            return;
+        }
+        
+        if (playerId == Managers.Player._myDediPlayerId)
+        {
+            Transform t = Util.FindChild(_myDediPlayer, "WeaponR_Parent", true).transform;
+            if (t.childCount > 0)
+            {
+                Util.DestroyAllChildren(t);
+            }
+            Managers.Resource.Instantiate(string.Concat("Items", itemId.ToString()), t);
+            _myDediPlayer.GetComponent<MyDediPlayer>()._currentItemID = itemId;
+        }
+        else
+        {
+            Transform t = Util.FindChild(_otherDediPlayers[playerId], "WeaponR_Parent", true).transform;
+            if (t.childCount > 0)
+            {
+                Util.DestroyAllChildren(t);
+            }
+            Managers.Resource.Instantiate(string.Concat("Items", itemId.ToString()), t);
+            _otherDediPlayers[playerId].GetComponent<OtherDediPlayer>()._currentItemID = itemId;
+        }
+    }
+    
     /// <summary>
     /// killer의 GameObject를 반환함
     /// </summary>

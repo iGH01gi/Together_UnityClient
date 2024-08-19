@@ -27,4 +27,9 @@ public class Firework : MonoBehaviour,IItem
     {
         
     }
+    
+    public void OnHit()
+    {
+        
+    }
 }

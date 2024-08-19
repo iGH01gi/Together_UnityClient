@@ -22,5 +22,5 @@ public abstract class ItemFactory
         FactoryKoreanDescription = koreanDescription;
     }
 
-    public abstract IItem CreateItem();
+    public abstract IItem CreateItem(int playerId);
 }

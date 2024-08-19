@@ -66,6 +66,9 @@ public class Hotbar : MonoBehaviour
         _currentSlot = GetSlot(index);
         _currentSlot.Find("Paint").GetComponent<Image>().color = _selectedColor;
         Debug.Log("Current Slot : " + index);
+        
+        //아이템 들고 있는 처리
+        Managers.Item.HoldItem(CurrentSelectedItemID(),Managers.Player._myDediPlayerId);
     }
 
     /// <summary>
