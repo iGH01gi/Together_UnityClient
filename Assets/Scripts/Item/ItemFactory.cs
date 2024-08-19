@@ -1,20 +1,34 @@
-﻿
-using UnityEngine;
+﻿using UnityEngine;
 
 public abstract class ItemFactory
-{
-    public GameObject CreateItem()
+{ 
+    //shared attributes
+    protected int FactoryId { get; set; }
+    protected int FactoryPrice { get; set; }
+    protected string FactoryEnglishName { get; set; }
+    protected string FactoryKoreanName { get; set; }
+    protected string FactoryEnglishDescription { get; set; }
+    protected string FactoryKoreanDescription { get; set; }
+    
+    //필수 설정되어야 하는 것들 설정
+    public virtual void FactoryInit(int id, int price, string englishName, string koreanName, string englishDescription,
+        string koreanDescription)
     {
-        GameObject itemObj = CreateProduct();
-        
-        //item오브젝트에서 IItem을 상속받은 컴포넌트를 찾는다
-        IItem itemComponent = itemObj.GetComponent<IItem>();
-        
-        //초기 세팅
-        itemComponent.Setting();
-        
-        return itemObj;
+        FactoryId = id;
+        FactoryPrice = price;
+        FactoryEnglishName = englishName;
+        FactoryKoreanName = koreanName;
+        FactoryEnglishDescription = englishDescription;
+        FactoryKoreanDescription = koreanDescription;
     }
 
-    protected abstract GameObject CreateProduct(); //상속한 팩토리에서 구현
+    public IItem CreateItem()
+    {
+        return null;
+    }
+    
+    public int GetFactoryID()
+    {
+        return FactoryId;
+    }
 }
