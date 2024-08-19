@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Google.Protobuf.Protocol;
 using UnityEngine;
 
 public class InventoryManager : MonoBehaviour
@@ -60,15 +61,19 @@ public class InventoryManager : MonoBehaviour
     /// <param name = "itemID">구매하려는 아이템id</param>
     public void TryBuyItem(int itemID)
     {
-        BuyItemSuccess(itemID);
-        if((_totalPoint < Managers.Item._items[itemID].Price)&&(Managers.Game._isDay))
+        if((_totalPoint < Managers.Item.GetItemPrice(itemID))||!(Managers.Game._isDay))
         {
             Managers.Sound.Play("Error", Define.Sound.Effects,null,1.3f);
         }
         else
         {
-            //TODO: 아이템 구매 서버 리퀘스트 보내기
-            BuyItemSuccess(itemID);
+            Debug.Log("TryBuyItem Packet Send");
+            CDS_ItemBuyRequest buyItemRequest = new CDS_ItemBuyRequest()
+            {
+                MyDediplayerId = Managers.Player._myDediPlayerId,
+                ItemId = itemID
+            };
+            Managers.Network._dedicatedServerSession.Send(buyItemRequest);
         }
     }
     
@@ -81,23 +86,28 @@ public class InventoryManager : MonoBehaviour
     /// 아이템을 인벤토리에서 1개 추가함
     /// </summary>
     /// <param name="itemID">구매 가능한 아이템id</param>
-    public void BuyItemSuccess(int itemID)
+    public void BuyItemSuccess(int itemID, int itemTotalCount, bool isBuySuccess, int remainPoint)
     {
-        Managers.Sound.Play("PurchaseSuccess");
-        int price = Managers.Item._items[itemID].Price;
-        _totalPoint -=price;
-        _inGameUI.SetCurrentCoin(_totalPoint);
-        _inGameUI.AddGetCoin(price,false);
-        
-        if(_ownedItems.ContainsKey(itemID))
+        if(isBuySuccess)
         {
-            _ownedItems[itemID]++;
-            _address[itemID].UpdateAmount();
+            Managers.Sound.Play("PurchaseSuccess");
+            _totalPoint = remainPoint;
+            _inGameUI.SetCurrentCoin(_totalPoint);
+            _inGameUI.AddGetCoin(Managers.Item._items[itemID].Price,false);
+            if(_ownedItems.ContainsKey(itemID))
+            {
+                _ownedItems[itemID] = itemTotalCount;
+                _address[itemID].UpdateAmount();
+            }
+            else
+            {
+                _ownedItems.Add(itemID, itemTotalCount);
+                _inventory.AddNewItem(itemID);
+            }
         }
         else
         {
-            _ownedItems.Add(itemID, 1);
-            _inventory.AddNewItem(itemID);
+            Managers.Sound.Play("Error", Define.Sound.Effects,null,1.3f);
         }
     }
     #endregion

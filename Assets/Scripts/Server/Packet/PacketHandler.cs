@@ -551,6 +551,10 @@ public class PacketHandler
         bool isBuySuccess = itemBuyResultPacket.IsSuccess;
         int remainPoint = itemBuyResultPacket.RemainMoney;
 
-        //TODO : 아이템 구매 결과 처리 (isBuySuccess가 true면 구매 성공, false면 구매 실패)
+        if (playerId == Managers.Player._myDediPlayerId)
+        {
+            Debug.Log("BuyItemSuccess");
+            Managers.Inventory.BuyItemSuccess(itemId, itemTotalCount,isBuySuccess,remainPoint);
+        }
     }
 }
