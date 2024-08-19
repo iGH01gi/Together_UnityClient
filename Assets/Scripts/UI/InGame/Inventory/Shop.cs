@@ -16,11 +16,9 @@ public class Shop : MonoBehaviour
     /// </summary>
     public void Init()
     {
-        //_shopSlots = new Dictionary<int, ShopSlot>();
-        foreach (var key in Managers.Item._items.Keys)
+        foreach (var key in Managers.Item._itemFactories.Keys)
         {
             ShopSlot temp = Managers.Resource.Instantiate(_slotPath,transform.Find(_viewContentPath)).GetComponent<ShopSlot>();
-            //_shopSlots.Add(key, temp);
             temp.Init(key);
         }
     }

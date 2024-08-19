@@ -30,7 +30,6 @@ public class InventorySlot : MonoBehaviour
     public void Init(int itemId)
     {
         itemID = itemId;
-        var info = Managers.Item._items[itemID];
         //아이템 아이콘 설정
         _icon.sprite = Managers.Resource.GetIcon(itemID.ToString());
         //아이템 개수 설정

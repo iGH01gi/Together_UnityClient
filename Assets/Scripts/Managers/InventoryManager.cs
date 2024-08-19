@@ -12,7 +12,6 @@ public class InventoryManager : MonoBehaviour
     
     private int _totalPoint = 0; //상자로 얻은 총 포인트(낮마다 초기화)
     
-    //하나 더 생기면 걍 클래스를 만들자...
     public Dictionary<int,int> _ownedItems = new Dictionary<int, int>(); //key: 아이템Id, value: 아이템 개수
     public Dictionary<int,InventorySlot> _address = new Dictionary<int, InventorySlot>();
 
@@ -61,7 +60,7 @@ public class InventoryManager : MonoBehaviour
     /// <param name = "itemID">구매하려는 아이템id</param>
     public void TryBuyItem(int itemID)
     {
-        if((_totalPoint < Managers.Item.GetItemPrice(itemID))||!(Managers.Game._isDay))
+        if((_totalPoint < Managers.Item.GetItemPrice(itemID)||!(Managers.Game._isDay)))
         {
             Managers.Sound.Play("Error", Define.Sound.Effects,null,1.3f);
         }
@@ -93,7 +92,7 @@ public class InventoryManager : MonoBehaviour
             Managers.Sound.Play("PurchaseSuccess");
             _totalPoint = remainPoint;
             _inGameUI.SetCurrentCoin(_totalPoint);
-            _inGameUI.AddGetCoin(Managers.Item._items[itemID].Price,false);
+            _inGameUI.AddGetCoin(Managers.Item.GetItemPrice(itemID),false);
             if(_ownedItems.ContainsKey(itemID))
             {
                 _ownedItems[itemID] = itemTotalCount;
