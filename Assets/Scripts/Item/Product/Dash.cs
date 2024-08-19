@@ -5,7 +5,7 @@ public class Dash : IItem
 { 
     public float DashDistance { get; set; }
     
-    public void Init(int id, int price, string englishName, string koreanName, string englishDescription,
+    public Dash(int id, int price, string englishName, string koreanName, string englishDescription,
         string koreanDescription, float dashDistance)
     {
         base.Init(id, price, englishName, koreanName, englishDescription, koreanDescription);

@@ -10,11 +10,6 @@ public class DashFactory : ItemFactory
         base.FactoryInit(id, price, englishName, koreanName, englishDescription, koreanDescription);
         DashDistance = dashDistance;
     }
-
-    public void SpecificSetting(float dashDistance)
-    {
-        DashDistance = dashDistance;
-    }
     
     public new IItem CreateItem()
     {
