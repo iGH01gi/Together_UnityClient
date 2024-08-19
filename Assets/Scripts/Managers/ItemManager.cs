@@ -15,6 +15,8 @@ public class ItemManager
     public Dictionary<int, IItem> _items; //key: 아이템Id, value: 아이템 객체(아이템별 데이터 저장용. 전시품이라고 생각)
     public Dictionary<int, GameObject> _itemPrefabs; //key: 아이템Id, value: 아이템 프리팹
     private static string _itemsDataJson; //json이 들어 있게 됨(파싱 해야 함)
+    private ItemFactory itemf;
+
     
     public void Init()
     {
@@ -29,6 +31,8 @@ public class ItemManager
         }
         InitItemFactories();
         //LoadItemPrefabs();
+
+        //itemf.CreateItem();
     }
 
     /// <summary>
