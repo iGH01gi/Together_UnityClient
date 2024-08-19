@@ -2,14 +2,19 @@
 
 public class Firework : MonoBehaviour,IItem
 {
-    public int itemID;
+    //IItem 인터페이스 구현
+    public int itemID { get; set; }
 
     //이 아이템만의 속성
     public float FlightHeight { get; set; }
 
-    public void Init(int itemID, float flightHeight = 0)
+    public void Init(int itemId)
     {
-        this.itemID = itemID;
+        this.itemID = itemId;
+    }
+    public void Init(int itemId, float flightHeight)
+    {
+        this.itemID = itemId;
         FlightHeight = flightHeight;
     }
 
