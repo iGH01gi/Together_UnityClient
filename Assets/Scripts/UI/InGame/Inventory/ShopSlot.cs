@@ -22,8 +22,7 @@ public class ShopSlot : MonoBehaviour
         transform.Find($"ItemName").GetComponent<TMP_Text>().fontSize = (Screen.height/ 1080) * 36;
         transform.Find($"ItemDescription").GetComponent<TMP_Text>().fontSize = (Screen.height/ 1080) * 24;
         itemID = itemId;
-        var info = Managers.Item._items[itemID];
-        price = info.Price;
+        price = Managers.Item.GetItemPrice(itemID);
         //아이템 아이콘 설정
         transform.Find($"Icon/Sprite").GetComponent<Image>().sprite = Managers.Resource.GetIcon(itemID.ToString());
         //아이템 가격 설정
@@ -31,16 +30,16 @@ public class ShopSlot : MonoBehaviour
         if (Util.CheckLocale(Define.SupportedLanguages.Korean))
         {
             //아이템 이름 설정
-            transform.Find($"ItemName").GetComponent<TMP_Text>().text = info.KoreanName;
+            transform.Find($"ItemName").GetComponent<TMP_Text>().text = Managers.Item.GetItemKoreanName(itemID);
             //아이템 설명 설정
-            transform.Find($"ItemDescription").GetComponent<TMP_Text>().text = info.KoreanDescription;
+            transform.Find($"ItemDescription").GetComponent<TMP_Text>().text = Managers.Item.GetItemKoreanDescription(itemID);
         }
         else
         {
             //아이템 이름 설정
-            transform.Find($"ItemName").GetComponent<TMP_Text>().text = info.EnglishName;
+            transform.Find($"ItemName").GetComponent<TMP_Text>().text = Managers.Item.GetItemEnglishName(itemID);
             //아이템 설명 설정
-            transform.Find($"ItemDescription").GetComponent<TMP_Text>().text = info.EnglishDescription;
+            transform.Find($"ItemDescription").GetComponent<TMP_Text>().text = Managers.Item.GetItemEnglishDescription(itemID);
         }
     }
 

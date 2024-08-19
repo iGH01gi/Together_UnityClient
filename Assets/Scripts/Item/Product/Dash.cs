@@ -1,23 +1,24 @@
 ﻿using System;
 using UnityEngine;
 
-public class Dash : ItemProduct
-{ 
+public class Dash : MonoBehaviour, IItem
+{
+    public int itemID;
     public float DashDistance { get; set; }
     
-    public Dash(int id, int price, string englishName, string koreanName, string englishDescription,
-        string koreanDescription, float dashDistance)
+    public void Init(int itemID, float dashDistance = 0)
     {
-        base.Init(id, price, englishName, koreanName, englishDescription, koreanDescription);
+        this.itemID = itemID;
         DashDistance = dashDistance;
     }
 
-    public override void Use()
+
+    public void Use()
     {
         Debug.Log("Item Dash Use");
     }
     
-    public override void OnHold()
+    public void OnHold()
     {
         //예상 대시 경로, 또는 도착지점을 보여준다던지 하는 기능을 실행
     }
