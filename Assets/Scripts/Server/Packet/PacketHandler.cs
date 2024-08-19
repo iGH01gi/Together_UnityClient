@@ -357,6 +357,7 @@ public class PacketHandler
         Debug.Log("DSC_NightTimerEndHandler");
 
         Managers.Inventory.Clear(); //인벤토리 초기화
+        Managers.Inventory._hotbar.ChangeSelected(0); //선택된 아이템 초기화
         Managers.Game._playKillerSound._checkForSound = false;
         Managers.Game._clientGauge.EndGauge();
         Managers.Game._clientTimer.EndTimer();
