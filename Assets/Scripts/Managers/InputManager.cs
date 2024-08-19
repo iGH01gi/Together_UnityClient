@@ -11,7 +11,7 @@ public class InputManager
     private MovementInput _movementInput;
     ObjectInput _objectInput;
     PlayerAnimController _playerAnimController;
-
+    
     public void Init()
     {
         _inputActionAsset = Resources.Load<InputActionAsset>("playerInput");
@@ -38,17 +38,27 @@ public class InputManager
         */
     }
     
+    /// <summary>
+    /// Input을 활성화
+    /// </summary>
     public void EnableInput()
     {
         
         _inputActionAsset.Enable();
     }
     
+    /// <summary>
+    /// Input을 비활성화
+    /// </summary>
     public void DisableInput()
     {
         _inputActionAsset.Disable();
     }
 
+    
+    /// <summary>
+    /// 커서 활성화
+    /// </summary>
     public void EnableCursor()
     {
         if (_movementInput == null || _playerAnimController ==null || _objectInput == null)
@@ -65,6 +75,9 @@ public class InputManager
         _isCursorVisible = true;
     }
     
+    /// <summary>
+    /// 커서 비활성화
+    /// </summary>
     public void DisableCursor()
     {
         if (_movementInput == null || _playerAnimController ==null || _objectInput == null)

@@ -25,6 +25,9 @@ public class InventoryManager : MonoBehaviour
         _shop.Init();
     }
     
+    /// <summary>
+    /// 포인트 및 인벤토리 모든 아이템 초기화
+    /// </summary>
     public void Clear()
     {
         _totalPoint = 0;
@@ -47,11 +50,6 @@ public class InventoryManager : MonoBehaviour
     {
         _totalPoint = point;
     }
-    
-    /// <summary>
-    /// 포인트와 아이템 리셋
-    /// </summary>
-
     #endregion
 
     #region 아이템 서버 요청 함수
@@ -80,7 +78,7 @@ public class InventoryManager : MonoBehaviour
     #region 서버 답변 처리 함수
 
     /// <summary>
-    /// 아이템을 인벤에 1개 추가함
+    /// 아이템을 인벤토리에서 1개 추가함
     /// </summary>
     /// <param name="itemID">구매 가능한 아이템id</param>
     public void BuyItemSuccess(int itemID)
@@ -104,6 +102,10 @@ public class InventoryManager : MonoBehaviour
     }
     #endregion
     
+    /// <summary>
+    /// 아이템을 인벤토리에서 1개 제거함
+    /// </summary>
+    /// <param name="itemID"></param>
     public void RemoveItemOnce(int itemID)
     {
         if(_ownedItems.ContainsKey(itemID))
@@ -112,6 +114,7 @@ public class InventoryManager : MonoBehaviour
             if(_ownedItems[itemID] == 0)
             {
                 _address[itemID].ClearSlot();
+                _address.Remove(itemID);
                 _ownedItems.Remove(itemID);
             }
             else
