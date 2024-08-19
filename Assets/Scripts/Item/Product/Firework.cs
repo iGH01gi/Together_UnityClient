@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-public sealed class Firework : IItem
+public sealed class Firework : ItemProduct
 {
     //이 아이템만의 속성
     public float FlightHeight { get; set; }

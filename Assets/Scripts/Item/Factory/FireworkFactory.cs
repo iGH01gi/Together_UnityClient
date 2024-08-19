@@ -11,7 +11,7 @@ public sealed class FireworkFactory : ItemFactory
         base.FactoryInit(id, price, englishName, koreanName, englishDescription, koreanDescription);
         FlightHeight = flightHeight;
     }
-    public new IItem CreateItem()
+    public override ItemProduct CreateItem()
     {
         return null;
     }

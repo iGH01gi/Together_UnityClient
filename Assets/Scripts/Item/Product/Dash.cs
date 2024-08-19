@@ -1,7 +1,7 @@
 ﻿using System;
 using UnityEngine;
 
-public class Dash : IItem
+public class Dash : ItemProduct
 { 
     public float DashDistance { get; set; }
     

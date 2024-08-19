@@ -1,6 +1,6 @@
-﻿public abstract class IItem
+﻿public abstract class ItemProduct
 {
-    //아이템 공통 보유 속성
+    //공통 속성
     protected int Id { get; set; }
     protected int Price { get; set; }
     protected string EnglishName { get; set; }
@@ -11,7 +11,7 @@
     /// <summary>
     /// 아이템이 생성될 때 필수로 설정되어야 하는 것들을 설정함
     /// </summary>
-    protected void Init(int id, int price, string englishName, string koreanName, string englishDescription, string koreanDescription)
+    protected virtual void Init(int id, int price, string englishName, string koreanName, string englishDescription, string koreanDescription)
     {
         Id = id;
         Price = price;

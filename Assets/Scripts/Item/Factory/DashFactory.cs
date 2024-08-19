@@ -11,8 +11,9 @@ public class DashFactory : ItemFactory
         DashDistance = dashDistance;
     }
     
-    public new IItem CreateItem()
+    public override ItemProduct CreateItem()
     {
+        //if else를 통해 여기서 맞는 아이템을 생성
         return null;
     }
 }

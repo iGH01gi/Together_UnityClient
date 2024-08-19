@@ -2,7 +2,7 @@
 
 public abstract class ItemFactory
 { 
-    //shared attributes
+    //공통 속성
     protected int FactoryId { get; set; }
     protected int FactoryPrice { get; set; }
     protected string FactoryEnglishName { get; set; }
@@ -22,11 +22,8 @@ public abstract class ItemFactory
         FactoryKoreanDescription = koreanDescription;
     }
 
-    public IItem CreateItem()
-    {
-        return null;
-    }
-    
+    public abstract ItemProduct CreateItem();
+
     public int GetFactoryID()
     {
         return FactoryId;
