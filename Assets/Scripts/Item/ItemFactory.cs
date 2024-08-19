@@ -22,7 +22,7 @@ public abstract class ItemFactory
         FactoryKoreanDescription = koreanDescription;
     }
 
-    public abstract ItemProduct CreateItem();
+    public abstract IItem CreateItem();
 
     public int GetFactoryID()
     {

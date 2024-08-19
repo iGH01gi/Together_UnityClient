@@ -1,23 +1,24 @@
 ﻿using UnityEngine;
 
-public sealed class Firework : ItemProduct
+public class Firework : MonoBehaviour,IItem
 {
+    public int itemID;
+
     //이 아이템만의 속성
     public float FlightHeight { get; set; }
 
-    public Firework(int id, int price, string englishName, string koreanName, string englishDescription,
-        string koreanDescription, float flightHeight)
+    public void Init(int itemID, float flightHeight = 0)
     {
-        base.Init(id, price, englishName, koreanName, englishDescription, koreanDescription);
+        this.itemID = itemID;
         FlightHeight = flightHeight;
     }
 
-    public override void Use()
+    public void Use()
     {
         Debug.Log("Item Firework Use");
     }
     
-    public override void OnHold()
+    public void OnHold()
     {
         
     }
