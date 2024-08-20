@@ -380,6 +380,7 @@ public class PacketHandler
         
         //이제 낮이니까 클린즈 안보이게 처리
         Managers.Object._cleanseController._cleanseParent.SetActive(false);
+        Managers.Input._objectInput.Clear();
     }
 
     //데디케이트서버로부터 새로운 상자 정보를 받았을때의 처리
