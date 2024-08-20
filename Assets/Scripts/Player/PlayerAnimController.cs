@@ -10,6 +10,8 @@ public class PlayerAnimController : MonoBehaviour
     public bool isWalking = false;
     public bool isDigging = false;
     public bool isPraying = false;
+    public bool isFlashlight = false;
+    public bool isTrapped = false;
 
     private void Start()
     {
@@ -22,11 +24,13 @@ public class PlayerAnimController : MonoBehaviour
         _anim.SetBool("isWalking",isWalking);
         _anim.SetBool("isDigging",isDigging);
         _anim.SetBool("isPraying",isPraying);
+        _anim.SetBool("isFlashlight",isFlashlight);
+        _anim.SetBool("isTrapped",isTrapped);
     }
 
     public void KillerBaseAttack()
     {
-        _anim.SetTrigger("Attack");
+        SetTriggerByString("Attack");
     }
 
     public bool IsAttacking()
@@ -40,5 +44,12 @@ public class PlayerAnimController : MonoBehaviour
         isWalking = false;
         isDigging = false;
         isPraying = false;
+        isFlashlight = false;
+        isTrapped = false;
+    }
+    
+    public void SetTriggerByString(string triggerName)
+    {
+        _anim.SetTrigger(triggerName);
     }
 }
