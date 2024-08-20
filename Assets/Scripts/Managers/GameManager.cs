@@ -39,6 +39,7 @@ public class GameManager
     {
         _clientTimer.Init(timeToSet);
         Managers.UI.GetComponentInSceneUI<InGameUI>().ChangeDayNightUI();
+        Managers.Input._objectInput.Clear();
     }
 
     public void ChangeToDay(float timeToSet)

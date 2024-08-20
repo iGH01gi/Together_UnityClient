@@ -127,4 +127,10 @@ public class ObjectInput : MonoBehaviour
             Managers.Object._cleanseController.QuitCleansing(_currentCleanse.GetComponent<Cleanse>()._cleanseId);
         }
     }
+
+    public void Clear()
+    {
+        _currentChest = null;
+        _currentChest = null;
+    }
 }

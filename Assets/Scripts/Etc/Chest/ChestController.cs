@@ -171,12 +171,12 @@ public class ChestController : MonoBehaviour
         if (chest._point > 0) //꽝 상자 아님
         {
             //플레이어 효과처리
-            Managers.Sound.Play("WarningNotification",Define.Sound.Effects,chest.transform.GetComponent<AudioSource>());
+            //Managers.Sound.Play("WarningNotification",Define.Sound.Effects,chest.transform.GetComponent<AudioSource>());
         }
         else //꽝 상자임
         {
             //플레이어 효과처리
-            Managers.Sound.Play("WarningNotification",Define.Sound.Effects,chest.transform.GetComponent<AudioSource>());
+            //Managers.Sound.Play("WarningNotification",Define.Sound.Effects,chest.transform.GetComponent<AudioSource>());
         }
     }
     
