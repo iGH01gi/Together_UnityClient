@@ -88,6 +88,13 @@ public class PlayerManager
             
             MyDediPlayer myDediPlayerComponent = obj.AddComponent<MyDediPlayer>();
             myDediPlayerComponent.Init(playerInfo.PlayerId, playerInfo.Name);
+            
+            //플레이어 아이템 숨기기
+            Transform t = Util.FindChild(obj, "WeaponR_Parent", true).transform;
+            foreach (Transform child in t)
+            {
+                child.GetComponent<MeshRenderer>().enabled = false;
+            }
         }
         else //다른 플레이어용 프리팹 이용
         {
@@ -99,6 +106,18 @@ public class PlayerManager
             
             OtherDediPlayer otherDediPlayerComponent = obj.AddComponent<OtherDediPlayer>();
             otherDediPlayerComponent.Init(playerInfo.PlayerId, playerInfo.Name);
+            
+            //플레이어 아이템 숨기기
+            Transform t = Util.FindChild(obj, "WeaponR_Parent", true).transform;
+            foreach (Transform child in t)
+            {
+                child.GetComponent<MeshRenderer>().enabled = false;
+            }
+            t = Util.FindChild(obj, "WeaponL_Parent", true).transform;
+            foreach (Transform child in t)
+            {
+                child.GetComponent<MeshRenderer>().enabled = false;
+            }
         }
         
         
@@ -230,29 +249,46 @@ public class PlayerManager
         if (playerId == Managers.Player._myDediPlayerId)
         {
             Transform t = Util.FindChild(_myDediPlayer, "WeaponR_Parent", true).transform;
-            if (t.childCount > 0)
+            _myDediPlayer.GetComponent<MyDediPlayer>()._currentItemID = itemId;
+            if (playerId != GetKillerId())
             {
-                Util.DestroyAllChildren(t);
-            }
-            
-            if (playerId != GetKillerId() && itemId != -1)
-            {
-                Managers.Resource.Instantiate(string.Concat("Items/", itemId.ToString()), t).transform.localPosition = Vector3.zero;
-                _myDediPlayer.GetComponent<MyDediPlayer>()._currentItemID = itemId;
+                foreach (Transform child in t)
+                {
+                    child.GetComponent<MeshRenderer>().enabled = false;
+                }
+                
+                if (t.Find(itemId.ToString()) != null)
+                {
+                    t.Find(itemId.ToString()).GetComponent<MeshRenderer>().enabled = true;
+                }
             }
         }
         else
         {
-            Transform t = Util.FindChild(_otherDediPlayers[playerId], "WeaponR_Parent", true).transform;
-            if (t.childCount > 0)
+            Transform right = Util.FindChild(_otherDediPlayers[playerId], "WeaponR_Parent", true).transform;
+            Transform left = Util.FindChild(_otherDediPlayers[playerId], "WeaponL_Parent", true).transform;
+            _otherDediPlayers[playerId].GetComponent<OtherDediPlayer>()._currentItemID = itemId;
+            if (playerId != GetKillerId())
             {
-                Util.DestroyAllChildren(t);
-            }
-            
-            if (playerId != GetKillerId() && itemId != -1)
-            {
-                Managers.Resource.Instantiate(string.Concat("Items/", itemId.ToString()), t).transform.localPosition = Vector3.zero;
-                _otherDediPlayers[playerId].GetComponent<OtherDediPlayer>()._currentItemID = itemId;
+                foreach (Transform child in right)
+                { 
+                    child.GetComponent<MeshRenderer>().enabled = false;
+                }
+                foreach (Transform child in left)
+                {
+                    child.GetComponent<MeshRenderer>().enabled = false;
+                }
+                if (left.Find(itemId.ToString())!=null)
+                {
+                    left.Find(itemId.ToString()).GetComponent<MeshRenderer>().enabled = true;
+                }
+                else
+                {
+                    if (right.Find(itemId.ToString()) != null)
+                    {
+                        right.Find(itemId.ToString()).GetComponent<MeshRenderer>().enabled = true;
+                    }
+                }
             }
         }
     }
@@ -307,6 +343,18 @@ public class PlayerManager
             a.Value.GetComponent<OtherDediPlayer>()._isKiller = false;
             a.Value.GetComponent<OtherDediPlayer>()._gauge = 0;
             a.Value.GetComponent<OtherDediPlayer>()._totalPoint = 0;
+        }
+    }
+
+    public PlayerAnimController GetAnimator(int playerId)
+    {
+        if (playerId == Managers.Player._myDediPlayerId)
+        {
+            return _myDediPlayer.GetComponentInChildren<PlayerAnimController>();
+        }
+        else
+        {
+            return _otherDediPlayers[playerId].GetComponentInChildren<PlayerAnimController>();
         }
     }
     

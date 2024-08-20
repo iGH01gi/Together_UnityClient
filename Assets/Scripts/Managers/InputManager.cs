@@ -9,7 +9,7 @@ public class InputManager
     private InputActionAsset _inputActionAsset;
     private bool _isCursorVisible;
     private MovementInput _movementInput;
-    ObjectInput _objectInput;
+    public ObjectInput _objectInput;
     PlayerAnimController _playerAnimController;
     
     public void Init()

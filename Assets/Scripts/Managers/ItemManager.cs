@@ -92,7 +92,8 @@ public class ItemManager
         foreach (var itemData in itemsData)
         {
             //아이템 타입에 따라서 아이템 팩토리 생성
-            //TODO: 아이템 타입이 늘어날 경우, 아래 코드 수정 필요 + 에러 체크 추가
+            //Dash 아이템 팩토리 생성
+            Debug.Log(itemData["EnglishName"]?.ToString());
             if(itemData["EnglishName"]?.ToString() == "Dash")
             {
                 DashFactory itemFactory = new DashFactory(itemData["Id"].Value<int>(), 
@@ -105,6 +106,7 @@ public class ItemManager
                 
                 _itemFactories.Add(itemFactory.FactoryId, itemFactory);
             }
+            //Firework 아이템 팩토리 생성
             else if(itemData["EnglishName"]?.ToString() == "Firework")
             {
                 FireworkFactory itemFactory = new FireworkFactory(itemData["Id"].Value<int>(), 
@@ -116,6 +118,51 @@ public class ItemManager
                     itemData["FlightHeight"].Value<float>());
                 _itemFactories.Add(itemFactory.FactoryId, itemFactory);
             }
+            //Invisible 아이템 팩토리 생성
+            else if(itemData["EnglishName"]?.ToString() == "Invisible")
+            {
+                InvisibleFactory itemFactory = new InvisibleFactory(itemData["Id"].Value<int>(), 
+                    itemData["Price"].Value<int>(),
+                    itemData["EnglishName"].ToString(), 
+                    itemData["KoreanName"].ToString(), 
+                    itemData["EnglishDescription"].ToString(),
+                    itemData["KoreanDescription"].ToString(),
+                    itemData["InvisibleSeconds"].Value<float>());
+                _itemFactories.Add(itemFactory.FactoryId, itemFactory);
+            }
+            //Flashlight 아이템 팩토리 생성
+            else if(itemData["EnglishName"]?.ToString() == "Flashlight")
+            {
+                FlashlightFactory itemFactory = new FlashlightFactory(itemData["Id"].Value<int>(), 
+                    itemData["Price"].Value<int>(),
+                    itemData["EnglishName"].ToString(), 
+                    itemData["KoreanName"].ToString(), 
+                    itemData["EnglishDescription"].ToString(),
+                    itemData["KoreanDescription"].ToString(),
+                    itemData["BlindDuration"].Value<float>(),
+                    itemData["FlashlightDistance"].Value<float>(),
+                    itemData["FlashlightAngle"].Value<float>(),
+                    itemData["FlashlightAvailableTime"].Value<float>(),
+                    itemData["FlashlightTimeRequired"].Value<float>()
+                    );
+                _itemFactories.Add(itemFactory.FactoryId, itemFactory);
+            }
+            // Trap 아이템 팩토리 생성
+            else if(itemData["EnglishName"]?.ToString() == "Trap")
+            {
+                TrapFactory itemFactory = new TrapFactory(itemData["Id"].Value<int>(), 
+                    itemData["Price"].Value<int>(),
+                    itemData["EnglishName"].ToString(), 
+                    itemData["KoreanName"].ToString(), 
+                    itemData["EnglishDescription"].ToString(),
+                    itemData["KoreanDescription"].ToString(),
+                    itemData["TrapDuration"].Value<float>(),
+                    itemData["TrapRadius"].Value<float>(),
+                    itemData["StunDuration"].Value<float>()
+                    );
+                _itemFactories.Add(itemFactory.FactoryId, itemFactory);
+            }
+            
             else
             {
                 Debug.LogError("읽을 수 없는 아이템이 입력되었습니다.");
