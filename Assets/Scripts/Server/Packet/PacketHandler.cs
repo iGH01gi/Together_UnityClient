@@ -368,7 +368,10 @@ public class PacketHandler
         DeathCause deathCause = nightTimerEndPacket.DeathCause; //죽은 이유
         int deathPlayerId = nightTimerEndPacket.DeathPlayerId; //죽은 플레이어의 id
         int killerPlayerId = nightTimerEndPacket.KillerPlayerId; //마지막 킬러의 id
-        
+
+        //플레이어 죽음 처리
+        Managers.Player.ProcessPlayerDeath(deathPlayerId);
+
         //낮 되기 전에 미리 한번 플레이어 정보 초기화
         Managers.Player.ResetPlayerOnDayStart();
         

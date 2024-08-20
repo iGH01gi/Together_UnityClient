@@ -29,6 +29,12 @@ public class ClientGauge : MonoBehaviour
     //서버 시간과 비교. hardsnap 마진보다 차이 날 시 hardsnap
     public void CheckHardSnap(int dediPlayerId, float serverGaugeValue)
     {
+        //죽은 플레이어는 게이지처리 필요없음
+        if (Managers.Player.IsPlayerDead(dediPlayerId))
+        {
+            return;
+        }
+
         if (Math.Abs(serverGaugeValue - GetGauge(dediPlayerId)) >= _hardSnapMargin)
         {
             SetGauge(dediPlayerId, serverGaugeValue);

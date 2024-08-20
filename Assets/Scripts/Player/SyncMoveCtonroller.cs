@@ -48,6 +48,11 @@ public class SyncMoveCtonroller
 
         DateTime pastDateTime = packet.Timestamp.ToDateTime();
 
+        //이미 죽은 플레이어라면 무시
+        if (Managers.Player.IsPlayerDead(playerId))
+        {
+            return;
+        }
 
         //추측항법을 이용해서 위치 예측
         TransformInfo predictedTransformInfo = DeadReckoning(pastDateTime, packet.TransformInfo, velocity);

@@ -60,7 +60,13 @@ public class InventoryManager : MonoBehaviour
     /// <param name = "itemID">구매하려는 아이템id</param>
     public void TryBuyItem(int itemID)
     {
-        if((_totalPoint < Managers.Item.GetItemPrice(itemID)||!(Managers.Game._isDay)))
+        //내 플레이어가 죽었으면 불가능
+        if (Managers.Player.IsPlayerDead(Managers.Player._myDediPlayerId))
+        {
+            return;
+        }
+
+        if ((_totalPoint < Managers.Item.GetItemPrice(itemID)||!(Managers.Game._isDay)))
         {
             Managers.Sound.Play("Error", Define.Sound.Effects,null,1.3f);
         }

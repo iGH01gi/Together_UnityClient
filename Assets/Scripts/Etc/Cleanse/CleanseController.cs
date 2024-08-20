@@ -59,6 +59,13 @@ public class CleanseController : MonoBehaviour
         if (Managers.Player.IsMyDediPlayerKiller())
             return;
 
+        // 내 플레이어가 죽었으면 불가능
+        if (Managers.Player.IsPlayerDead(Managers.Player._myDediPlayerId))
+        {
+            return;
+        }
+
+
         //서버에게 cleanseId를 보내서 사용 가능여부 확인
         CDS_RequestCleansePermission requestCleansePermission = new CDS_RequestCleansePermission();
         requestCleansePermission.MyDediplayerId = Managers.Player._myDediPlayerId;
@@ -73,6 +80,13 @@ public class CleanseController : MonoBehaviour
     {
         Managers.UI.ClosePopup();
         _myPlayerCurrentCleanse = null;
+
+        //내 플레이어가 죽었으면 불가능
+        if (Managers.Player.IsPlayerDead(Managers.Player._myDediPlayerId))
+        {
+            return;
+        }
+
         //서버에게 클린즈 중단을 알림
         CDS_CleanseQuit cleanseQuit = new CDS_CleanseQuit();
         cleanseQuit.MyDediplayerId = Managers.Player._myDediPlayerId;

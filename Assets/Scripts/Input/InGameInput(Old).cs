@@ -94,6 +94,12 @@ public class InGameInputOld : MonoBehaviour
     public Vector3 _velocity;
     void SendMove()
     {
+        //만약 내가 죽었다면 보내지 않고 그냥 무시 
+        if (Managers.Player.IsPlayerDead(Managers.Player._myDediPlayerId))
+        {
+            return;
+        }
+
         //서버로 현재위치,쿼터니언의 4개의 부동소수점 값, 누른 키, utc타임 정보를 보냄
         CDS_Move packet = new CDS_Move();
         

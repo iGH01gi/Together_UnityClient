@@ -8,7 +8,7 @@ public class OtherDediPlayer : MonoBehaviour
     //현재 데디서버의 playerId는 독자적인 값(=데디서버의 sessionID)으로 처리하고 있음
     public int PlayerId { get; set; }
     public string Name { get; set; }
-    
+
     public bool _isKiller = false; //킬러 여부
     public int _killerType = -1; //어떤 킬러타입인지를 나타내는 ID
     
@@ -30,6 +30,7 @@ public class OtherDediPlayer : MonoBehaviour
     {
         PlayerId = playerId;
         Name = name;
+        _isKiller = false;
     }
 
     private void Start()

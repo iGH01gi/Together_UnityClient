@@ -136,6 +136,10 @@ public class ChestController : MonoBehaviour
     /// <param name="chestId">상자id</param>
     public void TryOpenChest(int chestId)
     {
+        //내 플레이어가 죽은 상태면 무시
+        if(Managers.Player.IsPlayerDead(Managers.Player._myDediPlayerId))
+            return;
+
         //상자 열었을때 처리
         //1. 특정 상자 열고싶다는 패킷을 데디서버에게 보냄
         //2. (동시성 문제)데디서버에서 판단 후, 상자 open처리 가능하면 => (먼저 열은)클라가 상자 열었다는 패킷을 모든 클라이언트에게 보냄

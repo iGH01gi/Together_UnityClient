@@ -289,12 +289,21 @@ public class PlayerManager
     /// </summary>
     public void ResetPlayerOnDayStart()
     {
-        Managers.Player._myDediPlayer.GetComponent<MyDediPlayer>()._isKiller = false;
-        Managers.Player._myDediPlayer.GetComponent<MyDediPlayer>()._gauge = 0;
-        Managers.Inventory.SetTotalPoint(0);
+        //내 플레이어는 살아있을때만 초기화
+        if (!IsPlayerDead(_myDediPlayerId))
+        {
+            Managers.Player._myDediPlayer.GetComponent<MyDediPlayer>()._isKiller = false;
+            Managers.Player._myDediPlayer.GetComponent<MyDediPlayer>()._gauge = 0;
+            Managers.Inventory.SetTotalPoint(0);
+        }
         
         foreach (KeyValuePair<int, GameObject> a in _otherDediPlayers)
         {
+            //다른 플레이어는 살아있을때만 초기화
+            if (IsPlayerDead(a.Key))
+            {
+                continue;
+            }
             a.Value.GetComponent<OtherDediPlayer>()._isKiller = false;
             a.Value.GetComponent<OtherDediPlayer>()._gauge = 0;
             a.Value.GetComponent<OtherDediPlayer>()._totalPoint = 0;
@@ -303,11 +312,83 @@ public class PlayerManager
     
     public void ActivateInput()
     {
+        //내 죽었다면 활성화 할필요 없음
+        if (IsPlayerDead(_myDediPlayerId))
+        {
+            return;
+        }
+
         _myDediPlayer.GetComponent<PlayerInput>().ActivateInput();
     }
     
     public void DeactivateInput()
     {
+        //내 죽었다면 비활성화 할필요 없음
+        if (IsPlayerDead(_myDediPlayerId))
+        {
+            return;
+        }
+
         _myDediPlayer.GetComponent<PlayerInput>().DeactivateInput();
+    }
+
+    /// <summary>
+    /// 플레이어가 죽었을때의 처리
+    /// </summary>
+    /// <param name="dediPlayerId">죽은 플레이어 id</param>
+    public void ProcessPlayerDeath(int dediPlayerId)
+    {
+        if (dediPlayerId==_myDediPlayerId) //죽은게 '나'일때
+        {
+            //내 플레이어 오브젝트 삭제
+            if (_myDediPlayer != null)
+            {
+                DespawnPlayer(_myDediPlayer);
+                _myDediPlayer = null;
+            }
+
+            //TODO: 관전 or 나가기 ui 띄우기
+
+        }
+        else if (_otherDediPlayers.ContainsKey(dediPlayerId)) //다른 플레이어가 죽었을때
+        {
+            //다른 플레이어 오브젝트 삭제
+            if (_otherDediPlayers.ContainsKey(dediPlayerId))
+            {
+                DespawnPlayer(_otherDediPlayers[dediPlayerId]);
+                _otherDediPlayers.Remove(dediPlayerId);
+            }
+
+            //해당 플레이어 고스트 삭제
+            if (_ghosts.ContainsKey(dediPlayerId))
+            {
+                DespawnGhost(_ghosts[dediPlayerId]);
+                _ghosts.Remove(dediPlayerId);
+            }
+        }
+    }
+
+    /// <summary>
+    /// 죽은 플레이어인지 확인하는 함수
+    /// </summary>
+    /// <param name="dediPlayerId">확인할 플레이어의 id</param>
+    /// <returns>죽었으면 true, 살아있으면 false</returns>
+    public bool IsPlayerDead(int dediPlayerId)
+    {
+        if (dediPlayerId == _myDediPlayerId)
+        {
+            return _myDediPlayer == null;
+        }
+        else
+        {
+            if (_otherDediPlayers.ContainsKey(dediPlayerId) && _ghosts.ContainsKey(dediPlayerId))
+            {
+                return false;
+            }
+            else
+            {
+                return true;
+            }
+        }
     }
 }
