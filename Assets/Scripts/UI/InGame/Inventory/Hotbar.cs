@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Google.Protobuf.Protocol;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -75,7 +76,16 @@ public class Hotbar : MonoBehaviour
     
     public void HoldHotbarItem()
     {
-        Managers.Item.HoldItem(CurrentSelectedItemID(), Managers.Player._myDediPlayerId);
+        int itemId = CurrentSelectedItemID();
+        int myDediPlayerId = Managers.Player._myDediPlayerId;
+        if (itemId != -1)
+        {
+            CDS_OnHoldItem onHoldItem = new CDS_OnHoldItem();
+            onHoldItem.ItemId = itemId;
+            onHoldItem.MyDediplayerId = myDediPlayerId;
+            Managers.Network._dedicatedServerSession.Send(onHoldItem);
+        }
+        Managers.Item.HoldItem(itemId, myDediPlayerId);
     }
 
     /// <summary>

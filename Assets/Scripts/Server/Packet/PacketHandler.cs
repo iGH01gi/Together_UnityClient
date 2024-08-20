@@ -562,4 +562,17 @@ public class PacketHandler
             Managers.Inventory.BuyItemSuccess(itemId, itemTotalCount,isBuySuccess,remainPoint);
         }
     }
+
+    public static void DSC_OnHoldItemHandler(PacketSession session, IMessage packet)
+    {
+        DSC_OnHoldItem onHoldItemPacket = packet as DSC_OnHoldItem;
+        DedicatedServerSession dedicatedServerSession = session as DedicatedServerSession;
+        
+        Debug.Log("DSC_OnHoldItemHandler");
+        
+        int playerId = onHoldItemPacket.PlayerId;
+        int itemId = onHoldItemPacket.ItemId;
+        
+        Managers.Item.HoldItem(itemId,playerId);
+    }
 }
