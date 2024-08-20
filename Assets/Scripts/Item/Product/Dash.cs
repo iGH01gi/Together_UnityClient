@@ -4,24 +4,30 @@ using UnityEngine;
 public class Dash : MonoBehaviour, IItem
 {
     //IItem 인터페이스 구현
-    public int itemID { get; set; }
+    public int ItemID { get; set; }
+    public int PlayerID { get; set; }
+    public string EnglishName { get; set; }
+
 
     //이 아이템만의 속성
     public float DashDistance { get; set; }
     
-    public void Init(int itemId)
+    public void Init(int itemId, int playerId, string englishName)
     {
-        this.itemID = itemId;
+        this.ItemID = itemId;
+        this.PlayerID = playerId;
+        this.EnglishName = englishName;
     }
-    
-    public void Init(int itemId, float dashDistance)
+
+    public void Init(int itemId, int playerId, string englishName, float dashDistance)
     {
-        Init(itemId);
+        Init(itemId,playerId, englishName);
         DashDistance = dashDistance;
     }
 
     public void Use()
     {
+        Managers.Player.GetAnimator(PlayerID).SetTriggerByString(EnglishName);
         Debug.Log("Item Dash Use");
     }
     

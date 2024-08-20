@@ -300,6 +300,18 @@ public class PlayerManager
             a.Value.GetComponent<OtherDediPlayer>()._totalPoint = 0;
         }
     }
+
+    public PlayerAnimController GetAnimator(int playerId)
+    {
+        if (playerId == Managers.Player._myDediPlayerId)
+        {
+            return _myDediPlayer.GetComponentInChildren<PlayerAnimController>();
+        }
+        else
+        {
+            return _otherDediPlayers[playerId].GetComponentInChildren<PlayerAnimController>();
+        }
+    }
     
     public void ActivateInput()
     {

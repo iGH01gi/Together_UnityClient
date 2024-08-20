@@ -2,12 +2,14 @@
 
 public interface IItem
 {
-    public int itemID { get; set; }
+    public int ItemID { get; set; }
+    public int PlayerID { get; set; }
+    public string EnglishName { get; set; }
 
     /// <summary>
     /// 아이템이 생성될 때 필수로 설정되어야 하는 것들을 설정함
     /// </summary>
-    public abstract void Init(int itemId);
+    public abstract void Init(int itemId, int playerId, string englishName);
 
     /// <summary>
     /// 아이템 사용시 기능 구현
