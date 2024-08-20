@@ -252,14 +252,12 @@ public class PlayerManager
             _myDediPlayer.GetComponent<MyDediPlayer>()._currentItemID = itemId;
             if (playerId != GetKillerId())
             {
-                if (itemId == -1)
+                foreach (Transform child in t)
                 {
-                    foreach (Transform child in t)
-                    {
-                        child.GetComponent<MeshRenderer>().enabled = false;
-                    }
+                    child.GetComponent<MeshRenderer>().enabled = false;
                 }
-                else if (t.Find(itemId.ToString()) != null)
+                
+                if (t.Find(itemId.ToString()) != null)
                 {
                     t.Find(itemId.ToString()).GetComponent<MeshRenderer>().enabled = true;
                 }
@@ -272,18 +270,15 @@ public class PlayerManager
             _otherDediPlayers[playerId].GetComponent<OtherDediPlayer>()._currentItemID = itemId;
             if (playerId != GetKillerId())
             {
-                if (itemId == -1)
-                {
-                    foreach (Transform child in right)
-                    {
-                        child.GetComponent<MeshRenderer>().enabled = false;
-                    }
-                    foreach (Transform child in left)
-                    {
-                        child.GetComponent<MeshRenderer>().enabled = false;
-                    }
+                foreach (Transform child in right)
+                { 
+                    child.GetComponent<MeshRenderer>().enabled = false;
                 }
-                else if (left.Find(itemId.ToString())!=null)
+                foreach (Transform child in left)
+                {
+                    child.GetComponent<MeshRenderer>().enabled = false;
+                }
+                if (left.Find(itemId.ToString())!=null)
                 {
                     left.Find(itemId.ToString()).GetComponent<MeshRenderer>().enabled = true;
                 }

@@ -93,6 +93,7 @@ public class ItemManager
         {
             //아이템 타입에 따라서 아이템 팩토리 생성
             //Dash 아이템 팩토리 생성
+            Debug.Log(itemData["EnglishName"]?.ToString());
             if(itemData["EnglishName"]?.ToString() == "Dash")
             {
                 DashFactory itemFactory = new DashFactory(itemData["Id"].Value<int>(), 
