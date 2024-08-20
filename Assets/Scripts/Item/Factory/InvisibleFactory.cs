@@ -7,7 +7,7 @@ public class InvisibleFactory : ItemFactory
     public float InvisibleSeconds { get; set; }
     
     public InvisibleFactory(int id, int price, string englishName, string koreanName, string englishDescription,
-        string koreanDescription, float dashDistance, float invisibleSeconds)
+        string koreanDescription, float invisibleSeconds)
     {
         base.FactoryInit(id, price, englishName, koreanName, englishDescription, koreanDescription);
         InvisibleSeconds = invisibleSeconds;
