@@ -16,7 +16,7 @@ public class Dash : MonoBehaviour, IItem
     
     public void Init(int itemId, float dashDistance)
     {
-        this.itemID = itemId;
+        Init(itemId);
         DashDistance = dashDistance;
     }
 

@@ -14,7 +14,7 @@ public class Firework : MonoBehaviour,IItem
     }
     public void Init(int itemId, float flightHeight)
     {
-        this.itemID = itemId;
+        Init(itemId);
         FlightHeight = flightHeight;
     }
 
