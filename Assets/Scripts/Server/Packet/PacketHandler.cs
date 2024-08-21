@@ -276,7 +276,14 @@ public class PacketHandler
         float currentServerTimer = dayTimerSyncPacket.CurrentServerTimer; 
         float estimatedCurrentServerTimer = currentServerTimer - Managers.Time.GetEstimatedLatency(); //현재 서버 타이머 시간(예측)
         
-        Managers.Game._clientTimer.CompareTimerValue(estimatedCurrentServerTimer); //클라이언트 타이머 시간 동기화
+        if (Managers.Player.IsMyPlayerDead())
+        {
+            Managers.UI.GetComponentInSceneUI<ObserveUI>().SetTimerText(Mathf.RoundToInt(estimatedCurrentServerTimer));
+        }
+        else
+        {
+            Managers.Game._clientTimer.CompareTimerValue(estimatedCurrentServerTimer); //클라이언트 타이머 시간 동기화
+        }
     }
 
     //데디케이트서버로부터 낮 타이머 종료를 받았을때의 처리

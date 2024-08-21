@@ -8,10 +8,12 @@ public class LobbyScene : BaseScene
     protected override void Init()
     {
         base.Init();
-        Managers.UI.LoadScenePanel("MainMenuUI");
-        Managers.Sound.Play("MainMenuMusic",Define.Sound.Bgm);
+        Managers.UI.LoadScenePanel(Define.SceneUIType.MainMenuUI.ToString());
         
+        Managers.Sound.Play("MainMenuMusic",Define.Sound.Bgm);
     }
+    
+    
 
     public override void Clear()
     {

@@ -9,14 +9,9 @@ using UnityEngine.UI;
 /// </summary>
 public abstract class UI_scene : UI_base
 {
-    public enum SceneUIType
-    {
-        MainMenuUI,
-        LobbyUI,
-        RoomUI,
-    }
+    
 
-    public static void InstantiateSceneUI(SceneUIType sceneUIType)
+    public static void InstantiateSceneUI(Define.SceneUIType sceneUIType)
     {
         Managers.UI.LoadScenePanel(sceneUIType.ToString());
     }

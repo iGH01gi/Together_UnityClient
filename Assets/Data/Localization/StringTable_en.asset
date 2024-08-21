@@ -218,6 +218,10 @@ MonoBehaviour:
     m_Localized: BUY
     m_Metadata:
       m_Items: []
+  - m_Id: 83376611289751552
+    m_Localized: Quit
+    m_Metadata:
+      m_Items: []
   references:
     version: 2
     RefIds: []

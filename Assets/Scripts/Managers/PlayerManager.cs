@@ -413,6 +413,8 @@ public class PlayerManager
                 DespawnGhost(_ghosts[dediPlayerId]);
                 _ghosts.Remove(dediPlayerId);
             }
+            
+            //TODO: 죽은 플레이어의 정보를 UI에 표시
         }
     }
 
@@ -438,5 +440,14 @@ public class PlayerManager
                 return true;
             }
         }
+    }
+    
+    /// <summary>
+    /// 내 플레이어가 죽었는지 확인하는 함수
+    /// </summary>
+    /// <returns>죽었으면 true, 살아있으면 false</returns>
+    public bool IsMyPlayerDead()
+    {
+        return IsPlayerDead(_myDediPlayerId);
     }
 }

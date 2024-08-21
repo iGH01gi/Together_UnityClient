@@ -51,7 +51,7 @@ public class UIPacketHandler
     public static void EnterRoomReceivePacket()
     {
         OnReceivePacket();
-        UI_scene.InstantiateSceneUI(UI_scene.SceneUIType.RoomUI);
+        UI_scene.InstantiateSceneUI(Define.SceneUIType.RoomUI);
     }
 
     public static void LeaveRoomSendPacket(int roomID)
@@ -63,7 +63,7 @@ public class UIPacketHandler
 
     public static void RequestLeaveRoomReceivePacket()
     {
-        UI_scene.InstantiateSceneUI(UI_scene.SceneUIType.LobbyUI);
+        UI_scene.InstantiateSceneUI(Define.SceneUIType.LobbyUI);
     }
     
     public static void OthersLeftRoomReceivePacket()

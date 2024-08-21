@@ -211,6 +211,10 @@ MonoBehaviour:
     m_Key: Buy
     m_Metadata:
       m_Items: []
+  - m_Id: 83376611289751552
+    m_Key: Quit
+    m_Metadata:
+      m_Items: []
   m_Metadata:
     m_Items: []
   m_KeyGenerator:

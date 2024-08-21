@@ -43,7 +43,7 @@ public class LobbyUI : UI_scene
 
     private void MainMenuButton()
     {
-        Managers.UI.LoadScenePanel(SceneUIType.MainMenuUI.ToString());
+        Managers.UI.LoadScenePanel(Define.SceneUIType.MainMenuUI.ToString());
     }
     
     private void LeftPageButton()

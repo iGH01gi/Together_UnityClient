@@ -21,6 +21,15 @@ public class Define
         InGame,
         ServerTest
     }
+    
+    public enum SceneUIType
+    {
+        MainMenuUI,
+        LobbyUI,
+        RoomUI,
+        InGameUI,
+        ObserveUI
+    }
 
     public enum UIEvent
     {
