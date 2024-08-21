@@ -204,6 +204,19 @@ public class PacketHandler
         Debug.Log("DSC_InformLeaveDedicatedServerHandler");
         
         Managers.Dedicated.InformLeaveDedicatedServer(informLeaveDedicatedServerPacket, callback:()=>{});
+
+        if (Managers.Player.IsMyPlayerDead())
+        {
+            ObserveUI observeUI = Managers.UI.GetComponentInSceneUI<ObserveUI>();
+            if (observeUI != null && informLeaveDedicatedServerPacket != null)
+            {
+                observeUI.CheckIfObservingThisPlayer(informLeaveDedicatedServerPacket.LeavePlayerId);
+            }
+        }
+        else
+        {
+            //TODO: Show that player left room message
+        }
     }
     
     //데디케이트서버로부터 게임 시작을 알려받았을때의 처리 (이 패킷을 받은 클라는  3,2,1 카운트 후 게임을 시작함)
@@ -582,4 +595,6 @@ public class PacketHandler
         
         Managers.Item.HoldItem(itemId,playerId);
     }
+    
+    
 }
