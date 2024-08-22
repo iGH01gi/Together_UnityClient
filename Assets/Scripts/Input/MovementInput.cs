@@ -88,6 +88,13 @@ public class MovementInput : MonoBehaviour
 
     void SendMove()
     {
+        //만약 내가 죽었다면 보내지 않고 그냥 무시
+        if (Managers.Player.IsMyPlayerDead())
+        {
+            return;
+        }
+        
+        
         CDS_Move packet = new CDS_Move();
         
         packet.DediplayerId = Managers.Player._myDediPlayerId;

@@ -18,7 +18,6 @@ public class NightIsOverPopup : UI_popup
     private string _otherText;
     void Awake()
     {
-        Managers.UI.ChangeCanvasRenderMode(RenderMode.ScreenSpaceCamera); //캔버스 렌더모드 변경
         _mySacrificeText = transform.Find("MySacrificeText").GetComponent<TMP_Text>();
         _otherSacrificeText = transform.Find("OtherSacrificeText").GetComponent<TMP_Text>();
         _playerName = transform.Find("PlayerName").GetComponent<TMP_Text>();
@@ -37,6 +36,8 @@ public class NightIsOverPopup : UI_popup
 
     public void Init(int playerId)
     {
+        _camera.enabled = true;
+        Managers.UI.ChangeCanvasRenderMode(RenderMode.ScreenSpaceCamera); //캔버스 렌더모드 변경
         _playerID = playerId;
         //죽을 플레이어를 찾아서 이동시키기
         GameObject currentGO = GameObject.Find(String.Concat(_deadPlayerPrefabPath, "/PlayerPrefab"));
@@ -63,12 +64,12 @@ public class NightIsOverPopup : UI_popup
 
     public void StartDay()
     {
+        _camera.enabled = false;
         Managers.UI.ChangeCanvasRenderMode(RenderMode.ScreenSpaceOverlay);
         if (Managers.Player._myDediPlayer == null)
         {
             Managers.UI.LoadScenePanel(Define.SceneUIType.PlayerDeadUI);
         }
-        Managers.Player.ActivateInput();
         Managers.Player.DeletePlayerObject(_playerID);
         ClosePopup();
     }

@@ -236,7 +236,7 @@ public class PlayerManager
             }
         }
         
-        if (Managers.Player._myDediPlayer.GetComponent<MyDediPlayer>()._isKiller)
+        if (!IsMyPlayerDead() && Managers.Player._myDediPlayer.GetComponent<MyDediPlayer>()._isKiller)
         {
             return Managers.Player._myDediPlayerId;
         }

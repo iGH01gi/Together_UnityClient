@@ -18,8 +18,7 @@ public class DayToNightPopup : UI_popup
 
     private void Start()
     {
-        if (Managers.Player.IsMyPlayerDead())
-        {
+        
             //현재 킬러 프리팹으로 바꾸기
             GameObject currentGO = GameObject.Find(String.Concat(_killerPrefabPath, "/KillerPrefab"));
             GameObject newGO = Managers.Resource.Instantiate(
@@ -47,7 +46,7 @@ public class DayToNightPopup : UI_popup
             {
                 StartCoroutine(ShowText());
             }
-        }
+        
     }
 
     /// <summary>
@@ -76,7 +75,7 @@ public class DayToNightPopup : UI_popup
         _camera.enabled = false;
         _backgroundAnim.SetTrigger("OpenEyes");
 
-        if (Managers.Player.IsMyPlayerDead())
+        if (!Managers.Player.IsMyPlayerDead())
         {
             Managers.Game._playKillerSound._checkForSound = true; //킬러 소리 체크 시작
             Managers.Player.ActivateInput();
