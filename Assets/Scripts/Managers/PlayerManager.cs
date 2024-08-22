@@ -383,11 +383,15 @@ public class PlayerManager
     /// <param name="dediPlayerId">죽은 플레이어 id</param>
     public void ProcessPlayerDeath(int dediPlayerId)
     {
-        if (dediPlayerId != _myDediPlayerId)
+        Managers.UI.LoadPopupPanel<NightIsOverPopup>(true,true).Init(dediPlayerId);
+        if (dediPlayerId == _myDediPlayerId)
         {
             
         }
-        GetAnimator(dediPlayerId).SetTriggerByString("Die"); //Die anim 실행 후 DeletePlayerObject 실행
+        else
+        {
+            
+        }
     }
     
     /// <summary>

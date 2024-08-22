@@ -215,6 +215,14 @@ MonoBehaviour:
     m_Key: Quit
     m_Metadata:
       m_Items: []
+  - m_Id: 83837874284433408
+    m_Key: SacrificeChosen
+    m_Metadata:
+      m_Items: []
+  - m_Id: 83840255965433856
+    m_Key: PlayerIsSacrifice
+    m_Metadata:
+      m_Items: []
   m_Metadata:
     m_Items: []
   m_KeyGenerator:

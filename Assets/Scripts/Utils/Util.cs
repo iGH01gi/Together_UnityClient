@@ -106,4 +106,9 @@ public class Util
                 return string.Equals(currentLocale, "en");
         }
     }
+    
+    public static IEnumerator WaitForSeconds(float seconds)
+    {
+        yield return new WaitForSeconds(seconds);
+    }
 }

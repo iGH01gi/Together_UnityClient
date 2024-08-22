@@ -375,28 +375,29 @@ public class PacketHandler
         DedicatedServerSession dedicatedServerSession = session as DedicatedServerSession;
 
         Debug.Log("DSC_NightTimerEndHandler");
-
-        Managers.Inventory.Clear(); //인벤토리 초기화
-        Managers.Inventory._hotbar.ChangeSelected(0); //선택된 아이템 초기화
-        Managers.Game._playKillerSound._checkForSound = false;
-        Managers.Game._clientGauge.EndGauge();
-        Managers.Game._clientTimer.EndTimer();
-        Managers.Sound.Stop(Define.Sound.Heartbeat);
-        Managers.Object._cleanseController.NightIsOver();
-        Managers.UI.CloseAllPopup();
-        Managers.UI.LoadPopupPanel<WairForSecondsPopup>(true,false); //3초 카운트 다운
         
         DeathCause deathCause = nightTimerEndPacket.DeathCause; //죽은 이유
         int deathPlayerId = nightTimerEndPacket.DeathPlayerId; //죽은 플레이어의 id
         int killerPlayerId = nightTimerEndPacket.KillerPlayerId; //마지막 킬러의 id
 
+        Managers.Player.DeactivateInput();
+        
+        Managers.Inventory.Clear(); //인벤토리 초기화
+        Managers.Inventory._hotbar.ChangeSelected(0); //선택된 아이템 초기화
+        Managers.Game._playKillerSound._checkForSound = false;
+        Managers.Game._clientGauge.EndGauge();
+        Managers.Game._clientTimer.EndTimer();
+        Managers.UI.CloseAllPopup(); //모든 팝업 닫기
+        Managers.Sound.Stop(Define.Sound.Heartbeat);
+        
         //플레이어 죽음 처리
         Managers.Player.ProcessPlayerDeath(deathPlayerId);
+        
+        Managers.Object._cleanseController.NightIsOver();
 
         //낮 되기 전에 미리 한번 플레이어 정보 초기화
         Managers.Player.ResetPlayerOnDayStart();
         
-        Managers.Player.DeactivateInput();
         
         //밤->낮 효과를 설정함(0초동안 밤 유지, 3초 동안 낮으로 천천히 전환됨)
         Managers.Scene.SimulateNightToSunrise(0,3);
@@ -596,5 +597,13 @@ public class PacketHandler
         Managers.Item.HoldItem(itemId,playerId);
     }
     
-    
+    public static void DSC_UseFireworkItemHandler(PacketSession session, IMessage packet)
+    {
+        throw new NotImplementedException();
+    }
+
+    public static void DSC_UseInvisibleItemHandler(PacketSession session, IMessage packet)
+    {
+        throw new NotImplementedException();
+    }
 }

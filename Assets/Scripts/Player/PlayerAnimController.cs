@@ -55,6 +55,15 @@ public class PlayerAnimController : MonoBehaviour
 
     public void PlayerIsDead()
     {
-        
+        if (transform.parent.GetComponent<OtherDediPlayer>() == null)
+        {
+            StartCoroutine(Util.WaitForSeconds(2.0f));
+            GameObject popup = (Managers.UI.CheckPopupActive("NightIsOverPopup"));
+            if (popup != null)
+            {
+                Managers.UI.ClosePopup();
+            }
+            Managers.UI.LoadScenePanel(Define.SceneUIType.PlayerDeadUI);
+        }
     }
 }

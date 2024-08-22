@@ -18,6 +18,14 @@ public class DayToNightPopup : UI_popup
 
     private void Start()
     {
+        //현재 킬러 프리팹으로 바꾸기
+        GameObject currentGO = GameObject.Find(String.Concat(_killerPrefabPath,"/KillerPrefab"));
+        GameObject newGO = Managers.Resource.Instantiate($"Player/OtherPlayerKiller/{Managers.Killer.GetKillerEnglishName()}",currentGO.transform.parent);
+        newGO.transform.position = currentGO.transform.position;
+        newGO.transform.rotation = currentGO.transform.rotation;
+        Managers.Resource.Destroy(currentGO);
+        newGO.name = "KillerPrefab";
+        
         _canOpenEyes = false;
         _backgroundAnim = transform.GetComponent<Animator>();
         _text = transform.Find("SurvivorText").GetComponent<TMP_Text>();
