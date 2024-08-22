@@ -13,7 +13,7 @@ public abstract class UI_scene : UI_base
 
     public static void InstantiateSceneUI(Define.SceneUIType sceneUIType)
     {
-        Managers.UI.LoadScenePanel(sceneUIType.ToString());
+        Managers.UI.LoadScenePanel(sceneUIType);
     }
 
     /// <summary>

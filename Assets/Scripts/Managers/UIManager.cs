@@ -56,15 +56,15 @@ public class UIManager
     /// *** ScenePanel Prefab명과 동일한 SceneUI 클래스가 존재해야한다. 그 클래스가 씬패널의 기능을 담당한다.***
     /// 씬 패널은 하나만 존재한다. 다른 씬패널이 불려오면 기존 씬패널은 Destroy 된다.
     /// </summary>
-    public void LoadScenePanel(string sceneUIType)
+    public void LoadScenePanel(Define.SceneUIType sceneUIType)
     {
         if (sceneUI != null)
         {
             Managers.Resource.Destroy(sceneUI);
         }
 
-        sceneUI = Managers.Resource.Instantiate($"UI/Scene/{sceneUIType}", root.transform);
-        sceneUI.AddComponent(Type.GetType(sceneUIType)); //동일한 이름의 클래스 부착
+        sceneUI = Managers.Resource.Instantiate($"UI/Scene/{sceneUIType.ToString()}", root.transform);
+        sceneUI.AddComponent(Type.GetType(sceneUIType.ToString())); //동일한 이름의 클래스 부착
     }
     
     /// <summary>
@@ -134,6 +134,21 @@ public class UIManager
     public bool PopupActive()
     {
         return (_popupLinkedList.Count > 0);
+    }
+    
+    /// <summary>
+    /// 팝업이 활성화되어있는지 확인하고 리턴한다.
+    /// </summary>
+    /// <param name="popupName"></param>
+    /// <returns></returns>
+    public GameObject CheckPopupActive(string popupName)
+    {
+        foreach(var cur in _popupLinkedList)
+        {
+            if (cur.name == popupName)
+                return cur;
+        }
+        return null;
     }
 
     public void SetEventSystemNavigation(GameObject go)

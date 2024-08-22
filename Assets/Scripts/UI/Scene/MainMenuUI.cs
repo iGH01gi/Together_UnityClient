@@ -20,7 +20,7 @@ public class MainMenuUI : UI_scene
 
     private void StartGame()
     {
-       Managers.UI.LoadScenePanel(Define.SceneUIType.LobbyUI.ToString());
+       Managers.UI.LoadScenePanel(Define.SceneUIType.LobbyUI);
     }
     
     private void Shop()

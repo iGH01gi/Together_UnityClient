@@ -83,7 +83,14 @@ public class UIPacketHandler
     
     public static void StartGameHandler()
     {
-        Managers.UI.GetComponentInPopup<WairForSecondsPopup>().GameStart();
+        if (Managers.UI.CheckPopupActive("WairForSecondsPopup") != null)
+        {
+            Managers.UI.GetComponentInPopup<WairForSecondsPopup>().GameStart();
+        }
+        else if (Managers.UI.CheckPopupActive("NightIsOverPopup") != null)
+        {
+            Managers.UI.GetComponentInPopup<NightIsOverPopup>().StartDay();
+        }
         Managers.Player.ActivateInput();
     }
 }

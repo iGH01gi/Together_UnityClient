@@ -78,13 +78,10 @@ public class Hotbar : MonoBehaviour
     {
         int itemId = CurrentSelectedItemID();
         int myDediPlayerId = Managers.Player._myDediPlayerId;
-        if (itemId != -1)
-        {
-            CDS_OnHoldItem onHoldItem = new CDS_OnHoldItem();
-            onHoldItem.ItemId = itemId;
-            onHoldItem.MyDediplayerId = myDediPlayerId;
-            Managers.Network._dedicatedServerSession.Send(onHoldItem);
-        }
+        CDS_OnHoldItem onHoldItem = new CDS_OnHoldItem();
+        onHoldItem.ItemId = itemId;
+        onHoldItem.MyDediplayerId = myDediPlayerId;
+        Managers.Network._dedicatedServerSession.Send(onHoldItem);
         Managers.Item.HoldItem(itemId, myDediPlayerId);
     }
 

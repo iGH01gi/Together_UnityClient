@@ -237,7 +237,7 @@ public class PacketHandler
         Debug.Log("DSC_StartGameHandler");
         Managers.UI.ClosePopup(); //현재 띄워져 있는 progressPopup을 닫는다
         Managers.UI.ClosePopup(); //현재 띄워져 있는 progressPopup을 닫는다
-        Managers.UI.LoadScenePanel("InGameUI"); //Timer를 포함한 인게임UI 부르기.
+        Managers.UI.LoadScenePanel(Define.SceneUIType.InGameUI); //Timer를 포함한 인게임UI 부르기.
         Managers.Player.DeactivateInput();
     }
     

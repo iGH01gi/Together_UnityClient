@@ -282,12 +282,9 @@ public class PlayerManager
                 {
                     left.Find(itemId.ToString()).GetComponent<MeshRenderer>().enabled = true;
                 }
-                else
+                else if(right.Find(itemId.ToString()) != null)
                 {
-                    if (right.Find(itemId.ToString()) != null)
-                    {
-                        right.Find(itemId.ToString()).GetComponent<MeshRenderer>().enabled = true;
-                    }
+                    right.Find(itemId.ToString()).GetComponent<MeshRenderer>().enabled = true;
                 }
             }
         }
@@ -386,17 +383,29 @@ public class PlayerManager
     /// <param name="dediPlayerId">죽은 플레이어 id</param>
     public void ProcessPlayerDeath(int dediPlayerId)
     {
+        if (dediPlayerId != _myDediPlayerId)
+        {
+            
+        }
+        GetAnimator(dediPlayerId).SetTriggerByString("Die"); //Die anim 실행 후 DeletePlayerObject 실행
+    }
+    
+    /// <summary>
+    /// Die animation 끝에 Animation event로 실행되는 함수.
+    /// PlayerDeadUI로 sceneUI 변경 후 플레이어 프리팹 삭제
+    /// </summary>
+    private void DeletePlayerObject(int dediPlayerId)
+    {
         if (dediPlayerId==_myDediPlayerId) //죽은게 '나'일때
         {
+            Managers.UI.LoadScenePanel(Define.SceneUIType.PlayerDeadUI);
             //내 플레이어 오브젝트 삭제
             if (_myDediPlayer != null)
             {
                 DespawnPlayer(_myDediPlayer);
                 _myDediPlayer = null;
             }
-
-            //TODO: 관전 or 나가기 ui 띄우기
-
+            
         }
         else if (_otherDediPlayers.ContainsKey(dediPlayerId)) //다른 플레이어가 죽었을때
         {
@@ -413,8 +422,6 @@ public class PlayerManager
                 DespawnGhost(_ghosts[dediPlayerId]);
                 _ghosts.Remove(dediPlayerId);
             }
-            
-            //TODO: 죽은 플레이어의 정보를 UI에 표시
         }
     }
 

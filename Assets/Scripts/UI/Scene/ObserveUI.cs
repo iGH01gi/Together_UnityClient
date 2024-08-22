@@ -52,7 +52,7 @@ public class ObserveUI : UI_scene
     private void ReturnToLobby()
     {
         Managers.Scene.LoadScene(Define.Scene.Lobby);
-        Managers.UI.LoadScenePanel(Define.SceneUIType.LobbyUI.ToString());
+        Managers.UI.LoadScenePanel(Define.SceneUIType.LobbyUI);
     }
     
     private void SetObservingPlayerName()

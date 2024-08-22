@@ -28,6 +28,7 @@ public class Define
         LobbyUI,
         RoomUI,
         InGameUI,
+        PlayerDeadUI,
         ObserveUI
     }
 
