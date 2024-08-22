@@ -4,15 +4,27 @@ using UnityEngine;
 
 public class PlayerDeadUI : UI_scene
 {
-    //public GameObject
+    public GameObject _lobbyButton;
+    public GameObject _observeButton;
+    
+    private enum Buttons
+    {
+        LobbyButton,
+        ObserveButton
+    }
     void Start()
     {
-        
+        InitButtons<Buttons>(gameObject);
     }
-
-    // Update is called once per frame
-    void Update()
+    
+    private void LobbyButton()
     {
-        
+        Managers.Scene.LoadScene(Define.Scene.Lobby);
+        Managers.UI.LoadScenePanel(Define.SceneUIType.LobbyUI);
+    }
+    
+    private void ObserveButton()
+    {
+        Managers.UI.LoadScenePanel(Define.SceneUIType.ObserveUI);
     }
 }

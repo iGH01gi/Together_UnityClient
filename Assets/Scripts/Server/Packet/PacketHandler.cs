@@ -388,10 +388,10 @@ public class PacketHandler
         Managers.Game._clientGauge.EndGauge();
         Managers.Game._clientTimer.EndTimer();
         Managers.UI.CloseAllPopup(); //모든 팝업 닫기
-        Managers.Sound.Stop(Define.Sound.Heartbeat);
-        
         //플레이어 죽음 처리
         Managers.Player.ProcessPlayerDeath(deathPlayerId);
+        Managers.Sound.Stop(Define.Sound.Heartbeat);
+        
         
         Managers.Object._cleanseController.NightIsOver();
 

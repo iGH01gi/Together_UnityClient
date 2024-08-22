@@ -98,10 +98,8 @@ public class Util
         {
             case Define.SupportedLanguages.English:
                 return string.Equals(currentLocale, "en");
-                break;
             case Define.SupportedLanguages.Korean:
                 return string.Equals(currentLocale, "kr");
-                break;
             default:
                 return string.Equals(currentLocale, "en");
         }

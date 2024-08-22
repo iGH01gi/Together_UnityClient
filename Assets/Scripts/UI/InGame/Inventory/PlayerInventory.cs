@@ -9,8 +9,7 @@ using UnityEngine.UI;
 /// </summary>
 public class PlayerInventory : MonoBehaviour
 {
-    static int _slotsInLine = 4; //한 라인에 들어갈 슬롯 개수
-    static int _initialLines = 3; //초기 라인 개수
+    int _initialLines = 3; //초기 라인 개수
     string _viewContentPath = "Scroll View/Viewport/Content"; //인벤토리 슬롯이 생성될 부모 오브젝트 경로
     string _linePath = "UI/Inventory/InventoryParts/InventoryLine"; //인벤토리 라인 프리팹 경로
     

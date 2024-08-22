@@ -383,22 +383,15 @@ public class PlayerManager
     /// <param name="dediPlayerId">죽은 플레이어 id</param>
     public void ProcessPlayerDeath(int dediPlayerId)
     {
-        Managers.UI.LoadPopupPanel<NightIsOverPopup>(true,true).Init(dediPlayerId);
-        if (dediPlayerId == _myDediPlayerId)
-        {
-            
-        }
-        else
-        {
-            
-        }
+        NightIsOverPopup temp = Managers.UI.LoadPopupPanel<NightIsOverPopup>(true);
+        temp.Init(dediPlayerId);
     }
     
     /// <summary>
     /// Die animation 끝에 Animation event로 실행되는 함수.
     /// PlayerDeadUI로 sceneUI 변경 후 플레이어 프리팹 삭제
     /// </summary>
-    private void DeletePlayerObject(int dediPlayerId)
+    public void DeletePlayerObject(int dediPlayerId)
     {
         if (dediPlayerId==_myDediPlayerId) //죽은게 '나'일때
         {
