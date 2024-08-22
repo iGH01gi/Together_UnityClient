@@ -89,6 +89,7 @@ public class UIPacketHandler
         }
         else if (Managers.UI.CheckPopupActive("NightIsOverPopup") != null)
         {
+            Debug.Log("Start Day!!!!!");
             Managers.UI.GetComponentInPopup<NightIsOverPopup>().StartDay();
         }
         Managers.Player.ActivateInput();
