@@ -223,6 +223,14 @@ MonoBehaviour:
     m_Key: PlayerIsSacrifice
     m_Metadata:
       m_Items: []
+  - m_Id: 83910717852520448
+    m_Key: LobbyButton
+    m_Metadata:
+      m_Items: []
+  - m_Id: 83910790766301184
+    m_Key: ObserveButton
+    m_Metadata:
+      m_Items: []
   m_Metadata:
     m_Items: []
   m_KeyGenerator:

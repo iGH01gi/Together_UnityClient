@@ -20,11 +20,8 @@ public class NightIsOverPopup : UI_popup
     {
         Managers.UI.ChangeCanvasRenderMode(RenderMode.ScreenSpaceCamera); //캔버스 렌더모드 변경
         _mySacrificeText = transform.Find("MySacrificeText").GetComponent<TMP_Text>();
-        Debug.Log(_mySacrificeText == null);
         _otherSacrificeText = transform.Find("OtherSacrificeText").GetComponent<TMP_Text>();
         _playerName = transform.Find("PlayerName").GetComponent<TMP_Text>();
-
-        Debug.Log("NightIsOverPopup Start");
         
         _myText = _mySacrificeText.text;
         _otherText = _otherSacrificeText.text;

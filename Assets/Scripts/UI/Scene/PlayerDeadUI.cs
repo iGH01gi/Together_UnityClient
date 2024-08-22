@@ -20,7 +20,7 @@ public class PlayerDeadUI : UI_scene
     private void LobbyButton()
     {
         Managers.Scene.LoadScene(Define.Scene.Lobby);
-        Managers.UI.LoadScenePanel(Define.SceneUIType.LobbyUI);
+        //Managers.UI.LoadScenePanel(Define.SceneUIType.LobbyUI);
     }
     
     private void ObserveButton()
