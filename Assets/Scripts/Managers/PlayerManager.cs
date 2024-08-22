@@ -314,6 +314,10 @@ public class PlayerManager
     /// <returns>'내'가 killer이면 true, 아니면 false</returns>
     public bool IsMyDediPlayerKiller()
     {
+        if (IsMyPlayerDead())
+        {
+            return false;
+        }
         return Managers.Player._myDediPlayer.GetComponent<MyDediPlayer>()._isKiller;
     }
     

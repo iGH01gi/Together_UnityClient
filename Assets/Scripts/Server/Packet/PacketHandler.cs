@@ -383,7 +383,7 @@ public class PacketHandler
         Managers.Player.DeactivateInput();
         
         Managers.Inventory.Clear(); //인벤토리 초기화
-        Managers.Input._objectInput.Clear();
+        //Managers.Input._objectInput.Clear();
         Managers.Inventory._hotbar.ChangeSelected(0); //선택된 아이템 초기화
         Managers.Game._playKillerSound._checkForSound = false;
         Managers.Game._clientGauge.EndGauge();

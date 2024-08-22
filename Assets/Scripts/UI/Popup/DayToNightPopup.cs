@@ -18,30 +18,35 @@ public class DayToNightPopup : UI_popup
 
     private void Start()
     {
-        //현재 킬러 프리팹으로 바꾸기
-        GameObject currentGO = GameObject.Find(String.Concat(_killerPrefabPath,"/KillerPrefab"));
-        GameObject newGO = Managers.Resource.Instantiate($"Player/OtherPlayerKiller/{Managers.Killer.GetKillerEnglishName()}",currentGO.transform.parent);
-        newGO.transform.position = currentGO.transform.position;
-        newGO.transform.rotation = currentGO.transform.rotation;
-        Managers.Resource.Destroy(currentGO);
-        newGO.name = "KillerPrefab";
-        
-        _canOpenEyes = false;
-        _backgroundAnim = transform.GetComponent<Animator>();
-        _text = transform.Find("SurvivorText").GetComponent<TMP_Text>();
-        _survivorText = _text.text;
-        _text.text = "";
-        _camera = GameObject.Find(String.Concat(_killerPrefabPath,"/RenderCamera")).transform.GetComponent<Camera>();
-        _camera.enabled = false;
-        _killerText = transform.Find("KillerText").GetComponent<TMP_Text>();
-        _killerDescriptionText = transform.Find("KillerDescription").GetComponent<TMP_Text>();
-        if (Managers.Player.IsMyDediPlayerKiller())
+        if (Managers.Player.IsMyPlayerDead())
         {
-            StartCoroutine(ShowKiller());
-        }
-        else
-        {
-            StartCoroutine(ShowText());
+            //현재 킬러 프리팹으로 바꾸기
+            GameObject currentGO = GameObject.Find(String.Concat(_killerPrefabPath, "/KillerPrefab"));
+            GameObject newGO = Managers.Resource.Instantiate(
+                $"Player/OtherPlayerKiller/{Managers.Killer.GetKillerEnglishName()}", currentGO.transform.parent);
+            newGO.transform.position = currentGO.transform.position;
+            newGO.transform.rotation = currentGO.transform.rotation;
+            Managers.Resource.Destroy(currentGO);
+            newGO.name = "KillerPrefab";
+
+            _canOpenEyes = false;
+            _backgroundAnim = transform.GetComponent<Animator>();
+            _text = transform.Find("SurvivorText").GetComponent<TMP_Text>();
+            _survivorText = _text.text;
+            _text.text = "";
+            _camera = GameObject.Find(String.Concat(_killerPrefabPath, "/RenderCamera")).transform
+                .GetComponent<Camera>();
+            _camera.enabled = false;
+            _killerText = transform.Find("KillerText").GetComponent<TMP_Text>();
+            _killerDescriptionText = transform.Find("KillerDescription").GetComponent<TMP_Text>();
+            if (Managers.Player.IsMyDediPlayerKiller())
+            {
+                StartCoroutine(ShowKiller());
+            }
+            else
+            {
+                StartCoroutine(ShowText());
+            }
         }
     }
 
@@ -66,14 +71,16 @@ public class DayToNightPopup : UI_popup
     {
         _survivorText = String.Empty;
         Managers.UI.ChangeCanvasRenderMode(RenderMode.ScreenSpaceOverlay); 
-        _killerText.text = String.Empty;
-        _killerDescriptionText.text = String.Empty;
+        _killerText.text = "";
+        _killerDescriptionText.text = "";
         _camera.enabled = false;
         _backgroundAnim.SetTrigger("OpenEyes");
 
-        Managers.Game._playKillerSound._checkForSound = true; //킬러 소리 체크 시작
-        
-        Managers.Player.ActivateInput();
+        if (Managers.Player.IsMyPlayerDead())
+        {
+            Managers.Game._playKillerSound._checkForSound = true; //킬러 소리 체크 시작
+            Managers.Player.ActivateInput();
+        }
     }
 
     public IEnumerator ShowText()

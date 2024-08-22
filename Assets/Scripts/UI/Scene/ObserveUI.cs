@@ -13,7 +13,7 @@ public class ObserveUI : UI_scene
     public GameObject _rightButton;
     public GameObject _quitButton;
 
-    private int _currentTime;
+    public float _currentTime;
     private int _currentlyObservingPlayerID;
     private void Start()
     {
@@ -34,13 +34,10 @@ public class ObserveUI : UI_scene
         _rightButton.GetComponent<UI_Button>().SetOnClick(RightButtonClicked);
     }
     
-    public void SetTimerText(int time)
+    public void SetTimerText(float time)
     {
-        if(time != _currentTime)
-        {
-            _currentTime = time;
-            _timerText.GetComponent<TMP_Text>().text = time.ToString();
-        }
+         _currentTime = time;
+         _timerText.GetComponent<TMP_Text>().text = Mathf.RoundToInt(time).ToString();
     }
 
     private void ObserveChanged()
