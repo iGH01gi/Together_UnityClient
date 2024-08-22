@@ -15,14 +15,18 @@ public class ObserveUI : UI_scene
 
     public float _currentTime;
     private int _currentlyObservingPlayerID;
+
+    private GameObject _camera;
+    
     private void Start()
     {
-        //추후 접근이 필요한 UI들을 찾아서 저장
+        //추후 접근이 필요한 오브젝트들을 찾아서 저장
         _timerText = transform.Find("TimerText").gameObject;
         _observingPlayerName = transform.Find("ObservingPlayerName").gameObject;
         _leftButton = transform.Find("LeftButton").gameObject;
         _rightButton = transform.Find("RightButton").gameObject;
         _quitButton = transform.Find("QuitButton").gameObject;
+        _camera = GameObject.Find("Main Camera");
         
         //OtherDediPlayer에 첫 플레이어부터 시작하도록 설정
         _currentlyObservingPlayerID = Managers.Player._otherDediPlayers.Keys.FirstOrDefault();
@@ -43,7 +47,10 @@ public class ObserveUI : UI_scene
     private void ObserveChanged()
     {
         SetObservingPlayerName();
-        //TODO: Get the camera to follow the player
+        GameObject cur = Managers.Player._otherDediPlayers[_currentlyObservingPlayerID];
+        _camera.transform.SetParent(cur.transform.Find("CameraPos"));
+        _camera.transform.localPosition = Vector3.zero;
+        _camera.transform.localRotation = Quaternion.identity;
     }
     
     private void ReturnToLobby()

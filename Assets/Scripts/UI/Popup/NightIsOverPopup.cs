@@ -41,24 +41,41 @@ public class NightIsOverPopup : UI_popup
         _playerID = playerId;
         //죽을 플레이어를 찾아서 이동시키기
         GameObject currentGO = GameObject.Find(String.Concat(_deadPlayerPrefabPath, "/PlayerPrefab"));
-        GameObject newGO = (playerId == Managers.Player._myDediPlayerId)?Managers.Player._myDediPlayer: Managers.Player._otherDediPlayers[playerId];
-        newGO.GetComponent<CharacterController>().enabled = false;
         Util.DestroyAllChildren(currentGO.transform);
-        newGO.transform.parent = currentGO.transform;
+        GameObject newGO;
+        if (playerId == Managers.Player._myDediPlayerId)
+        {
+            if (!Managers.Player.IsMyDediPlayerKiller())
+            {
+                newGO = Managers.Resource.Instantiate("Player/OtherPlayer(Model)", currentGO.transform);
+            }
+            else
+            {
+                newGO = Instantiate(
+                    Managers.Killer._otherPlayerKillerPrefabs[
+                        Managers.Player._myDediPlayer.GetComponent<MyDediPlayer>()._killerType]);
+            }
+        }
+        else
+        {
+            newGO = Managers.Player._otherDediPlayers[playerId]; 
+        }
+        
+        newGO.transform.SetParent(currentGO.transform);
         newGO.transform.localPosition = Vector3.zero;
         newGO.transform.localRotation = Quaternion.identity;
         
-        if (playerId == Managers.Player.GetKillerId())
+        if (playerId == Managers.Player._myDediPlayerId)
         {
+            newGO.GetComponentInChildren<PlayerAnimController>().SetTriggerByString("Die");
             _mySacrificeText.text = _myText;
         }
         else
         {
+            Managers.Player.GetAnimator(playerId).SetTriggerByString("Die");
             _otherSacrificeText.text = _otherText;
             _playerName.text = Managers.Player._otherDediPlayers[playerId].GetComponent<OtherDediPlayer>().Name;
         }
-
-        Managers.Player.GetAnimator(playerId).SetTriggerByString("Die");
         Managers.Sound.Play("SurvivorBoom");
     }
 
