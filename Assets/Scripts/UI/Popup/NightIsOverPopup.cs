@@ -83,12 +83,26 @@ public class NightIsOverPopup : UI_popup
     public void StartDay()
     {
         _camera.enabled = false;
-        Managers.UI.ChangeCanvasRenderMode(RenderMode.ScreenSpaceOverlay);
+        Managers.Player.DeletePlayerObject(_playerID);
         if (Managers.Player._myDediPlayer == null)
         {
+            Managers.UI.ChangeCanvasRenderMode(RenderMode.ScreenSpaceOverlay);
             Managers.UI.LoadScenePanel(Define.SceneUIType.PlayerDeadUI);
+            ClosePopup();
         }
-        Managers.Player.DeletePlayerObject(_playerID);
-        ClosePopup();
+        else
+        {
+            StartCoroutine(OpenEyes());
+            ClosePopup();
+        }
+    }
+    
+    private IEnumerator OpenEyes()
+    {
+        _backgroundAnim.SetTrigger("OpenEyes");
+        Managers.Game._playKillerSound._checkForSound = false;
+        yield return new WaitForSeconds(0.4f);
+        Managers.UI.ChangeCanvasRenderMode(RenderMode.ScreenSpaceOverlay);
+        Managers.Player.ActivateInput();
     }
 }
