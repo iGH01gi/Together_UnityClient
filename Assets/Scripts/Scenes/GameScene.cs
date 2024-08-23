@@ -10,9 +10,9 @@ public class GameScene : BaseScene
     protected override void Init()
     {
         base.Init();
-        Managers.UI.LoadPopupPanel<ProgressPopup>(true,false);
         Managers.Game.GameScene();
         Managers.Sound.Play("tense-horror-background",Define.Sound.Bgm);
+        Managers.UI.LoadPopupPanel<ProgressPopup>(true,false);
     }
     
     

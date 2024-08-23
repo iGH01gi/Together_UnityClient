@@ -12,7 +12,7 @@ public class PlayerInRoom : UI_subitem
     GameObject _masterIcon;
     TMP_Text _playerName;
 
-    private void Start()
+    private void Awake()
     {
         _readyIcon = transform.Find("ReadyIcon").gameObject;
         _masterIcon = transform.Find("MasterIcon").gameObject;

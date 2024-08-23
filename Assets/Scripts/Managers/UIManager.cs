@@ -105,6 +105,7 @@ public class UIManager
     /// </summary>
     public void ClosePopup(GameObject gameObject = null)
     {
+        Debug.Log(_popupLinkedList.Count);
         if (!PopupActive())
             return;
         if (gameObject == null)
@@ -120,6 +121,7 @@ public class UIManager
         else
         {
             var cur = _popupLinkedList.Find(gameObject);
+            
             if (_popupLinkedList.Count>1 && cur.Previous.Value.name == "Panel")
             {
                 Managers.Resource.Destroy(cur.Previous.Value);
@@ -165,12 +167,7 @@ public class UIManager
         {
             Managers.Resource.Destroy(sceneUI);
         }
-        if(PopupActive())
-        foreach (var cur in _popupLinkedList)
-        {
-            Managers.Resource.Destroy(cur);
-            _popupLinkedList.Remove(cur);
-        }
+        CloseAllPopup();
     }
     
     /// <summary>
@@ -178,14 +175,14 @@ public class UIManager
     /// </summary>
     public void CloseAllPopup()
     {
-        if (PopupActive())
+        foreach (Transform child in root.transform)
         {
-            for(int i = 0; i<_popupLinkedList.Count; i++)
+            if (child.gameObject != sceneUI)
             {
-                Managers.Resource.Destroy(_popupLinkedList.Last.Value);
-                _popupLinkedList.RemoveLast();
+                Managers.Resource.Destroy(child.gameObject);
             }
         }
+        _popupLinkedList.Clear();
     }
     
     public T GetComponentInSceneUI<T>(string childName = null) where T : MonoBehaviour

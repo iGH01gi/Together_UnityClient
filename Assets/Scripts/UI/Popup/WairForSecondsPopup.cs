@@ -27,6 +27,6 @@ public class WairForSecondsPopup : UI_popup
         transform.Find("Seconds").GetComponent<TMP_Text>().text = "START!";
         
         Managers.Sound.Play("Start!");
-        ClosePopup();
+        Managers.UI.CloseAllPopup();
     }
 }

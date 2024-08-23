@@ -25,4 +25,9 @@ public class UI_Button : UI_subitem
     {
         gameObject.GetComponent<Button>().interactable = activate;
     }
+    
+    public void RemoveAllOnClick()
+    {
+        gameObject.GetComponent<Button>().onClick.RemoveAllListeners();
+    }
 }

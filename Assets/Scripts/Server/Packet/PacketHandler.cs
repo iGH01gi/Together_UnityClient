@@ -162,7 +162,7 @@ public class PacketHandler
             //해당 데디케이티드 서버와 연결, 전용 세션 생성
             //세션이 생성되었을때만 입장요청 패킷(CDS_AllowEnterGame) 보냄을 보장함.
             Managers.Dedicated.ConnectToDedicatedServer(dediIP, dediPort);
-            
+            Managers.UI.ClosePopup(); // 로딩 팝업 닫기
             //게임씬 변경
             Managers.Scene.LoadScene(Define.Scene.InGame);
         }
@@ -233,10 +233,7 @@ public class PacketHandler
         //Managers.Killer.SaveJsonData(killerDataJson); //킬러 데이터 저장
         Managers.Killer.LoadKillerData(); //저장했으면 킬러 데이터 로드
         
-        
         Debug.Log("DSC_StartGameHandler");
-        Managers.UI.ClosePopup(); //현재 띄워져 있는 progressPopup을 닫는다
-        Managers.UI.ClosePopup(); //현재 띄워져 있는 progressPopup을 닫는다
         Managers.UI.LoadScenePanel(Define.SceneUIType.InGameUI); //Timer를 포함한 인게임UI 부르기.
         Managers.Player.DeactivateInput();
     }

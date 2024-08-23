@@ -53,13 +53,16 @@ public class RoomUI : UI_scene
     {
         if (Managers.Room.IsMyPlayerMaster())
         {
+            
             _startReadyButton.GetComponentInChildren<UI_Text>().SetString("StartGame");
+            _startReadyButton.RemoveAllOnClick();
             _startReadyButton.SetOnClick(StartGame);
             _startReadyButton.Activation(Managers.Room.IsMyRoomAllPlayerReady());
         }
         else
         { 
             _startReadyButton.GetComponentInChildren<UI_Text>().SetString("ReadyButton");
+            _startReadyButton.RemoveAllOnClick();
             _startReadyButton.SetOnClick(ReadyButton);
         }
     }
