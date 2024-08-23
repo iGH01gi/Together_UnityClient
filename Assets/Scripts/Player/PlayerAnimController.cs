@@ -50,6 +50,10 @@ public class PlayerAnimController : MonoBehaviour
 
     public void SetTriggerByString(string triggerName)
     {
+        if (_anim == null)
+        {
+            _anim = GetComponent<Animator>();
+        }
         _anim.SetTrigger(triggerName);
     }
 }

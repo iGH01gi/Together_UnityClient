@@ -58,7 +58,8 @@ public class NightIsOverPopup : UI_popup
         }
         else
         {
-            newGO = Managers.Player._otherDediPlayers[playerId]; 
+            newGO = Managers.Player._otherDediPlayers[playerId];
+            newGO.transform.GetComponent<CharacterController>().enabled = false;
         }
         
         newGO.transform.SetParent(currentGO.transform);
