@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using Google.Protobuf.Protocol;
@@ -6,17 +7,24 @@ using UnityEngine;
 
 public class PlayerInRoom : UI_subitem
 {
-    private RoomPlayer thisPlayer;
-    GameObject readyIcon;
+    private RoomPlayer _thisPlayer;
+    GameObject _readyIcon;
+    GameObject _masterIcon;
+    TMP_Text _playerName;
+
+    private void Start()
+    {
+        _readyIcon = transform.Find("ReadyIcon").gameObject;
+        _masterIcon = transform.Find("MasterIcon").gameObject;
+        _playerName = transform.Find("PlayerName").GetComponent<TMP_Text>();
+    }
 
     public void Init(RoomPlayer player)
     {
-        thisPlayer = player;
-        transform.Find("PlayerName").GetComponent<TMP_Text>().text = player.Name;
-        readyIcon = transform.Find("ReadyIcon").gameObject;
-        readyIcon.SetActive(player.IsReady);
-        //Debug.Log(player.Name + " is ready: " + player.IsReady);
-        transform.Find("MasterIcon").gameObject.SetActive(Managers.Room.IsMaster(Managers.Room.GetMyPlayerRoomId(),player.PlayerId));
+        _thisPlayer = player;
+        _playerName.text = player.Name;
+        _readyIcon.SetActive(player.IsReady);
+        _masterIcon.SetActive(Managers.Room.IsMaster(Managers.Room.GetMyPlayerRoomId(),player.PlayerId));
     }
     
     public void ToggleReady()
@@ -24,7 +32,15 @@ public class PlayerInRoom : UI_subitem
         CS_ReadyRoom readyRoomPacket = new CS_ReadyRoom();
         readyRoomPacket.RoomId = Managers.Room.GetMyPlayerRoomId();
         readyRoomPacket.PlayerId = Managers.Player._myRoomPlayer.PlayerId;
-        readyRoomPacket.IsReady = !thisPlayer.IsReady;
+        readyRoomPacket.IsReady = !_thisPlayer.IsReady;
         Managers.Network._roomSession.Send(readyRoomPacket);
+    }
+
+    public void ClearPlayer()
+    {
+        _thisPlayer = null;
+        transform.Find("PlayerName").GetComponent<TMP_Text>().text = "";
+        _readyIcon.SetActive(false);
+        _masterIcon.SetActive(false);
     }
 }

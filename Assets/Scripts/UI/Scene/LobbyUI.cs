@@ -37,7 +37,8 @@ public class LobbyUI : UI_scene
         leftPageButton = transform.GetChild(1).GetComponent<UI_Button>();
         rightPageButton = transform.GetChild(3).GetComponent<UI_Button>();
         roomsPanel = transform.GetChild(6);
-        
+        roomsPanel.GetComponent<VerticalLayoutGroup>().spacing = Screen.height / 180;
+        roomsPanel.GetComponent<VerticalLayoutGroup>().padding.top = Screen.height / 36;
         UIPacketHandler.RoomListSendPacket();
     }
 
@@ -83,8 +84,7 @@ public class LobbyUI : UI_scene
         ClearRoomListPanel();
         for (int i = (currentPage-1)*roomsPerPage; i < Math.Min(currentPage*roomsPerPage,_gameRooms.Count); i++)
         {
-            GameObject currentRoom = Managers.Resource.Instantiate("UI/Subitem/Room_Info");
-            currentRoom.transform.SetParent(roomsPanel);
+            GameObject currentRoom = Managers.Resource.Instantiate("UI/Subitem/Room_Info", roomsPanel);
             currentRoom.GetComponent<Room_Info>().Init(_gameRooms[i]);
         }
     }
