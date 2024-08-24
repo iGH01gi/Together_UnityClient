@@ -9,7 +9,7 @@ using UnityEngine.InputSystem;
 /// </summary>
 public class PlayerManager
 {
-    public SyncMoveCtonroller _syncMoveCtonroller = new SyncMoveCtonroller();
+    public SyncMoveController _syncMoveController = new SyncMoveController();
     
     public MyRoomPlayer _myRoomPlayer; //내 룸서버 플레이어
     public Dictionary<int, RoomPlayer> _otherRoomPlayers = new Dictionary<int, RoomPlayer>(); //다른 룸서버 플레이어들 (key: playerId, value: 플레이어 정보)
@@ -27,8 +27,8 @@ public class PlayerManager
     public void Init()
     {
         _myRoomPlayer = new MyRoomPlayer();
-        if(_syncMoveCtonroller == null)
-            _syncMoveCtonroller = new SyncMoveCtonroller();
+        if(_syncMoveController == null)
+            _syncMoveController = new SyncMoveController();
     }
     
     public void Clear()
@@ -458,5 +458,26 @@ public class PlayerManager
     public bool IsMyPlayerDead()
     {
         return IsPlayerDead(_myDediPlayerId);
+    }
+
+    /// <summary>
+    /// 데디플레이어 오브젝트를 반환하는 함수
+    /// </summary>
+    /// <param name="dediPlayerId">구하려는 데디플레이어 오브젝트의 id</param>
+    /// <returns>존재하지 않는다면 null</returns>
+    public GameObject GetPlayerObject(int dediPlayerId)
+    {
+        if (dediPlayerId == _myDediPlayerId)
+        {
+            return _myDediPlayer;
+        }
+        else if (_otherDediPlayers.ContainsKey(dediPlayerId))
+        {
+            return _otherDediPlayers[dediPlayerId];
+        }
+        else
+        {
+            return null;
+        }
     }
 }

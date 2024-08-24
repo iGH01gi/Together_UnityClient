@@ -25,7 +25,9 @@ public class OtherDediPlayer : MonoBehaviour
     
     public int _totalPoint = 0; //상자로 얻은 총 포인트(낮마다 초기화)
     public int _currentItemID = -1; //현재 가지고 있는 아이템 ID
-    
+
+    private bool _isGhostFollowingOn = true; //고스트 따라가기 여부
+
     public void Init(int playerId, string name)
     {
         PlayerId = playerId;
@@ -78,11 +80,11 @@ public class OtherDediPlayer : MonoBehaviour
             _velocity = directionToGhost.normalized;
             if (_isRunning)
             {
-                _velocity *= Managers.Player._syncMoveCtonroller._runSpeed;
+                _velocity *= Managers.Player._syncMoveController._runSpeed;
             }
             else
             {
-                _velocity *= Managers.Player._syncMoveCtonroller._walkSpeed;
+                _velocity *= Managers.Player._syncMoveController._walkSpeed;
             }
             
             _velocity.y = -10f; //중력 같은 효과
@@ -96,5 +98,17 @@ public class OtherDediPlayer : MonoBehaviour
         _playerAnimController.isRunning = _isRunning;
         _playerAnimController.isWalking = _isWalking;
         _playerAnimController.PlayAnim();
+    }
+
+    /// <summary>
+    /// 고스트 따라가기를 토글함.
+    /// </summary>
+    /// <param name="isFollow">따라가게 할거면 true, 안따라가게 할거면 false</param>
+    public void ToggleFollowGhost(bool isFollow)
+    {
+        if (_ghost != null)
+        {
+            _isGhostFollowingOn = isFollow;
+        }
     }
 }

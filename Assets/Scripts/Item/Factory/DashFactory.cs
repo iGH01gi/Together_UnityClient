@@ -11,9 +11,11 @@ public class DashFactory : ItemFactory
         DashDistance = dashDistance;
     }
     
-    public override IItem CreateItem(int playerId)
+    public override GameObject CreateItem(int playerId)
     {
-        //if else를 통해 여기서 맞는 아이템을 생성
-        return null;
+        GameObject dashGameObject = new GameObject("Dash");
+        Dash dash = dashGameObject.AddComponent<Dash>();
+        dash.Init(FactoryId, playerId, FactoryEnglishName, DashDistance);
+        return dashGameObject;
     }
 }

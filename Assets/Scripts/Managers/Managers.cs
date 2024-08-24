@@ -109,7 +109,7 @@ public class Managers : MonoBehaviour
         UI.Clear();
         Pool.Clear();
         Inventory.Clear();
-        //Item.Clear();
+        Item.Clear();
     }
 
     private void OnApplicationQuit()

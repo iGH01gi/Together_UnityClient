@@ -3,7 +3,7 @@ using Google.Protobuf.Protocol;
 using Google.Protobuf.WellKnownTypes;
 using UnityEngine;
 
-public class SyncMoveCtonroller
+public class SyncMoveController
 {
     //키보드 인풋 판별용 비트
     int _runBit = (1 << 4);
@@ -17,6 +17,8 @@ public class SyncMoveCtonroller
     public float _runSpeed = 3f;
     
     private float _hardSnapDistance = 2f; //하드스냅 거리(이 이상 서버와 거리 차이가 나면 하드스냅)
+
+    private bool _isHardsnapOn = true; //하드스냅 기능을 켤지 말지 (대시 등 아이템 사용때문에 추가된 기능)
 
     /// <summary>
     /// 다른 플레이어의 움직임을 동기화 (정확히는 고스트를 데디서버와 동기화시킴)
@@ -94,6 +96,11 @@ public class SyncMoveCtonroller
     /// <returns>하드스냅을 했으면 true, 아니면 false</returns>
     private bool HardSnap(TransformInfo transformInfo, int dediPlayerId)
     {
+        if (!_isHardsnapOn) //하드스냅 기능이 꺼져있으면 무시
+        {
+            return false;
+        }
+
         //dediPlayerId에 해당하는 오브젝트가 있는지 검사(내 플레이어 id포함)
         if (Managers.Player._myDediPlayerId == dediPlayerId)
         {
@@ -193,7 +200,16 @@ public class SyncMoveCtonroller
                 (keyboardInput & (_upBit | _leftBit | _downBit | _rightBit)) != 0;
         }
     }
-    
+
+    /// <summary>
+    /// 하드스냅 기능을 토글하는 함수
+    /// </summary>
+    /// <param name="isOn">하드스냅을 킬거면 true, 끌거면 false</param>
+    public void ToggleHardSnap(bool isOn)
+    {
+        _isHardsnapOn = isOn;
+    }
+
     //이거 전에 고스트에서 계속 이동할 속도 계산할때 썻던 것
     public void CalculateVelocity(int keyboardInput, Quaternion localRotation)
     {

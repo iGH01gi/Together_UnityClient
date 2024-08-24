@@ -246,7 +246,7 @@ public class PacketHandler
         
         //Debug.Log("DSC_MoveHandler");
         
-        Managers.Player._syncMoveCtonroller.SyncOtherPlayerMove(movePacket);
+        Managers.Player._syncMoveController.SyncOtherPlayerMove(movePacket);
         
         //밤이고 인풋이 가능할 시 (킬러 생존자 시작 다름) 킬러 소리 체크
         Debug.Log("Check killer sound");
@@ -632,7 +632,43 @@ public class PacketHandler
         
         Managers.Item.HoldItem(itemId,playerId);
     }
-    
+
+    public static void DSC_UseDashItemHandler(PacketSession session, IMessage packet)
+    {
+        DSC_UseDashItem useDashItemPacket = packet as DSC_UseDashItem;
+        DedicatedServerSession dedicatedServerSession = session as DedicatedServerSession;
+        
+        Debug.Log("DSC_UseDashItemHandler");
+        
+        int playerId = useDashItemPacket.PlayerId;
+        int itemId = useDashItemPacket.ItemId;
+
+        if (Managers.Player._myDediPlayerId != playerId) //다른 플레이어의 대시 사용소식일 경우
+        {
+            Managers.Item.UseItem(playerId, itemId);
+        }
+    }
+
+    public static void DSC_EndDashItemHandler(PacketSession session, IMessage packet)
+    {
+        DSC_EndDashItem endDashItemPacket = packet as DSC_EndDashItem;
+        DedicatedServerSession dedicatedServerSession = session as DedicatedServerSession;
+        
+        Debug.Log("DSC_EndDashItemHandler");
+        
+        int playerId = endDashItemPacket.PlayerId;
+        int itemId = endDashItemPacket.ItemId;
+
+        //하드스냅 재개!
+        GameObject player = Managers.Player.GetPlayerObject(playerId);
+        if (player != null)
+        {
+            SyncMoveController syncMoveCtonroller = player.GetComponent<SyncMoveController>();
+            syncMoveCtonroller.ToggleHardSnap(false);
+        }
+    }
+
+
     public static void DSC_UseFireworkItemHandler(PacketSession session, IMessage packet)
     {
         throw new NotImplementedException();

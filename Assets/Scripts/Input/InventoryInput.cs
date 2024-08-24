@@ -31,7 +31,7 @@ public class InventoryInput : MonoBehaviour
         if(itemID != -1)
         {
             Debug.Log("Try use item");
-            Managers.Item.UseItem(itemID);
+            Managers.Item.UseItem(Managers.Player._myDediPlayerId , itemID);
         }
     }
     

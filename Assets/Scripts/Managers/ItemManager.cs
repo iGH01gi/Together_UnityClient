@@ -4,19 +4,30 @@ using System.IO;
 using Google.Protobuf.Protocol;
 using Newtonsoft.Json.Linq;
 using UnityEngine;
+using Object = UnityEngine.Object;
 
 /// <summary>
 /// json 데이터로부터 아이템 데이터를 로드하고, 아이템을 생성하기 위해서 필요한 클래스
 /// </summary>
 public class ItemManager
 {
+    public static GameObject root; //여기에 자식으로 아이템 gameobject들이 생성됨.
+
     private string _jsonPath;
     private string _itemPrefabFolderPath = "Items/"; //아이템 프리팹들이 들어있는 폴더 경로. 아이템id가 해당 폴더에서 프리팹의 이름
     private static string _itemsDataJson; //json이 들어 있게 됨(파싱 해야 함)
     public Dictionary<int, ItemFactory> _itemFactories = new Dictionary<int, ItemFactory>(); //아이템 팩토리들을 저장하는 딕셔너리
 
+
     public void Init()
     {
+        root = GameObject.Find("@Item");
+        if (root == null)
+        {
+            root = new GameObject { name = "@Item" };
+            Object.DontDestroyOnLoad(root);
+        }
+
         _jsonPath = Application.persistentDataPath + "/Data/Item/Items.json";
         if (!Directory.Exists(Path.GetDirectoryName(_jsonPath)))
         {
@@ -27,7 +38,16 @@ public class ItemManager
             File.WriteAllText(_jsonPath, "{}"); // Create an empty JSON file
         }
     }
-    
+
+    public void Clear()
+    {
+        //root의 모든 자식을 삭제(=생성된 아이템을 모두 삭제)
+        foreach (Transform child in root.transform)
+        {
+            Object.Destroy(child.gameObject);
+        }
+    }
+
     /// <summary>
     /// 아이템을 들고 있는 상태로 변경
     /// </summary>
@@ -38,11 +58,26 @@ public class ItemManager
         Managers.Player.ChangeHoldingItem(itemId, playerID);
     }
 
-    public void UseItem(int itemId)
+    /// <summary>
+    /// 해당하는 아이템오브젝트를 생성하고 사용함
+    /// </summary>
+    /// <param name="dediPlayerId">아이템을 사용할 데디플레이어id</param>
+    /// <param name="itemId">아이템id</param>
+    public void UseItem(int dediPlayerId ,int itemId)
     {
-        if (_itemFactories.ContainsKey(itemId))
+        if (_itemFactories.ContainsKey(itemId) && Managers.Inventory._ownedItems.ContainsKey(itemId) && !Managers.Player.IsPlayerDead(dediPlayerId))
         { 
-            //TODO: 아이템 사용 구현
+            //인벤토리에서 아이템 1개 제거
+            Managers.Inventory.RemoveItemOnce(itemId);
+
+            //아이템 생성
+            GameObject itemGameObject = _itemFactories[itemId].CreateItem(dediPlayerId);
+
+            //생성한 아이템을 @Item 밑에 넣음
+            itemGameObject.transform.SetParent(root.transform);
+
+            //아이템 사용 효과 발동(IItem 컴포넌트를 가져와서 사용함)
+            itemGameObject.GetComponent<IItem>().Use();
         }
         else
         {
