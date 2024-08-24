@@ -411,11 +411,11 @@ public class PacketHandler
 
         Managers.Player.DeactivateInput();
         Managers.Sound.Stop(Define.Sound.Heartbeat); //심장소리 중지
+        Managers.UI.CloseAllPopup(); //모든 팝업 닫기
         if (!Managers.Player.IsMyPlayerDead())
         {
             Managers.Inventory.Clear(); //인벤토리 초기화
             //Managers.Input._objectInput.Clear();
-            Managers.Inventory._hotbar.ChangeSelected(0); //선택된 아이템 초기화
             Managers.Game._playKillerSound._checkForSound = false;
             Managers.Game._clientGauge.EndGauge();
             Managers.Game._clientTimer.EndTimer();
@@ -424,23 +424,39 @@ public class PacketHandler
         {
             Managers.UI.GetComponentInSceneUI<ObserveUI>().EndTimer();
         }
-
-        Managers.UI.CloseAllPopup(); //모든 팝업 닫기
+        
+        
         //플레이어 죽음 처리
         Managers.Player.ProcessPlayerDeath(deathPlayerId);
 
+        //내 플레이어가 죽고 플레이어가 한명 남으면 그 사람이 승자
+        if (Managers.Player.IsMyPlayerDead() && Managers.Player._otherDediPlayers.Count ==1)
+        {
+            //TODO: Show that remaining player won message
+            Managers.Scene.LoadScene(Define.Scene.Lobby);
+        }
+        //내 플레이어가 유일하게 살아남으면 플레이어가 승자
+        else if (!Managers.Player.IsMyPlayerDead() && Managers.Player._otherDediPlayers.Count == 0)
+        {
+            //TODO: Show that you won message
+            Managers.Scene.LoadScene(Define.Scene.Lobby);
+        }
+        //게임이 결착 나지 않았음. 다음 라운드(낮) 진행
+        else
+        {
+            Managers.Inventory._hotbar.ChangeSelected(0); //선택된 아이템 초기화
+            Managers.Object._cleanseController.NightIsOver();
 
-        Managers.Object._cleanseController.NightIsOver();
-
-        //낮 되기 전에 미리 한번 플레이어 정보 초기화
-        Managers.Player.ResetPlayerOnDayStart();
+            //낮 되기 전에 미리 한번 플레이어 정보 초기화
+            Managers.Player.ResetPlayerOnDayStart();
         
         
-        //밤->낮 효과를 설정함(0초동안 밤 유지, 3초 동안 낮으로 천천히 전환됨)
-        Managers.Scene.SimulateNightToSunrise(0,3);
+            //밤->낮 효과를 설정함(0초동안 밤 유지, 3초 동안 낮으로 천천히 전환됨)
+            Managers.Scene.SimulateNightToSunrise(0,3);
         
-        //이제 낮이니까 클린즈 안보이게 처리
-        Managers.Object._cleanseController._cleanseParent.SetActive(false);
+            //이제 낮이니까 클린즈 안보이게 처리
+            Managers.Object._cleanseController._cleanseParent.SetActive(false);   
+        }
     }
 
     //데디케이트서버로부터 새로운 상자 정보를 받았을때의 처리

@@ -6,7 +6,6 @@ using UnityEngine;
 
 public class NightIsOverPopup : UI_popup
 {
-    private int _playerID;
     private string _deadPlayerPrefabPath = "DeadPlayerGO";
     Animator _backgroundAnim;
     private Camera _camera;
@@ -16,8 +15,10 @@ public class NightIsOverPopup : UI_popup
 
     private string _myText;
     private string _otherText;
-    void Awake()
+    private int _playerID;
+    void Start()
     {
+        _playerID = Managers.Player._deadPlayerID;
         _mySacrificeText = transform.Find("MySacrificeText").GetComponent<TMP_Text>();
         _otherSacrificeText = transform.Find("OtherSacrificeText").GetComponent<TMP_Text>();
         _playerName = transform.Find("PlayerName").GetComponent<TMP_Text>();
@@ -32,18 +33,14 @@ public class NightIsOverPopup : UI_popup
         _backgroundAnim = transform.GetComponent<Animator>();
         _camera = GameObject.Find(String.Concat(_deadPlayerPrefabPath,"/RenderCamera")).transform.GetComponent<Camera>();
         _camera.enabled = false;
-    }
-
-    public void Init(int playerId)
-    {
+        
         _camera.enabled = true;
         Managers.UI.ChangeCanvasRenderMode(RenderMode.ScreenSpaceCamera); //캔버스 렌더모드 변경
-        _playerID = playerId;
         //죽을 플레이어를 찾아서 이동시키기
         GameObject currentGO = GameObject.Find(String.Concat(_deadPlayerPrefabPath, "/PlayerPrefab"));
         Util.DestroyAllChildren(currentGO.transform);
         GameObject newGO;
-        if (playerId == Managers.Player._myDediPlayerId)
+        if (_playerID == Managers.Player._myDediPlayerId)
         {
             if (!Managers.Player.IsMyDediPlayerKiller())
             {
@@ -58,7 +55,7 @@ public class NightIsOverPopup : UI_popup
         }
         else
         {
-            newGO = Managers.Player._otherDediPlayers[playerId];
+            newGO = Managers.Player._otherDediPlayers[_playerID];
             newGO.transform.GetComponent<CharacterController>().enabled = false;
         }
         
@@ -66,20 +63,19 @@ public class NightIsOverPopup : UI_popup
         newGO.transform.localPosition = Vector3.zero;
         newGO.transform.localRotation = Quaternion.identity;
         
-        if (playerId == Managers.Player._myDediPlayerId)
+        if (_playerID == Managers.Player._myDediPlayerId)
         {
             newGO.GetComponentInChildren<PlayerAnimController>().SetTriggerByString("Die");
             _mySacrificeText.text = _myText;
         }
         else
         {
-            Managers.Player.GetAnimator(playerId).SetTriggerByString("Die");
+            Managers.Player.GetAnimator(_playerID).SetTriggerByString("Die");
             _otherSacrificeText.text = _otherText;
-            _playerName.text = Managers.Player._otherDediPlayers[playerId].GetComponent<OtherDediPlayer>().Name;
+            _playerName.text = Managers.Player._otherDediPlayers[_playerID].GetComponent<OtherDediPlayer>().Name;
         }
         Managers.Sound.Play("SurvivorBoom");
     }
-
     public void StartDay()
     {
         _camera.enabled = false;

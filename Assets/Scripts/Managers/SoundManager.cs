@@ -35,8 +35,11 @@ public class SoundManager
     {
         foreach (AudioSource audioSource in _audioSources)
         {
-            audioSource.clip = null;
-            audioSource.Stop();
+	        if(audioSource != null)
+			{
+				audioSource.clip = null;
+				audioSource.Stop();
+			}
         }
         _audioClips.Clear();
     }
@@ -200,6 +203,8 @@ public class SoundManager
 	
 	public void Stop(Define.Sound type)
 	{
-		_audioSources[(int)type].Stop();
+		if(_audioSources[(int)type] != null){
+			_audioSources[(int)type].Stop();
+		}
 	}
 }

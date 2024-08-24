@@ -23,7 +23,7 @@ public class PlayerManager
     public string _tempOtherPlayerPrefabPath = "Player/OtherPlayer";
     public string _tempTargetGhost = "Player/TargetGhost";
     
-    //public int _deadPlayerID = -1; //죽은 플레이어의 id
+    public int _deadPlayerID = -1; //죽은 플레이어의 id
     public void Init()
     {
         _myRoomPlayer = new MyRoomPlayer();
@@ -389,7 +389,8 @@ public class PlayerManager
     public void ProcessPlayerDeath(int dediPlayerId)
     {
         //TODO: 밤의 끝을 알리는 효과음 넣기
-        Managers.UI.LoadPopupPanel<NightIsOverPopup>(true,false).Init(dediPlayerId);
+        _deadPlayerID = dediPlayerId;
+        Managers.UI.LoadPopupPanel<NightIsOverPopup>(true,false);
     }
     
     /// <summary>
