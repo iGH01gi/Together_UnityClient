@@ -48,9 +48,7 @@ public class NightIsOverPopup : UI_popup
             }
             else
             {
-                newGO = Instantiate(
-                    Managers.Killer._otherPlayerKillerPrefabs[
-                        Managers.Player._myDediPlayer.GetComponent<MyDediPlayer>()._killerType]);
+                newGO = Managers.Resource.Instantiate(string.Concat("Player/OtherPlayerKiller/",Managers.Player._myDediPlayer.GetComponent<MyDediPlayer>()._killerEngName),currentGO.transform);
             }
         }
         else
@@ -76,6 +74,7 @@ public class NightIsOverPopup : UI_popup
         }
         Managers.Sound.Play("SurvivorBoom");
     }
+    
     public void StartDay()
     {
         _camera.enabled = false;

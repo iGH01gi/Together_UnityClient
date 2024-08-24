@@ -372,7 +372,7 @@ public class PacketHandler
         }
         else
         {
-            Managers.UI.GetComponentInSceneUI<ObserveUI>().SetTimerText(estimatedCurrentServerTimer);
+            Managers.UI.GetComponentInSceneUI<ObserveUI>().InitObserveTimer(estimatedCurrentServerTimer);
         }
         Managers.Game.SetUpKillerSound(); //킬러 두근두근 소리 Init
     }
@@ -413,6 +413,7 @@ public class PacketHandler
 
         //플레이어 죽음 처리
         Managers.Player.ProcessPlayerDeath(deathPlayerId);
+        
         if (Managers.UI.SceneUI.name == Define.SceneUIType.ObserveUI.ToString())
         {
             Managers.UI.GetComponentInSceneUI<ObserveUI>().EndTimer();
