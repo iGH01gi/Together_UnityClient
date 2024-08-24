@@ -264,14 +264,8 @@ public class PacketHandler
         int daySeconds = dayTimerStartPacket.DaySeconds; //낮 시간(초)
         float estimatedCurrentServerTimer = daySeconds - Managers.Time.GetEstimatedLatency(); //현재 서버 타이머 시간(예측)
 
-        if (!Managers.Player.IsMyPlayerDead())
-        {
-            Managers.Game.ChangeToDay(estimatedCurrentServerTimer); //낮임을 설정
-        }
-        else
-        {
-            Managers.UI.GetComponentInSceneUI<ObserveUI>().InitObserveTimer(estimatedCurrentServerTimer);
-        }
+        Managers.Game.ChangeToDay(estimatedCurrentServerTimer); //낮임을 설정
+       
         
         UIPacketHandler.StartGameHandler(); //게임 시작 팝업
 

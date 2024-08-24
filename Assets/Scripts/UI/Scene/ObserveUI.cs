@@ -93,7 +93,10 @@ public class ObserveUI : UI_scene
     {
         _currentTime = time;
         SetTimerText(time);
-        _timerCountdownActivator = Util.GetOrAddComponent<DeadTimerCountdownActivator>(transform.gameObject);
+        if (_timerCountdownActivator == null)
+        {
+            _timerCountdownActivator = Util.GetOrAddComponent<DeadTimerCountdownActivator>(transform.gameObject);
+        }
     }
 
     public void EndTimer()

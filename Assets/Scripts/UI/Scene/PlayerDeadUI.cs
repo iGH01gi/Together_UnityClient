@@ -25,6 +25,8 @@ public class PlayerDeadUI : UI_scene
     
     private void ObserveButton()
     {
+        float currentTime = Managers.Game._clientTimer._clientTimerValue;
         Managers.UI.LoadScenePanel(Define.SceneUIType.ObserveUI);
+        Managers.UI.GetComponentInSceneUI<ObserveUI>().InitObserveTimer(currentTime);
     }
 }
