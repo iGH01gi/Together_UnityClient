@@ -210,7 +210,7 @@ public class PacketHandler
             ObserveUI observeUI = Managers.UI.GetComponentInSceneUI<ObserveUI>();
             if (observeUI != null && informLeaveDedicatedServerPacket != null)
             {
-                observeUI.CheckIfObservingThisPlayer(informLeaveDedicatedServerPacket.LeavePlayerId);
+                observeUI.ChangeIfObservingThisPlayer(informLeaveDedicatedServerPacket.LeavePlayerId);
             }
         }
         else
@@ -410,7 +410,7 @@ public class PacketHandler
         int killerPlayerId = nightTimerEndPacket.KillerPlayerId; //마지막 킬러의 id
 
         Managers.Player.DeactivateInput();
-
+        Managers.Sound.Stop(Define.Sound.Heartbeat); //심장소리 중지
         if (!Managers.Player.IsMyPlayerDead())
         {
             Managers.Inventory.Clear(); //인벤토리 초기화
@@ -428,9 +428,8 @@ public class PacketHandler
         Managers.UI.CloseAllPopup(); //모든 팝업 닫기
         //플레이어 죽음 처리
         Managers.Player.ProcessPlayerDeath(deathPlayerId);
-        Managers.Sound.Stop(Define.Sound.Heartbeat);
-        
-        
+
+
         Managers.Object._cleanseController.NightIsOver();
 
         //낮 되기 전에 미리 한번 플레이어 정보 초기화

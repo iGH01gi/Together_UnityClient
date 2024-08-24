@@ -81,7 +81,7 @@ public class ObserveUI : UI_scene
         ObserveChanged();
     }
     
-    public void CheckIfObservingThisPlayer(int playerID)
+    public void ChangeIfObservingThisPlayer(int playerID)
     {
         if (_currentlyObservingPlayerID == playerID)
         {

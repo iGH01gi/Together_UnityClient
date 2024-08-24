@@ -84,7 +84,11 @@ public class NightIsOverPopup : UI_popup
     {
         _camera.enabled = false;
         Managers.Player.DeletePlayerObject(_playerID);
-        if (Managers.Player._myDediPlayer == null)
+        if (Managers.UI.SceneUI.name == Define.SceneUIType.ObserveUI.ToString())
+        {
+            Managers.UI.GetComponentInSceneUI<ObserveUI>().ChangeIfObservingThisPlayer(_playerID);
+        }
+        else if (Managers.Player._myDediPlayer == null)
         {
             Managers.UI.ChangeCanvasRenderMode(RenderMode.ScreenSpaceOverlay);
             Managers.UI.LoadScenePanel(Define.SceneUIType.PlayerDeadUI);
