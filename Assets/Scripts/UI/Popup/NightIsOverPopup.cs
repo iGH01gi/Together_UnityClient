@@ -87,7 +87,7 @@ public class NightIsOverPopup : UI_popup
         {
             Managers.UI.ChangeCanvasRenderMode(RenderMode.ScreenSpaceOverlay);
             Managers.UI.LoadScenePanel(Define.SceneUIType.PlayerDeadUI);
-            ClosePopup();
+            Managers.UI.CloseAllPopup();
         }
         else
         {
@@ -102,6 +102,6 @@ public class NightIsOverPopup : UI_popup
         yield return new WaitForSeconds(0.4f);
         Managers.UI.ChangeCanvasRenderMode(RenderMode.ScreenSpaceOverlay);
         Managers.Player.ActivateInput();
-        ClosePopup();
+        Managers.UI.CloseAllPopup();
     }
 }

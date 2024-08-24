@@ -26,7 +26,8 @@ public class DisplaySettings : MonoBehaviour
     {
         bool value = go.transform.GetChild(1).GetComponent<Toggle>().isOn;
         Managers.Data.Player.isFullScreen = value;
-        Screen.fullScreen = value;
+        //Screen.fullScreen = value;
+        Screen.fullScreen = false;
     }
 
     void OnQualityIndexChanged(TMP_Dropdown dropdown)

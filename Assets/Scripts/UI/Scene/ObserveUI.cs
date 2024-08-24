@@ -62,7 +62,6 @@ public class ObserveUI : UI_scene
         _observingPlayerName.GetComponent<TMP_Text>().text = Managers.Player._otherDediPlayers[_currentlyObservingPlayerID].GetComponent<OtherDediPlayer>().Name;
     }
 
-    //TODO: 만약 관전하던 사람이 사라지면 어캄?
     private void RightButtonClicked()
     {
         var keys = Managers.Player._otherDediPlayers.Keys.ToList();
