@@ -15,6 +15,8 @@ public class ObserveUI : UI_scene
 
     public float _currentTime;
     private int _currentlyObservingPlayerID;
+    
+    DeadTimerCountdownActivator _timerCountdownActivator;
 
     private GameObject _camera;
     
@@ -38,11 +40,7 @@ public class ObserveUI : UI_scene
         _rightButton.GetComponent<UI_Button>().SetOnClick(RightButtonClicked);
     }
     
-    public void SetTimerText(float time)
-    {
-         _currentTime = time;
-         _timerText.GetComponent<TMP_Text>().text = Mathf.RoundToInt(time).ToString();
-    }
+    
 
     private void ObserveChanged()
     {
@@ -89,5 +87,25 @@ public class ObserveUI : UI_scene
         {
             RightButtonClicked();
         }
+    }
+
+    public void InitObserveTimer(float time)
+    {
+        _currentTime = time;
+        SetTimerText(time);
+        _timerCountdownActivator = Util.GetOrAddComponent<DeadTimerCountdownActivator>(transform.gameObject);
+    }
+
+    public void EndTimer()
+    {
+        Destroy(_timerCountdownActivator);
+        _currentTime = 0;
+        SetTimerText(0);
+    }
+    
+    public void SetTimerText(float time)
+    {
+        _currentTime = time;
+        _timerText.GetComponent<TMP_Text>().text = Mathf.RoundToInt(time).ToString();
     }
 }

@@ -41,7 +41,5 @@ public class ClientTimer : MonoBehaviour
     {
         Destroy(_timerCountdownActivator);
         _clientTimerValue = 0;
-        
-        /// TODO: 낮과 밤 이후 처리
     }
 }

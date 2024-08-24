@@ -389,7 +389,7 @@ public class PlayerManager
     public void ProcessPlayerDeath(int dediPlayerId)
     {
         //TODO: 밤의 끝을 알리는 효과음 넣기
-        Managers.UI.LoadPopupPanel<NightIsOverPopup>(true).Init(dediPlayerId);
+        Managers.UI.LoadPopupPanel<NightIsOverPopup>(true,false).Init(dediPlayerId);
     }
     
     /// <summary>

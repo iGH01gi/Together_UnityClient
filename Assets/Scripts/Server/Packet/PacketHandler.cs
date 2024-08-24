@@ -264,7 +264,14 @@ public class PacketHandler
         int daySeconds = dayTimerStartPacket.DaySeconds; //낮 시간(초)
         float estimatedCurrentServerTimer = daySeconds - Managers.Time.GetEstimatedLatency(); //현재 서버 타이머 시간(예측)
 
-        Managers.Game.ChangeToDay(estimatedCurrentServerTimer); //낮임을 설정
+        if (!Managers.Player.IsMyPlayerDead())
+        {
+            Managers.Game.ChangeToDay(estimatedCurrentServerTimer); //낮임을 설정
+        }
+        else
+        {
+            Managers.UI.GetComponentInSceneUI<ObserveUI>().InitObserveTimer(estimatedCurrentServerTimer);
+        }
         
         UIPacketHandler.StartGameHandler(); //게임 시작 팝업
 
@@ -286,13 +293,13 @@ public class PacketHandler
         float currentServerTimer = dayTimerSyncPacket.CurrentServerTimer; 
         float estimatedCurrentServerTimer = currentServerTimer - Managers.Time.GetEstimatedLatency(); //현재 서버 타이머 시간(예측)
         
-        if (Managers.Player.IsMyPlayerDead())
+        if (!Managers.Player.IsMyPlayerDead())
         {
-            Managers.UI.GetComponentInSceneUI<ObserveUI>().SetTimerText(Mathf.RoundToInt(estimatedCurrentServerTimer));
+            Managers.Game._clientTimer.CompareTimerValue(estimatedCurrentServerTimer); //클라이언트 타이머 시간 동기화
         }
         else
         {
-            Managers.Game._clientTimer.CompareTimerValue(estimatedCurrentServerTimer); //클라이언트 타이머 시간 동기화
+            Managers.UI.GetComponentInSceneUI<ObserveUI>().SetTimerText(Mathf.RoundToInt(estimatedCurrentServerTimer));
         }
     }
 
@@ -303,7 +310,7 @@ public class PacketHandler
         DedicatedServerSession dedicatedServerSession = session as DedicatedServerSession;
 
         Debug.Log("DSC_DayTimerEndHandler");
-        Managers.Game._clientTimer.EndTimer();
+        
 
         int kiilerId = dayTimerEndPacket.KillerPlayerId;
         int killerType = dayTimerEndPacket.KillerType;
@@ -314,7 +321,16 @@ public class PacketHandler
         
         Managers.Object._chestController.ClearAllChest();
         Managers.Player.DeactivateInput();
-        Managers.UI.LoadPopupPanel<DayToNightPopup>(true,false); //눈 감는 팝업 띄우기
+        if(!Managers.Player.IsMyPlayerDead())
+        {
+            Managers.Game._clientTimer.EndTimer();
+            Managers.UI.LoadPopupPanel<DayToNightPopup>(true,false); //눈 감는 팝업 띄우기
+        }
+        else
+        {
+            Managers.UI.GetComponentInSceneUI<ObserveUI>().EndTimer();
+            Managers.UI.LoadPopupPanel<BlurryBackgroundPopup>(true, false);
+        }
     }
     
     //데디케이트서버로부터 밤 타이머 시작을 받았을때의 처리
@@ -327,28 +343,37 @@ public class PacketHandler
 
         int nightSeconds = nightTimerStartPacket.NightSeconds; //밤 시간(초)
         float estimatedCurrentServerTimer = nightSeconds - Managers.Time.GetEstimatedLatency(); //현재 서버 타이머 시간(예측)
-        
-        Managers.UI.GetComponentInPopup<DayToNightPopup>().StartNight();
-        float gaugeMax = nightTimerStartPacket.GaugeMax; //게이지 최대값 및 초기값
-        MapField<int,float> playerGaugeDecreasePerSecond = nightTimerStartPacket.PlayerGaugeDecreasePerSecond; //플레이어별 게이지 감소량
-        
-        Managers.Game._clientGauge._gaugeMax = gaugeMax; //게이지 최대값 설정
-        Managers.Game._clientGauge.SetAllGaugeDecreasePerSecond(playerGaugeDecreasePerSecond); //플레이어별 게이지 감소량을 모든 플레이어에게 적용
-        Managers.Game._clientGauge.SetAllGauge(gaugeMax); //모든 플레이어의 gauge값을 gaugeMax로 초기화
-
-        //dediplayerId를 key로, value로 estimatedgauge로 해서 map형식으로 구함. 만약 value가 0보다 작으면 0으로 설정
-        MapField<int,float> estimatedGauge = new MapField<int, float>();
-        foreach (int dediPlayerId in playerGaugeDecreasePerSecond.Keys)
-        {
-            float estimatedValue = gaugeMax - playerGaugeDecreasePerSecond[dediPlayerId] * Managers.Time.GetEstimatedLatency();
-            if (estimatedValue<=0)
-                estimatedValue = 0;
-
-            estimatedGauge.Add(dediPlayerId, estimatedValue);
-        }
-        
         Managers.Game._isDay = false; //밤임을 설정
-        Managers.Game.ChangeToNight(estimatedCurrentServerTimer); //밤임을 설정
+
+        if (!Managers.Player.IsMyPlayerDead())
+        {
+            Managers.UI.GetComponentInPopup<DayToNightPopup>().StartNight();
+            float gaugeMax = nightTimerStartPacket.GaugeMax; //게이지 최대값 및 초기값
+            MapField<int, float>
+                playerGaugeDecreasePerSecond = nightTimerStartPacket.PlayerGaugeDecreasePerSecond; //플레이어별 게이지 감소량
+
+            Managers.Game._clientGauge._gaugeMax = gaugeMax; //게이지 최대값 설정
+            Managers.Game._clientGauge
+                .SetAllGaugeDecreasePerSecond(playerGaugeDecreasePerSecond); //플레이어별 게이지 감소량을 모든 플레이어에게 적용
+            Managers.Game._clientGauge.SetAllGauge(gaugeMax); //모든 플레이어의 gauge값을 gaugeMax로 초기화
+
+            //dediplayerId를 key로, value로 estimatedgauge로 해서 map형식으로 구함. 만약 value가 0보다 작으면 0으로 설정
+            MapField<int, float> estimatedGauge = new MapField<int, float>();
+            foreach (int dediPlayerId in playerGaugeDecreasePerSecond.Keys)
+            {
+                float estimatedValue = gaugeMax -
+                                       playerGaugeDecreasePerSecond[dediPlayerId] * Managers.Time.GetEstimatedLatency();
+                if (estimatedValue <= 0)
+                    estimatedValue = 0;
+
+                estimatedGauge.Add(dediPlayerId, estimatedValue);
+            }
+            
+        }
+        else
+        {
+            Managers.UI.GetComponentInSceneUI<ObserveUI>().SetTimerText(Mathf.RoundToInt(estimatedCurrentServerTimer));
+        }
         Managers.Game.SetUpKillerSound(); //킬러 두근두근 소리 Init
     }
     
@@ -362,7 +387,14 @@ public class PacketHandler
 
         float currentServerTimer = nightTimerSyncPacket.CurrentServerTimer;
         float estimatedCurrentServerTimer = currentServerTimer - Managers.Time.GetEstimatedLatency(); //현재 서버 타이머 시간(예측)
-        Managers.Game._clientTimer.CompareTimerValue(estimatedCurrentServerTimer); //클라이언트 타이머 시간 동기화
+        if (!Managers.Player.IsMyPlayerDead())
+        {
+            Managers.Game._clientTimer.CompareTimerValue(estimatedCurrentServerTimer); //클라이언트 타이머 시간 동기화
+        }
+        else
+        {
+            Managers.UI.GetComponentInSceneUI<ObserveUI>().SetTimerText(Mathf.RoundToInt(estimatedCurrentServerTimer));
+        }
     }
     
     //데디케이트서버로부터 밤 타이머 종료를 받았을때의 처리
@@ -378,13 +410,21 @@ public class PacketHandler
         int killerPlayerId = nightTimerEndPacket.KillerPlayerId; //마지막 킬러의 id
 
         Managers.Player.DeactivateInput();
-        
-        Managers.Inventory.Clear(); //인벤토리 초기화
-        //Managers.Input._objectInput.Clear();
-        Managers.Inventory._hotbar.ChangeSelected(0); //선택된 아이템 초기화
-        Managers.Game._playKillerSound._checkForSound = false;
-        Managers.Game._clientGauge.EndGauge();
-        Managers.Game._clientTimer.EndTimer();
+
+        if (!Managers.Player.IsMyPlayerDead())
+        {
+            Managers.Inventory.Clear(); //인벤토리 초기화
+            //Managers.Input._objectInput.Clear();
+            Managers.Inventory._hotbar.ChangeSelected(0); //선택된 아이템 초기화
+            Managers.Game._playKillerSound._checkForSound = false;
+            Managers.Game._clientGauge.EndGauge();
+            Managers.Game._clientTimer.EndTimer();
+        }
+        else
+        {
+            Managers.UI.GetComponentInSceneUI<ObserveUI>().EndTimer();
+        }
+
         Managers.UI.CloseAllPopup(); //모든 팝업 닫기
         //플레이어 죽음 처리
         Managers.Player.ProcessPlayerDeath(deathPlayerId);
