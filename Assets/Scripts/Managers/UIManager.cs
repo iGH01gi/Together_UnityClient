@@ -47,7 +47,16 @@ public class UIManager
         root.GetComponent<Canvas>().renderMode = renderMode;
         if (renderMode == RenderMode.ScreenSpaceCamera)
         {
-            root.GetComponent<Canvas>().worldCamera = GameObject.Find("KillerChangeGO/RenderCamera").GetComponent<Camera>();
+            if (Managers.Game._isDay)
+            {
+                root.GetComponent<Canvas>().worldCamera =
+                    GameObject.Find("KillerChangeGO/RenderCamera").GetComponent<Camera>();
+            }
+            else
+            {
+                root.GetComponent<Canvas>().worldCamera =
+                    GameObject.Find("DeadPlayerGO/RenderCamera").GetComponent<Camera>();
+            }
         }
     }
     
@@ -105,7 +114,6 @@ public class UIManager
     /// </summary>
     public void ClosePopup(GameObject gameObject = null)
     {
-        Debug.Log(_popupLinkedList.Count);
         if (!PopupActive())
             return;
         if (gameObject == null)
@@ -121,7 +129,11 @@ public class UIManager
         else
         {
             var cur = _popupLinkedList.Find(gameObject);
-            
+
+            if (cur == null)
+            {
+                return;
+            }
             if (_popupLinkedList.Count>1 && cur.Previous.Value.name == "Panel")
             {
                 Managers.Resource.Destroy(cur.Previous.Value);

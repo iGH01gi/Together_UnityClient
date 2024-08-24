@@ -37,8 +37,15 @@ public class GameManager
 
     private void WhenChangeDayNight(float timeToSet)
     {
-        _clientTimer.Init(timeToSet);
-        Managers.UI.GetComponentInSceneUI<InGameUI>().ChangeDayNightUI();
+        if (Managers.UI.GetComponentInSceneUI<InGameUI>() != null)
+        {
+            _clientTimer.Init(timeToSet);
+            Managers.UI.GetComponentInSceneUI<InGameUI>().ChangeDayNightUI();
+        }
+        else if (Managers.UI.GetComponentInSceneUI<ObserveUI>() != null)
+        {
+            Managers.UI.GetComponentInSceneUI<ObserveUI>().InitObserveTimer(timeToSet);
+        }
     }
 
     public void ChangeToDay(float timeToSet)
