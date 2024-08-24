@@ -105,7 +105,6 @@ public class UIManager
     /// </summary>
     public void ClosePopup(GameObject gameObject = null)
     {
-        Debug.Log(_popupLinkedList.Count);
         if (!PopupActive())
             return;
         if (gameObject == null)

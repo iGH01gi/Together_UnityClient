@@ -93,7 +93,6 @@ public class NightIsOverPopup : UI_popup
         else
         {
             StartCoroutine(OpenEyes());
-            ClosePopup();
         }
     }
     
@@ -104,5 +103,6 @@ public class NightIsOverPopup : UI_popup
         yield return new WaitForSeconds(0.4f);
         Managers.UI.ChangeCanvasRenderMode(RenderMode.ScreenSpaceOverlay);
         Managers.Player.ActivateInput();
+        ClosePopup();
     }
 }

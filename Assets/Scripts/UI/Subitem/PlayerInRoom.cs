@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using Google.Protobuf.Protocol;
 using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class PlayerInRoom : UI_subitem
 {
@@ -25,6 +26,7 @@ public class PlayerInRoom : UI_subitem
         _playerName.text = player.Name;
         _readyIcon.SetActive(player.IsReady);
         _masterIcon.SetActive(Managers.Room.IsMaster(Managers.Room.GetMyPlayerRoomId(),player.PlayerId));
+        SetAlpha(1);
     }
     
     public void ToggleReady()
@@ -42,5 +44,11 @@ public class PlayerInRoom : UI_subitem
         transform.Find("PlayerName").GetComponent<TMP_Text>().text = "";
         _readyIcon.SetActive(false);
         _masterIcon.SetActive(false);
+        SetAlpha(0.5f);
+    }
+    
+    public void SetAlpha (float alpha)
+    {
+        transform.GetComponent<Image>().color = new Color(1,1,1,alpha);
     }
 }

@@ -299,7 +299,7 @@ public class PacketHandler
         }
         else
         {
-            Managers.UI.GetComponentInSceneUI<ObserveUI>().SetTimerText(Mathf.RoundToInt(estimatedCurrentServerTimer));
+            Managers.UI.GetComponentInSceneUI<ObserveUI>().SetTimerText(estimatedCurrentServerTimer);
         }
     }
 
@@ -372,7 +372,7 @@ public class PacketHandler
         }
         else
         {
-            Managers.UI.GetComponentInSceneUI<ObserveUI>().SetTimerText(Mathf.RoundToInt(estimatedCurrentServerTimer));
+            Managers.UI.GetComponentInSceneUI<ObserveUI>().SetTimerText(estimatedCurrentServerTimer);
         }
         Managers.Game.SetUpKillerSound(); //킬러 두근두근 소리 Init
     }
@@ -393,7 +393,7 @@ public class PacketHandler
         }
         else
         {
-            Managers.UI.GetComponentInSceneUI<ObserveUI>().SetTimerText(Mathf.RoundToInt(estimatedCurrentServerTimer));
+            Managers.UI.GetComponentInSceneUI<ObserveUI>().SetTimerText(estimatedCurrentServerTimer);
         }
     }
     
@@ -408,11 +408,16 @@ public class PacketHandler
         DeathCause deathCause = nightTimerEndPacket.DeathCause; //죽은 이유
         int deathPlayerId = nightTimerEndPacket.DeathPlayerId; //죽은 플레이어의 id
         int killerPlayerId = nightTimerEndPacket.KillerPlayerId; //마지막 킬러의 id
-
-        Managers.Player.DeactivateInput();
+        
         Managers.Sound.Stop(Define.Sound.Heartbeat); //심장소리 중지
-        Managers.UI.CloseAllPopup(); //모든 팝업 닫기
-        if (!Managers.Player.IsMyPlayerDead())
+
+        //플레이어 죽음 처리
+        Managers.Player.ProcessPlayerDeath(deathPlayerId);
+        if (Managers.UI.SceneUI.name == Define.SceneUIType.ObserveUI.ToString())
+        {
+            Managers.UI.GetComponentInSceneUI<ObserveUI>().EndTimer();
+        }
+        else
         {
             Managers.Inventory.Clear(); //인벤토리 초기화
             //Managers.Input._objectInput.Clear();
@@ -420,14 +425,7 @@ public class PacketHandler
             Managers.Game._clientGauge.EndGauge();
             Managers.Game._clientTimer.EndTimer();
         }
-        else
-        {
-            Managers.UI.GetComponentInSceneUI<ObserveUI>().EndTimer();
-        }
         
-        
-        //플레이어 죽음 처리
-        Managers.Player.ProcessPlayerDeath(deathPlayerId);
 
         //내 플레이어가 죽고 플레이어가 한명 남으면 그 사람이 승자
         if (Managers.Player.IsMyPlayerDead() && Managers.Player._otherDediPlayers.Count ==1)
@@ -444,6 +442,7 @@ public class PacketHandler
         //게임이 결착 나지 않았음. 다음 라운드(낮) 진행
         else
         {
+            Managers.Player.DeactivateInput();
             Managers.Inventory._hotbar.ChangeSelected(0); //선택된 아이템 초기화
             Managers.Object._cleanseController.NightIsOver();
 

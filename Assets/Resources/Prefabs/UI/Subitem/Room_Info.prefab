@@ -92,7 +92,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 82.2
+  m_fontSize: 100
   m_fontSizeBase: 24
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -301,7 +301,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 82.2
+  m_fontSize: 100
   m_fontSizeBase: 24
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -507,7 +507,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_AspectMode: 1
-  m_AspectRatio: 15
+  m_AspectRatio: 8
 --- !u!1001 &1611001574303432026
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -602,7 +602,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6920492050228745144, guid: 55c3bda54ee364b4c9e38460ffc7c99c, type: 3}
       propertyPath: m_fontSize
-      value: 82.2
+      value: 100
       objectReference: {fileID: 0}
     - target: {fileID: 6920492050228745144, guid: 55c3bda54ee364b4c9e38460ffc7c99c, type: 3}
       propertyPath: m_fontSizeMax
