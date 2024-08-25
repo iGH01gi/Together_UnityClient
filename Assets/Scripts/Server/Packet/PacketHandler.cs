@@ -633,6 +633,7 @@ public class PacketHandler
         }
     }
 
+    //데디케이티드서버로부터 다른 플레이어가 특정 아이템을 들었다는 정보를 받았을때의 처리
     public static void DSC_OnHoldItemHandler(PacketSession session, IMessage packet)
     {
         DSC_OnHoldItem onHoldItemPacket = packet as DSC_OnHoldItem;
@@ -646,6 +647,7 @@ public class PacketHandler
         Managers.Item.HoldItem(itemId,playerId);
     }
 
+    //데디케이티드서버로부터 대시아이템을 사용했다는 정보를 받았을때의 처리
     public static void DSC_UseDashItemHandler(PacketSession session, IMessage packet)
     {
         DSC_UseDashItem useDashItemPacket = packet as DSC_UseDashItem;
@@ -662,6 +664,7 @@ public class PacketHandler
         }
     }
 
+    //데디케이티드서버로부터 대시아이템 사용완료했다는 정보를 받았을때의 처리
     public static void DSC_EndDashItemHandler(PacketSession session, IMessage packet)
     {
         DSC_EndDashItem endDashItemPacket = packet as DSC_EndDashItem;
@@ -680,14 +683,26 @@ public class PacketHandler
         }
     }
 
-
+    //데디케이티드서버로부터 플레이어가 불꽃놀이 아이템을 사용했다는 정보를 받았을때의 처리
     public static void DSC_UseFireworkItemHandler(PacketSession session, IMessage packet)
     {
         throw new NotImplementedException();
     }
 
+    //데디케이티드서버로부터 플레이어가 투명 아이템을 사용했다는 정보를 받았을때의 처리
     public static void DSC_UseInvisibleItemHandler(PacketSession session, IMessage packet)
     {
         throw new NotImplementedException();
+    }
+
+    //데디케이티드서버로부터 승자가 정해졌다는 정보를 받았을때의 처리
+    public static void DSC_EndGameHandler(PacketSession session, IMessage packet)
+    {
+        DSC_EndGame endGamePacket = packet as DSC_EndGame;
+        DedicatedServerSession dedicatedServerSession = session as DedicatedServerSession;
+
+        Debug.Log("DSC_EndGameHandler");
+
+        int winnerPlayerId = endGamePacket.WinnerPlayerId;
     }
 }

@@ -67,6 +67,7 @@ public class Invisible : MonoBehaviour, IItem
 
         //TODO: 동일 playerID의 Invisible아이템이 존재한다면 rootM을 다시 활성화하지 않고 Destroy
 
+
         // Root_M을 다시 활성화
         rootM.SetActive(true);
         Debug.Log("Root_M has been turned on.");
