@@ -16,37 +16,32 @@ public class DayToNightPopup : UI_popup
     private TMP_Text _killerText;
     private TMP_Text _killerDescriptionText;
 
-    private void Start()
+    void Start()
     {
-        
-            //현재 킬러 프리팹으로 바꾸기
-            GameObject currentGO = GameObject.Find(String.Concat(_killerPrefabPath, "/KillerPrefab"));
-            GameObject newGO = Managers.Resource.Instantiate(
-                $"Player/OtherPlayerKiller/{Managers.Killer.GetKillerEnglishName()}", currentGO.transform.parent);
-            newGO.transform.position = currentGO.transform.position;
-            newGO.transform.rotation = currentGO.transform.rotation;
-            Managers.Resource.Destroy(currentGO);
-            newGO.name = "KillerPrefab";
+        //현재 킬러 프리팹으로 바꾸기
+        Transform parentGO = GameObject.Find(string.Concat(_killerPrefabPath,"/KillerPrefab")).transform;
+        Util.DestroyAllChildren(parentGO);
+        GameObject newGO = Managers.Resource.Instantiate(
+            $"Player/OtherPlayerKiller/{Managers.Killer.GetKillerEnglishName()}", parentGO);
 
-            _canOpenEyes = false;
-            _backgroundAnim = transform.GetComponent<Animator>();
-            _text = transform.Find("SurvivorText").GetComponent<TMP_Text>();
-            _survivorText = _text.text;
-            _text.text = "";
-            _camera = GameObject.Find(String.Concat(_killerPrefabPath, "/RenderCamera")).transform
-                .GetComponent<Camera>();
-            _camera.enabled = false;
-            _killerText = transform.Find("KillerText").GetComponent<TMP_Text>();
-            _killerDescriptionText = transform.Find("KillerDescription").GetComponent<TMP_Text>();
-            if (Managers.Player.IsMyDediPlayerKiller())
-            {
-                StartCoroutine(ShowKiller());
-            }
-            else
-            {
-                StartCoroutine(ShowText());
-            }
-        
+        _canOpenEyes = false;
+        _backgroundAnim = transform.GetComponent<Animator>();
+        _text = transform.Find("SurvivorText").GetComponent<TMP_Text>();
+        _survivorText = _text.text;
+        _text.text = "";
+        _camera = GameObject.Find(String.Concat(_killerPrefabPath, "/RenderCamera")).transform
+            .GetComponent<Camera>();
+        _camera.enabled = false;
+        _killerText = transform.Find("KillerText").GetComponent<TMP_Text>();
+        _killerDescriptionText = transform.Find("KillerDescription").GetComponent<TMP_Text>();
+        if (Managers.Player.IsMyDediPlayerKiller())
+        {
+            StartCoroutine(ShowKiller());
+        }
+        else
+        {
+            StartCoroutine(ShowText());
+        }
     }
 
     /// <summary>
