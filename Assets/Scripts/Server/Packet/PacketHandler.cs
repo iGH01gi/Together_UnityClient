@@ -696,7 +696,18 @@ public class PacketHandler
     //데디케이티드서버로부터 플레이어가 투명 아이템을 사용했다는 정보를 받았을때의 처리
     public static void DSC_UseInvisibleItemHandler(PacketSession session, IMessage packet)
     {
-        throw new NotImplementedException();
+        DSC_UseInvisibleItem useInvisibleItemPacket = packet as DSC_UseInvisibleItem;
+        DedicatedServerSession dedicatedServerSession = session as DedicatedServerSession;
+
+        Debug.Log("DSC_UseInvisibleItemHandler");
+
+        int playerId = useInvisibleItemPacket.PlayerId;
+        int itemId = useInvisibleItemPacket.ItemId;
+
+        if (Managers.Player._myDediPlayerId != playerId) //다른 플레이어의 투명 아이템 사용 소식일 경우
+        {
+            Managers.Item.UseItem(playerId, itemId);
+        }
     }
 
     //데디케이티드서버로부터 승자가 정해졌다는 정보를 받았을때의 처리

@@ -17,6 +17,7 @@ public class Invisible : MonoBehaviour, IItem
 
     private GameObject _player;
     private GameObject _rootM; //투명 처리를 위해서 껐다 킬 오브젝트
+    private float _animationSeconds = 0.7f;
 
     public void Init(int itemId, int playerId, string englishName)
     {
@@ -58,6 +59,9 @@ public class Invisible : MonoBehaviour, IItem
 
     IEnumerator ToggleRootM(GameObject rootM)
     {
+        //_animationSeconds만큼 대기(애니메이션 재생시간)
+        yield return new WaitForSeconds(_animationSeconds);
+
         // Root_M을 비활성화
         rootM.SetActive(false);
         Debug.Log("Root_M has been turned off.");
@@ -65,12 +69,28 @@ public class Invisible : MonoBehaviour, IItem
         // 2초 대기
         yield return new WaitForSeconds(InvisibleSeconds);
 
-        //TODO: 동일 playerID의 Invisible아이템이 존재한다면 rootM을 다시 활성화하지 않고 Destroy
+        //TODO:동일 현재 아이템이 아닌 playerID의 Invisible아이템이 존재한다면 rootM을 다시 활성화하지 않고 
+        GameObject itemRoot = GameObject.Find("@Item");
+        bool isUsingMoreInvisible = false; //해당 플레이어가 추가로 투명아이템을 사용했는지 여부
+        if (itemRoot != null)
+        {
+            foreach (Transform child in itemRoot.transform)
+            {
+                if (child.name == "Invisible" && child.GetComponent<Invisible>().PlayerID == PlayerID && !child.gameObject.Equals(gameObject))
+                {
+                    Debug.Log("Invisible item is ");
+                    isUsingMoreInvisible = true;
+                    break;
+                }
+            }
+        }
 
-
-        // Root_M을 다시 활성화
-        rootM.SetActive(true);
-        Debug.Log("Root_M has been turned on.");
+        if (!isUsingMoreInvisible) //추가로 투명아이템을 사용하지 않았다면
+        {
+            // Root_M을 다시 활성화
+            rootM.SetActive(true);
+            Debug.Log("Root_M has been turned on.");
+        }
 
         //투명 끝났으므로 오브젝트 삭제
         Destroy(gameObject);
