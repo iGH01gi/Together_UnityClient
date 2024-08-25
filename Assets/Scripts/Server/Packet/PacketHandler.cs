@@ -688,5 +688,6 @@ public class PacketHandler
         Debug.Log("DSC_EndGameHandler");
 
         int winnerPlayerId = endGamePacket.WinnerPlayerId;
+        string winnerPlayerName = endGamePacket.WinnerName;
     }
 }
