@@ -49,6 +49,7 @@ public class ObserveUI : UI_scene
         _camera.transform.SetParent(cur.transform.Find("CameraPos"));
         _camera.transform.localPosition = Vector3.zero;
         _camera.transform.localRotation = Quaternion.identity;
+        Debug.Log("Currently observing: "+ _currentlyObservingPlayerID);
     }
     
     private void ReturnToLobby()
@@ -85,6 +86,7 @@ public class ObserveUI : UI_scene
     {
         if (_currentlyObservingPlayerID == playerID)
         {
+            Debug.Log("Change observing player");
             RightButtonClicked();
         }
     }

@@ -369,6 +369,7 @@ public class PacketHandler
         }
         else
         {
+            Managers.UI.CloseAllPopup();
             Managers.UI.GetComponentInSceneUI<ObserveUI>().InitObserveTimer(estimatedCurrentServerTimer);
         }
         Managers.Game.SetUpKillerSound(); //킬러 두근두근 소리 Init
@@ -408,17 +409,18 @@ public class PacketHandler
         
         Managers.Sound.Stop(Define.Sound.Heartbeat); //심장소리 중지
         
-        if (Managers.UI.SceneUI.name.Equals(Define.SceneUIType.ObserveUI.ToString()))
-        {
-            Managers.UI.GetComponentInSceneUI<ObserveUI>().EndTimer();
-        }
-        else
+        if (Managers.UI.SceneUI.name.Equals(Define.SceneUIType.InGameUI.ToString()))
         {
             Managers.Inventory.Clear(); //인벤토리 초기화
             //Managers.Input._objectInput.Clear();
             Managers.Game._playKillerSound._checkForSound = false;
             Managers.Game._clientGauge.EndGauge();
             Managers.Game._clientTimer.EndTimer();
+            Managers.Inventory._hotbar.ChangeSelected(0); //선택된 아이템 초기화
+        }
+        else
+        {
+            Managers.UI.GetComponentInSceneUI<ObserveUI>().EndTimer();
         }
         
         //플레이어 죽음 처리
@@ -444,7 +446,6 @@ public class PacketHandler
         else
         {
             Managers.Player.DeactivateInput();
-            Managers.Inventory._hotbar.ChangeSelected(0); //선택된 아이템 초기화
             Managers.Object._cleanseController.NightIsOver();
 
             //낮 되기 전에 미리 한번 플레이어 정보 초기화
