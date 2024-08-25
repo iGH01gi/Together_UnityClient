@@ -689,5 +689,9 @@ public class PacketHandler
 
         int winnerPlayerId = endGamePacket.WinnerPlayerId;
         string winnerPlayerName = endGamePacket.WinnerName;
+        
+        Managers.UI.CloseAllPopup();
+        Managers.UI.LoadScenePanel(Define.SceneUIType.WinnerUI);
+        Managers.UI.GetComponentInSceneUI<WinnerUI>().SetWinner(winnerPlayerId,winnerPlayerName);
     }
 }
