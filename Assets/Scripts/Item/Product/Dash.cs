@@ -30,7 +30,9 @@ public class Dash : MonoBehaviour, IItem
             if (_dashTime <= 0)
             {
                 _isDashing = false;
-                //TODO: 무적 풀기
+
+                //무적 풀기(KillerTrigger를 끔)
+                Util.FindChild(_player, "KillerTrigger", true).SetActive(true);
 
                 //내 플레이어라면 인풋 다시 받게 하는 코드 추가
                 if (PlayerID == Managers.Player._myDediPlayerId)
@@ -65,8 +67,6 @@ public class Dash : MonoBehaviour, IItem
 
     public void Use()
     {
-        //TODO: 무적 처리
-
         Managers.Player.GetAnimator(PlayerID).SetTriggerByString(EnglishName);
         Debug.Log("Item Dash Use");
 
@@ -109,6 +109,9 @@ public class Dash : MonoBehaviour, IItem
             Managers.Player._otherDediPlayers[PlayerID].GetComponent<OtherDediPlayer>().ToggleFollowGhost(false);
         }
         _characterController = _player.GetComponent<CharacterController>();
+
+        //무적 처리(KillerTrigger를 끔)
+        Util.FindChild(_player, "KillerTrigger", true).SetActive(false);
 
         //하드스냅 정지 코드 추가 (하드스냅 재개는 서버로부터 대시완료 패킷 받은 후 풀어야만 함)
         Managers.Player._syncMoveController.ToggleHardSnap(PlayerID,false);
