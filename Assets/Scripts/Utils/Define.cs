@@ -29,7 +29,8 @@ public class Define
         RoomUI,
         InGameUI,
         PlayerDeadUI,
-        ObserveUI
+        ObserveUI,
+        WinnerUI
     }
 
     public enum UIEvent

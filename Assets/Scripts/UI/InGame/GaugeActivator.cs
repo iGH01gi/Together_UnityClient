@@ -4,12 +4,17 @@ using UnityEngine;
 
 public class GaugeActivator : MonoBehaviour
 {
-    //client 자체 카운트 다운
-
-    // Update is called once per frame
+    InGameUI _inGameUI;
+    void Start()
+    {
+        _inGameUI = Managers.UI.GetComponentInSceneUI<InGameUI>();
+    }
     void Update()
     {
-        Managers.Game._clientGauge.DecreaseAllGaugeAuto();
-        Managers.UI.GetComponentInSceneUI<InGameUI>().SetCurrentGauge();
+        if (_inGameUI != null)
+        {
+            Managers.Game._clientGauge.DecreaseAllGaugeAuto();
+            _inGameUI.SetCurrentGauge();
+        }
     }
 }

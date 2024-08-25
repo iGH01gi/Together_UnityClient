@@ -422,42 +422,22 @@ public class PacketHandler
         {
             Managers.UI.GetComponentInSceneUI<ObserveUI>().EndTimer();
         }
-        
+
         //플레이어 죽음 처리
-        Managers.Player.ProcessPlayerDeath(deathPlayerId,killerPlayerId);
+        Managers.Player.ProcessPlayerDeath(deathPlayerId, killerPlayerId);
+        
+        Managers.Player.DeactivateInput();
+        Managers.Object._cleanseController.NightIsOver();
 
-        //내 플레이어가 죽고 플레이어가 한명 남으면 그 사람이 승자
-        if (Managers.Player.IsMyPlayerDead() && Managers.Player._otherDediPlayers.Count ==1)
-        {
-            //TODO: Show that remaining player won message
-            Managers.Network._dedicatedServerSession.Disconnect();
-            Managers.Scene.LoadScene(Define.Scene.Lobby);
-            Managers.UI.LoadScenePanel(Define.SceneUIType.LobbyUI);
-        }
-        //내 플레이어가 유일하게 살아남으면 플레이어가 승자
-        else if (!Managers.Player.IsMyPlayerDead() && Managers.Player._otherDediPlayers.Count == 0)
-        {
-            //TODO: Show that you won message
-            Managers.Network._dedicatedServerSession.Disconnect();
-            Managers.Scene.LoadScene(Define.Scene.Lobby);
-            Managers.UI.LoadScenePanel(Define.SceneUIType.LobbyUI);
-        }
-        //게임이 결착 나지 않았음. 다음 라운드(낮) 진행
-        else
-        {
-            Managers.Player.DeactivateInput();
-            Managers.Object._cleanseController.NightIsOver();
+        //낮 되기 전에 미리 한번 플레이어 정보 초기화
+        Managers.Player.ResetPlayerOnDayStart();
 
-            //낮 되기 전에 미리 한번 플레이어 정보 초기화
-            Managers.Player.ResetPlayerOnDayStart();
-        
-        
-            //밤->낮 효과를 설정함(0초동안 밤 유지, 3초 동안 낮으로 천천히 전환됨)
-            Managers.Scene.SimulateNightToSunrise(0,3);
-        
-            //이제 낮이니까 클린즈 안보이게 처리
-            Managers.Object._cleanseController._cleanseParent.SetActive(false);   
-        }
+
+        //밤->낮 효과를 설정함(0초동안 밤 유지, 3초 동안 낮으로 천천히 전환됨)
+        Managers.Scene.SimulateNightToSunrise(0, 3);
+
+        //이제 낮이니까 클린즈 안보이게 처리
+        Managers.Object._cleanseController._cleanseParent.SetActive(false);
     }
 
     //데디케이트서버로부터 새로운 상자 정보를 받았을때의 처리
@@ -720,5 +700,9 @@ public class PacketHandler
 
         int winnerPlayerId = endGamePacket.WinnerPlayerId;
         string winnerPlayerName = endGamePacket.WinnerName;
+        
+        Managers.UI.CloseAllPopup();
+        Managers.UI.LoadScenePanel(Define.SceneUIType.WinnerUI);
+        Managers.UI.GetComponentInSceneUI<WinnerUI>().SetWinner(winnerPlayerId,winnerPlayerName);
     }
 }
