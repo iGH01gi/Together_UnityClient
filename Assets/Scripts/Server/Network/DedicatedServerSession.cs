@@ -3,7 +3,6 @@ using System.Net;
 using Google.Protobuf;
 using Google.Protobuf.Protocol;
 using UnityEngine;
-using static UnityEditor.Progress;
 
 public class DedicatedServerSession : PacketSession
 {

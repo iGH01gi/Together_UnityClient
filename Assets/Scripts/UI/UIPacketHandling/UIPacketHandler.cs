@@ -91,7 +91,10 @@ public class UIPacketHandler
         {
             Debug.Log("Start Day!!!!!");
             Managers.UI.GetComponentInPopup<NightIsOverPopup>().StartDay();
-            
+        }
+        else if (Managers.UI.CheckPopupActive("BlurryBackgroundPopup") != null)
+        {
+            Managers.UI.CloseAllPopup();
         }
         Managers.Player.ActivateInput();
     }

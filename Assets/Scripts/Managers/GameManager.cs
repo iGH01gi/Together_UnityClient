@@ -58,7 +58,6 @@ public class GameManager
     {
         _isDay = false;
         WhenChangeDayNight(timeToSet);
-        _clientGauge.Init();
     }
 
     public void ChangeToKiller()

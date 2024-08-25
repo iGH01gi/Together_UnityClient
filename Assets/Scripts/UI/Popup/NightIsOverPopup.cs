@@ -76,19 +76,22 @@ public class NightIsOverPopup : UI_popup
     public void StartDay()
     {
         _camera.enabled = false;
-        Managers.Player.DeletePlayerObject(_playerID);
         if (Managers.UI.SceneUI.name == Define.SceneUIType.ObserveUI.ToString())
         {
+            Managers.UI.ChangeCanvasRenderMode(RenderMode.ScreenSpaceOverlay);
             Managers.UI.GetComponentInSceneUI<ObserveUI>().ChangeIfObservingThisPlayer(_playerID);
+            Managers.Player.DeletePlayerObject(_playerID);
         }
-        else if (Managers.Player._myDediPlayer == null)
+        else if (_playerID == Managers.Player._myDediPlayerId)
         {
+            Managers.Player.DeletePlayerObject(_playerID);
             Managers.UI.ChangeCanvasRenderMode(RenderMode.ScreenSpaceOverlay);
             Managers.UI.LoadScenePanel(Define.SceneUIType.PlayerDeadUI);
             Managers.UI.CloseAllPopup();
         }
         else
         {
+            Managers.Player.DeletePlayerObject(_playerID);
             StartCoroutine(OpenEyes());
         }
     }

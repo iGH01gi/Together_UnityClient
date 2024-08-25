@@ -205,7 +205,7 @@ public class PacketHandler
         
         Managers.Dedicated.InformLeaveDedicatedServer(informLeaveDedicatedServerPacket, callback:()=>{});
 
-        if (Managers.Player.IsMyPlayerDead())
+        if (Managers.UI.SceneUI.name.Equals(Define.SceneUIType.ObserveUI.ToString()))
         {
             ObserveUI observeUI = Managers.UI.GetComponentInSceneUI<ObserveUI>();
             if (observeUI != null && informLeaveDedicatedServerPacket != null)
@@ -309,16 +309,16 @@ public class PacketHandler
         Debug.Log("DSC_DayTimerEndHandler");
         
 
-        int kiilerId = dayTimerEndPacket.KillerPlayerId;
+        int killerId = dayTimerEndPacket.KillerPlayerId;
         int killerType = dayTimerEndPacket.KillerType;
         
-        Managers.Player.OnKillerAssigned(kiilerId,killerType, callback:()=>{}); //킬러 설정 + 그 이후 실행될 callback함수
+        Managers.Player.OnKillerAssigned(killerId,killerType, callback:()=>{}); //킬러 설정 + 그 이후 실행될 callback함수
         //일몰->밤 효과를 설정함(0초동안 일몰 유지, 3초 동안 밤으로 천천히 전환됨)
         Managers.Scene.SimulateSunsetToNight(0,3);
         
         Managers.Object._chestController.ClearAllChest();
         Managers.Player.DeactivateInput();
-        if(!Managers.Player.IsMyPlayerDead())
+        if(!Managers.UI.SceneUI.name.Equals(Define.SceneUIType.ObserveUI.ToString()))
         {
             Managers.Game._clientTimer.EndTimer();
             Managers.UI.LoadPopupPanel<DayToNightPopup>(true,false); //눈 감는 팝업 띄우기
@@ -340,9 +340,9 @@ public class PacketHandler
 
         int nightSeconds = nightTimerStartPacket.NightSeconds; //밤 시간(초)
         float estimatedCurrentServerTimer = nightSeconds - Managers.Time.GetEstimatedLatency(); //현재 서버 타이머 시간(예측)
-        Managers.Game._isDay = false; //밤임을 설정
+        Managers.Game.ChangeToNight(estimatedCurrentServerTimer); //밤임을 설정
 
-        if (!Managers.Player.IsMyPlayerDead())
+        if (!Managers.UI.SceneUI.name.Equals(Define.SceneUIType.ObserveUI.ToString()))
         {
             Managers.UI.GetComponentInPopup<DayToNightPopup>().StartNight();
             float gaugeMax = nightTimerStartPacket.GaugeMax; //게이지 최대값 및 초기값
@@ -365,7 +365,7 @@ public class PacketHandler
 
                 estimatedGauge.Add(dediPlayerId, estimatedValue);
             }
-            
+            Managers.Game._clientGauge.Init();
         }
         else
         {
@@ -411,7 +411,7 @@ public class PacketHandler
         //플레이어 죽음 처리
         Managers.Player.ProcessPlayerDeath(deathPlayerId,killerPlayerId);
         
-        if (Managers.UI.SceneUI.name == Define.SceneUIType.ObserveUI.ToString())
+        if (Managers.UI.SceneUI.name.Equals(Define.SceneUIType.ObserveUI.ToString()))
         {
             Managers.UI.GetComponentInSceneUI<ObserveUI>().EndTimer();
         }
@@ -429,13 +429,17 @@ public class PacketHandler
         if (Managers.Player.IsMyPlayerDead() && Managers.Player._otherDediPlayers.Count ==1)
         {
             //TODO: Show that remaining player won message
+            Managers.Network._dedicatedServerSession.Disconnect();
             Managers.Scene.LoadScene(Define.Scene.Lobby);
+            Managers.UI.LoadScenePanel(Define.SceneUIType.LobbyUI);
         }
         //내 플레이어가 유일하게 살아남으면 플레이어가 승자
         else if (!Managers.Player.IsMyPlayerDead() && Managers.Player._otherDediPlayers.Count == 0)
         {
             //TODO: Show that you won message
+            Managers.Network._dedicatedServerSession.Disconnect();
             Managers.Scene.LoadScene(Define.Scene.Lobby);
+            Managers.UI.LoadScenePanel(Define.SceneUIType.LobbyUI);
         }
         //게임이 결착 나지 않았음. 다음 라운드(낮) 진행
         else
