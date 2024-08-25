@@ -131,6 +131,7 @@ public class InventoryManager : MonoBehaviour
                 _address[itemID].ClearSlot();
                 _address.Remove(itemID);
                 _ownedItems.Remove(itemID);
+                _hotbar.HoldHotbarItem();
             }
             else
             {

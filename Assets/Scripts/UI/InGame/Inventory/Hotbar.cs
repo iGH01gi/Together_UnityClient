@@ -37,20 +37,6 @@ public class Hotbar : MonoBehaviour
     }
 
     /// <summary>
-    /// 슬롯에서 아이템 제거
-    /// </summary>
-    /// <param name="slot"></param>
-    public void RemoveFromSlot(int slot)
-    {
-        if (BadIndexCheck(slot))
-        {
-            Debug.Log("Hotbar Slot Index Out of Range");
-            return;
-        }
-        GetSlot(slot).GetComponentInChildren<InventorySlot>().ClearSlot();
-    }
-
-    /// <summary>
     /// 선택된 슬롯 변경
     /// </summary>
     /// <param name="index">슬롯 index</param>
