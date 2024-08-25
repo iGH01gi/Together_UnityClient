@@ -3,6 +3,7 @@ using System.Net;
 using Google.Protobuf;
 using Google.Protobuf.Protocol;
 using UnityEngine;
+using static UnityEditor.Progress;
 
 public class DedicatedServerSession : PacketSession
 {
@@ -69,8 +70,9 @@ public class DedicatedServerSession : PacketSession
     {
         Debug.Log($"OnDisconnected DediServer : {endPoint}");
         
-        //TODO: 데디서버 세션 연결이 끊겼을 때 처리
+        //데디서버 세션 연결이 끊겼을 때 처리
         Managers.Dedicated.LeaveDedicatedServer();
+        
     }
     
     public override void OnRecvPacket(ArraySegment<byte> buffer)

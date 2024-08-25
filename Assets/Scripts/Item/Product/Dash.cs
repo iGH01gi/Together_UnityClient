@@ -14,9 +14,9 @@ public class Dash : MonoBehaviour, IItem
     public float DashDistance { get; set; }
 
 
-    GameObject _player;
+    private GameObject _player;
     private CharacterController _characterController;
-    private float _dashTime = 0.24f; //대시 시간(애니메이션 재생 시간) (무적시간이기도 함)
+    private float _dashTime = 0.5f; //대시 시간(애니메이션 재생 시간) (무적시간이기도 함)
     private float _dashSpeed; //대시 속도
     private bool _isDashing = false; //대시 중인지 여부
 
@@ -44,8 +44,6 @@ public class Dash : MonoBehaviour, IItem
                     Managers.Player._otherDediPlayers[PlayerID].GetComponent<OtherDediPlayer>().ToggleFollowGhost(true);
                 }
 
-                //TODO: 애니메이션 다시 재개 코드 추가(걷기,뛰기...) 일단 보류 settrigger로 처리되는듯.
-
                 //대시가 끝났으므로 대시오브젝트 삭제
                 Destroy(gameObject);
             }
@@ -69,8 +67,6 @@ public class Dash : MonoBehaviour, IItem
     {
         //TODO: 무적 처리
 
-        //TODO: 다른 애니메이션 실행 안되게 막기(걷기,뛰기 애니메이션 update방지) 일단보류. settrigger로 대체 가능하다함.
-
         Managers.Player.GetAnimator(PlayerID).SetTriggerByString(EnglishName);
         Debug.Log("Item Dash Use");
 
@@ -78,52 +74,44 @@ public class Dash : MonoBehaviour, IItem
         if (PlayerID == Managers.Player._myDediPlayerId)
         {
             _player = Managers.Player._myDediPlayer;
+            //대시 패킷 서버로 보내기
+            CDS_UseDashItem useDashItemPacket = new CDS_UseDashItem()
+            {
+                MyDediplayerId = PlayerID,
+                ItemId = ItemID,
+                DashStartingTransform = new TransformInfo()
+                {
+                    Position = new PositionInfo()
+                    {
+                        PosX = _player.transform.position.x,
+                        PosY = _player.transform.position.y,
+                        PosZ = _player.transform.position.z
+                    },
+                    Rotation = new RotationInfo()
+                    {
+                        RotX = _player.transform.rotation.x,
+                        RotY = _player.transform.rotation.y,
+                        RotZ = _player.transform.rotation.z,
+                        RotW = _player.transform.rotation.w
+                    }
+                }
+            };
+            Managers.Network._dedicatedServerSession.Send(useDashItemPacket);
+
+            //내 플레이어라면 인풋 막는 코드 추가
+            Managers.Player.DeactivateInput();
         }
         else
         {
             _player = Managers.Player._otherDediPlayers[PlayerID];
+
+            //다른 플레이어라면 고스트 따라가기 기능 멈추는 코드 추가
+            Managers.Player._otherDediPlayers[PlayerID].GetComponent<OtherDediPlayer>().ToggleFollowGhost(false);
         }
         _characterController = _player.GetComponent<CharacterController>();
 
-        //대시 패킷 서버로 보내기
-        CDS_UseDashItem useDashItemPacket = new CDS_UseDashItem()
-        {
-            MyDediplayerId = PlayerID,
-            ItemId = ItemID,
-            DashStartingTransform = new TransformInfo()
-            {
-                Position = new PositionInfo()
-                {
-                    PosX = _player.transform.position.x,
-                    PosY = _player.transform.position.y,
-                    PosZ = _player.transform.position.z
-                },
-                Rotation = new RotationInfo()
-                {
-                    RotX = _player.transform.rotation.x,
-                    RotY = _player.transform.rotation.y,
-                    RotZ = _player.transform.rotation.z,
-                    RotW = _player.transform.rotation.w
-                }
-            }
-        };
-        Managers.Network._dedicatedServerSession.Send(useDashItemPacket);
-
         //하드스냅 정지 코드 추가 (하드스냅 재개는 서버로부터 대시완료 패킷 받은 후 풀어야만 함)
-        SyncMoveController syncMoveCtonroller = _player.GetComponent<SyncMoveController>();
-        syncMoveCtonroller.ToggleHardSnap(false);
-
-        //내 플레이어라면 인풋 막는 코드 추가
-        if (PlayerID == Managers.Player._myDediPlayerId)
-        {
-            Managers.Player.DeactivateInput();
-        }
-
-        //다른 플레이어라면 고스트 따라가기 기능 멈추는 코드 추가
-        else
-        {
-            Managers.Player._otherDediPlayers[PlayerID].GetComponent<OtherDediPlayer>().ToggleFollowGhost(false);
-        }
+        Managers.Player._syncMoveController.ToggleHardSnap(PlayerID,false);
 
         //DashDistance만큼의 거리를 dashTime동안 이동하려면 속도가 몇이어야 하는지
         _dashSpeed = DashDistance / _dashTime;

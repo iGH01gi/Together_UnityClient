@@ -38,6 +38,7 @@ public class PlayerManager
         _otherRoomPlayers.Clear();
         
         ClearDedi();
+        _syncMoveController.Clear();
     }
 
     public void ClearDedi()
