@@ -205,7 +205,7 @@ public class PacketHandler
         
         Managers.Dedicated.InformLeaveDedicatedServer(informLeaveDedicatedServerPacket, callback:()=>{});
 
-        if (Managers.Player.IsMyPlayerDead())
+        if (Managers.UI.SceneUI.name.Equals(Define.SceneUIType.ObserveUI.ToString()))
         {
             ObserveUI observeUI = Managers.UI.GetComponentInSceneUI<ObserveUI>();
             if (observeUI != null && informLeaveDedicatedServerPacket != null)
@@ -290,13 +290,13 @@ public class PacketHandler
         float currentServerTimer = dayTimerSyncPacket.CurrentServerTimer; 
         float estimatedCurrentServerTimer = currentServerTimer - Managers.Time.GetEstimatedLatency(); //현재 서버 타이머 시간(예측)
         
-        if (!Managers.Player.IsMyPlayerDead())
+        if (!Managers.UI.SceneUI.name.Equals(Define.SceneUIType.ObserveUI.ToString()))
         {
             Managers.Game._clientTimer.CompareTimerValue(estimatedCurrentServerTimer); //클라이언트 타이머 시간 동기화
         }
         else
         {
-            Managers.UI.GetComponentInSceneUI<ObserveUI>().SetTimerText(estimatedCurrentServerTimer);
+            Managers.UI.GetComponentInSceneUI<ObserveUI>().InitObserveTimer(estimatedCurrentServerTimer);
         }
     }
 
@@ -309,16 +309,16 @@ public class PacketHandler
         Debug.Log("DSC_DayTimerEndHandler");
         
 
-        int kiilerId = dayTimerEndPacket.KillerPlayerId;
+        int killerId = dayTimerEndPacket.KillerPlayerId;
         int killerType = dayTimerEndPacket.KillerType;
         
-        Managers.Player.OnKillerAssigned(kiilerId,killerType, callback:()=>{}); //킬러 설정 + 그 이후 실행될 callback함수
+        Managers.Player.OnKillerAssigned(killerId,killerType, callback:()=>{}); //킬러 설정 + 그 이후 실행될 callback함수
         //일몰->밤 효과를 설정함(0초동안 일몰 유지, 3초 동안 밤으로 천천히 전환됨)
         Managers.Scene.SimulateSunsetToNight(0,3);
         
         Managers.Object._chestController.ClearAllChest();
         Managers.Player.DeactivateInput();
-        if(!Managers.Player.IsMyPlayerDead())
+        if(!Managers.UI.SceneUI.name.Equals(Define.SceneUIType.ObserveUI.ToString()))
         {
             Managers.Game._clientTimer.EndTimer();
             Managers.UI.LoadPopupPanel<DayToNightPopup>(true,false); //눈 감는 팝업 띄우기
@@ -340,9 +340,9 @@ public class PacketHandler
 
         int nightSeconds = nightTimerStartPacket.NightSeconds; //밤 시간(초)
         float estimatedCurrentServerTimer = nightSeconds - Managers.Time.GetEstimatedLatency(); //현재 서버 타이머 시간(예측)
-        Managers.Game._isDay = false; //밤임을 설정
+        Managers.Game.ChangeToNight(estimatedCurrentServerTimer); //밤임을 설정
 
-        if (!Managers.Player.IsMyPlayerDead())
+        if (!Managers.UI.SceneUI.name.Equals(Define.SceneUIType.ObserveUI.ToString()))
         {
             Managers.UI.GetComponentInPopup<DayToNightPopup>().StartNight();
             float gaugeMax = nightTimerStartPacket.GaugeMax; //게이지 최대값 및 초기값
@@ -365,10 +365,11 @@ public class PacketHandler
 
                 estimatedGauge.Add(dediPlayerId, estimatedValue);
             }
-            
+            Managers.Game._clientGauge.Init();
         }
         else
         {
+            Managers.UI.CloseAllPopup();
             Managers.UI.GetComponentInSceneUI<ObserveUI>().InitObserveTimer(estimatedCurrentServerTimer);
         }
         Managers.Game.SetUpKillerSound(); //킬러 두근두근 소리 Init
@@ -384,13 +385,13 @@ public class PacketHandler
 
         float currentServerTimer = nightTimerSyncPacket.CurrentServerTimer;
         float estimatedCurrentServerTimer = currentServerTimer - Managers.Time.GetEstimatedLatency(); //현재 서버 타이머 시간(예측)
-        if (!Managers.Player.IsMyPlayerDead())
+        if (!Managers.UI.SceneUI.name.Equals(Define.SceneUIType.ObserveUI.ToString()))
         {
             Managers.Game._clientTimer.CompareTimerValue(estimatedCurrentServerTimer); //클라이언트 타이머 시간 동기화
         }
         else
         {
-            Managers.UI.GetComponentInSceneUI<ObserveUI>().SetTimerText(estimatedCurrentServerTimer);
+            Managers.UI.GetComponentInSceneUI<ObserveUI>().InitObserveTimer(estimatedCurrentServerTimer);
         }
     }
     
@@ -407,41 +408,44 @@ public class PacketHandler
         int killerPlayerId = nightTimerEndPacket.KillerPlayerId; //마지막 킬러의 id
         
         Managers.Sound.Stop(Define.Sound.Heartbeat); //심장소리 중지
-
-        //플레이어 죽음 처리
-        Managers.Player.ProcessPlayerDeath(deathPlayerId);
         
-        if (Managers.UI.SceneUI.name == Define.SceneUIType.ObserveUI.ToString())
-        {
-            Managers.UI.GetComponentInSceneUI<ObserveUI>().EndTimer();
-        }
-        else
+        if (Managers.UI.SceneUI.name.Equals(Define.SceneUIType.InGameUI.ToString()))
         {
             Managers.Inventory.Clear(); //인벤토리 초기화
             //Managers.Input._objectInput.Clear();
             Managers.Game._playKillerSound._checkForSound = false;
             Managers.Game._clientGauge.EndGauge();
             Managers.Game._clientTimer.EndTimer();
+            Managers.Inventory._hotbar.ChangeSelected(0); //선택된 아이템 초기화
+        }
+        else
+        {
+            Managers.UI.GetComponentInSceneUI<ObserveUI>().EndTimer();
         }
         
+        //플레이어 죽음 처리
+        Managers.Player.ProcessPlayerDeath(deathPlayerId,killerPlayerId);
 
         //내 플레이어가 죽고 플레이어가 한명 남으면 그 사람이 승자
         if (Managers.Player.IsMyPlayerDead() && Managers.Player._otherDediPlayers.Count ==1)
         {
             //TODO: Show that remaining player won message
+            Managers.Network._dedicatedServerSession.Disconnect();
             Managers.Scene.LoadScene(Define.Scene.Lobby);
+            Managers.UI.LoadScenePanel(Define.SceneUIType.LobbyUI);
         }
         //내 플레이어가 유일하게 살아남으면 플레이어가 승자
         else if (!Managers.Player.IsMyPlayerDead() && Managers.Player._otherDediPlayers.Count == 0)
         {
             //TODO: Show that you won message
+            Managers.Network._dedicatedServerSession.Disconnect();
             Managers.Scene.LoadScene(Define.Scene.Lobby);
+            Managers.UI.LoadScenePanel(Define.SceneUIType.LobbyUI);
         }
         //게임이 결착 나지 않았음. 다음 라운드(낮) 진행
         else
         {
             Managers.Player.DeactivateInput();
-            Managers.Inventory._hotbar.ChangeSelected(0); //선택된 아이템 초기화
             Managers.Object._cleanseController.NightIsOver();
 
             //낮 되기 전에 미리 한번 플레이어 정보 초기화

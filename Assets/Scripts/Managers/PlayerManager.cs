@@ -23,7 +23,8 @@ public class PlayerManager
     public string _tempOtherPlayerPrefabPath = "Player/OtherPlayer";
     public string _tempTargetGhost = "Player/TargetGhost";
     
-    public int _deadPlayerID = -1; //죽은 플레이어의 id
+    public int _processDeadPlayerID = -1; //NightIsOverPopup에서 죽은 플레이어의 id
+    public int _processKillerPlayerID = -1; //NightIsOverPopup에서 킬러로 지정된 플레이어의 id
     public void Init()
     {
         _myRoomPlayer = new MyRoomPlayer();
@@ -185,11 +186,14 @@ public class PlayerManager
             Managers.Player._otherDediPlayers[dediPlayerId].GetComponent<OtherDediPlayer>()._killerType = killerType;
             
             //기존 콜라이더 키기
-            Managers.Player._myDediPlayer.transform.Find("PlayerTrigger").GetComponent<CapsuleCollider>().enabled = true;
             _otherDediPlayers[dediPlayerId].transform.Find("PlayerPrefab").gameObject.SetActive(false);
             Managers.Killer.CreateKiller(dediPlayerId, killerType);
-            
-            Managers.Game.IsNotKiller(); //킬러가 아닐 시 처리
+            if (!IsMyPlayerDead())
+            {
+                Managers.Player._myDediPlayer.transform.Find("PlayerTrigger").GetComponent<CapsuleCollider>().enabled =
+                    true;
+                Managers.Game.IsNotKiller(); //킬러가 아닐 시 처리
+            }
         }
         
         callback?.Invoke();
@@ -387,13 +391,13 @@ public class PlayerManager
     /// 플레이어가 죽었을때의 처리
     /// </summary>
     /// <param name="dediPlayerId">죽은 플레이어 id</param>
-    public void ProcessPlayerDeath(int dediPlayerId)
+    public void ProcessPlayerDeath(int dediPlayerId, int killerPlayerId)
     {
-        //TODO: 밤의 끝을 알리는 효과음 넣기
-        _deadPlayerID = dediPlayerId;
+        _processDeadPlayerID = dediPlayerId;
+        _processKillerPlayerID = killerPlayerId;
         Managers.UI.LoadPopupPanel<NightIsOverPopup>(true,false);
     }
-    
+
     /// <summary>
     /// Die animation 끝에 Animation event로 실행되는 함수.
     /// PlayerDeadUI로 sceneUI 변경 후 플레이어 프리팹 삭제

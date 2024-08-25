@@ -20,7 +20,7 @@ public class ObserveUI : UI_scene
 
     private GameObject _camera;
     
-    private void Start()
+    private void Awake()
     {
         //추후 접근이 필요한 오브젝트들을 찾아서 저장
         _timerText = transform.Find("TimerText").gameObject;
@@ -49,10 +49,12 @@ public class ObserveUI : UI_scene
         _camera.transform.SetParent(cur.transform.Find("CameraPos"));
         _camera.transform.localPosition = Vector3.zero;
         _camera.transform.localRotation = Quaternion.identity;
+        Debug.Log("Currently observing: "+ _currentlyObservingPlayerID);
     }
     
     private void ReturnToLobby()
     {
+        Managers.Network._dedicatedServerSession.Disconnect();
         Managers.Scene.LoadScene(Define.Scene.Lobby);
         Managers.UI.LoadScenePanel(Define.SceneUIType.LobbyUI);
     }
@@ -84,6 +86,7 @@ public class ObserveUI : UI_scene
     {
         if (_currentlyObservingPlayerID == playerID)
         {
+            Debug.Log("Change observing player");
             RightButtonClicked();
         }
     }
@@ -91,7 +94,7 @@ public class ObserveUI : UI_scene
     public void InitObserveTimer(float time)
     {
         _currentTime = time;
-        SetTimerText(time);
+        SetTimerText();
         if (_timerCountdownActivator == null)
         {
             _timerCountdownActivator = Util.GetOrAddComponent<DeadTimerCountdownActivator>(transform.gameObject);
@@ -102,12 +105,12 @@ public class ObserveUI : UI_scene
     {
         Destroy(_timerCountdownActivator);
         _currentTime = 0;
-        SetTimerText(0);
+        SetTimerText();
     }
     
-    public void SetTimerText(float time)
+    public void SetTimerText()
     {
-        _currentTime = time;
-        _timerText.GetComponent<TMP_Text>().text = Mathf.RoundToInt(time).ToString();
+        Debug.Log(_currentTime);
+        _timerText.GetComponent<TMP_Text>().text = Mathf.RoundToInt(_currentTime).ToString();
     }
 }

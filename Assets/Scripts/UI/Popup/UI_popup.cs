@@ -21,6 +21,7 @@ public class UI_popup : UI_base
         CleansePopup,
         DayToNightPopup,
         NightIsOverPopup,
+        BlurryBackgroundPopup
     }
     
     protected void ClosePopup()
