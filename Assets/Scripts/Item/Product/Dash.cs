@@ -44,8 +44,6 @@ public class Dash : MonoBehaviour, IItem
                     Managers.Player._otherDediPlayers[PlayerID].GetComponent<OtherDediPlayer>().ToggleFollowGhost(true);
                 }
 
-                //TODO: 애니메이션 다시 재개 코드 추가(걷기,뛰기...) 일단 보류 settrigger로 처리되는듯.
-
                 //대시가 끝났으므로 대시오브젝트 삭제
                 Destroy(gameObject);
             }
@@ -66,10 +64,8 @@ public class Dash : MonoBehaviour, IItem
     }
 
     public void Use()
-    {Debug.Log($"현재 dashdistance는 {DashDistance}");
+    {
         //TODO: 무적 처리
-
-        //TODO: 다른 애니메이션 실행 안되게 막기(걷기,뛰기 애니메이션 update방지) 일단보류. settrigger로 대체 가능하다함.
 
         Managers.Player.GetAnimator(PlayerID).SetTriggerByString(EnglishName);
         Debug.Log("Item Dash Use");
