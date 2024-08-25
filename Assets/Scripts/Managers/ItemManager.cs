@@ -65,10 +65,19 @@ public class ItemManager
     /// <param name="itemId">아이템id</param>
     public void UseItem(int dediPlayerId ,int itemId)
     {
-        if (_itemFactories.ContainsKey(itemId) && Managers.Inventory._ownedItems.ContainsKey(itemId) && !Managers.Player.IsPlayerDead(dediPlayerId))
+        if (_itemFactories.ContainsKey(itemId) && !Managers.Player.IsPlayerDead(dediPlayerId))
         { 
-            //인벤토리에서 아이템 1개 제거
-            Managers.Inventory.RemoveItemOnce(itemId);
+            if(dediPlayerId == Managers.Player._myDediPlayerId)
+            {
+                if (!Managers.Inventory._ownedItems.ContainsKey(itemId))
+                {
+                    //아이템 없으면 사용 불가
+                    Debug.LogError("아이템을 사용할 수 없습니다.");
+                    return;
+                }
+                //인벤토리에서 아이템 1개 제거
+                Managers.Inventory.RemoveItemOnce(itemId);
+            }
 
             //아이템 생성
             GameObject itemGameObject = _itemFactories[itemId].CreateItem(dediPlayerId);
@@ -81,7 +90,7 @@ public class ItemManager
         }
         else
         {
-            Debug.LogError("해당 아이템이 존재하지 않습니다.");
+            Debug.LogError("아이템을 사용할 수 없습니다.");
         }
     }
 

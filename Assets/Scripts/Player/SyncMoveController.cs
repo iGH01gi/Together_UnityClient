@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using Google.Protobuf.Protocol;
 using Google.Protobuf.WellKnownTypes;
 using UnityEngine;
@@ -18,7 +19,12 @@ public class SyncMoveController
     
     private float _hardSnapDistance = 2f; //하드스냅 거리(이 이상 서버와 거리 차이가 나면 하드스냅)
 
-    private bool _isHardsnapOn = true; //하드스냅 기능을 켤지 말지 (대시 등 아이템 사용때문에 추가된 기능)
+    private Dictionary<int, bool> _hardSnapOn = new Dictionary<int, bool>(); //하드스냅 기능을 켤지 말지 (대시 등 아이템 사용때문에 추가된 기능)
+
+    public void Clear()
+    {
+        _hardSnapOn.Clear();
+    }
 
     /// <summary>
     /// 다른 플레이어의 움직임을 동기화 (정확히는 고스트를 데디서버와 동기화시킴)
@@ -96,7 +102,7 @@ public class SyncMoveController
     /// <returns>하드스냅을 했으면 true, 아니면 false</returns>
     private bool HardSnap(TransformInfo transformInfo, int dediPlayerId)
     {
-        if (!_isHardsnapOn) //하드스냅 기능이 꺼져있으면 무시
+        if (_hardSnapOn.ContainsKey(dediPlayerId) && _hardSnapOn[dediPlayerId]==false) //하드스냅 기능이 꺼져있으면 무시
         {
             return false;
         }
@@ -205,9 +211,21 @@ public class SyncMoveController
     /// 하드스냅 기능을 토글하는 함수
     /// </summary>
     /// <param name="isOn">하드스냅을 킬거면 true, 끌거면 false</param>
-    public void ToggleHardSnap(bool isOn)
+    public void ToggleHardSnap(int dediPlayerId , bool isOn)
     {
-        _isHardsnapOn = isOn;
+        if (_hardSnapOn == null)
+        {
+            _hardSnapOn = new Dictionary<int, bool>();
+        }
+
+        if (_hardSnapOn.ContainsKey(dediPlayerId))
+        {
+            _hardSnapOn[dediPlayerId] = isOn;
+        }
+        else
+        {
+            _hardSnapOn.Add(dediPlayerId, isOn);
+        }
     }
 
     //이거 전에 고스트에서 계속 이동할 속도 계산할때 썻던 것

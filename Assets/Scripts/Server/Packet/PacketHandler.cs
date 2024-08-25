@@ -673,8 +673,7 @@ public class PacketHandler
         GameObject player = Managers.Player.GetPlayerObject(playerId);
         if (player != null)
         {
-            SyncMoveController syncMoveCtonroller = player.GetComponent<SyncMoveController>();
-            syncMoveCtonroller.ToggleHardSnap(false);
+            Managers.Player._syncMoveController.ToggleHardSnap(playerId, true);
         }
     }
 
