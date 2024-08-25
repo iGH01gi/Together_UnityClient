@@ -28,12 +28,24 @@ public class DedicatedManager
     /// </summary>
     public void LeaveDedicatedServer()
     {
-        //데디케이티드 서버에서 나감
+        //데디서버로 나가기 패킷 보내기
+        CDS_InformLeaveDedicatedServer informLeaveDedicatedServerPacket = new CDS_InformLeaveDedicatedServer();
+        informLeaveDedicatedServerPacket.DediplayerId = Managers.Player._myDediPlayerId;
+        Managers.Network._dedicatedServerSession.Send(informLeaveDedicatedServerPacket);
+
+        //로비로 돌아가기 위해서 룸서버로 해당 게임방에서 나갔다는 패킷 보내기
+        CS_LeaveRoom leaveRoomPacket = new CS_LeaveRoom();
+        leaveRoomPacket.RoomId = Managers.Room.GetMyPlayerRoomId();
+        Managers.Network._roomSession.Send(leaveRoomPacket);
+
+        //데디 관련 초기화
+        Managers.Player.ClearDedi();
+        Managers.Pool.Clear();
+        Managers.Inventory.Clear();
+        Managers.Item.Clear();
+
         Ip = null;
         Port = -1;
-
-        //내 데디케이티드 플레이어 정보도 초기화
-        Managers.Player.ClearDedi();
     }
 
     /// <summary>

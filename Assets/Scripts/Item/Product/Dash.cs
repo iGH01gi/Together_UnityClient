@@ -14,7 +14,7 @@ public class Dash : MonoBehaviour, IItem
     public float DashDistance { get; set; }
 
 
-    GameObject _player;
+    private GameObject _player;
     private CharacterController _characterController;
     private float _dashTime = 0.5f; //대시 시간(애니메이션 재생 시간) (무적시간이기도 함)
     private float _dashSpeed; //대시 속도
