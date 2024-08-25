@@ -14,6 +14,6 @@ public class DeadTimerCountdownActivator : MonoBehaviour
         float old = _observeUI._currentTime;
         float cur = Mathf.Max(0f, old - Time.deltaTime);
         _observeUI._currentTime = cur;
-       _observeUI.SetTimerText(cur);
+       _observeUI.SetTimerText();
     }
 }

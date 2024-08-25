@@ -18,7 +18,7 @@ public class NightIsOverPopup : UI_popup
     private int _playerID;
     void Start()
     {
-        _playerID = Managers.Player._deadPlayerID;
+        _playerID = Managers.Player._processDeadPlayerID;
         _mySacrificeText = transform.Find("MySacrificeText").GetComponent<TMP_Text>();
         _otherSacrificeText = transform.Find("OtherSacrificeText").GetComponent<TMP_Text>();
         _playerName = transform.Find("PlayerName").GetComponent<TMP_Text>();
@@ -32,8 +32,6 @@ public class NightIsOverPopup : UI_popup
 
         _backgroundAnim = transform.GetComponent<Animator>();
         _camera = GameObject.Find(String.Concat(_deadPlayerPrefabPath,"/RenderCamera")).transform.GetComponent<Camera>();
-        _camera.enabled = false;
-        
         _camera.enabled = true;
         Managers.UI.ChangeCanvasRenderMode(RenderMode.ScreenSpaceCamera); //캔버스 렌더모드 변경
         //죽을 플레이어를 찾아서 이동시키기
@@ -42,7 +40,7 @@ public class NightIsOverPopup : UI_popup
         GameObject newGO;
         if (_playerID == Managers.Player._myDediPlayerId)
         {
-            if (!Managers.Player.IsMyDediPlayerKiller())
+            if (_playerID != Managers.Player._processKillerPlayerID)
             {
                 newGO = Managers.Resource.Instantiate("Player/OtherPlayer(Model)", currentGO.transform);
             }

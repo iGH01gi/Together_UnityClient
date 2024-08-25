@@ -287,13 +287,13 @@ public class PacketHandler
         float currentServerTimer = dayTimerSyncPacket.CurrentServerTimer; 
         float estimatedCurrentServerTimer = currentServerTimer - Managers.Time.GetEstimatedLatency(); //현재 서버 타이머 시간(예측)
         
-        if (!Managers.Player.IsMyPlayerDead())
+        if (!Managers.UI.SceneUI.name.Equals(Define.SceneUIType.ObserveUI.ToString()))
         {
             Managers.Game._clientTimer.CompareTimerValue(estimatedCurrentServerTimer); //클라이언트 타이머 시간 동기화
         }
         else
         {
-            Managers.UI.GetComponentInSceneUI<ObserveUI>().SetTimerText(estimatedCurrentServerTimer);
+            Managers.UI.GetComponentInSceneUI<ObserveUI>().InitObserveTimer(estimatedCurrentServerTimer);
         }
     }
 
@@ -381,13 +381,13 @@ public class PacketHandler
 
         float currentServerTimer = nightTimerSyncPacket.CurrentServerTimer;
         float estimatedCurrentServerTimer = currentServerTimer - Managers.Time.GetEstimatedLatency(); //현재 서버 타이머 시간(예측)
-        if (!Managers.Player.IsMyPlayerDead())
+        if (!Managers.UI.SceneUI.name.Equals(Define.SceneUIType.ObserveUI.ToString()))
         {
             Managers.Game._clientTimer.CompareTimerValue(estimatedCurrentServerTimer); //클라이언트 타이머 시간 동기화
         }
         else
         {
-            Managers.UI.GetComponentInSceneUI<ObserveUI>().SetTimerText(estimatedCurrentServerTimer);
+            Managers.UI.GetComponentInSceneUI<ObserveUI>().InitObserveTimer(estimatedCurrentServerTimer);
         }
     }
     
@@ -406,7 +406,7 @@ public class PacketHandler
         Managers.Sound.Stop(Define.Sound.Heartbeat); //심장소리 중지
 
         //플레이어 죽음 처리
-        Managers.Player.ProcessPlayerDeath(deathPlayerId);
+        Managers.Player.ProcessPlayerDeath(deathPlayerId,killerPlayerId);
         
         if (Managers.UI.SceneUI.name == Define.SceneUIType.ObserveUI.ToString())
         {

@@ -91,7 +91,7 @@ public class ObserveUI : UI_scene
     public void InitObserveTimer(float time)
     {
         _currentTime = time;
-        SetTimerText(time);
+        SetTimerText();
         if (_timerCountdownActivator == null)
         {
             _timerCountdownActivator = Util.GetOrAddComponent<DeadTimerCountdownActivator>(transform.gameObject);
@@ -102,12 +102,12 @@ public class ObserveUI : UI_scene
     {
         Destroy(_timerCountdownActivator);
         _currentTime = 0;
-        SetTimerText(0);
+        SetTimerText();
     }
     
-    public void SetTimerText(float time)
+    public void SetTimerText()
     {
-        _currentTime = time;
-        _timerText.GetComponent<TMP_Text>().text = Mathf.RoundToInt(time).ToString();
+        Debug.Log(_currentTime);
+        _timerText.GetComponent<TMP_Text>().text = Mathf.RoundToInt(_currentTime).ToString();
     }
 }
