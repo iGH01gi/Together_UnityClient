@@ -274,6 +274,9 @@ public class PacketHandler
         
         //낮 시작할때 플레이어 정보 초기화
         Managers.Player.ResetPlayerOnDayStart();
+
+        //씬에 생성돼있는 아이템오브젝트 제거
+        Managers.Item.Clear();
     }
 
     //데디케이트서버로부터 낮 타이머 싱크를 받았을때의 처리
