@@ -20,7 +20,7 @@ public class ObserveUI : UI_scene
 
     private GameObject _camera;
     
-    private void Start()
+    private void Awake()
     {
         //추후 접근이 필요한 오브젝트들을 찾아서 저장
         _timerText = transform.Find("TimerText").gameObject;

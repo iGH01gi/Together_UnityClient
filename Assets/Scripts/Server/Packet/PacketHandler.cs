@@ -407,9 +407,6 @@ public class PacketHandler
         int killerPlayerId = nightTimerEndPacket.KillerPlayerId; //마지막 킬러의 id
         
         Managers.Sound.Stop(Define.Sound.Heartbeat); //심장소리 중지
-
-        //플레이어 죽음 처리
-        Managers.Player.ProcessPlayerDeath(deathPlayerId,killerPlayerId);
         
         if (Managers.UI.SceneUI.name.Equals(Define.SceneUIType.ObserveUI.ToString()))
         {
@@ -424,6 +421,8 @@ public class PacketHandler
             Managers.Game._clientTimer.EndTimer();
         }
         
+        //플레이어 죽음 처리
+        Managers.Player.ProcessPlayerDeath(deathPlayerId,killerPlayerId);
 
         //내 플레이어가 죽고 플레이어가 한명 남으면 그 사람이 승자
         if (Managers.Player.IsMyPlayerDead() && Managers.Player._otherDediPlayers.Count ==1)

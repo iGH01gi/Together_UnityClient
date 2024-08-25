@@ -186,11 +186,14 @@ public class PlayerManager
             Managers.Player._otherDediPlayers[dediPlayerId].GetComponent<OtherDediPlayer>()._killerType = killerType;
             
             //기존 콜라이더 키기
-            Managers.Player._myDediPlayer.transform.Find("PlayerTrigger").GetComponent<CapsuleCollider>().enabled = true;
             _otherDediPlayers[dediPlayerId].transform.Find("PlayerPrefab").gameObject.SetActive(false);
             Managers.Killer.CreateKiller(dediPlayerId, killerType);
-            
-            Managers.Game.IsNotKiller(); //킬러가 아닐 시 처리
+            if (!IsMyPlayerDead())
+            {
+                Managers.Player._myDediPlayer.transform.Find("PlayerTrigger").GetComponent<CapsuleCollider>().enabled =
+                    true;
+                Managers.Game.IsNotKiller(); //킬러가 아닐 시 처리
+            }
         }
         
         callback?.Invoke();
