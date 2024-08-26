@@ -54,9 +54,7 @@ public class ObserveUI : UI_scene
     
     private void ReturnToLobby()
     {
-        Managers.Network._dedicatedServerSession.Disconnect();
-        Managers.Scene.LoadScene(Define.Scene.Lobby);
-        Managers.UI.LoadScenePanel(Define.SceneUIType.LobbyUI);
+        Managers.Scene.EndGameAndReturnToLobby();
     }
     
     private void SetObservingPlayerName()

@@ -209,6 +209,8 @@ public class UIManager
         Debug.Log( _popupLinkedList.Last.Value.name);
         return _popupLinkedList.Last.Value.GetComponent<T>();
     }
+    
+    
     /*
     public T MakeSubItem<T>(Transform parent = null, string name = null) where T : MonoBehaviour
     {

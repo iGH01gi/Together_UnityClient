@@ -14,8 +14,7 @@ public class GameScene : BaseScene
         Managers.Sound.Play("tense-horror-background",Define.Sound.Bgm);
         Managers.UI.LoadPopupPanel<ProgressPopup>(true,false);
     }
-    
-    
+
 
     public override void Clear()
     {

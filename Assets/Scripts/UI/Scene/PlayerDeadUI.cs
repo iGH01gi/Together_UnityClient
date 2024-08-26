@@ -19,9 +19,7 @@ public class PlayerDeadUI : UI_scene
     
     private void LobbyButton()
     {
-        Managers.Network._dedicatedServerSession.Disconnect();
-        Managers.Scene.LoadScene(Define.Scene.Lobby);
-        Managers.UI.LoadScenePanel(Define.SceneUIType.LobbyUI);
+        Managers.Scene.EndGameAndReturnToLobby();
     }
     
     private void ObserveButton()

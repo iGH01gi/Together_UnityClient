@@ -52,8 +52,8 @@ public class NightIsOverPopup : UI_popup
         else
         {
             newGO = Managers.Player._otherDediPlayers[_playerID];
+            newGO.transform.GetComponent<CharacterController>().enabled = false;
         }
-        newGO.transform.GetComponent<CharacterController>().enabled = false;
         newGO.transform.SetParent(currentGO.transform);
         newGO.transform.localPosition = Vector3.zero;
         newGO.transform.localRotation = Quaternion.identity;
