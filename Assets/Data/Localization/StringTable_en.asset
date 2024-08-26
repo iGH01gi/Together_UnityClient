@@ -238,6 +238,10 @@ MonoBehaviour:
     m_Localized: Spectate Match
     m_Metadata:
       m_Items: []
+  - m_Id: 85056251514490880
+    m_Localized: '[Press Any Key to Continue]'
+    m_Metadata:
+      m_Items: []
   references:
     version: 2
     RefIds: []
