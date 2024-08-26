@@ -80,4 +80,11 @@ public class SceneManagerEx
         InGameDayCycleEffect dayCycleEffect = GameObject.Find("@Scene").GetComponent<InGameDayCycleEffect>();
         dayCycleEffect.SimulateNightToDay(daySeconds, changeSeconds);
     }
+
+    public void EndGameAndReturnToLobby()
+    {
+        Managers.Scene.LoadScene(Define.Scene.Lobby);
+        Managers.UI.LoadScenePanel(Define.SceneUIType.LobbyUI);
+        Managers.Network._dedicatedServerSession.Disconnect();
+    }
 }

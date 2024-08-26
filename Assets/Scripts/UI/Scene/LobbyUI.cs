@@ -29,7 +29,7 @@ public class LobbyUI : UI_scene
         RefreshButton
     }
 
-    private void Start()
+    private void Awake()
     {
         InitButtons<Buttons>(gameObject);
         

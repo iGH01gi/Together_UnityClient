@@ -35,8 +35,11 @@ public class UIPacketHandler
     
     public static void RoomListOnReceivePacket()
     {
-        OnReceivePacket(); 
-        Managers.UI.SceneUI.GetComponent<LobbyUI>().ReceiveNewRoomList();
+        OnReceivePacket();
+        if (Managers.UI.GetComponentInSceneUI<LobbyUI>())
+        {
+            Managers.UI.SceneUI.GetComponent<LobbyUI>().ReceiveNewRoomList();
+        }
     }
 
     public static void MakeNewRoomSendPacket(string roomName, bool isPassword, string password)
