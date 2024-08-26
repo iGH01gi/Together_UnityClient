@@ -13,6 +13,16 @@ public sealed class FireworkFactory : ItemFactory
     }
     public override GameObject CreateItem(int playerId)
     {
-        return null;
+        //숫자 1~4중 랜덤으로 선택
+        int random = Random.Range(1, 5);
+        GameObject fireworkGameObject = Managers.Resource.Instantiate($"Items/Fireworks/Rocket{random}");
+        fireworkGameObject.name = "Firework";
+        Firework firework = fireworkGameObject.AddComponent<Firework>();
+        firework.Init(FactoryId, playerId, FactoryEnglishName, FlightHeight);
+
+        //위치는 현재 플레이어 위치에서 살짝 앞에 생성
+        fireworkGameObject.transform.position = Managers.Player.GetPlayerObject(playerId).transform.position +
+                                                Managers.Player.GetPlayerObject(playerId).transform.forward * 2;
+        return fireworkGameObject;
     }
 }

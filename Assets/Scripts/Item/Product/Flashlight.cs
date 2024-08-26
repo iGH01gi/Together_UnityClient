@@ -1,3 +1,4 @@
+using Google.Protobuf;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -31,7 +32,7 @@ public class Flashlight : MonoBehaviour, IItem
         FlashlightTimeRequired = flashlightTimeRequired;
     }
     
-    public void Use()
+    public void Use(IMessage recvPacket = null)
     {
         PlayerAnimController anim = Managers.Player.GetAnimator(PlayerID);
         anim.isFlashlight = true;

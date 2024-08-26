@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using Google.Protobuf;
+using UnityEngine;
 
 public interface IItem
 {
@@ -14,7 +15,8 @@ public interface IItem
     /// <summary>
     /// 아이템 사용시 기능 구현
     /// </summary>
-    public abstract void Use();
+    /// <param name="recvPacket">서버한테 받은 패킷정보(안쓰면 null로 들어감)</param>
+    public abstract void Use(IMessage recvPacket=null);
     
     /// <summary>
     /// 아이템 맞았을 때의 기능

@@ -670,7 +670,17 @@ public class PacketHandler
     //데디케이티드서버로부터 플레이어가 불꽃놀이 아이템을 사용했다는 정보를 받았을때의 처리
     public static void DSC_UseFireworkItemHandler(PacketSession session, IMessage packet)
     {
-        throw new NotImplementedException();
+        DSC_UseFireworkItem useFireworkItemPacket = packet as DSC_UseFireworkItem;
+        DedicatedServerSession dedicatedServerSession = session as DedicatedServerSession;
+
+        Debug.Log("DSC_UseFireworkItemHandler");
+        int playerId = useFireworkItemPacket.PlayerId;
+        int itemId = useFireworkItemPacket.ItemId;
+
+        if (Managers.Player._myDediPlayerId != playerId) //다른 플레이어의 대시 사용소식일 경우
+        {
+            Managers.Item.UseItem(playerId, itemId, useFireworkItemPacket);
+        }
     }
 
     //데디케이티드서버로부터 플레이어가 투명 아이템을 사용했다는 정보를 받았을때의 처리

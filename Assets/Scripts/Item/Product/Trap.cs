@@ -1,3 +1,4 @@
+using Google.Protobuf;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -28,7 +29,7 @@ public class Trap : MonoBehaviour, IItem
         StunDuration = stunDuration;
     }
     
-    public void Use()
+    public void Use(IMessage recvPacket = null)
     {
         Managers.Player.GetAnimator(PlayerID).SetTriggerByString(EnglishName);
         Debug.Log("Item Trap Use");
