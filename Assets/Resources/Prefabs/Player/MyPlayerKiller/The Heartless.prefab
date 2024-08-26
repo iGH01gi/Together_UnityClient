@@ -308,8 +308,8 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
+  - {fileID: 3101181382260879733}
   - {fileID: 4914403927981154}
-  - {fileID: 6586162622952146244}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!95 &95056105215869122
@@ -380,6 +380,8 @@ MonoBehaviour:
   isWalking: 0
   isDigging: 0
   isPraying: 0
+  isFlashlight: 0
+  isTrapped: 0
 --- !u!1 &1623481407246800
 GameObject:
   m_ObjectHideFlags: 0
@@ -559,7 +561,7 @@ Transform:
   - {fileID: 4816626273461594}
   m_Father: {fileID: 4974703928676476}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &6204958391104027202
+--- !u!1 &8523790944489524830
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -567,46 +569,37 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 6586162622952146244}
-  - component: {fileID: 264368208491480289}
-  - component: {fileID: 5188488250070512755}
-  m_Layer: 7
-  m_Name: KillerTrigger
-  m_TagString: Untagged
+  - component: {fileID: 3101181382260879733}
+  - component: {fileID: 8352782023692592483}
+  m_Layer: 0
+  m_Name: TrapTrigger
+  m_TagString: KillerTrigger
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &6586162622952146244
+--- !u!4 &3101181382260879733
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6204958391104027202}
+  m_GameObject: {fileID: 8523790944489524830}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.56808466, y: -0.5677257, z: -0.45175546, w: 0.38843834}
-  m_LocalPosition: {x: 0.218, y: 0.2589, z: 0.2022}
-  m_LocalScale: {x: 0.06919, y: 0.16385, z: 0.03299}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0.232, z: 0}
+  m_LocalScale: {x: 0.35, y: 0.26235, z: 0.35}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 4760463291329506}
-  m_LocalEulerAnglesHint: {x: -4.107, y: -106.907, z: -93.081}
---- !u!33 &264368208491480289
-MeshFilter:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6204958391104027202}
-  m_Mesh: {fileID: 10208, guid: 0000000000000000e000000000000000, type: 0}
---- !u!136 &5188488250070512755
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!136 &8352782023692592483
 CapsuleCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6204958391104027202}
+  m_GameObject: {fileID: 8523790944489524830}
   m_Material: {fileID: 0}
   m_IncludeLayers:
     serializedVersion: 2
