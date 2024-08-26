@@ -83,9 +83,13 @@ public class SoundManager
 				case Define.Sound.Bgm:
 				{
 					audioSource = _audioSources[(int)Define.Sound.Bgm];
-					if (audioSource.isPlaying)
+					if (audioSource.isPlaying && audioSource.clip == audioClip)
+					{
+						return;
+					}
+					if (audioSource.isPlaying){
 						audioSource.Stop();
-
+					}
 					audioSource.pitch = pitch;
 					audioSource.clip = audioClip;
 					audioSource.Play();
@@ -205,6 +209,18 @@ public class SoundManager
 	{
 		if(_audioSources[(int)type] != null){
 			_audioSources[(int)type].Stop();
+		}
+	}
+
+	public void PlayKillerBackground()
+	{
+		if (Managers.Player.IsMyDediPlayerKiller())
+		{
+			Managers.Sound.Play(string.Concat(Managers.Killer.GetKillerEnglishName()), Define.Sound.Bgm);
+		}
+		else
+		{
+			Managers.Sound.Play("tense-horror-background",Define.Sound.Bgm);
 		}
 	}
 }

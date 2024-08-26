@@ -13,9 +13,9 @@ public interface IKiller
     public string KoreanAbilityName { get; set; }
     public string EnglishAbilityDescription { get; set; }
     public string KoreanAbilityDescription { get; set; }
-    public float SkillCoolTimeSeconds { get; set; } 
-    
-    
+    public float SkillCoolTimeSeconds { get; set; }
+    public bool CanUseSkill { get; set; } //스킬 사용 가능 여부
+
     /// <summary>
     /// 킬러가 생성될때 설정되어야 하는 것들을 설정함(json 데이터로 값 설정 등...)
     /// </summary>

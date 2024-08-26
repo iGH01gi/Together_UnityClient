@@ -20,10 +20,12 @@ public class PlayKillerSound : MonoBehaviour
     private bool _isChaseLookAway;
 
     public bool _checkForSound;
+    public bool _heartlessSkillUsed;
 
     private void Awake()
     {
         _checkForSound = false;
+        _heartlessSkillUsed = false;
     }
 
     public void Init(float _dokidokiStart, float _dokidokiClose, float _dokidokiExtreme)
@@ -51,7 +53,11 @@ public class PlayKillerSound : MonoBehaviour
             //내 플레이어가 생존자일 시
             else
             {
-                CheckSurvivorSound();
+                CheckKillerSound();
+                if (!_heartlessSkillUsed)
+                {
+                    CheckSurvivorSound();
+                }
             }
         }
     }
@@ -96,8 +102,6 @@ public class PlayKillerSound : MonoBehaviour
         Vector3 killerPos = Managers.Player.GetKillerGameObject().transform.position;
         Vector3 myPlayerPos = myPlayer.position;
         float currentDistance = Vector3.Distance(myPlayerPos,killerPos);
-
-        CheckKillerSound();
 
         if (!_isChasing && !_isChaseLookAway)
         {
@@ -158,7 +162,7 @@ public class PlayKillerSound : MonoBehaviour
 
     private void PlayChaseSound()
     {
-        Managers.Sound.Play(Managers.Killer.GetKillerEnglishName(), Define.Sound.Bgm);
+        Managers.Sound.Play(string.Concat(Managers.Killer.GetKillerEnglishName(),$" Chase"), Define.Sound.Bgm);
     }
     
     private void PlayBackgroundSound()

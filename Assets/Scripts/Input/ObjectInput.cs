@@ -116,7 +116,8 @@ public class ObjectInput : MonoBehaviour
         Debug.Log("Skill Try");
         if (Managers.Player.IsMyDediPlayerKiller())
         {
-            Managers.Game._myKillerSkill.TryUseSkill();
+            //Managers.Game._myKillerSkill.TryUseSkill();
+            Managers.Killer.UseSkill(Managers.Player._myDediPlayerId);
         }
     }
 

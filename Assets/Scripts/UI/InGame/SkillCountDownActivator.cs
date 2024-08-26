@@ -8,12 +8,10 @@ public class SkillCountDownActivator : MonoBehaviour
     {
         float old = Managers.Game._myKillerSkill._currentCoolTime;
         float max = Managers.Game._myKillerSkill._skillCoolTime;
-        float cur = old + Time.deltaTime;
-        if (cur >= max)
+        float cur = Mathf.Max(old + Time.deltaTime,max);
+        if (Managers.Killer.GetMyKillerInfo().CanUseSkill)
         {
-            Managers.Game._myKillerSkill._currentCoolTime = max;
             Managers.UI.GetComponentInSceneUI<InGameUI>().SetKillerSkillValue(max);
-            Managers.Game._myKillerSkill._canUseSkill = true;
             Destroy(this);
         }
         else

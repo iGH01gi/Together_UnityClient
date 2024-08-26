@@ -249,7 +249,6 @@ public class PacketHandler
         Managers.Player._syncMoveController.SyncOtherPlayerMove(movePacket);
         
         //밤이고 인풋이 가능할 시 (킬러 생존자 시작 다름) 킬러 소리 체크
-        Debug.Log("Check killer sound");
         Managers.Game.PlayChaseSound(); //킬러가 근처에 있으면 심장소리 재생
     }
     

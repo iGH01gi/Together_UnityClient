@@ -16,6 +16,5 @@ public class TheHeartlessFactory : KillerFactory
             theHeartlessObj.AddComponent<TheHeartless>();
             return theHeartlessObj;
         }
-        
     }
 }
