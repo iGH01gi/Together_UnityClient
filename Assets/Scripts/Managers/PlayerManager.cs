@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using Google.Protobuf.Protocol;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using Object = UnityEngine.Object;
 
 /// <summary>
 /// 룸서버와 데디서버의 플레이어 정보를 들고있는 매니저
@@ -265,7 +266,7 @@ public class PlayerManager
                     //Managers.Item._root.transform.Find("@OnHoldItem")의 자식들을 모두 삭제
                     foreach (Transform onHoldItem in Managers.Item._root.transform.Find("@OnHoldItem"))
                     {
-                        GameObject.Destroy(onHoldItem.gameObject);
+                        Object.Destroy(onHoldItem.gameObject);
                     }
                 }
 

@@ -135,7 +135,7 @@ public class PacketHandler
         DSC_PingPong pingPongPacket = packet as DSC_PingPong;
         DedicatedServerSession dedicatedServerSession = session as DedicatedServerSession;
         
-        Debug.Log("DSC_PingPongHandler");
+        //Debug.Log("DSC_PingPongHandler");
         
         //데디케이티드 서버로부터 핑을 받았다는 의미로, 살아있다는 응답으로 퐁을 보냄
         CDS_PingPong sendPacket = new CDS_PingPong();
@@ -697,6 +697,39 @@ public class PacketHandler
         {
             Managers.Item.UseItem(playerId, itemId);
         }
+    }
+
+    //데디케이티드서버로부터 플레이어가 트랩 아이템을 사용했다는 정보를 받았을때의 처리
+    public static void DSC_UseTrapItemHandler(PacketSession session, IMessage packet)
+    {
+        DSC_UseTrapItem useTrapItemPacket = packet as DSC_UseTrapItem;
+        DedicatedServerSession dedicatedServerSession = session as DedicatedServerSession;
+
+        Debug.Log("DSC_UseTrapItemHandler");
+
+        int playerId = useTrapItemPacket.PlayerId;
+        int itemId = useTrapItemPacket.ItemId;
+
+        if (Managers.Player._myDediPlayerId != playerId) //다른 플레이어의 트랩 아이템 사용 소식일 경우
+        {
+            Managers.Item.UseItem(playerId, itemId, useTrapItemPacket);
+        }
+    }
+
+    //데디케이티드서버로부터 승자가 정해졌다는 정보를 받았을때의 처리
+    public static void DSC_EndGameHandler(PacketSession session, IMessage packet)
+    {
+        DSC_EndGame endGamePacket = packet as DSC_EndGame;
+        DedicatedServerSession dedicatedServerSession = session as DedicatedServerSession;
+
+        Debug.Log("DSC_EndGameHandler");
+
+        int winnerPlayerId = endGamePacket.WinnerPlayerId;
+        string winnerPlayerName = endGamePacket.WinnerName;
+        
+        Managers.UI.CloseAllPopup();
+        Managers.UI.LoadScenePanel(Define.SceneUIType.WinnerUI);
+        Managers.UI.GetComponentInSceneUI<WinnerUI>().SetWinner(winnerPlayerId,winnerPlayerName);
     }
     
     //데디케이티드서버로부터 Heartless 킬러가 스킬을 사용했다는 정보를 받았을때의 처리
