@@ -127,6 +127,8 @@ GameObject:
   - component: {fileID: 4895410084782936779}
   - component: {fileID: 1450474551386703224}
   - component: {fileID: 6564479870342543947}
+  - component: {fileID: 2133895160505385924}
+  - component: {fileID: 3436260595273027907}
   m_Layer: 7
   m_Name: SurvivorTrigger
   m_TagString: SurvivorTrigger
@@ -180,6 +182,45 @@ CapsuleCollider:
   m_Height: 2
   m_Direction: 1
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &2133895160505385924
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1990117739273629162}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9dbb1e09c0ed3ed47b9d92ce3fc03ef9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!54 &3436260595273027907
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1990117739273629162}
+  serializedVersion: 4
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_CenterOfMass: {x: 0, y: 0, z: 0}
+  m_InertiaTensor: {x: 1, y: 1, z: 1}
+  m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ImplicitCom: 1
+  m_ImplicitTensor: 1
+  m_UseGravity: 1
+  m_IsKinematic: 1
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
 --- !u!1 &3688539237957604030
 GameObject:
   m_ObjectHideFlags: 0
@@ -485,6 +526,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 37245b8275ab5704cb09c8eed9c0dd8d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _currentChest: {fileID: 0}
+  _currentCleanse: {fileID: 0}
 --- !u!114 &1707896735091412117
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -508,6 +551,8 @@ GameObject:
   - component: {fileID: 4945405494682445121}
   - component: {fileID: 368944552771327941}
   - component: {fileID: 126710317098822558}
+  - component: {fileID: 6312037507684354011}
+  - component: {fileID: 2318488417954988435}
   m_Layer: 7
   m_Name: PlayerTrigger
   m_TagString: Player
@@ -561,6 +606,45 @@ CapsuleCollider:
   m_Height: 2
   m_Direction: 1
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &6312037507684354011
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4807155887532184663}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7d1001660f122b14bbdfb0a7315e0798, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!54 &2318488417954988435
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4807155887532184663}
+  serializedVersion: 4
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_CenterOfMass: {x: 0, y: 0, z: 0}
+  m_InertiaTensor: {x: 1, y: 1, z: 1}
+  m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ImplicitCom: 1
+  m_ImplicitTensor: 1
+  m_UseGravity: 1
+  m_IsKinematic: 1
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
 --- !u!1 &5207611692508994148
 GameObject:
   m_ObjectHideFlags: 0

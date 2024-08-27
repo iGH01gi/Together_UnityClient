@@ -24,6 +24,8 @@ public class Trap : MonoBehaviour, IItem
     private bool _isMyPlayerTrapAvailable = false; //현재 트랩을 내 캐릭터가 설치할 수 있는지를 확인하는 변수
     private float _setTrapSeconds = 1f; //트랩 설치 시간
 
+    public bool _isAlreadyTrapped = false; //이미 누군가가 트랩에 걸렸는지 여부
+
     public void Init(int itemId,  int playerId, string englishName)
     {
         this.ItemID = itemId;
@@ -219,15 +221,16 @@ public class Trap : MonoBehaviour, IItem
 
     private void OnTriggerEnter(Collider other)
     {
-        Debug.Log("콜라이더 들어옴");
         if (other.gameObject.tag == "SurvivorTrigger" || other.gameObject.tag == "KillerTrigger")
         {
-            Debug.Log("Trap Hit");
+            //트랩이 설치된 위치에서 트리거가 발생하면 트랩이 터지게 함
+            OnHit();
         }
     }
 
     public void OnHit()
     {
-        
+        StopCoroutine("DestroyAfterSeconds");
+        StartCoroutine(DestroyAfterSeconds(StunDuration));
     }
 }

@@ -6,67 +6,19 @@ using UnityEngine.InputSystem;
 
 public class ObjectInput : MonoBehaviour
 {
-    private GameObject _currentChest;
-    private GameObject _currentCleanse;
+    public GameObject _currentChest;
+    public GameObject _currentCleanse;
 
-    private void Start()
-    {
-        GetComponent<PlayerInput>().DeactivateInput();
-    }
-    
-    private void OnTriggerEnter(Collider other)
-    {
-        Debug.Log(other.tag);
-        if (Managers.Game._isDay)
-        {
-            //상자 트리거 처리
-            if(other.CompareTag("Chest") && !other.transform.parent.GetComponent<Chest>()._isOpened)
-            {
-                ChangeHighlightChest(other.transform.parent.gameObject);
-            }
-        }
-        else
-        {
-            //킬러일 때 생존자 공격 트리거 처리
-            if (Managers.Player.IsMyDediPlayerKiller())
-            {
-                if (other.CompareTag("Player") && Managers.Player._myDediPlayer.transform.GetComponentInChildren<PlayerAnimController>().IsAttacking())
-                {
-                    Debug.Log("Attacked Player with ID: "+other.transform.parent.GetComponent<OtherDediPlayer>().PlayerId);
-                }
-            }
-            else
-            {
-                //생존자일 때 클렌즈 처리
-                if (other.CompareTag("Cleanse") && other.transform.parent.GetComponent<Cleanse>()._isAvailable)
-                {
-                    _currentCleanse = other.transform.parent.gameObject;
-                }
-            }
-        }
-    }
-
-    private void OnTriggerExit(Collider other)
-    {
-        if(other.tag == "Chest" && _currentChest.Equals(other.transform.parent.gameObject))
-        {
-            _currentChest.GetComponent<Chest>().UnHighlightChest();
-            _currentChest = null;
-            Managers.UI.ClosePopup();
-        }
-        else if (other.tag == "Cleanse")
-        {
-            QuitCleansing();
-            _currentCleanse = null;
-        }
-    }
-    
-    private void ChangeHighlightChest(GameObject newChest)
+    /// <summary>
+    /// 열수있는 상자 표시(애니메이션 느려짐)
+    /// </summary>
+    /// <param name="newChest">범위안에 감지된 상자</param>
+    public void ChangeHighlightChest(GameObject newChest)
     {
         if (_currentChest != null)
         {
-            if(
-            Vector3.Angle(transform.forward, _currentChest.transform.position - transform.position)<
+            if (
+            Vector3.Angle(transform.forward, _currentChest.transform.position - transform.position) <
             Vector3.Angle(transform.forward, newChest.transform.position - transform.position))
             {
                 return;
@@ -77,18 +29,24 @@ public class ObjectInput : MonoBehaviour
         _currentChest.GetComponent<Chest>().HighlightChest();
     }
 
+    /// <summary>
+    /// 좌클릭: 낮-상자열기 , 밤-생존자면 클렌즈;킬러면 기본공격
+    /// </summary>
+    /// <param name="value">뉴인풋시스템 사용하느라 필요한거</param>
     void OnInteract(InputValue value)
     {
         Debug.Log("OnInteract");
-        if (Managers.Game._isDay)
+        if (Managers.Game._isDay) //낮이면
         {
             if (_currentChest != null)
             {
+                //상자 열기 시도
                 Managers.Object._chestController.TryOpenChest(_currentChest.GetComponent<Chest>()._chestId);
             }
         }
-        else
+        else //밤이면
         {
+            //생존자일때
             if (!Managers.Player.IsMyDediPlayerKiller())
             {
                 if (_currentCleanse != null)
@@ -104,6 +62,7 @@ public class ObjectInput : MonoBehaviour
                     }
                 }
             }
+            //킬러일때
             else
             {
                 Managers.Killer.BaseAttack(Managers.Player._myDediPlayerId);
@@ -111,6 +70,9 @@ public class ObjectInput : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// 클렌즈 취소
+    /// </summary>
     public void QuitCleansing()
     {
         if ((Managers.Object._cleanseController._myPlayerCurrentCleanse != null))
@@ -119,9 +81,35 @@ public class ObjectInput : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// 트랩에 걸렸을때
+    /// </summary>
+    /// <param name="dediPlayerId">트랩에 걸린 데디플레이어id</param>
+    public IEnumerator Trapped(int dediPlayerId)
+    {
+        float trapDuration = (Managers.Item._itemFactories[4] as TrapFactory).TrapDuration;
+
+        if (dediPlayerId == Managers.Player._myDediPlayerId) //내 플레이어일때
+        {
+            GameObject myDediPlayerGameObject = Managers.Player._myDediPlayer;
+            PlayerAnimController playerAnimController = myDediPlayerGameObject.GetComponentInChildren<PlayerAnimController>();
+            playerAnimController.isTrapped = true;
+            playerAnimController.PlayAnim();
+            Debug.Log(" 트랩드 들어왓음!!!!!!!!!!!!!!!!!!!!!!!!!");
+
+            yield return new WaitForSeconds(trapDuration);
+
+            playerAnimController.isTrapped = false;
+        }
+        else //다른 플레이어일때
+        {
+
+        }
+    }
+
     public void Clear()
     {
         _currentChest = null;
-        _currentChest = null;
+        _currentCleanse = null;
     }
 }
