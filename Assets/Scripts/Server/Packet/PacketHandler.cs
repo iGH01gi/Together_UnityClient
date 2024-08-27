@@ -749,4 +749,20 @@ public class PacketHandler
             Managers.Killer.UseSkill(killerPlayerId, skillId);
         }
     }
+
+    //데디케이티드서버로부터 승자가 정해졌다는 정보를 받았을때의 처리
+    public static void DSC_EndGameHandler(PacketSession session, IMessage packet)
+    {
+        DSC_EndGame endGamePacket = packet as DSC_EndGame;
+        DedicatedServerSession dedicatedServerSession = session as DedicatedServerSession;
+
+        Debug.Log("DSC_EndGameHandler");
+
+        int winnerPlayerId = endGamePacket.WinnerPlayerId;
+        string winnerPlayerName = endGamePacket.WinnerName;
+        
+        Managers.UI.CloseAllPopup();
+        Managers.UI.LoadScenePanel(Define.SceneUIType.WinnerUI);
+        Managers.UI.GetComponentInSceneUI<WinnerUI>().SetWinner(winnerPlayerId,winnerPlayerName);
+    }
 }

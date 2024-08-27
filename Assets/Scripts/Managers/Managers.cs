@@ -110,6 +110,7 @@ public class Managers : MonoBehaviour
         Pool.Clear();
         Inventory.Clear();
         Item.Clear();
+        Game.Clear();
     }
 
     private void OnApplicationQuit()
