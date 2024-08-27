@@ -716,6 +716,24 @@ public class PacketHandler
             Managers.Killer.UseSkill(killerPlayerId, skillId);
         }
     }
+    
+    //데디케이티드서버로부터 Detector 킬러가 스킬을 사용했다는 정보를 받았을때의 처리
+    public static void DSC_UseDetectorSkillHandler(PacketSession session, IMessage packet)
+    {
+        DSC_UseDetectorSkill useDetectorSkillPacket = packet as DSC_UseDetectorSkill;
+        DedicatedServerSession dedicatedServerSession = session as DedicatedServerSession;
+
+        Debug.Log("DSC_UseDetectorSkill");
+
+        int killerPlayerId = useDetectorSkillPacket.PlayerId;
+        int skillId = useDetectorSkillPacket.KillerId;
+
+        //내가 쓴 스킬은 브로드캐스트 받으면 안됨
+        if (killerPlayerId != Managers.Player._myDediPlayerId)
+        {
+            Managers.Killer.UseSkill(killerPlayerId, skillId);
+        }
+    }
 
     //데디케이티드서버로부터 승자가 정해졌다는 정보를 받았을때의 처리
     public static void DSC_EndGameHandler(PacketSession session, IMessage packet)
