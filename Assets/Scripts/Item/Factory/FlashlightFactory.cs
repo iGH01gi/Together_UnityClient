@@ -26,4 +26,9 @@ public class FlashlightFactory : ItemFactory
         //if else를 통해 여기서 맞는 아이템을 생성
         return null;
     }
+
+    public override GameObject CreateOnHoldItem(int playerId)
+    {
+        return null;
+    }
 }

@@ -67,7 +67,7 @@ public class Dash : MonoBehaviour, IItem
         DashDistance = dashDistance;
     }
 
-    public void Use(IMessage recvPacket = null)
+    public bool Use(IMessage recvPacket = null)
     {
         Managers.Player.GetAnimator(PlayerID).SetTriggerByString(EnglishName);
         Debug.Log("Item Dash Use");
@@ -124,6 +124,12 @@ public class Dash : MonoBehaviour, IItem
 
         //대시 시작(update문에서 대시 수행)
         _isDashing = true;
+
+        return true;
+    }
+
+    public void OnHold()
+    {
     }
     
     public void OnHit()

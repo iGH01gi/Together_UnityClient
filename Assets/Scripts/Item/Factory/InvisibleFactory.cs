@@ -20,4 +20,9 @@ public class InvisibleFactory : ItemFactory
         invisible.Init(FactoryId, playerId, FactoryEnglishName, InvisibleSeconds);
         return invisibleGameObject;
     }
+
+    public override GameObject CreateOnHoldItem(int playerId)
+    {
+        return null;
+    }
 }

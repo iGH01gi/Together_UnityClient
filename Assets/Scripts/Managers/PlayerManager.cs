@@ -266,6 +266,15 @@ public class PlayerManager
                 if (t.Find(itemId.ToString()) != null)
                 {
                     t.Find(itemId.ToString()).GetComponent<MeshRenderer>().enabled = true;
+
+                    //OnHold 실행
+                    GameObject onHoldGameObject= Managers.Item._itemFactories[itemId].CreateOnHoldItem(playerId);
+                    if (onHoldGameObject != null) //onhold용 게임오브젝트가 있는 경우에만 실행
+                    {
+                        onHoldGameObject.GetComponent<IItem>().OnHold();
+                        //생성한 아이템을 @Item 밑에 넣음
+                        onHoldGameObject.transform.SetParent(Managers.Item._root.transform);
+                    }
                 }
             }
         }

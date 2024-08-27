@@ -32,12 +32,19 @@ public class Flashlight : MonoBehaviour, IItem
         FlashlightTimeRequired = flashlightTimeRequired;
     }
     
-    public void Use(IMessage recvPacket = null)
+    public bool Use(IMessage recvPacket = null)
     {
         PlayerAnimController anim = Managers.Player.GetAnimator(PlayerID);
         anim.isFlashlight = true;
         anim.PlayAnim();
         Debug.Log("Item Flashlight Use");
+
+        return true;
+    }
+
+    public void OnHold()
+    {
+
     }
 
     public void OnHit()

@@ -18,4 +18,9 @@ public class DashFactory : ItemFactory
         dash.Init(FactoryId, playerId, FactoryEnglishName, DashDistance);
         return dashGameObject;
     }
+
+    public override GameObject CreateOnHoldItem(int playerId)
+    {
+        return null;
+    }
 }

@@ -12,7 +12,7 @@ using Object = UnityEngine.Object;
 /// </summary>
 public class ItemManager
 {
-    public static GameObject _root; //여기에 자식으로 아이템 gameobject들이 생성됨.
+    public GameObject _root; //여기에 자식으로 아이템 gameobject들이 생성됨.
 
     private string _jsonPath;
     private string _itemPrefabFolderPath = "Items/"; //아이템 프리팹들이 들어있는 폴더 경로. 아이템id가 해당 폴더에서 프리팹의 이름
@@ -68,7 +68,7 @@ public class ItemManager
     {
         if (_itemFactories.ContainsKey(itemId) && !Managers.Player.IsPlayerDead(dediPlayerId))
         { 
-            if(dediPlayerId == Managers.Player._myDediPlayerId)
+            if(dediPlayerId == Managers.Player._myDediPlayerId) //내 플레이어
             {
                 if (!Managers.Inventory._ownedItems.ContainsKey(itemId))
                 {
@@ -76,18 +76,37 @@ public class ItemManager
                     Debug.LogError("아이템을 사용할 수 없습니다.");
                     return;
                 }
-                //인벤토리에서 아이템 1개 제거
-                Managers.Inventory.RemoveItemOnce(itemId);
+
+                //아이템 생성
+                GameObject itemGameObject = _itemFactories[itemId].CreateItem(dediPlayerId);
+
+                if (itemGameObject == null)
+                {
+                    Debug.Log("itemGameObject is null");
+                    return;
+                }
+                //생성한 아이템을 @Item 밑에 넣음
+                itemGameObject.transform.SetParent(_root.transform);
+
+                //아이템 사용 효과 발동(IItem 컴포넌트를 가져와서 사용함)
+                if (itemGameObject.GetComponent<IItem>().Use(recvPacket) == true)
+                {
+                    //아이템을 성공적으로 사용했을시
+                    //인벤토리에서 아이템 1개 제거
+                    Managers.Inventory.RemoveItemOnce(itemId);
+                }
             }
+            else //다른 플레이어
+            {
+                //아이템 생성
+                GameObject itemGameObject = _itemFactories[itemId].CreateItem(dediPlayerId);
 
-            //아이템 생성
-            GameObject itemGameObject = _itemFactories[itemId].CreateItem(dediPlayerId);
+                //생성한 아이템을 @Item 밑에 넣음
+                itemGameObject.transform.SetParent(_root.transform);
 
-            //생성한 아이템을 @Item 밑에 넣음
-            itemGameObject.transform.SetParent(_root.transform);
-
-            //아이템 사용 효과 발동(IItem 컴포넌트를 가져와서 사용함)
-            itemGameObject.GetComponent<IItem>().Use(recvPacket);
+                //아이템 사용 효과 발동(IItem 컴포넌트를 가져와서 사용함)
+                itemGameObject.GetComponent<IItem>().Use(recvPacket);
+            }
         }
         else
         {

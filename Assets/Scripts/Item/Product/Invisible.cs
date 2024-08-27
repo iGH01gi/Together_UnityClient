@@ -33,7 +33,7 @@ public class Invisible : MonoBehaviour, IItem
         InvisibleSeconds = invisibleSeconds;
     }
     
-    public void Use(IMessage recvPacket = null)
+    public bool Use(IMessage recvPacket = null)
     {
         Managers.Player.GetAnimator(PlayerID).SetTriggerByString("Invisible");
         Debug.Log("Item Invisible Use");
@@ -56,6 +56,7 @@ public class Invisible : MonoBehaviour, IItem
         }
 
         StartCoroutine(ToggleRootM(_rootM));
+        return true;
     }
 
     IEnumerator ToggleRootM(GameObject rootM)
@@ -95,6 +96,11 @@ public class Invisible : MonoBehaviour, IItem
 
         //투명 끝났으므로 오브젝트 삭제
         Destroy(gameObject);
+    }
+
+    public void OnHold()
+    {
+
     }
 
     public void OnHit()

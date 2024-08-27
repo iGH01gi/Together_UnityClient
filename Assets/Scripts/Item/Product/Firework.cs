@@ -27,7 +27,7 @@ public class Firework : MonoBehaviour,IItem
         FlightHeight = flightHeight;
     }
 
-    public void Use(IMessage recvPacket = null)
+    public bool Use(IMessage recvPacket = null)
     {
         Managers.Player.GetAnimator(PlayerID).SetTriggerByString(EnglishName);
         Debug.Log("Item Firework Use");
@@ -83,12 +83,18 @@ public class Firework : MonoBehaviour,IItem
 
         //5초후 폭죽 오브젝트 삭제
         StartCoroutine(DestroyAfterSeconds(5f));
+        return true;
     }
 
     IEnumerator DestroyAfterSeconds(float seconds)
     {
         yield return new WaitForSeconds(seconds);
         Destroy(gameObject);
+    }
+
+    public void OnHold()
+    {
+
     }
 
 

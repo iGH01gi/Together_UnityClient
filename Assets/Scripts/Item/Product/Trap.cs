@@ -29,10 +29,17 @@ public class Trap : MonoBehaviour, IItem
         StunDuration = stunDuration;
     }
     
-    public void Use(IMessage recvPacket = null)
+    public bool Use(IMessage recvPacket = null)
     {
+        //1차적으로 바닥에 설치가능여부를 초록/빨강으로 표시해주고, 
+
         Managers.Player.GetAnimator(PlayerID).SetTriggerByString(EnglishName);
         Debug.Log("Item Trap Use");
+    }
+
+    public void OnHold()
+    {
+
     }
 
     public void OnHit()

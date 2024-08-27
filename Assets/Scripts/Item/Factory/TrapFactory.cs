@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -19,7 +20,24 @@ public class TrapFactory : ItemFactory
     
     public override GameObject CreateItem(int playerId)
     {
-        //if else를 통해 여기서 맞는 아이템을 생성
-        return null;
+
+    }
+
+    public override GameObject CreateOnHoldItem(int playerId)
+    {
+        //내가 아닌경우 onHoldItem을 생성하지 않음
+        if (playerId != Managers.Player._myDediPlayerId)
+        {
+            return null;
+        }
+        else
+        {
+            GameObject trapGameObject = Managers.Resource.Instantiate("Items/Trap/Trap");
+            trapGameObject.name = "Trap";
+            Trap trap = trapGameObject.AddComponent<Trap>();
+            trap.Init(FactoryId, playerId, FactoryEnglishName, TrapDuration, TrapRadius, StunDuration);
+
+            return trapGameObject;
+        }
     }
 }
