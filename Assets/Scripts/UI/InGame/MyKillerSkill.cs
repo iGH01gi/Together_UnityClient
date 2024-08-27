@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
@@ -5,21 +6,59 @@ using UnityEngine;
 
 public class MyKillerSkill : MonoBehaviour
 {
-    public float _currentCoolTime; //현재 스킬쿨 값
-    public float _skillCoolTime; //스킬 쿨타임 초
-
+    InGameUI _inGameUI;
+    float _currentCoolTime;
     public void Init()
     {
-        _skillCoolTime = Managers.Killer.GetMyKillerInfo().SkillCoolTimeSeconds;
-        Managers.UI.GetComponentInSceneUI<InGameUI>().SetSkillCooltime(_skillCoolTime);
-        _currentCoolTime = _skillCoolTime;
-        Managers.UI.GetComponentInSceneUI<InGameUI>().SetKillerSkillValue(_skillCoolTime);
+        _inGameUI = Managers.UI.GetComponentInSceneUI<InGameUI>();
+        //random init value so that the skill is ready to use
+        _inGameUI.SetSkillMaxValue(10f);
+        _inGameUI.SetSkillCurrentValue(10f);
+    }
+    
+    public void UsedSkill(float skillCoolTimeSeconds, float skillUseTime = 0f)
+    {
+        if (_inGameUI == null)
+        {
+            return;
+        }
+        if (skillUseTime > 0)
+        {
+            _currentCoolTime = skillUseTime;
+            _inGameUI.SetSkillMaxValue(skillUseTime);
+            _inGameUI.SetSkillCurrentValue(skillUseTime);
+            StartCoroutine(DecreaseUseSkillTime(skillUseTime,skillCoolTimeSeconds));
+        }
+        else
+        {
+            _inGameUI.SetSkillCurrentColor(false);
+            IncreaseCoolTime(skillCoolTimeSeconds);
+        }
     }
 
-    public void UsedSkill()
+    IEnumerator DecreaseUseSkillTime(float skillUseTime,float skillCoolTimeSeconds)
+    {
+        while (_currentCoolTime > 0)
+        {
+            _currentCoolTime -= Time.deltaTime;
+            _inGameUI.SetSkillCurrentValue(_currentCoolTime);
+            yield return null;
+        }
+        _inGameUI.SetSkillCurrentColor(false);
+        StartCoroutine(IncreaseCoolTime(skillCoolTimeSeconds));
+    }
+
+    IEnumerator IncreaseCoolTime(float skillCoolTimeSeconds)
     {
         _currentCoolTime = 0;
-        Managers.UI.GetComponentInSceneUI<InGameUI>().SetKillerSkillValue(0);
-        transform.AddComponent<SkillCountDownActivator>();
+        _inGameUI.SetSkillMaxValue(skillCoolTimeSeconds);
+        _inGameUI.SetSkillCurrentValue(_currentCoolTime);
+        while (_currentCoolTime < skillCoolTimeSeconds)
+        {
+            _currentCoolTime += Time.deltaTime;
+            _inGameUI.SetSkillCurrentValue(_currentCoolTime);
+            yield return null;
+        }
+        _inGameUI.SetSkillCurrentColor(true);
     }
 }

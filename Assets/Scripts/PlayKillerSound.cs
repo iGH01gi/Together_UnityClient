@@ -58,6 +58,12 @@ public class PlayKillerSound : MonoBehaviour
                 {
                     CheckSurvivorSound();
                 }
+                else
+                {
+                    isDoki = false;
+                    PlayBackgroundSound();
+                    Managers.Sound.Stop(Define.Sound.Heartbeat);
+                }
             }
         }
     }

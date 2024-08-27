@@ -113,7 +113,7 @@ public class InGameUI : UI_scene
         _coinCollect.AddComponent<AddCoinEffect>().Init(coinAdded,isAddCoin);
     }
 
-    public void SetSkillCooltime(float skillCooltime)
+    public void SetSkillMaxValue(float skillCooltime)
     {
         _killerSkill.SetActive(true);
         _killerSkill.GetComponent<ProgressBar>().MaxValue = skillCooltime;
@@ -124,8 +124,20 @@ public class InGameUI : UI_scene
         _killerSkill.SetActive(false);
     }
 
-    public void SetKillerSkillValue(float value)
+    public void SetSkillCurrentValue(float value)
     {
         _killerSkill.GetComponent<ProgressBar>().CurrentValue = value;
+    }
+    
+    public void SetSkillCurrentColor(bool canUseSKill)
+    {
+        if (canUseSKill)
+        {
+            _killerSkill.GetComponent<ProgressBar>().ChangeForeground(_colorTimerNight);
+        }
+        else
+        {
+            _killerSkill.GetComponent<ProgressBar>().ChangeForeground(_colorTimerDay);
+        }
     }
 }

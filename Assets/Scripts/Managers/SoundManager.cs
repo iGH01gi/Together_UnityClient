@@ -212,7 +212,7 @@ public class SoundManager
 		}
 	}
 
-	public void PlayKillerBackground()
+	/*public void PlayKillerBackground()
 	{
 		if (Managers.Player.IsMyDediPlayerKiller())
 		{
@@ -222,5 +222,5 @@ public class SoundManager
 		{
 			Managers.Sound.Play("tense-horror-background",Define.Sound.Bgm);
 		}
-	}
+	}*/
 }

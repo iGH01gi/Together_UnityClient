@@ -24,7 +24,7 @@ public interface IKiller
     /// <summary>
     /// 스킬 사용시 기능 구현
     /// </summary>
-    void Use()
+    void Use(int killerPlayerId)
     {
     }
 
