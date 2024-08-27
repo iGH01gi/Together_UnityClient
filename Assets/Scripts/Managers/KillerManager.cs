@@ -39,6 +39,7 @@ public class KillerManager
     /// <param name="killerType"></param>
     public GameObject CreateKiller(int dediPlayerId, int killerType)
     {
+        Managers.Sound.PlayKillerBackground(); //킬러 배경음악 재생
         if (Managers.Player._myDediPlayerId == dediPlayerId)
         {
             if(_killerFactories.ContainsKey(killerType))
@@ -59,7 +60,6 @@ public class KillerManager
                 return killerObj;
             }
         }
-
         return null;
     }
 
@@ -86,13 +86,12 @@ public class KillerManager
     /// <param name="dediPlayerId">스킬을 사용한 현재 킬러의 데디플레이어id</param>
     public void UseSkill(int dediPlayerId)
     {
-        bool isMyPlayer = dediPlayerId == Managers.Player._myDediPlayerId;
-        GameObject killerPlayer =  isMyPlayer ? Managers.Player._myDediPlayer : Managers.Player._otherDediPlayers[dediPlayerId];
-        IKiller killer = killerPlayer.GetComponentInChildren<IKiller>();
-        if (isMyPlayer)
+        if (dediPlayerId != Managers.Player.GetKillerId())
         {
-            //TODO:: Send packet that my killer used skill
-        }
+            Debug.Log("This player is not killer.");
+            return;
+        } 
+        IKiller killer = Managers.Player.GetKillerGameObject().GetComponentInChildren<IKiller>(); 
         killer.Use();
     }
     

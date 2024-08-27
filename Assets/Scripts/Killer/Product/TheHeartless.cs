@@ -1,4 +1,6 @@
-﻿using UnityEngine;
+﻿using System.Collections;
+using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class TheHeartless : MonoBehaviour, IKiller
 {
@@ -13,9 +15,12 @@ public class TheHeartless : MonoBehaviour, IKiller
     public string EnglishAbilityDescription { get; set; }
     public string KoreanAbilityDescription { get; set; }
     public float SkillCoolTimeSeconds { get; set; } //스킬 쿨타임 초
+    public bool CanUseSkill { get; set; } //스킬 사용 가능 여부
     
     //이 킬러만의 속성
     public float HeartlessSeconds { get; set; } //심장소리 안들리게 할 시간
+    public float _currentCoolTime; //현재 스킬쿨 값
+
     
     public void Setting()
     {
@@ -34,15 +39,38 @@ public class TheHeartless : MonoBehaviour, IKiller
         SkillCoolTimeSeconds = theHeartlessData.SkillCoolTimeSeconds;
         
         HeartlessSeconds = theHeartlessData.HeartlessSeconds;
+        
+        //유니티 자체 설정
+        CanUseSkill = true;
     }
 
     public void Use()
     {
-        //TODO: 심장소리를 일정 시간동안 들리지 않게 하는 기능을 구현 + 이펙트
+        if (Managers.Player.IsMyDediPlayerKiller())
+        {
+            Debug.Log("Hearless skill used");
+            CanUseSkill = false;
+            Managers.Game._myKillerSkill.UsedSkill();
+            Managers.Sound.Stop(Define.Sound.Bgm);
+            StartCoroutine(HeartlessSkill());
+            Managers.Sound.PlayKillerBackground();
+            CanUseSkill = true;
+        }
+        else
+        {
+            StartCoroutine(HeartlessSkill());
+        }
     }
     
     public void BaseAttack()
     {
         transform.GetComponent<PlayerAnimController>().KillerBaseAttack();
+    }
+    
+    IEnumerator HeartlessSkill()
+    {
+        Managers.Game._playKillerSound._heartlessSkillUsed = true;
+        yield return new WaitForSeconds(HeartlessSeconds);
+        Managers.Game._playKillerSound._heartlessSkillUsed = false;
     }
 }

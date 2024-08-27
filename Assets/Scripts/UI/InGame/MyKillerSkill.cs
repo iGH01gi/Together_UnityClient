@@ -5,9 +5,8 @@ using UnityEngine;
 
 public class MyKillerSkill : MonoBehaviour
 {
-    public bool _canUseSkill;
-    public float _skillCoolTime;
     public float _currentCoolTime; //현재 스킬쿨 값
+    public float _skillCoolTime; //스킬 쿨타임 초
 
     public void Init()
     {
@@ -15,17 +14,12 @@ public class MyKillerSkill : MonoBehaviour
         Managers.UI.GetComponentInSceneUI<InGameUI>().SetSkillCooltime(_skillCoolTime);
         _currentCoolTime = _skillCoolTime;
         Managers.UI.GetComponentInSceneUI<InGameUI>().SetKillerSkillValue(_skillCoolTime);
-        _canUseSkill = true;
     }
 
-    public void TryUseSkill()
+    public void UsedSkill()
     {
-        if (_canUseSkill)
-        {
-            _canUseSkill = false;
-            Managers.Killer.UseSkill(Managers.Player._myDediPlayerId);
-            _currentCoolTime = 0f;
-            transform.AddComponent<SkillCountDownActivator>();
-        }
+        _currentCoolTime = 0;
+        Managers.UI.GetComponentInSceneUI<InGameUI>().SetKillerSkillValue(0);
+        transform.AddComponent<SkillCountDownActivator>();
     }
 }

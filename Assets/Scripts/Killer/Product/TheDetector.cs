@@ -14,6 +14,8 @@ public class TheDetector : MonoBehaviour, IKiller
     public string KoreanAbilityDescription { get; set; }
     public float SkillCoolTimeSeconds { get; set; } //스킬 쿨타임 초
     
+    public bool CanUseSkill { get; set; } //스킬 사용 가능 여부
+    
     public void Setting()
     {
         //킬러 매니저로부터 킬러 데이터를 받아와서 설정
