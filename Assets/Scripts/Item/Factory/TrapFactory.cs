@@ -25,15 +25,28 @@ public class TrapFactory : ItemFactory
         //있다면 해당 OnHold게임오브젝트를 리턴해줌
         if (playerId == Managers.Player._myDediPlayerId)
         {
-            GameObject onHoldItem = Managers.Item._root.transform.Find("@OnHoldItem").Find("OnHoldTrap").gameObject;
-            if (onHoldItem == null)
+            GameObject trapOnHoldGameObject = null;
+            // "@OnHoldItem" 오브젝트 찾기
+            Transform onHoldItemTransform = Managers.Item._root.transform.Find("@OnHoldItem");
+            if (onHoldItemTransform != null)
+            {
+                // "OnHoldTrap" 오브젝트 찾기
+                Transform onHoldTrapTransform = onHoldItemTransform.Find("OnHoldTrap");
+
+                if (onHoldTrapTransform != null)
+                {
+                    // 모든 과정이 성공적이면 gameObject 할당
+                    trapOnHoldGameObject = onHoldTrapTransform.gameObject;
+                }
+            }
+            if (trapOnHoldGameObject == null)
             {
                 return null;
             }
             else
             {
-                onHoldItem.name = "Trap";
-                return onHoldItem;
+                trapOnHoldGameObject.name = "Trap";
+                return trapOnHoldGameObject;
             }
         }
         else
@@ -55,6 +68,7 @@ public class TrapFactory : ItemFactory
         }
         else
         {
+            Debug.Log("trapfactory의 if문 건너뜀");
             GameObject trapGameObject = Managers.Resource.Instantiate("Items/Trap/Trap");
             trapGameObject.name = "OnHoldTrap";
             Trap trap = trapGameObject.AddComponent<Trap>();
