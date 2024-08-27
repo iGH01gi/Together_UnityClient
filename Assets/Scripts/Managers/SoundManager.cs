@@ -116,6 +116,8 @@ public class SoundManager
 		}
 		else
 		{
+			audioSource.spatialize = true;
+			audioSource.spatialBlend = 1.0f;
 			audioSource.pitch = pitch;
 			audioSource.PlayOneShot(audioClip);
 		}

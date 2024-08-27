@@ -97,7 +97,7 @@ class PacketManager
 		_onRecv.Add((ushort)MsgId.DscUseHeartlessSkill, MakePacket<DSC_UseHeartlessSkill>);
 		_handler.Add((ushort)MsgId.DscUseHeartlessSkill, PacketHandler.DSC_UseHeartlessSkillHandler);		
 		_onRecv.Add((ushort)MsgId.DscUseDetectorSkill, MakePacket<DSC_UseDetectorSkill>);
-		//_handler.Add((ushort)MsgId.DscUseDetectorSkill, PacketHandler.DSC_UseDetectorSkillHandler);		
+		_handler.Add((ushort)MsgId.DscUseDetectorSkill, PacketHandler.DSC_UseDetectorSkillHandler);		
 		_onRecv.Add((ushort)MsgId.DscEndGame, MakePacket<DSC_EndGame>);
 		_handler.Add((ushort)MsgId.DscEndGame, PacketHandler.DSC_EndGameHandler);
 	}
