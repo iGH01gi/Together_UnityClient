@@ -110,16 +110,6 @@ public class ObjectInput : MonoBehaviour
             }
         }
     }
-    
-    void OnSkill(InputValue value)
-    {
-        Debug.Log("Skill Try");
-        if (Managers.Player.IsMyDediPlayerKiller())
-        {
-            //Managers.Game._myKillerSkill.TryUseSkill();
-            Managers.Killer.UseSkill(Managers.Player._myDediPlayerId, Managers.Player._myDediPlayer.GetComponent<MyDediPlayer>()._killerType);
-        }
-    }
 
     public void QuitCleansing()
     {
