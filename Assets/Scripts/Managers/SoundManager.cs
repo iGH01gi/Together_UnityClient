@@ -75,7 +75,6 @@ public class SoundManager
 		if (audioClip == null)	
             return;
 
-
 		if (audioSource == null)
 		{
 			switch (type)
