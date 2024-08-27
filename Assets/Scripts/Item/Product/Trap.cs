@@ -217,6 +217,15 @@ public class Trap : MonoBehaviour, IItem
         _onHoldTrigger = true;
     }
 
+    private void OnTriggerEnter(Collider other)
+    {
+        Debug.Log("콜라이더 들어옴");
+        if (other.gameObject.tag == "SurvivorTrigger" || other.gameObject.tag == "KillerTrigger")
+        {
+            Debug.Log("Trap Hit");
+        }
+    }
+
     public void OnHit()
     {
         

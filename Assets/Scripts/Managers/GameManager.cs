@@ -38,10 +38,6 @@ public class GameManager
 
     public void Clear()
     {
-        _clientTimer.enabled = false;
-        _clientGauge.enabled = false;
-        _playKillerSound.enabled = false;
-        _myKillerSkill.enabled = false;
     }
 
     private void WhenChangeDayNight(float timeToSet)
