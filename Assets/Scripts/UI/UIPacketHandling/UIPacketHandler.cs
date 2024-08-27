@@ -71,7 +71,10 @@ public class UIPacketHandler
     
     public static void OthersLeftRoomReceivePacket()
     {
-        Managers.UI.SceneUI.GetComponent<RoomUI>().RefreshButton();
+        if(Managers.UI.SceneUI.GetComponent<RoomUI>() != null)
+        {
+            Managers.UI.SceneUI.GetComponent<RoomUI>().RefreshButton();
+        }
     }
 
     public static void NewFaceEnterReceivePacket()

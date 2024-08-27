@@ -48,9 +48,12 @@ public class TheHeartless : MonoBehaviour, IKiller
     {
         if (Managers.Player.IsMyDediPlayerKiller())
         {
+            Debug.Log("Hearless skill used");
             CanUseSkill = false;
             Managers.Game._myKillerSkill.UsedSkill();
+            Managers.Sound.Stop(Define.Sound.Bgm);
             StartCoroutine(HeartlessSkill());
+            Managers.Sound.PlayKillerBackground();
             CanUseSkill = true;
         }
         else
