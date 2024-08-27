@@ -261,19 +261,26 @@ public class PlayerManager
                 foreach (Transform child in t)
                 {
                     child.GetComponent<MeshRenderer>().enabled = false;
+
+                    //Managers.Item._root.transform.Find("@OnHoldItem")의 자식들을 모두 삭제
+                    foreach (Transform onHoldItem in Managers.Item._root.transform.Find("@OnHoldItem"))
+                    {
+                        GameObject.Destroy(onHoldItem.gameObject);
+                    }
                 }
-                
+
                 if (t.Find(itemId.ToString()) != null)
                 {
                     t.Find(itemId.ToString()).GetComponent<MeshRenderer>().enabled = true;
 
-                    //OnHold 실행
+                    //OnHold오브젝트 생성하고 실행
                     GameObject onHoldGameObject= Managers.Item._itemFactories[itemId].CreateOnHoldItem(playerId);
                     if (onHoldGameObject != null) //onhold용 게임오브젝트가 있는 경우에만 실행
                     {
+                        //생성한 아이템을 @Item/@OnHoldItem 밑에 넣음
+                        onHoldGameObject.transform.SetParent(Managers.Item._root.transform.Find("@OnHoldItem"));
+
                         onHoldGameObject.GetComponent<IItem>().OnHold();
-                        //생성한 아이템을 @Item 밑에 넣음
-                        onHoldGameObject.transform.SetParent(Managers.Item._root.transform);
                     }
                 }
             }

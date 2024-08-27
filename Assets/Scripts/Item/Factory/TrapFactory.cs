@@ -20,7 +20,30 @@ public class TrapFactory : ItemFactory
     
     public override GameObject CreateItem(int playerId)
     {
-
+        //'내'가 사용할 경우 트랩은 설치가능여부를 파악하기 위해 반드시 온홀드 아이템이 먼저 생성되어 있을때만 사용가능하기 때문에
+        //OnHold게임오브젝트가 없다면 null리턴,
+        //있다면 해당 OnHold게임오브젝트를 리턴해줌
+        if (playerId == Managers.Player._myDediPlayerId)
+        {
+            GameObject onHoldItem = Managers.Item._root.transform.Find("@OnHoldItem").Find("OnHoldTrap").gameObject;
+            if (onHoldItem == null)
+            {
+                return null;
+            }
+            else
+            {
+                onHoldItem.name = "Trap";
+                return onHoldItem;
+            }
+        }
+        else
+        {
+            GameObject trapGameObject = Managers.Resource.Instantiate("Items/Trap/Trap");
+            trapGameObject.name = "Trap";
+            Trap trap = trapGameObject.AddComponent<Trap>();
+            trap.Init(FactoryId, playerId, FactoryEnglishName, TrapDuration, TrapRadius, StunDuration);
+            return trapGameObject;
+        }
     }
 
     public override GameObject CreateOnHoldItem(int playerId)
@@ -33,9 +56,19 @@ public class TrapFactory : ItemFactory
         else
         {
             GameObject trapGameObject = Managers.Resource.Instantiate("Items/Trap/Trap");
-            trapGameObject.name = "Trap";
+            trapGameObject.name = "OnHoldTrap";
             Trap trap = trapGameObject.AddComponent<Trap>();
             trap.Init(FactoryId, playerId, FactoryEnglishName, TrapDuration, TrapRadius, StunDuration);
+
+            //trapGameObject의 Mesh Renderer와 Sphere Collider를 비활성화
+            trapGameObject.GetComponent<MeshRenderer>().enabled = false;
+            trapGameObject.GetComponent<SphereCollider>().enabled = false;
+
+            //trapGameObject의 자식인 TrapGreen의 Mesh Renderer를 비활성화
+            trapGameObject.transform.Find("TrapGreen").GetComponent<MeshRenderer>().enabled = false;
+
+            //trapGameObject의 자식인 TrapRed의 Mesh Renderer를 활성화
+            trapGameObject.transform.Find("TrapRed").GetComponent<MeshRenderer>().enabled = true;
 
             return trapGameObject;
         }
