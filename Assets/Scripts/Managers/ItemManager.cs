@@ -26,6 +26,11 @@ public class ItemManager
         if (_root == null)
         {
             _root = new GameObject { name = "@Item" };
+
+            //@Item의 자식으로 @OnHoldItem 이름을 지닌 게임오브젝트를 생성
+            GameObject onHoldItem = new GameObject { name = "@OnHoldItem" };
+            onHoldItem.transform.SetParent(_root.transform);
+
             Object.DontDestroyOnLoad(_root);
         }
 
@@ -42,8 +47,17 @@ public class ItemManager
 
     public void Clear()
     {
-        //root의 모든 자식을 삭제(=생성된 아이템을 모두 삭제)
+        //root의 @OnHoltItem을 제외한 모든 자식을 삭제(=생성된 아이템을 모두 삭제)
         foreach (Transform child in _root.transform)
+        {
+            if (child.name != "@OnHoldItem")
+            {
+                Object.Destroy(child.gameObject);
+            }
+        }
+
+        //@OnHoldItem의 모든 자식을 삭제
+        foreach (Transform child in _root.transform.Find("@OnHoldItem"))
         {
             Object.Destroy(child.gameObject);
         }
