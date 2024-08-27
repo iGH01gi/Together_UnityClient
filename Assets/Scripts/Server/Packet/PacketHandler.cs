@@ -698,22 +698,6 @@ public class PacketHandler
             Managers.Item.UseItem(playerId, itemId);
         }
     }
-
-    //데디케이티드서버로부터 승자가 정해졌다는 정보를 받았을때의 처리
-    public static void DSC_EndGameHandler(PacketSession session, IMessage packet)
-    {
-        DSC_EndGame endGamePacket = packet as DSC_EndGame;
-        DedicatedServerSession dedicatedServerSession = session as DedicatedServerSession;
-
-        Debug.Log("DSC_EndGameHandler");
-
-        int winnerPlayerId = endGamePacket.WinnerPlayerId;
-        string winnerPlayerName = endGamePacket.WinnerName;
-        
-        Managers.UI.CloseAllPopup();
-        Managers.UI.LoadScenePanel(Define.SceneUIType.WinnerUI);
-        Managers.UI.GetComponentInSceneUI<WinnerUI>().SetWinner(winnerPlayerId,winnerPlayerName);
-    }
     
     //데디케이티드서버로부터 Heartless 킬러가 스킬을 사용했다는 정보를 받았을때의 처리
     public static void DSC_UseHeartlessSkillHandler(PacketSession session, IMessage packet)
@@ -731,5 +715,21 @@ public class PacketHandler
         {
             Managers.Killer.UseSkill(killerPlayerId, skillId);
         }
+    }
+
+    //데디케이티드서버로부터 승자가 정해졌다는 정보를 받았을때의 처리
+    public static void DSC_EndGameHandler(PacketSession session, IMessage packet)
+    {
+        DSC_EndGame endGamePacket = packet as DSC_EndGame;
+        DedicatedServerSession dedicatedServerSession = session as DedicatedServerSession;
+
+        Debug.Log("DSC_EndGameHandler");
+
+        int winnerPlayerId = endGamePacket.WinnerPlayerId;
+        string winnerPlayerName = endGamePacket.WinnerName;
+        
+        Managers.UI.CloseAllPopup();
+        Managers.UI.LoadScenePanel(Define.SceneUIType.WinnerUI);
+        Managers.UI.GetComponentInSceneUI<WinnerUI>().SetWinner(winnerPlayerId,winnerPlayerName);
     }
 }
