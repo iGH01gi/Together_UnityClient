@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
+using Google.Protobuf;
 using Google.Protobuf.Protocol;
 using Newtonsoft.Json.Linq;
 using UnityEngine;
@@ -63,7 +64,7 @@ public class ItemManager
     /// </summary>
     /// <param name="dediPlayerId">아이템을 사용할 데디플레이어id</param>
     /// <param name="itemId">아이템id</param>
-    public void UseItem(int dediPlayerId ,int itemId)
+    public void UseItem(int dediPlayerId ,int itemId, IMessage recvPacket = null)
     {
         if (_itemFactories.ContainsKey(itemId) && !Managers.Player.IsPlayerDead(dediPlayerId))
         { 
@@ -86,7 +87,7 @@ public class ItemManager
             itemGameObject.transform.SetParent(_root.transform);
 
             //아이템 사용 효과 발동(IItem 컴포넌트를 가져와서 사용함)
-            itemGameObject.GetComponent<IItem>().Use();
+            itemGameObject.GetComponent<IItem>().Use(recvPacket);
         }
         else
         {

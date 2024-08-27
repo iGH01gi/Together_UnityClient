@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Google.Protobuf;
 using Google.Protobuf.Protocol;
 using Unity.VisualScripting;
 using UnityEngine;
@@ -32,7 +33,7 @@ public class Invisible : MonoBehaviour, IItem
         InvisibleSeconds = invisibleSeconds;
     }
     
-    public void Use()
+    public void Use(IMessage recvPacket = null)
     {
         Managers.Player.GetAnimator(PlayerID).SetTriggerByString("Invisible");
         Debug.Log("Item Invisible Use");
