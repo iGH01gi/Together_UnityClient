@@ -33,6 +33,7 @@ public class GameManager
         _clientGauge = Util.GetOrAddComponent<ClientGauge>(root);
         _playKillerSound = Util.GetOrAddComponent<PlayKillerSound>(root);
         _myKillerSkill = Util.GetOrAddComponent<MyKillerSkill>(root);
+        _myKillerSkill.enabled = false;
     }
 
     private void WhenChangeDayNight(float timeToSet)
@@ -62,11 +63,13 @@ public class GameManager
 
     public void ChangeToKiller()
     {
+        _myKillerSkill.enabled = true;
         _myKillerSkill.Init();
     }
 
     public void IsNotKiller()
     {
+        _myKillerSkill.enabled = false;
         Managers.UI.GetComponentInSceneUI<InGameUI>().IsNotKiller();
     }
 

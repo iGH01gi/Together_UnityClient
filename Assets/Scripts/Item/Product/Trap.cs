@@ -35,6 +35,7 @@ public class Trap : MonoBehaviour, IItem
 
         Managers.Player.GetAnimator(PlayerID).SetTriggerByString(EnglishName);
         Debug.Log("Item Trap Use");
+        return false;
     }
 
     public void OnHold()

@@ -20,7 +20,7 @@ public class TrapFactory : ItemFactory
     
     public override GameObject CreateItem(int playerId)
     {
-
+        return null;
     }
 
     public override GameObject CreateOnHoldItem(int playerId)

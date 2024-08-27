@@ -1,4 +1,5 @@
 ﻿using System.Collections;
+using Google.Protobuf.Protocol;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -44,19 +45,27 @@ public class TheHeartless : MonoBehaviour, IKiller
         CanUseSkill = true;
     }
 
-    public void Use()
+    public void Use(int killerPlayerId)
     {
-        if (Managers.Player.IsMyDediPlayerKiller())
+        //테스트 용도 코드 끝나면 지우기///
+        SkillCoolTimeSeconds = 4f;
+        HeartlessSeconds = 5f;
+        ///////////////////////////////////////
+        if (Managers.Player._myDediPlayerId == killerPlayerId && CanUseSkill)
         {
-            Debug.Log("Hearless skill used");
+            //스킬 사용 처리
             CanUseSkill = false;
-            Managers.Game._myKillerSkill.UsedSkill();
-            Managers.Sound.Stop(Define.Sound.Bgm);
-            StartCoroutine(HeartlessSkill());
-            Managers.Sound.PlayKillerBackground();
-            CanUseSkill = true;
+            Managers.Sound.Play(EnglishName, Define.Sound.Bgm);
+            //패킷 보내기
+            CDS_UseHeartlessSkill usePacket = new CDS_UseHeartlessSkill();
+            usePacket.MyDediplayerId = Managers.Player._myDediPlayerId;
+            usePacket.KillerId = Id;
+            Managers.Network._dedicatedServerSession.Send(usePacket);
+            
+            Managers.Game._myKillerSkill.UsedSkill(SkillCoolTimeSeconds,HeartlessSeconds);
+            StartCoroutine(MyHeartlessSkill());
         }
-        else
+        else if (Managers.Player._myDediPlayerId != killerPlayerId)
         {
             StartCoroutine(HeartlessSkill());
         }
@@ -69,8 +78,19 @@ public class TheHeartless : MonoBehaviour, IKiller
     
     IEnumerator HeartlessSkill()
     {
+        Debug.Log("Heartless skill used");
         Managers.Game._playKillerSound._heartlessSkillUsed = true;
         yield return new WaitForSeconds(HeartlessSeconds);
         Managers.Game._playKillerSound._heartlessSkillUsed = false;
+    }
+
+    IEnumerator MyHeartlessSkill()
+    {
+        Debug.Log("Heartless skill used");
+        yield return new WaitForSeconds(HeartlessSeconds);
+        Managers.Sound.Play("tense-horror-background", Define.Sound.Bgm);
+        yield return new WaitForSeconds(SkillCoolTimeSeconds);
+        CanUseSkill = true;
+        Managers.Sound.Play("SkillReady");
     }
 }

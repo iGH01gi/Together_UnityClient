@@ -714,4 +714,22 @@ public class PacketHandler
         Managers.UI.LoadScenePanel(Define.SceneUIType.WinnerUI);
         Managers.UI.GetComponentInSceneUI<WinnerUI>().SetWinner(winnerPlayerId,winnerPlayerName);
     }
+    
+    //데디케이티드서버로부터 Heartless 킬러가 스킬을 사용했다는 정보를 받았을때의 처리
+    public static void DSC_UseHeartlessSkillHandler(PacketSession session, IMessage packet)
+    {
+        DSC_UseHeartlessSkill useHeartlessSkillPacket = packet as DSC_UseHeartlessSkill;
+        DedicatedServerSession dedicatedServerSession = session as DedicatedServerSession;
+
+        Debug.Log("DSC_UseHeartlessSkill");
+
+        int killerPlayerId = useHeartlessSkillPacket.PlayerId;
+        int skillId = useHeartlessSkillPacket.KillerId;
+
+        //내가 쓴 스킬은 브로드캐스트 받으면 안됨
+        if (killerPlayerId != Managers.Player._myDediPlayerId)
+        {
+            Managers.Killer.UseSkill(killerPlayerId, skillId);
+        }
+    }
 }
