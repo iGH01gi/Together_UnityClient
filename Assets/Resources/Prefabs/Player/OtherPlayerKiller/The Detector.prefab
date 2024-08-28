@@ -2636,6 +2636,7 @@ GameObject:
   - component: {fileID: 8731509158802264922}
   - component: {fileID: 1437976859581327805}
   - component: {fileID: 2473755443424992934}
+  - component: {fileID: 3440166493805800883}
   m_Layer: 0
   m_Name: KillerTrigger
   m_TagString: KillerTrigger
@@ -2708,3 +2709,15 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
+--- !u!114 &3440166493805800883
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3047954133890271634}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 970aeffb40e55de4fb52f861f5a1d694, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
