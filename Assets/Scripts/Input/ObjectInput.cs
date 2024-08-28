@@ -6,6 +6,8 @@ using UnityEngine.InputSystem;
 
 public class ObjectInput : MonoBehaviour
 {
+    #region 내 플레이어만 사용하는 것들
+
     public GameObject _currentChest;
     public GameObject _currentCleanse;
 
@@ -81,29 +83,90 @@ public class ObjectInput : MonoBehaviour
         }
     }
 
+    #endregion
+    
+
+    /// <summary>
+    /// 서버측 판정으로 트랩에 걸렸을때 처리하는 함수
+    /// </summary>
+    /// <param name="dediPlayerId"></param>
+    public void ProcessTrapped(int dediPlayerId)
+    {
+        StartCoroutine(Trapped(dediPlayerId));
+    }
+
     /// <summary>
     /// 트랩에 걸렸을때
     /// </summary>
     /// <param name="dediPlayerId">트랩에 걸린 데디플레이어id</param>
-    public IEnumerator Trapped(int dediPlayerId)
+    private IEnumerator Trapped(int dediPlayerId)
     {
-        float trapDuration = (Managers.Item._itemFactories[4] as TrapFactory).TrapDuration;
+        float stunDuration = (Managers.Item._itemFactories[4] as TrapFactory).StunDuration;
 
         if (dediPlayerId == Managers.Player._myDediPlayerId) //내 플레이어일때
         {
             GameObject myDediPlayerGameObject = Managers.Player._myDediPlayer;
+            MyDediPlayer myDediPlayer = myDediPlayerGameObject.GetComponent<MyDediPlayer>();
+            if (myDediPlayer._playerStatus._isCurrentTrapped) //이미 트랩에 걸렸으면 리턴
+            {
+                yield break;
+            }
+
+            //애니메이션 재생
             PlayerAnimController playerAnimController = myDediPlayerGameObject.GetComponentInChildren<PlayerAnimController>();
             playerAnimController.isTrapped = true;
             playerAnimController.PlayAnim();
 
-            yield return new WaitForSeconds(trapDuration);
+            //인풋막음
+            Managers.Player.DeactivateInput();
 
+            //현재 트랩에 걸렸다고 표시
+            myDediPlayer._playerStatus._isCurrentTrapped = true;
+
+            //스턴시간만큼 기다림
+            float estimatedStunDuration = stunDuration - Managers.Time.GetEstimatedLatency();
+            yield return new WaitForSeconds(estimatedStunDuration);
+
+            //애니메이션 재생 해제
             playerAnimController.isTrapped = false;
             playerAnimController.PlayAnim();
+
+            //인풋 풀음
+            Managers.Player.ActivateInput();
+
+            //트랩에 걸린 상태 해제
+            myDediPlayer._playerStatus._isCurrentTrapped = false;
         }
         else //다른 플레이어일때
-        {
+        {Debug.Log("다른플레이어 덫걸렷는데 애니메이션 재생왜안되지?");
+            GameObject otherDediPlayerGameObject = Managers.Player._otherDediPlayers[dediPlayerId];
+            OtherDediPlayer otherDediPlayer = otherDediPlayerGameObject.GetComponent<OtherDediPlayer>();
+            if (otherDediPlayer._playerStatus._isCurrentTrapped) //이미 트랩에 걸렸으면 리턴
+            {
+                yield break;
+            }
+            
 
+            //애니메이션 재생
+            PlayerAnimController playerAnimController = otherDediPlayerGameObject.GetComponentInChildren<PlayerAnimController>();
+            playerAnimController.isTrapped = true;
+            playerAnimController.PlayAnim();
+            //고스트 따라가기 막음
+            otherDediPlayer.ToggleFollowGhost(false);
+            //현재 트랩에 걸렸다고 표시
+            otherDediPlayer._playerStatus._isCurrentTrapped = true; 
+
+            //스턴시간만큼 기다림
+            float estimatedStunDuration = stunDuration - Managers.Time.GetEstimatedLatency();
+            yield return new WaitForSeconds(estimatedStunDuration);
+
+            //애니메이션 재생 해제
+            playerAnimController.isTrapped = false;
+            playerAnimController.PlayAnim();
+            //고스트 따라가기 재개
+            otherDediPlayer.ToggleFollowGhost(true);
+            //트랩에 걸린 상태 해제
+            otherDediPlayer._playerStatus._isCurrentTrapped = false;
         }
     }
 

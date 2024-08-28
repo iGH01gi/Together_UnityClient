@@ -43,6 +43,7 @@ GameObject:
   - component: {fileID: 4337716035439473713}
   - component: {fileID: 4116242937867513098}
   - component: {fileID: 2450498997432888565}
+  - component: {fileID: 3216232190068408182}
   m_Layer: 7
   m_Name: SurvivorTrigger
   m_TagString: SurvivorTrigger
@@ -92,7 +93,7 @@ CapsuleCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 0.5
+  m_Radius: 0.3
   m_Height: 2
   m_Direction: 1
   m_Center: {x: 0, y: 0, z: 0}
@@ -123,6 +124,18 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
+--- !u!114 &3216232190068408182
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3396909738523118229}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9dbb1e09c0ed3ed47b9d92ce3fc03ef9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &4377372798501684588
 GameObject:
   m_ObjectHideFlags: 0
@@ -134,6 +147,7 @@ GameObject:
   - component: {fileID: 4301727193327882605}
   - component: {fileID: -6241222970346140599}
   - component: {fileID: 4531448444083272266}
+  - component: {fileID: 5334033928520108547}
   m_Layer: 7
   m_Name: OtherPlayer
   m_TagString: Untagged
@@ -281,6 +295,20 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!114 &5334033928520108547
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4377372798501684588}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 37245b8275ab5704cb09c8eed9c0dd8d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _currentChest: {fileID: 0}
+  _currentCleanse: {fileID: 0}
 --- !u!1001 &113876714629620749
 PrefabInstance:
   m_ObjectHideFlags: 0

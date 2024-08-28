@@ -6,6 +6,7 @@ using Google.Protobuf.Protocol;
 using ServerCore;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using Object = UnityEngine.Object;
 
 public class PacketHandler
 {
@@ -226,7 +227,7 @@ public class PacketHandler
         DedicatedServerSession dedicatedServerSession = session as DedicatedServerSession;
 
         string itemDataJson = startGamePacket.Items;
-        Managers.Item.SaveJsonData(itemDataJson); //아이템 데이터 저장
+        //Managers.Item.SaveJsonData(itemDataJson); //아이템 데이터 저장
         Managers.Item.LoadItemData(); //저장했으면 아이템 데이터 로드
         
         string killerDataJson = startGamePacket.Killers;
@@ -709,13 +710,41 @@ public class PacketHandler
 
         int playerId = useTrapItemPacket.PlayerId;
         int itemId = useTrapItemPacket.ItemId;
+        string trapId = useTrapItemPacket.TrapId;
 
         if (Managers.Player._myDediPlayerId != playerId) //다른 플레이어의 트랩 아이템 사용 소식일 경우
         {
             Managers.Item.UseItem(playerId, itemId, useTrapItemPacket);
         }
     }
-    
+
+    //데디케이티드서버로부터 플레이어가 트랩 아이템에 걸렸을때 정보를 받았을때의 처리
+    public static void DSC_OnHitTrapItemHandler(PacketSession session, IMessage packet)
+    {
+        DSC_OnHitTrapItem onHitTrapItemPacket = packet as DSC_OnHitTrapItem;
+        DedicatedServerSession dedicatedServerSession = session as DedicatedServerSession;
+
+        Debug.Log("DSC_OnHitTrapItemHandler");
+
+        int dediPlayerId = onHitTrapItemPacket.PlayerId;
+        int itemId = onHitTrapItemPacket.ItemId;
+        string trapId = onHitTrapItemPacket.TrapId;
+
+        //트랩 걸렸을때 덫 처리
+        GameObject trapObject = Managers.Item._root.transform.Find("Trap" + trapId).gameObject;
+        if (trapObject != null)
+        {
+            trapObject.GetComponent<Trap>().OnHit();
+        }
+
+        //트랩에 걸렸을때 플레이어 처리
+        GameObject dediPlayerGameObject = Managers.Player.GetPlayerObject(dediPlayerId);
+        if (dediPlayerGameObject != null)
+        {
+            dediPlayerGameObject.GetComponent<ObjectInput>().ProcessTrapped(dediPlayerId);
+        }
+    }
+
     //데디케이티드서버로부터 Heartless 킬러가 스킬을 사용했다는 정보를 받았을때의 처리
     public static void DSC_UseHeartlessSkillHandler(PacketSession session, IMessage packet)
     {

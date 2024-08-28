@@ -8,6 +8,8 @@ public class TrapFactory : ItemFactory
     public float TrapDuration { get; set; }
     public float TrapRadius { get; set; }
     public float StunDuration { get; set; }
+
+    public int _trapId = 0;
     
     public TrapFactory(int id, int price, string englishName, string koreanName, string englishDescription,
         string koreanDescription, float trapDuration, float trapRadius, float stunDuration)

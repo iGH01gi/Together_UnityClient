@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class SurvivorTriggerInput : MonoBehaviour
+public class KillerTrigger : MonoBehaviour
 {
     private ObjectInput _instance;
     private ObjectInput _objectInput { get { Init(); return _instance; } }
@@ -26,7 +26,7 @@ public class SurvivorTriggerInput : MonoBehaviour
         }
         else
         {
-
+  
         }
     }
 }
