@@ -7,7 +7,10 @@ using UnityEngine.InputSystem;
 //</summary>
 public class InventoryInput : MonoBehaviour
 {
-    
+    /// <summary>
+    /// 인벤토리 여닫는 버튼
+    /// </summary>
+    /// <param name="value"></param>
     void OnInventory(InputValue value)
     {
         InGameUI inGameUI = Managers.UI.GetComponentInSceneUI<InGameUI>();

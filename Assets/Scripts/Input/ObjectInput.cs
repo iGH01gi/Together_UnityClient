@@ -30,7 +30,7 @@ public class ObjectInput : MonoBehaviour
             //킬러일 때 생존자 공격 트리거 처리
             if (Managers.Player.IsMyDediPlayerKiller())
             {
-                if (other.CompareTag("Player") && Managers.Player._myDediPlayer.transform.GetComponentInChildren<PlayerAnimController>().IsAttacking())
+                if (other.CompareTag("SurvivorTrigger") && Managers.Player._myDediPlayer.transform.GetComponentInChildren<PlayerAnimController>().IsAttacking())
                 {
                     Debug.Log("Attacked Player with ID: "+other.transform.parent.GetComponent<OtherDediPlayer>().PlayerId);
                 }
@@ -122,6 +122,6 @@ public class ObjectInput : MonoBehaviour
     public void Clear()
     {
         _currentChest = null;
-        _currentChest = null;
+        _currentCleanse = null;
     }
 }

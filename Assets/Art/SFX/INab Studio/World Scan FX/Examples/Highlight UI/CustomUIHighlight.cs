@@ -38,6 +38,9 @@ namespace INab.WorldScanFX
         {
             // Deactivate the UI component initially
             uiComponent.SetActive(false);
+            playerTransform = Managers.Player.GetKillerGameObject().transform;
+            playerCamera = Managers.Player.GetKillerGameObject().transform.Find("Camera").GetComponent<Camera>();
+            
         }
 
         // Method to start the highlight effect

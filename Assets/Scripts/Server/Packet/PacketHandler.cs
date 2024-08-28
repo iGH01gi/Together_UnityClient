@@ -744,11 +744,15 @@ public class PacketHandler
 
         int killerPlayerId = useDetectorSkillPacket.PlayerId;
         int skillId = useDetectorSkillPacket.KillerId;
+        
 
         //내가 쓴 스킬은 브로드캐스트 받으면 안됨
         if (killerPlayerId != Managers.Player._myDediPlayerId)
         {
-            Managers.Killer.UseSkill(killerPlayerId, skillId);
+            foreach (var victim in useDetectorSkillPacket.DetectedPlayerIds)
+            {
+                Managers.Killer.UseSkill(victim, skillId);
+            }
         }
     }
 
