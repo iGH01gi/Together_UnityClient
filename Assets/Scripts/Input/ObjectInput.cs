@@ -95,11 +95,11 @@ public class ObjectInput : MonoBehaviour
             PlayerAnimController playerAnimController = myDediPlayerGameObject.GetComponentInChildren<PlayerAnimController>();
             playerAnimController.isTrapped = true;
             playerAnimController.PlayAnim();
-            Debug.Log(" 트랩드 들어왓음!!!!!!!!!!!!!!!!!!!!!!!!!");
 
             yield return new WaitForSeconds(trapDuration);
 
             playerAnimController.isTrapped = false;
+            playerAnimController.PlayAnim();
         }
         else //다른 플레이어일때
         {

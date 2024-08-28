@@ -21,7 +21,7 @@ public class SurvivorTriggerInput : MonoBehaviour
         {
             //덫 트리거 처리
             if (other.CompareTag("Trap") && !other.transform.GetComponent<Trap>()._isAlreadyTrapped)
-            {
+            {   
                 other.transform.GetComponent<Trap>()._isAlreadyTrapped = true;
                 other.transform.GetComponent<SphereCollider>().enabled = false;
                 StartCoroutine(Managers.Input._objectInput.Trapped(Managers.Player._myDediPlayerId));
