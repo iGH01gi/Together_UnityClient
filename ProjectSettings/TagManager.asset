@@ -10,6 +10,7 @@ TagManager:
   - Slot
   - SurvivorTrigger
   - KillerTrigger
+  - Trap
   layers:
   - Default
   - TransparentFX

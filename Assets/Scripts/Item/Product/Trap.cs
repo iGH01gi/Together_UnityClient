@@ -17,12 +17,16 @@ public class Trap : MonoBehaviour, IItem
     public float StunDuration { get; set; }
 
 
+    public string _trapId; //트랩 고유번호(구분용. Trap{_trapId}로 이름 지어줌)
+
     private GameObject _myDediPlayer;
     private float _forwardRayDistance = 0.8f;
     private float _downRayDistance = 0.2f;
     private bool _onHoldTrigger = false;
     private bool _isMyPlayerTrapAvailable = false; //현재 트랩을 내 캐릭터가 설치할 수 있는지를 확인하는 변수
     private float _setTrapSeconds = 1f; //트랩 설치 시간
+
+    public bool _isAlreadyTrapped = false; //이미 누군가가 트랩에 걸렸는지 여부
 
     public void Init(int itemId,  int playerId, string englishName)
     {
@@ -117,6 +121,12 @@ public class Trap : MonoBehaviour, IItem
             _onHoldTrigger = false;
             _isMyPlayerTrapAvailable = false;
 
+            //내 트랩id 설정 {플레이어id}_{트랩id}
+            TrapFactory trapFactory = Managers.Item._itemFactories[4] as TrapFactory;
+            _trapId = PlayerID + "_" + trapFactory._trapId;
+            gameObject.name = "Trap" + _trapId;
+            trapFactory._trapId++;
+
             //트랩이 설치될 트랜스폼을 패킷에 담아서 서버로 전송
             CDS_UseTrapItem useTrapItemPacket = new CDS_UseTrapItem()
             {
@@ -137,7 +147,8 @@ public class Trap : MonoBehaviour, IItem
                         RotZ = gameObject.transform.rotation.z,
                         RotW = gameObject.transform.rotation.w
                     }
-                }
+                },
+                TrapId = _trapId
             };
             Managers.Network._dedicatedServerSession.Send(useTrapItemPacket);
 
@@ -149,6 +160,9 @@ public class Trap : MonoBehaviour, IItem
         else if(PlayerID != Managers.Player._myDediPlayerId)
         {
             DSC_UseTrapItem recvPacketTrap = recvPacket as DSC_UseTrapItem;
+            _trapId = recvPacketTrap.TrapId;
+            gameObject.name = "Trap" + _trapId;
+
             StartCoroutine(SetTrapDuringSeconds(_setTrapSeconds, recvPacketTrap));
 
             Debug.Log("Item Trap Use");
@@ -187,6 +201,10 @@ public class Trap : MonoBehaviour, IItem
             //패킷에 담긴 설치 트랜스폼으로 트랩 이동
             gameObject.transform.position = new Vector3(recvPacketTrap.TrapTransform.Position.PosX, recvPacketTrap.TrapTransform.Position.PosY, recvPacketTrap.TrapTransform.Position.PosZ);
             gameObject.transform.rotation = new Quaternion(recvPacketTrap.TrapTransform.Rotation.RotX, recvPacketTrap.TrapTransform.Rotation.RotY, recvPacketTrap.TrapTransform.Rotation.RotZ, recvPacketTrap.TrapTransform.Rotation.RotW);
+
+            //서버 레이턴시 고려해서 덫 설치된 시간을 계산
+            float estimatedTrapDuration = TrapDuration - Managers.Time.GetEstimatedLatency();
+            TrapDuration = estimatedTrapDuration;
         }
 
         //설치가 끝나면 키 입력 풀어줌
@@ -217,17 +235,10 @@ public class Trap : MonoBehaviour, IItem
         _onHoldTrigger = true;
     }
 
-    private void OnTriggerEnter(Collider other)
-    {
-        Debug.Log("콜라이더 들어옴");
-        if (other.gameObject.tag == "SurvivorTrigger" || other.gameObject.tag == "KillerTrigger")
-        {
-            Debug.Log("Trap Hit");
-        }
-    }
-
     public void OnHit()
     {
-        
+        StopCoroutine("DestroyAfterSeconds");
+        float estimatedStunDuration = StunDuration - Managers.Time.GetEstimatedLatency();
+        StartCoroutine(DestroyAfterSeconds(estimatedStunDuration));
     }
 }

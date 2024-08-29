@@ -28,11 +28,14 @@ public class OtherDediPlayer : MonoBehaviour
 
     private bool _isGhostFollowingOn = true; //고스트 따라가기 여부
 
+    public PlayerStatus _playerStatus; //플레이어의 상태
+
     public void Init(int playerId, string name)
     {
         PlayerId = playerId;
         Name = name;
         _isKiller = false;
+        _playerStatus = new PlayerStatus();
     }
 
     private void Start()
