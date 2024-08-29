@@ -13,7 +13,8 @@ public class DetectorCamera : MonoBehaviour
 
     private void Start()
     {
-        if (targetCamera == null){
+        if (targetCamera == null)
+        {
             targetCamera = transform.GetComponent<Camera>();
         }
         if (replacementShader == null)
@@ -28,6 +29,8 @@ public class DetectorCamera : MonoBehaviour
     {
         // Reset the camera's shader replacement when the script is disabled
         if (targetCamera != null)
+        {
             targetCamera.ResetReplacementShader();
+        }
     }
 }
