@@ -263,6 +263,11 @@ public class PlayerManager
     
     public void ChangeHoldingItem(int itemId,int playerId)
     {
+        if (Managers.Player.GetKillerId() == playerId)
+        {
+            return;
+        }
+
         if (playerId == Managers.Player._myDediPlayerId)
         {
             Transform t = Util.FindChild(_myDediPlayer, "WeaponR_Parent", true).transform;

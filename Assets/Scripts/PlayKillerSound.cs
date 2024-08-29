@@ -104,6 +104,10 @@ public class PlayKillerSound : MonoBehaviour
     }
     private void CheckSurvivorSound()
     {
+        if (Managers.Player._myDediPlayer == null)
+        {
+            return;
+        }
         Transform myPlayer = Managers.Player._myDediPlayer.transform;
         Vector3 killerPos = Managers.Player.GetKillerGameObject().transform.position;
         Vector3 myPlayerPos = myPlayer.position;
@@ -159,6 +163,10 @@ public class PlayKillerSound : MonoBehaviour
     {
         float radius = 0.1f;
         RaycastHit hit;
+        if (Managers.Player.GetKillerGameObject() == null)
+        {
+            return false;
+        }
         Transform current = Managers.Player.GetKillerGameObject().transform;
         Vector3 position = current.position;
         Vector3 direction = current.TransformDirection(Vector3.forward);
