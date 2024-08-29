@@ -1,5 +1,6 @@
 using System.Collections;
 using TMPro;
+using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 
 namespace INab.WorldScanFX
@@ -58,6 +59,7 @@ namespace INab.WorldScanFX
                 uiComponent.SetActive(true);
                 timeLeft = highlightDuration;
                 // Start scaling animation
+                transform.gameObject.layer = LayerMask.NameToLayer("Player");
                 StartCoroutine(ScaleUI(true));
             }
         }
@@ -66,6 +68,7 @@ namespace INab.WorldScanFX
         public void StopEffect()
         {
             isEffectActive = false;
+            transform.gameObject.layer = LayerMask.NameToLayer("Default");
             // Start scaling animation to hide the UI
             StartCoroutine(ScaleUI(false));
         }

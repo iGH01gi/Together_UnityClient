@@ -38,6 +38,8 @@ Material:
   m_PrefabAsset: {fileID: 0}
   m_Name: Highlight
   m_Shader: {fileID: -6465566751694194690, guid: 0cccec1e7a352a2409c572244dc68793, type: 3}
+  m_Parent: {fileID: 0}
+  m_ModifiedSerializedProperties: 0
   m_ValidKeywords:
   - _BUILTIN_ALPHATEST_ON
   - _BUILTIN_AlphaClip
@@ -48,6 +50,7 @@ Material:
   - _OVERLAY_EDGEDETECTION
   - _OVERLAY_GRID
   - _OVERLAY_GRIDANDEDGEDETECTION
+  - _OVERLAY_NONE
   - _OVERLAY_SCREENTEXTURE
   m_LightmapFlags: 4
   m_EnableInstancingVariants: 0
@@ -60,6 +63,7 @@ Material:
   - TransparentDepthPostpass
   - TransparentBackface
   - RayTracingPrepass
+  m_LockedProperties: 
   m_SavedProperties:
     serializedVersion: 3
     m_TexEnvs:
@@ -123,7 +127,7 @@ Material:
     - _Cull: 2
     - _CullMode: 2
     - _CullModeForward: 2
-    - _CurrentScanValue: 0.554
+    - _CurrentScanValue: 0
     - _Cutoff: 0
     - _DepthOffsetEnable: 0
     - _Distance_Offset: -4.5
@@ -194,7 +198,7 @@ Material:
     - _DoubleSidedConstants: {r: 1, g: 1, b: -1, a: 0}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
     - _Forward: {r: 0, g: 0, b: 1, a: 0}
-    - _Origin: {r: 0.001, g: 1.23, b: 0.001, a: 0}
+    - _Origin: {r: 3.0684245, g: 0, b: 1.4905214, a: 0}
     - _Rim_Color: {r: 6.498019, g: 2.0131118, b: 0, a: 0}
     - _Tiling: {r: 1, g: 1, b: 0, a: 0}
   m_BuildTextureStacks: []

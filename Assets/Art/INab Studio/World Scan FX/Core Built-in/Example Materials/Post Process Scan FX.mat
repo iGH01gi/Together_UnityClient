@@ -9,6 +9,8 @@ Material:
   m_PrefabAsset: {fileID: 0}
   m_Name: Post Process Scan FX
   m_Shader: {fileID: 4800000, guid: 34f449e1093a9fb498ea2cd79f1a4af5, type: 3}
+  m_Parent: {fileID: 0}
+  m_ModifiedSerializedProperties: 0
   m_ValidKeywords:
   - _OVERLAY_GRIDANDEDGEDETECTION
   m_InvalidKeywords:
@@ -23,6 +25,7 @@ Material:
   m_CustomRenderQueue: -1
   stringTagMap: {}
   disabledShaderPasses: []
+  m_LockedProperties: 
   m_SavedProperties:
     serializedVersion: 3
     m_TexEnvs:
@@ -97,7 +100,7 @@ Material:
     - _Addint: 0.196
     - _Blend: 1
     - _BumpScale: 1
-    - _CurrentScanValue: 0.554
+    - _CurrentScanValue: 0
     - _Cutoff: 0.5
     - _DepthHardness: 0.9
     - _DepthMaskAmount: 0.1
@@ -197,7 +200,7 @@ Material:
     - _GridColor: {r: 0, g: 0, b: 0, a: 1}
     - _HighlightColor: {r: 0.454902, g: 0.4980392, b: 1, a: 1}
     - _Offset: {r: 0, g: 0, b: 0, a: 0}
-    - _Origin: {r: 0.001, g: 1.23, b: 0.001, a: 0}
+    - _Origin: {r: 3.0684245, g: 0, b: 1.4905214, a: 0}
     - _OverlayColor: {r: 0, g: 0.2811131, b: 13.928809, a: 1}
     - _ScanColour: {r: 0, g: 0.7681248, b: 1, a: 1}
     - _ScanOrigin: {r: 2.24, g: 0, b: 0.5, a: 0}
