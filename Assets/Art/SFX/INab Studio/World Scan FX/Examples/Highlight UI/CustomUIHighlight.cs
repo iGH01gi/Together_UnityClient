@@ -39,9 +39,6 @@ namespace INab.WorldScanFX
         {
             // Deactivate the UI component initially
             uiComponent.SetActive(false);
-            playerTransform = Managers.Player.GetKillerGameObject().transform;
-            playerCamera = Managers.Player.GetKillerGameObject().transform.Find("Camera").GetComponent<Camera>();
-            
         }
 
         // Method to start the highlight effect
@@ -58,8 +55,8 @@ namespace INab.WorldScanFX
                 isEffectActive = true;
                 uiComponent.SetActive(true);
                 timeLeft = highlightDuration;
+                
                 // Start scaling animation
-                transform.gameObject.layer = LayerMask.NameToLayer("Player");
                 StartCoroutine(ScaleUI(true));
             }
         }
@@ -68,7 +65,6 @@ namespace INab.WorldScanFX
         public void StopEffect()
         {
             isEffectActive = false;
-            transform.gameObject.layer = LayerMask.NameToLayer("Default");
             // Start scaling animation to hide the UI
             StartCoroutine(ScaleUI(false));
         }

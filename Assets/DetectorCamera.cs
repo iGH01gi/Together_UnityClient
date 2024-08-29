@@ -1,29 +1,33 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+[ExecuteInEditMode]
 public class DetectorCamera : MonoBehaviour
 {
     public Camera targetCamera; // The camera that should render the specific GameObject
-    public string layerName = "RenderOnCamera"; // The layer name to use
+    public Shader replacementShader; // The replacement shader that will render the specific GameObject
 
     private int originalLayer; // Store the original layer of the GameObject
 
-    public void ShowGameObjectOnCamera(GameObject obj)
+    private void Start()
     {
-        // Store the original layer of the GameObject
-        originalLayer = obj.layer;
-        
-        // Set the GameObject to the new layer
-        obj.layer = LayerMask.NameToLayer(layerName);
-        
-        // Enable the camera
-        targetCamera.enabled = true;
+        if (targetCamera == null){
+            targetCamera = transform.GetComponent<Camera>();
+        }
+        if (replacementShader == null)
+        {
+            Debug.LogError("Replacement shader not assigned! Please assign a shader.");
+            return;
+        }
+        targetCamera.SetReplacementShader(replacementShader, "");
     }
-
-    public void ResetGameObjectLayer(GameObject obj)
+    
+    void OnDisable()
     {
-        // Reset the GameObject back to its original layer
-        obj.layer = originalLayer;
+        // Reset the camera's shader replacement when the script is disabled
+        if (targetCamera != null)
+            targetCamera.ResetReplacementShader();
     }
 }

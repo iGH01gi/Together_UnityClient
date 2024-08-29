@@ -609,7 +609,7 @@ namespace INab.WorldScanFX
             material.SetFloat("_EdgeHardness", _EdgeHardness);
         }
 
-        private void SetPostProcessScanProperties(Material material)
+        public void SetPostProcessScanProperties(Material material)
         {
             material.SetColor("_EdgeColor", _EdgeColor);
             material.SetColor("_HighlightColor", _HighlightColor);
