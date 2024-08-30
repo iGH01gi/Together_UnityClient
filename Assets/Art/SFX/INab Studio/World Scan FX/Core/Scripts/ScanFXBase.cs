@@ -248,7 +248,11 @@ namespace INab.WorldScanFX
         /// <param name="ScansNumber">The number of scans to enqueue.</param>
         public void StartScan(int ScansNumber)
         {
-            GameObject.Find("DetectorCamera").GetComponent<DetectorCamera>()._isDetecting = true;
+            if (Managers.Player.IsMyDediPlayerKiller())
+            {
+                GameObject.Find("DetectorCamera").GetComponent<DetectorCamera>()._isDetecting = true;
+            }
+
             if (scansLeft == 0)
             {
                 scansLeft = ScansNumber;
@@ -426,7 +430,12 @@ namespace INab.WorldScanFX
                     {
                         timePassed = 0;
                         timeLeft = 9999;
-                        GameObject.Find("DetectorCamera").GetComponent<DetectorCamera>()._isDetecting = false;
+                        
+                        if (Managers.Player.IsMyDediPlayerKiller())
+                        {
+                            GameObject.Find("DetectorCamera").GetComponent<DetectorCamera>()._isDetecting = false;
+                        }
+                        
                         // 1 in order to make highlightMaterials scan mask work
                         SetCurrentScanValue(1);
                     }
