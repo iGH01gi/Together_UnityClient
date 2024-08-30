@@ -1,5 +1,7 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Text;
 using UnityEngine;
 using UnityEngine.Events;
 
@@ -13,6 +15,8 @@ namespace INab.WorldScanFX
         [Tooltip("Duration of the highlight effect, in seconds.")]
         public float highlightDuration = 5f;
 
+        Material highlightMaterial;
+        
         [Tooltip("Animation curve for the highlight effect, defining its intensity over time.")]
         public AnimationCurve curve = AnimationCurve.EaseInOut(0, 1, 1, 0);
 
@@ -28,6 +32,15 @@ namespace INab.WorldScanFX
         private bool effectIsPlaying = false;
 
         private bool alreadyScanned = false;
+        
+        private Dictionary<Renderer,Material> originalMaterials = new Dictionary<Renderer, Material>();
+
+        private void Awake()
+        {
+            highlightMaterial = Resources.Load("Highlight", typeof(Material)) as Material;
+            Debug.Log("Highlight Material: " + highlightMaterial.name);
+        }
+
         public bool AlreadyScanned
         {
             get
@@ -61,7 +74,12 @@ namespace INab.WorldScanFX
 
                 yield return null;
             }
-
+            foreach (var item in renderers)
+            {
+                item.gameObject.layer = 0;
+                item.material = originalMaterials[item];
+                originalMaterials.Remove(item);
+            }
             effectIsPlaying = false;
         }
 
@@ -81,6 +99,7 @@ namespace INab.WorldScanFX
 
         private void Start()
         {
+            //highlightMaterial = Resources.Load("Highlight", typeof(Material)) as Material;
             effectIsPlaying = false;
             UpdateHighlightValue(0);
         }
@@ -94,6 +113,12 @@ namespace INab.WorldScanFX
         /// </summary>
         public virtual void PlayEffect()
         {
+            foreach (var item in renderers)
+            {
+                item.gameObject.layer = LayerMask.NameToLayer("Player");
+                originalMaterials.Add(item, item.material);
+                item.material = highlightMaterial;
+            }
             if(highlightEvent != null) highlightEvent.Invoke();
 
             alreadyScanned = true;

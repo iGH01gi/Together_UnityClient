@@ -38,6 +38,8 @@ Material:
   m_PrefabAsset: {fileID: 0}
   m_Name: Transparent With ScanFX
   m_Shader: {fileID: -6465566751694194690, guid: 526d3078fdff4f04a8edad0b61041551, type: 3}
+  m_Parent: {fileID: 0}
+  m_ModifiedSerializedProperties: 0
   m_ValidKeywords:
   - _BUILTIN_SURFACE_TYPE_TRANSPARENT
   - _OVERLAY_GRIDANDEDGEDETECTION
@@ -55,6 +57,7 @@ Material:
   - TransparentDepthPostpass
   - TransparentBackface
   - RayTracingPrepass
+  m_LockedProperties: 
   m_SavedProperties:
     serializedVersion: 3
     m_TexEnvs:

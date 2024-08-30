@@ -1,5 +1,6 @@
 using System.Collections;
 using TMPro;
+using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 
 namespace INab.WorldScanFX
@@ -54,6 +55,7 @@ namespace INab.WorldScanFX
                 isEffectActive = true;
                 uiComponent.SetActive(true);
                 timeLeft = highlightDuration;
+                
                 // Start scaling animation
                 StartCoroutine(ScaleUI(true));
             }
