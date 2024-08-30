@@ -31,6 +31,9 @@ public class MyKillerSkill : MonoBehaviour
         }
         else
         {
+            _currentCoolTime = skillUseTime;
+            _inGameUI.SetSkillMaxValue(skillUseTime);
+            _inGameUI.SetSkillCurrentValue(skillUseTime);
             _inGameUI.SetSkillCurrentColor(false);
             IncreaseCoolTime(skillCoolTimeSeconds);
         }

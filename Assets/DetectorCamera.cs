@@ -14,7 +14,7 @@ public class DetectorCamera : MonoBehaviour
     private int originalLayer; // Store the original layer of the GameObject
     
 
-    private void Start()
+    void OnEnable()
     {
         mainCamera = Camera.main;
         if (targetCamera == null)
