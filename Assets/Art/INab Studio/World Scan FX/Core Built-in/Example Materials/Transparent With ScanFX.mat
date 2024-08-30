@@ -262,7 +262,7 @@ Material:
     - _EmberColor: {r: 10, g: 1.8, b: 0.2, a: 1}
     - _Ember_Color: {r: 7.999999, g: 0, b: 7.5079913, a: 0}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
-    - _Forward: {r: -0.3443382, g: 0, b: 0.9388457, a: 0}
+    - _Forward: {r: -0.9982589, g: 0, b: -0.058985233, a: 0}
     - _LocalPos1: {r: 0, g: 0, b: 0, a: 0}
     - _LocalPos2: {r: 0, g: 0, b: 0, a: 0}
     - _Offsets: {r: 0.009, g: 0.003, b: 0.006, a: 0}

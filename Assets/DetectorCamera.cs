@@ -8,7 +8,7 @@ using UnityEngine;
 public class DetectorCamera : MonoBehaviour
 {
     public Camera targetCamera;
-    public Transform mainCamera;
+    public Camera mainCamera;
     public Shader replacementShader; // The replacement shader that will render the specific GameObject
 
     private int originalLayer; // Store the original layer of the GameObject
@@ -20,7 +20,7 @@ public class DetectorCamera : MonoBehaviour
         {
             enabled = false;
         }
-        mainCamera = GameObject.Find("Main Camera").transform;
+        mainCamera = Camera.main;
         if (targetCamera == null)
         {
             targetCamera = transform.GetComponent<Camera>();
@@ -30,6 +30,11 @@ public class DetectorCamera : MonoBehaviour
             Debug.LogError("Replacement shader not assigned! Please assign a shader.");
             return;
         }
+        // Synchronize camera properties
+        targetCamera.fieldOfView = mainCamera.fieldOfView;
+        targetCamera.nearClipPlane = mainCamera.nearClipPlane;
+        targetCamera.farClipPlane = mainCamera.farClipPlane;
+        targetCamera.orthographic = mainCamera.orthographic;
         targetCamera.SetReplacementShader(replacementShader, "");
     }
 
@@ -37,15 +42,14 @@ public class DetectorCamera : MonoBehaviour
     {
         if (_isDetecting)
         {
-            Quaternion relativeRotation = mainCamera.rotation * Quaternion.Inverse(transform.rotation);
-            transform.rotation = relativeRotation;
-            Vector3 relativePosition = mainCamera.position - transform.position;
+            transform.rotation = mainCamera.transform.rotation;
+            Vector3 relativePosition = mainCamera.transform.position - transform.position;
             transform.position += relativePosition;
         }
         else
         {
-            transform.rotation = mainCamera.rotation;
-            transform.position = mainCamera.position;
+            transform.rotation = mainCamera.transform.rotation;
+            transform.position = mainCamera.transform.position;
         }
     }
     
