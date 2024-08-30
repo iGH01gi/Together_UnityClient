@@ -22,6 +22,7 @@ public class Flashlight : MonoBehaviour, IItem
     private MovementInput _movementInput;
     private Coroutine _currentPlayingCoroutine;
     private GameObject _flashLightSource;
+    private MeshRenderer _lightEffectMeshRenderer;
 
     private OtherDediPlayer _otherDediPlayer;
     public void LateUpdate()
@@ -67,26 +68,15 @@ public class Flashlight : MonoBehaviour, IItem
 
                 // 새로운 회전 부드럽게 값을 적용합니다.
                 Quaternion newRotation = Quaternion.Euler(newXRotation, eulerAngles.y, eulerAngles.z);
-                //_light.transform.rotation = Quaternion.Slerp(currentRotation, newRotation, Time.deltaTime * 20f);
-                _flashLightSource.transform.rotation = newRotation;
+                _light.transform.rotation = Quaternion.Slerp(currentRotation, newRotation, Time.deltaTime * 40f);
+
+                // Slerp로 이동한 후, 일정한 작은 각도 차이 이하일 경우 최종적으로 newRotation을 확정적으로 설정
+                if (Quaternion.Angle(_light.transform.rotation, newRotation) < 0.1f)
+                {
+                    _light.transform.rotation = newRotation;
+                }
+                //_flashLightSource.transform.rotation = newRotation;
             }
-
-
-            /*//빛과 동일한 길이의 레이 표시
-            Debug.DrawRay(_lightGameObject.transform.position, _lightGameObject.transform.forward * FlashlightDistance, Color.red, 0.1f);
-
-            // 현재 회전을 가져옵니다.
-            Quaternion currentRotation = _lightGameObject.transform.rotation;
-
-            // 현재 회전의 Euler 각도를 가져옵니다.
-            Vector3 eulerAngles = currentRotation.eulerAngles;
-
-            // X축 회전값을 _movementInput._rotationX로 설정합니다.
-            float newXRotation = _movementInput._rotationX;
-
-            // 새로운 회전 값을 적용합니다.
-            Quaternion newRotation = Quaternion.Euler(newXRotation, eulerAngles.y, eulerAngles.z);
-            _lightGameObject.transform.rotation = newRotation;*/
         }
     }
 
@@ -144,8 +134,14 @@ public class Flashlight : MonoBehaviour, IItem
                     _movementInput = Managers.Player._myDediPlayer.GetComponent<MovementInput>();
                     _isLightOn = true;
 
+                    //빛 효과 킴
+                    _lightEffectMeshRenderer = Util.FindChild(lightGameObject, "LightEffect").gameObject.GetComponent<MeshRenderer>();
+                    _lightEffectMeshRenderer.enabled = true;
+
                     //일정 시간 후 불 끔
                     _currentPlayingCoroutine = StartCoroutine(LightOffAfterSeconds(FlashlightAvailableTime));
+
+                    
 
                 }
                 else
@@ -194,6 +190,10 @@ public class Flashlight : MonoBehaviour, IItem
                     _movementInput = Managers.Player._otherDediPlayers[PlayerID].GetComponent<MovementInput>();
                     _isLightOn = true;
 
+                    //빛 효과 킴
+                    _lightEffectMeshRenderer = Util.FindChild(lightGameObject, "LightEffect").gameObject.GetComponent<MeshRenderer>();
+                    _lightEffectMeshRenderer.enabled = true;
+
                     //일정 시간 후 불 끔
                     _currentPlayingCoroutine = StartCoroutine(LightOffAfterSeconds(FlashlightAvailableTime));
 
@@ -233,6 +233,9 @@ public class Flashlight : MonoBehaviour, IItem
 
         //라이트 끔
         _light.enabled = false;
+
+        //빛 효과 끔
+        _lightEffectMeshRenderer.enabled = false;
 
         //애니메이션 끔
         PlayerAnimController anim = Managers.Player.GetAnimator(PlayerID);
