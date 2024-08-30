@@ -700,6 +700,7 @@ public class PacketHandler
         }
     }
 
+    //데디케이티드서버로부터 플레이어가 플래시라이트 아이템을 사용했다는 정보를 받았을때의 처리
     public static void DSC_UseFlashlightItemHandler(PacketSession session, IMessage packet)
     {
         DSC_UseFlashlightItem useFlashlightItemPacket = packet as DSC_UseFlashlightItem;
@@ -713,6 +714,25 @@ public class PacketHandler
         if (Managers.Player._myDediPlayerId != playerId) //다른 플레이어의 플래시라이트 아이템 사용 소식일 경우
         {
             Managers.Item.UseItem(playerId, itemId);
+        }
+    }
+
+    //데디케이티드서버로부터 플레이어가 플래시라이트 아이템에 당했다는 정보를 받았을때의 처리
+    public static void DSC_OnHitFlashlightItemHandler(PacketSession session, IMessage packet)
+    {
+        DSC_OnHitFlashlightItem onHitFlashlightItemPacket = packet as DSC_OnHitFlashlightItem;
+        DedicatedServerSession dedicatedServerSession = session as DedicatedServerSession;
+
+        Debug.Log("DSC_OnHitFlashlightItemHandler");
+        
+        int dediPlayerId = onHitFlashlightItemPacket.PlayerId;
+        int itemId = onHitFlashlightItemPacket.ItemId;
+
+        //플래시라이트에 걸렸을때 플레이어 처리
+        GameObject dediPlayerGameObject = Managers.Player.GetPlayerObject(dediPlayerId);
+        if (dediPlayerGameObject != null)
+        {
+            dediPlayerGameObject.GetComponent<ObjectInput>().ProcessFlashed(dediPlayerId);
         }
     }
 
