@@ -63,11 +63,11 @@ public class TheDetector : MonoBehaviour, IKiller
             usePacket.KillerId = Id;
             Managers.Network._dedicatedServerSession.Send(usePacket);
             Managers.Game._myKillerSkill.UsedSkill(SkillCoolTimeSeconds);
-            UseAbility();
+            StartCoroutine(UseAbility());
         }
         else if (Managers.Player._myDediPlayerId != killerPlayerId)
         {
-            UseAbility();
+            StartCoroutine(UseAbility());
         }
     }
 
@@ -76,15 +76,13 @@ public class TheDetector : MonoBehaviour, IKiller
         transform.GetComponent<PlayerAnimController>().KillerBaseAttack();
     }
 
-    private void UseAbility()
+    IEnumerator UseAbility()
     {
         _scanFX.PassScanOriginProperties();
         _scanFX.StartScan(1);
-    }
-
-    private void SurvivorDetected()
-    {
-        
+        yield return new WaitForSeconds(SkillCoolTimeSeconds);
+        CanUseSkill = true;
+        Managers.Sound.Play("SkillReady");
     }
 
     private void Assign()
