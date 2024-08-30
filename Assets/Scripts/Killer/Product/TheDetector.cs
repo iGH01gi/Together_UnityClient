@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using Google.Protobuf.Protocol;
 using INab.WorldScanFX;
 using INab.WorldScanFX.Builtin;
+using TMPro;
 using UnityEngine;
 using UnityEngine.Rendering.PostProcessing;
 
@@ -27,7 +28,7 @@ public class TheDetector : MonoBehaviour, IKiller
     private DetectorCamera _detectorCamera;
     private Camera _mainCamera;
     private ScanFX _scanFX;
-    private List<GameObject> _highlightUIGO;
+    private Canvas _canvas;
     
     public void Setting()
     {
@@ -51,15 +52,22 @@ public class TheDetector : MonoBehaviour, IKiller
         Assign();
     }
 
-    public void Use(int usePlayerId)
+    public void Use(int killerPlayerId)
     {
-        if (Managers.Player.IsMyDediPlayerKiller() && CanUseSkill)
+        if (killerPlayerId == Managers.Player._myDediPlayerId && CanUseSkill)
         {
             CanUseSkill = false;
             Managers.Sound.Play("SonarPing");
+            CDS_UseDetectorSkill usePacket = new CDS_UseDetectorSkill();
+            usePacket.MyDediplayerId = Managers.Player._myDediPlayerId;
+            usePacket.KillerId = Id;
+            Managers.Network._dedicatedServerSession.Send(usePacket);
+            Managers.Game._myKillerSkill.UsedSkill(SkillCoolTimeSeconds);
+            UseAbility();
         }
-        else if (Managers.Player._myDediPlayerId == usePlayerId & !Managers.Player.IsMyDediPlayerKiller())
+        else if (Managers.Player._myDediPlayerId != killerPlayerId)
         {
+            UseAbility();
         }
     }
 
@@ -81,11 +89,19 @@ public class TheDetector : MonoBehaviour, IKiller
 
     private void Assign()
     {
+        bool isKiller = Managers.Player.IsMyDediPlayerKiller();
         _mainCamera = Camera.main;
         
         //highlightObjects 설정
         List<ScanFXHighlight> highlightObjects = new List<ScanFXHighlight>();
-        _highlightUIGO = new List<GameObject>();
+        var temp = new GameObject();
+
+        if (isKiller)
+        {
+            //Canvas 설정
+            _canvas = temp.AddComponent<Canvas>();
+            _canvas.name = "DetectorCanvas";
+        }
 
         foreach(GameObject survivor in Managers.Player._otherDediPlayers.Values)
         {
@@ -96,12 +112,12 @@ public class TheDetector : MonoBehaviour, IKiller
                 
                 //커스텀 UI 설정
                 CustomUIHighlight customUIHighlight = survivor.GetComponentInChildren<CustomUIHighlight>();
-                if (customUIHighlight != null)
+                if (customUIHighlight != null && isKiller)
                 {
-                    GameObject uiObject = Managers.Resource.Instantiate("WorldScanFX/HighlightUI", Managers.UI.SceneUI.transform);
-                    _highlightUIGO.Add(uiObject);
+                    GameObject uiObject = Managers.Resource.Instantiate("WorldScan/HighlightUI", _canvas.transform);
                     customUIHighlight.uiComponent = uiObject;
-                    customUIHighlight.uiText = uiObject.GetComponentInChildren<TMPro.TextMeshProUGUI>();
+                    customUIHighlight.uiText = uiObject.GetComponentInChildren<TMP_Text>();
+                    customUIHighlight.uiComponent.SetActive(false);
                     customUIHighlight.playerTransform = transform;
                     customUIHighlight.playerCamera = _mainCamera;
                     customUIHighlight.enabled = true;
@@ -114,21 +130,24 @@ public class TheDetector : MonoBehaviour, IKiller
 
         //Scanfx 설정
         _scanFX = _mainCamera.GetComponent<ScanFX>();
-        _scanFX.scanOrigin = transform;
+        _scanFX.useCustomHighlight = isKiller;
+        //_scanFX.worldScanMaterials.Add(Resources.Load($"Prefabs/WorldScan/Transparent With ScanFX", typeof(Material)) as Material);
+        //_scanFX.highlightMaterials.Add(Resources.Load($"Prefabs/WorldScan/Highlight", typeof(Material)) as Material);
+        _scanFX.scanOrigin = isKiller? transform: Managers.Player.GetKillerGameObject().transform;
         _scanFX.highlightObjects = highlightObjects;
         _scanFX.enabled = true;
         
         //PostProcessing 키기
         _mainCamera.GetComponent<PostProcessLayer>().enabled = true;
 
-        //감지된 플레이어 카메라 Init
-        _detectorCamera = Managers.Resource.Instantiate("WorldScanFX/DetectorCamera").GetComponent<DetectorCamera>();
-        _detectorCamera.mainCamera = _mainCamera;
-        _detectorCamera.enabled = true;
-        
-        
-        //디버깅용 ScanControl
-        _mainCamera.GetComponent<ScanControl>().enabled = true;
+        if (isKiller)
+        {
+            //감지된 플레이어 카메라 Init
+            temp = Managers.Resource.Instantiate("WorldScan/DetectorCamera");
+            _detectorCamera = temp.GetComponent<DetectorCamera>();
+            _detectorCamera.mainCamera = _mainCamera;
+            _detectorCamera.enabled = true;
+        }
     }
     public void UnAssign()
     {

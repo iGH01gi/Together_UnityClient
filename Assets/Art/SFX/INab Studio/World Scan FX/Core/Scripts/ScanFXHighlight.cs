@@ -39,6 +39,7 @@ namespace INab.WorldScanFX
         {
             highlightMaterial = Resources.Load($"Prefabs/WorldScan/Highlight", typeof(Material)) as Material;
             Debug.Log("Highlight Material: " + highlightMaterial.name);
+            FindRenderersInChildren();
         }
 
         public bool AlreadyScanned
@@ -115,7 +116,7 @@ namespace INab.WorldScanFX
         {
             foreach (var item in renderers)
             {
-                item.gameObject.layer = LayerMask.NameToLayer("Player");
+                item.gameObject.layer = LayerMask.NameToLayer("Detect");
                 originalMaterials.Add(item, item.material);
                 item.material = highlightMaterial;
             }
@@ -137,6 +138,10 @@ namespace INab.WorldScanFX
             if (effectIsPlaying == true)
             {
                 if (enumerator != null) StopCoroutine(enumerator);
+            }
+            else
+            {
+                //TODO: OnHit 패킷 보내기
             }
 
             enumerator = EffectEnumerator();

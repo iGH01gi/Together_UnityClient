@@ -10,7 +10,7 @@ namespace INab.WorldScanFX
         // Reference to the UI component to be highlighted
         public GameObject uiComponent;
         // Reference to the TextMeshPro component of the UI
-        public TextMeshProUGUI uiText;
+        public TMP_Text uiText;
         // Duration of the highlight effect
         public float highlightDuration = 3f;
         // Duration of scaling animation
@@ -36,8 +36,8 @@ namespace INab.WorldScanFX
 
         private void Start()
         {
-            // Deactivate the UI component initially
-            uiComponent.SetActive(false);
+            // this is executed in TheDetector.cs
+            //uiComponent.SetActive(false);
         }
 
         // Method to start the highlight effect

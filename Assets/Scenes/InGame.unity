@@ -262,6 +262,11 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f296dd9ad7d96754f9fb3f2b45129f34, type: 3}
+--- !u!4 &92029534 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 3407609195201408005, guid: f296dd9ad7d96754f9fb3f2b45129f34, type: 3}
+  m_PrefabInstance: {fileID: 92029533}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &105287834
 GameObject:
   m_ObjectHideFlags: 0
@@ -905,7 +910,6 @@ GameObject:
   - component: {fileID: 927849888}
   - component: {fileID: 927849891}
   - component: {fileID: 927849890}
-  - component: {fileID: 927849889}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -1021,19 +1025,6 @@ AudioListener:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 927849883}
   m_Enabled: 1
---- !u!114 &927849889
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 927849883}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4f9d59be98f57a34e9ebbee1a9b0af47, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  scanFX: {fileID: 927849891}
 --- !u!114 &927849890
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1046,7 +1037,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 948f4100a11a5c24981795d21301da5c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  volumeTrigger: {fileID: 0}
+  volumeTrigger: {fileID: 92029534}
   volumeLayer:
     serializedVersion: 2
     m_Bits: 32
@@ -1154,9 +1145,7 @@ MonoBehaviour:
   DistanceOffset: 0
   MaskRadiusOffset: 0
   FovOffset: 0.1
-  highlightObjects:
-  - {fileID: 0}
-  - {fileID: 0}
+  highlightObjects: []
   useScanOverlayOnMaterials: 1
   highlightMaterials:
   - {fileID: 2100000, guid: fa238c48f597c6244b1adab79fb88da3, type: 2}

@@ -205,7 +205,7 @@ namespace INab.WorldScanFX
         // Used for detecting and highlighting objects in the scan range
 
         [Tooltip("Enables custom highlighting of objects within the scan range.")]
-        [SerializeField] private bool useCustomHighlight = false;
+        [SerializeField] public bool useCustomHighlight = false;
 
         [Tooltip("Fine-tunes the point of triggering the highlight.")]
         [SerializeField] private float DistanceOffset = 0f;
@@ -236,6 +236,7 @@ namespace INab.WorldScanFX
         [Tooltip("List of world scan materials to be used for applying the scan effect in world space.")]
         [SerializeField] public List<Material> worldScanMaterials = new List<Material>();
 
+        private List<int> _detectedPlayers = new List<int>();
 
         #endregion
 
