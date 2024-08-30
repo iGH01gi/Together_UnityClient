@@ -31,10 +31,6 @@ public class MyKillerSkill : MonoBehaviour
         }
         else
         {
-            _currentCoolTime = skillUseTime;
-            _inGameUI.SetSkillMaxValue(skillUseTime);
-            _inGameUI.SetSkillCurrentValue(skillUseTime);
-            _inGameUI.SetSkillCurrentColor(false);
             IncreaseCoolTime(skillCoolTimeSeconds);
         }
     }
@@ -47,12 +43,12 @@ public class MyKillerSkill : MonoBehaviour
             _inGameUI.SetSkillCurrentValue(_currentCoolTime);
             yield return null;
         }
-        _inGameUI.SetSkillCurrentColor(false);
         StartCoroutine(IncreaseCoolTime(skillCoolTimeSeconds));
     }
 
     IEnumerator IncreaseCoolTime(float skillCoolTimeSeconds)
     {
+        _inGameUI.SetSkillCurrentColor(false);
         _currentCoolTime = 0;
         _inGameUI.SetSkillMaxValue(skillCoolTimeSeconds);
         _inGameUI.SetSkillCurrentValue(_currentCoolTime);

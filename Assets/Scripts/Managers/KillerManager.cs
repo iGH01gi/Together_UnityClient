@@ -16,7 +16,6 @@ public class KillerManager
     public string _myPlayerKillerPrefabPath = "Prefabs/Player/MyPlayerKiller/"; //내 킬러 프리팹 경로
     public string _otherPlayerKillerPrefabPath = "Prefabs/Player/OtherPlayerKiller/"; //다른 플레이어 킬러 프리팹 경로
     
-    
     public void Init()
     {
         _jsonPath = Application.persistentDataPath + "/Data/Killer/Killers.json";
