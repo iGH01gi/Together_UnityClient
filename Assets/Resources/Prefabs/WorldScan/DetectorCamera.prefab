@@ -27,7 +27,7 @@ Transform:
   m_GameObject: {fileID: 4269375565604530884}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 3.5684245, y: 1.375, z: -0.50947857}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -99,3 +99,4 @@ MonoBehaviour:
   targetCamera: {fileID: 8837794795426345744}
   mainCamera: {fileID: 0}
   replacementShader: {fileID: 4800000, guid: 95b3460cb04e4c146b0e857665d2903d, type: 3}
+  _isDetecting: 0
