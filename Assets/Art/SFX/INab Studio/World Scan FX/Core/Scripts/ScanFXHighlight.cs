@@ -123,6 +123,16 @@ namespace INab.WorldScanFX
 
             alreadyScanned = true;
 
+            //Play Detector detected sound effect
+            if (Managers.Player.IsMyDediPlayerKiller())
+            {
+                Managers.Sound.Play("FoundSurvivor");
+            }
+            else
+            {
+                Managers.Sound.Play("Detected");
+            }
+            
             // If the effect is playing, stop coroutine
             if (effectIsPlaying == true)
             {
