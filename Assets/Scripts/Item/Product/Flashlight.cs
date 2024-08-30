@@ -18,12 +18,10 @@ public class Flashlight : MonoBehaviour, IItem
 
 
     private bool _isLightOn = false;
-    private GameObject _flashlightGameObject;
-    private GameObject _lightGameObject;
     private Light _light;
     private MovementInput _movementInput;
     private Coroutine _currentPlayingCoroutine;
-    private Quaternion _originalLightRotation;
+    private GameObject _flashLightSource;
 
     private OtherDediPlayer _otherDediPlayer;
     public void LateUpdate()
@@ -33,10 +31,11 @@ public class Flashlight : MonoBehaviour, IItem
             if (PlayerID == Managers.Player._myDediPlayerId)
             {
                 //빛과 동일한 길이의 레이 표시
-                Debug.DrawRay(_lightGameObject.transform.position, _lightGameObject.transform.forward * FlashlightDistance, Color.red, 0.1f);
+                Debug.DrawRay(_flashLightSource.transform.position,
+                    _flashLightSource.transform.forward * FlashlightDistance, Color.red, 0.1f);
 
                 // 현재 회전을 가져옵니다.
-                Quaternion currentRotation = _lightGameObject.transform.rotation;
+                Quaternion currentRotation = _flashLightSource.transform.rotation;
 
                 // 현재 회전의 Euler 각도를 가져옵니다.
                 Vector3 eulerAngles = currentRotation.eulerAngles;
@@ -46,19 +45,19 @@ public class Flashlight : MonoBehaviour, IItem
 
                 // 새로운 회전 값을 적용합니다.
                 Quaternion newRotation = Quaternion.Euler(newXRotation, eulerAngles.y, eulerAngles.z);
-                _lightGameObject.transform.rotation = newRotation;
+                _flashLightSource.transform.rotation = newRotation;
             }
             else
             {
                 //빛과 동일한 길이의 레이 표시
-                Debug.DrawRay(_lightGameObject.transform.position,
-                    _lightGameObject.transform.forward * FlashlightDistance, Color.red, 0.1f);
+                Debug.DrawRay(_flashLightSource.transform.position,
+                    _flashLightSource.transform.forward * FlashlightDistance, Color.red, 0.1f);
 
                 //회전 목표 카메라 위치를 가져옴
                 Quaternion targetRotation = _otherDediPlayer._cameraWorldRotation;
 
                 // 현재 회전을 가져옵니다.
-                Quaternion currentRotation = _lightGameObject.transform.rotation;
+                Quaternion currentRotation = _flashLightSource.transform.rotation;
 
                 // 현재 회전의 Euler 각도를 가져옵니다.
                 Vector3 eulerAngles = currentRotation.eulerAngles;
@@ -68,7 +67,8 @@ public class Flashlight : MonoBehaviour, IItem
 
                 // 새로운 회전 부드럽게 값을 적용합니다.
                 Quaternion newRotation = Quaternion.Euler(newXRotation, eulerAngles.y, eulerAngles.z);
-                _lightGameObject.transform.rotation = Quaternion.Slerp(currentRotation, newRotation, Time.deltaTime * 5f);
+                //_light.transform.rotation = Quaternion.Slerp(currentRotation, newRotation, Time.deltaTime * 20f);
+                _flashLightSource.transform.rotation = newRotation;
             }
 
 
@@ -122,22 +122,20 @@ public class Flashlight : MonoBehaviour, IItem
 
             GameObject myDediPlayerGameObject = Managers.Player.GetPlayerObject(PlayerID);
 
-            //myDediPlayerGameObject의 자식들중 3(flashlight를 의미하는 아이템id)의 이름을 가진 오브젝트를 참조함
-            _flashlightGameObject = Util.FindChild(myDediPlayerGameObject, "3", true);
-            if (_flashlightGameObject != null)
-            {
-                _lightGameObject = Util.FindChild(_flashlightGameObject, "Light", true);
-                if (_lightGameObject != null)
-                {
-                    //회전 원복을 위한 값 저장
-                    _originalLightRotation = _lightGameObject.transform.rotation;
+            _flashLightSource = Util.FindChild(myDediPlayerGameObject, "FlashLightSource", true);
 
+            if (_flashLightSource != null)
+            {
+                GameObject lightGameObject = Util.FindChild(_flashLightSource, "Light", true);
+                if (lightGameObject != null)
+                {
                     //애니메이션 킴
                     PlayerAnimController anim = Managers.Player.GetAnimator(PlayerID);
                     anim.isFlashlight = true;
                     anim.PlayAnim();
 
-                    _light = _lightGameObject.GetComponent<Light>();
+                    //라이트 킴
+                    _light = lightGameObject.GetComponent<Light>();
                     _light.enabled = true;
                     _light.range = FlashlightDistance; 
                     _light.spotAngle = FlashlightAngle;
@@ -150,6 +148,14 @@ public class Flashlight : MonoBehaviour, IItem
                     _currentPlayingCoroutine = StartCoroutine(LightOffAfterSeconds(FlashlightAvailableTime));
 
                 }
+                else
+                {
+                    return false;
+                }
+            }
+            else
+            {
+                return false;
             }
         }
         else
@@ -165,22 +171,21 @@ public class Flashlight : MonoBehaviour, IItem
             GameObject otherDediPlayerGameObject = Managers.Player.GetPlayerObject(PlayerID);
             _otherDediPlayer = otherDediPlayerGameObject.GetComponent<OtherDediPlayer>();
 
-            //otherDediPlayerGameObject의 자식들중 3(flashlight를 의미하는 아이템id)의 이름을 가진 오브젝트를 참조함
-            _flashlightGameObject = Util.FindChild(otherDediPlayerGameObject, "3", true);
-            if (_flashlightGameObject != null)
-            {
-                _lightGameObject = Util.FindChild(_flashlightGameObject, "Light", true);
-                if (_lightGameObject != null)
-                {
-                    //회전 원복을 위한 값 저장
-                    _originalLightRotation = _lightGameObject.transform.rotation;
+            _flashLightSource = Util.FindChild(otherDediPlayerGameObject, "FlashLightSource", true);
 
+            GameObject flashlightGameObject = Util.FindChild(otherDediPlayerGameObject, "3", true);
+            if (flashlightGameObject != null)
+            {
+                GameObject lightGameObject = Util.FindChild(_flashLightSource, "Light", true);
+                if (lightGameObject != null)
+                {
                     //애니메이션 킴
                     PlayerAnimController anim = Managers.Player.GetAnimator(PlayerID);
                     anim.isFlashlight = true;
                     anim.PlayAnim();
 
-                    _light = _lightGameObject.GetComponent<Light>();
+                    //라이트 킴
+                    _light = lightGameObject.GetComponent<Light>();
                     _light.enabled = true;
                     _light.range = FlashlightDistance;
                     _light.spotAngle = FlashlightAngle;
@@ -193,7 +198,15 @@ public class Flashlight : MonoBehaviour, IItem
                     _currentPlayingCoroutine = StartCoroutine(LightOffAfterSeconds(FlashlightAvailableTime));
 
                 }
-            }   
+                else
+                {
+                    return false;
+                }
+            }
+            else
+            {
+                return false;
+            }
         }
 
         Debug.Log("Item Flashlight Use");
@@ -215,16 +228,16 @@ public class Flashlight : MonoBehaviour, IItem
         }
 
         yield return new WaitForSeconds(seconds);
-        _light.enabled = false;
+        
         _isLightOn = false;
+
+        //라이트 끔
+        _light.enabled = false;
 
         //애니메이션 끔
         PlayerAnimController anim = Managers.Player.GetAnimator(PlayerID);
         anim.isFlashlight = false;
         anim.PlayAnim();
-
-        //회전 원복
-        _lightGameObject.transform.rotation = _originalLightRotation;
 
         //파괴
         Object.Destroy(gameObject);
