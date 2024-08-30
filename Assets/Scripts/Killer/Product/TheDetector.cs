@@ -143,7 +143,6 @@ public class TheDetector : MonoBehaviour, IKiller
             //감지된 플레이어 카메라 Init
             temp = Managers.Resource.Instantiate("WorldScan/DetectorCamera");
             _detectorCamera = temp.GetComponent<DetectorCamera>();
-            _detectorCamera.mainCamera = _mainCamera;
             _detectorCamera.enabled = true;
         }
     }

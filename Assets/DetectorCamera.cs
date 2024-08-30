@@ -8,7 +8,7 @@ using UnityEngine;
 public class DetectorCamera : MonoBehaviour
 {
     public Camera targetCamera;
-    public Camera mainCamera;
+    public Transform mainCamera;
     public Shader replacementShader; // The replacement shader that will render the specific GameObject
 
     private int originalLayer; // Store the original layer of the GameObject
@@ -16,7 +16,11 @@ public class DetectorCamera : MonoBehaviour
 
     void OnEnable()
     {
-        mainCamera = Camera.main;
+        if (!Managers.Player.IsMyDediPlayerKiller())
+        {
+            enabled = false;
+        }
+        mainCamera = GameObject.Find("Main Camera").transform;
         if (targetCamera == null)
         {
             targetCamera = transform.GetComponent<Camera>();
@@ -31,11 +35,17 @@ public class DetectorCamera : MonoBehaviour
 
     void Update()
     {
-        if (!_isDetecting)
+        if (_isDetecting)
         {
-            transform.rotation = mainCamera.transform.rotation;
-            Vector3 relativePosition = mainCamera.transform.position - transform.position;
+            Quaternion relativeRotation = mainCamera.rotation * Quaternion.Inverse(transform.rotation);
+            transform.rotation = relativeRotation;
+            Vector3 relativePosition = mainCamera.position - transform.position;
             transform.position += relativePosition;
+        }
+        else
+        {
+            transform.rotation = mainCamera.rotation;
+            transform.position = mainCamera.position;
         }
     }
     
