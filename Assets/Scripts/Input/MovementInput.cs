@@ -17,9 +17,9 @@ public class MovementInput : MonoBehaviour
     static int sensitivityAdjuster = 3;
     static float _walkSpeed = 2f;
     static float _runSpeed = 3f;
-    public static float _minViewDistance = 15f;
+    public static float _minViewDistance = 50f;
     static float _mouseSensitivity;
-    private float _rotationX = 0f;
+    public float _rotationX = 0f;
     public Vector3 _velocity;
 
     CharacterController _controller;
@@ -153,6 +153,14 @@ public class MovementInput : MonoBehaviour
         packet.Velocity = velocity;
 
         packet.Timestamp = Managers.Time.GetDediServerTime().ToTimestamp();
+
+        packet.CameraWorldRotation = new RotationInfo()
+        {
+            RotX = _camera.rotation.x,
+            RotY = _camera.rotation.y,
+            RotZ = _camera.rotation.z,
+            RotW = _camera.rotation.w
+        };
         
         Managers.Network._dedicatedServerSession.Send(packet);
         

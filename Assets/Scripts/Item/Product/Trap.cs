@@ -43,7 +43,7 @@ public class Trap : MonoBehaviour, IItem
         StunDuration = stunDuration;
     }
 
-    public void Update()
+    public void LateUpdate()
     {
         if (_onHoldTrigger)
         {
