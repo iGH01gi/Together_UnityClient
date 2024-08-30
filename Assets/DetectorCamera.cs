@@ -1,18 +1,22 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 [ExecuteInEditMode]
 public class DetectorCamera : MonoBehaviour
 {
-    public Camera targetCamera; // The camera that should render the specific GameObject
+    public Camera targetCamera;
+    public Camera mainCamera;
     public Shader replacementShader; // The replacement shader that will render the specific GameObject
 
     private int originalLayer; // Store the original layer of the GameObject
+    
 
     private void Start()
     {
+        mainCamera = Camera.main;
         if (targetCamera == null)
         {
             targetCamera = transform.GetComponent<Camera>();
@@ -23,6 +27,13 @@ public class DetectorCamera : MonoBehaviour
             return;
         }
         targetCamera.SetReplacementShader(replacementShader, "");
+    }
+
+    void Update()
+    {
+        transform.rotation = mainCamera.transform.rotation;
+        Vector3 relativePosition = mainCamera.transform.position - transform.position;
+        transform.position += relativePosition;
     }
     
     void OnDisable()

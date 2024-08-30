@@ -6,10 +6,11 @@ Shader "Unlit/DetectorReplacementShader"
         _Color ("Main Color", Color) = (1, 1, 1, 1) // Color property
         _Smoothness("_Smoothness", Range(0, 1)) = 0
         _Metallic ("Metallic", Range(0,1)) = 0.0 // Float range property
+        _EmissionMap("Emission Map", 2D) = "black" {}
         
         _HighlightValue ("HighlightValue", Float) = 0.0
-        [HDR]_Rim_Color("Rim Color", Color) = (0, 0, 0, 0)
-        _BaseColor("_BaseColor", Color) = (1, 1, 1, 1)
+        [HDR]_Rim_Color("Rim Color", Color) = (1, 1, 1 ,1)
+        [HDR]_BaseColor("_BaseColor", Color) = (1, 1, 1, 1)
     }
     SubShader
     {
@@ -36,6 +37,7 @@ Shader "Unlit/DetectorReplacementShader"
         {
             float2 uv_MainTex; // UV coordinates for the main texture
         };
+        
 
         // Surface shader function
         void surf (Input IN, inout SurfaceOutputStandard o)
@@ -45,26 +47,25 @@ Shader "Unlit/DetectorReplacementShader"
 
             // Use the texture color multiplied by the _Color property
             //o.Albedo = tex.rgb * _Color.rgb;
-            o.Albedo = tex.rgb * lerp(_BaseColor,_Rim_Color,_HighlightValue);
+            o.Albedo = lerp(_BaseColor,_Rim_Color,_HighlightValue);
 
             // Set smoothness and metallic based on properties
             o.Smoothness = _Smoothness;
             o.Metallic = _Metallic;
-            o.Occlusion = 0.5;
+            o.Occlusion = 1;
+            o.Emission = (_BaseColor.rgb * _HighlightValue)/2 + 0.3;
             
-            //o.Emission = _Rim_Color.rgb * _HighlightValue;
             
            // o.Normal
             //o.Emission
             //o.Alpha
         }
-
         /*half4 frag (Input IN) : SV_Target
             {
                 // Determine the color output based on _HighlightValue
                 fixed4 color = tex2D(_SetTex, IN.uv_MainTex);
                 
-                if (_HighlightValue <= 0.1)
+                if (_HighlightValue <= 0.3)
                 {
                     discard;
                 }
