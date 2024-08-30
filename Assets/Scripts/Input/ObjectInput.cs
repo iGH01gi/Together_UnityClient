@@ -8,42 +8,6 @@ public class ObjectInput : MonoBehaviour
 {
     #region 내 플레이어만 사용하는 것들
 
-    private void Start()
-    {
-        GetComponent<PlayerInput>().DeactivateInput();
-    }
-    
-    private void OnTriggerEnter(Collider other)
-    {
-        Debug.Log(other.tag);
-        if (Managers.Game._isDay)
-        {
-            //상자 트리거 처리
-            if(other.CompareTag("Chest") && !other.transform.parent.GetComponent<Chest>()._isOpened)
-            {
-                ChangeHighlightChest(other.transform.parent.gameObject);
-            }
-        }
-        else
-        {
-            //킬러일 때 생존자 공격 트리거 처리
-            if (Managers.Player.IsMyDediPlayerKiller())
-            {
-                if (other.CompareTag("SurvivorTrigger") && Managers.Player._myDediPlayer.transform.GetComponentInChildren<PlayerAnimController>().IsAttacking())
-                {
-                    Debug.Log("Attacked Player with ID: "+other.transform.parent.GetComponent<OtherDediPlayer>().PlayerId);
-                }
-            }
-            else
-            {
-                //생존자일 때 클렌즈 처리
-                if (other.CompareTag("Cleanse") && other.transform.parent.GetComponent<Cleanse>()._isAvailable)
-                {
-                    _currentCleanse = other.transform.parent.gameObject;
-                }
-            }
-        }
-    }
     public GameObject _currentChest;
     public GameObject _currentCleanse;
 
