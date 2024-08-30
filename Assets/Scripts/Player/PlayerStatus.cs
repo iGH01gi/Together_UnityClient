@@ -5,4 +5,6 @@
 public class PlayerStatus
 {
     public bool _isCurrentTrapped = false; //현재 트랩에 걸렸는지 여부
+
+    public bool _isFlashed = false; //현재 플래시에 맞았는지 여부
 }

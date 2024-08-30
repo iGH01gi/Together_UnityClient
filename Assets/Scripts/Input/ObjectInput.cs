@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -84,7 +85,14 @@ public class ObjectInput : MonoBehaviour
     }
 
     #endregion
-    
+
+    public void Clear()
+    {
+        _currentChest = null;
+        _currentCleanse = null;
+    }
+
+    #region 트랩 관련
 
     /// <summary>
     /// 서버측 판정으로 트랩에 걸렸을때 처리하는 함수
@@ -138,14 +146,14 @@ public class ObjectInput : MonoBehaviour
             myDediPlayer._playerStatus._isCurrentTrapped = false;
         }
         else //다른 플레이어일때
-        {Debug.Log("다른플레이어 덫걸렷는데 애니메이션 재생왜안되지?");
+        {
             GameObject otherDediPlayerGameObject = Managers.Player._otherDediPlayers[dediPlayerId];
             OtherDediPlayer otherDediPlayer = otherDediPlayerGameObject.GetComponent<OtherDediPlayer>();
             if (otherDediPlayer._playerStatus._isCurrentTrapped) //이미 트랩에 걸렸으면 리턴
             {
                 yield break;
             }
-            
+
 
             //애니메이션 재생
             PlayerAnimController playerAnimController = otherDediPlayerGameObject.GetComponentInChildren<PlayerAnimController>();
@@ -154,7 +162,7 @@ public class ObjectInput : MonoBehaviour
             //고스트 따라가기 막음
             otherDediPlayer.ToggleFollowGhost(false);
             //현재 트랩에 걸렸다고 표시
-            otherDediPlayer._playerStatus._isCurrentTrapped = true; 
+            otherDediPlayer._playerStatus._isCurrentTrapped = true;
 
             //스턴시간만큼 기다림
             float estimatedStunDuration = stunDuration - Managers.Time.GetEstimatedLatency();
@@ -170,9 +178,89 @@ public class ObjectInput : MonoBehaviour
         }
     }
 
-    public void Clear()
+
+    #endregion
+
+    #region 손전등 관련
+
+    private Coroutine _currentPlayingFlashedCoroutine;
+
+    public void ProcessFlashed(int dediPlayerId)
     {
-        _currentChest = null;
-        _currentCleanse = null;
+        if (dediPlayerId == Managers.Player._myDediPlayerId) //내 플레이어일때
+        {
+            GameObject myDediPlayerGameObject = Managers.Player._myDediPlayer;
+            MyDediPlayer myDediPlayer = myDediPlayerGameObject.GetComponent<MyDediPlayer>();
+
+            if (myDediPlayer._playerStatus._isFlashed) //이미 실명에 걸렸으면 기존 코루틴 취소하고 재 실명처리
+            {
+                StopCoroutine(_currentPlayingFlashedCoroutine);
+                _currentPlayingFlashedCoroutine = StartCoroutine(Flashed(dediPlayerId));
+                return;
+            }
+            _currentPlayingFlashedCoroutine = StartCoroutine(Flashed(dediPlayerId));
+        }
+        else
+        {
+            GameObject otherDediPlayerGameObject = Managers.Player._otherDediPlayers[dediPlayerId];
+            OtherDediPlayer otherDediPlayer = otherDediPlayerGameObject.GetComponent<OtherDediPlayer>();
+
+            if (otherDediPlayer._playerStatus._isFlashed) //이미 실명에 걸렸으면 기존 코루틴 취소하고 재 실명처리
+            {
+                StopCoroutine(_currentPlayingFlashedCoroutine);
+                _currentPlayingFlashedCoroutine = StartCoroutine(Flashed(dediPlayerId));
+                return;
+            }
+
+            _currentPlayingFlashedCoroutine = StartCoroutine(Flashed(dediPlayerId));
+        }
+
     }
+
+    private IEnumerator Flashed(int dediPlayerId)
+    {
+        float blindDuration = (Managers.Item._itemFactories[3] as FlashlightFactory).BlindDuration;
+
+        if (dediPlayerId == Managers.Player._myDediPlayerId) //내 플레이어일때
+        {
+            GameObject myDediPlayerGameObject = Managers.Player._myDediPlayer;
+            MyDediPlayer myDediPlayer = myDediPlayerGameObject.GetComponent<MyDediPlayer>();
+
+            //현재 플래시에 맞았다고 표시
+            Debug.Log("내 시야 막힘 플래시맞아서!!!!!!!!!!!!!!!");
+            myDediPlayer._playerStatus._isFlashed = true;
+            //TODO: 내 시야 가리기
+
+            //실명시간만큼 기다림
+            yield return new WaitForSeconds(blindDuration);
+
+            //실명에 걸린 상태 해제
+            Debug.Log("내 시야 풀림@@@@@@@@@@@@@@@@");
+            myDediPlayer._playerStatus._isFlashed = false;
+            //TODO: 내 시야 복구
+        }
+        else
+        {
+            GameObject otherDediPlayerGameObject = Managers.Player._otherDediPlayers[dediPlayerId];
+            OtherDediPlayer otherDediPlayer = otherDediPlayerGameObject.GetComponent<OtherDediPlayer>();
+
+            //현재 플래시에 맞았다고 표시
+            otherDediPlayer._playerStatus._isFlashed = true;
+            //TODO: 다른 플레이어 시야 가려졌다는 이펙트 표시
+
+            //실명시간만큼 기다림
+            yield return new WaitForSeconds(blindDuration);
+
+            //실명에 걸린 상태 해제
+            otherDediPlayer._playerStatus._isFlashed = false;
+            //TODO: 다른 플레이어 시야 가려졌다는 이펙트 지우기
+
+        }
+    }
+
+    #endregion
+
+
+
+
 }
