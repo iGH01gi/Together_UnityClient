@@ -56,6 +56,10 @@ public class SyncMoveController
 
         DateTime pastDateTime = packet.Timestamp.ToDateTime();
 
+        //카메라 회전값(해당 플레이어의 시야 위아래 표현을 위해서..)
+        Quaternion cameraWorldRotation = new Quaternion(packet.CameraWorldRotation.RotX,
+            packet.CameraWorldRotation.RotY, packet.CameraWorldRotation.RotZ, packet.CameraWorldRotation.RotW);
+
         //이미 죽은 플레이어라면 무시
         if (Managers.Player.IsPlayerDead(playerId))
         {
@@ -90,6 +94,9 @@ public class SyncMoveController
                 
                 //회전해야하는 값 세팅해주기
                 playerObj.GetComponent<OtherDediPlayer>()._targetRotation = pastLocalRotation;
+
+                //카메라 회전값(시야 회전값) 저장
+                playerObj.GetComponent<OtherDediPlayer>()._cameraWorldRotation = cameraWorldRotation;
             }
         }
     }

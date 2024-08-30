@@ -271,6 +271,11 @@ public class PlayerManager
         if (playerId == Managers.Player._myDediPlayerId)
         {
             Transform t = Util.FindChild(_myDediPlayer, "WeaponR_Parent", true).transform;
+            if (t == null)
+            {
+                return;
+            }
+
             _myDediPlayer.GetComponent<MyDediPlayer>()._currentItemID = itemId;
             if (playerId != GetKillerId())
             {

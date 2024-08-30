@@ -9,6 +9,8 @@ public class OtherDediPlayer : MonoBehaviour
     public int PlayerId { get; set; }
     public string Name { get; set; }
 
+    public Quaternion _cameraWorldRotation = Quaternion.identity; //카메라의 월드 회전값
+
     public bool _isKiller = false; //킬러 여부
     public int _killerType = -1; //어떤 킬러타입인지를 나타내는 ID
     
