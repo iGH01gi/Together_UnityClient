@@ -47,10 +47,6 @@ public class TheHeartless : MonoBehaviour, IKiller
 
     public void Use(int killerPlayerId)
     {
-        //테스트 용도 코드 끝나면 지우기///
-        SkillCoolTimeSeconds = 4f;
-        HeartlessSeconds = 5f;
-        ///////////////////////////////////////
         if (Managers.Player._myDediPlayerId == killerPlayerId && CanUseSkill)
         {
             //스킬 사용 처리
@@ -92,5 +88,11 @@ public class TheHeartless : MonoBehaviour, IKiller
         yield return new WaitForSeconds(SkillCoolTimeSeconds);
         CanUseSkill = true;
         Managers.Sound.Play("SkillReady");
+    }
+    
+    public void UnAssign()
+    {
+        CanUseSkill = false;
+        Managers.Sound.Play("tense-horror-background", Define.Sound.Bgm); 
     }
 }

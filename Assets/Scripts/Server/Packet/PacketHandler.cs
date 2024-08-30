@@ -790,13 +790,13 @@ public class PacketHandler
         int killerPlayerId = useDetectorSkillPacket.PlayerId;
         int skillId = useDetectorSkillPacket.KillerId;
         
-
-        //내가 쓴 스킬은 브로드캐스트 받으면 안됨
-        if (killerPlayerId != Managers.Player._myDediPlayerId)
+        
+        //감지된 플레이어만 이펙트
+        foreach(int detectedPlayer in useDetectorSkillPacket.DetectedPlayerIds)
         {
-            foreach (var victim in useDetectorSkillPacket.DetectedPlayerIds)
+            if (detectedPlayer != killerPlayerId)
             {
-                Managers.Killer.UseSkill(victim, skillId);
+                Managers.Killer.UseSkill(detectedPlayer, skillId);
             }
         }
     }

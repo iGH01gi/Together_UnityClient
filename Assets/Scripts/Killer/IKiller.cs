@@ -31,4 +31,8 @@ public interface IKiller
     void BaseAttack()
     {
     }
+    
+    void UnAssign()
+    {
+    }
 }

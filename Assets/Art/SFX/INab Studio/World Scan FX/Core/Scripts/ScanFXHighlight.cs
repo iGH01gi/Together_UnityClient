@@ -37,7 +37,7 @@ namespace INab.WorldScanFX
 
         private void Awake()
         {
-            highlightMaterial = Resources.Load("Highlight", typeof(Material)) as Material;
+            highlightMaterial = Resources.Load($"Prefabs/WorldScan/Highlight", typeof(Material)) as Material;
             Debug.Log("Highlight Material: " + highlightMaterial.name);
         }
 
