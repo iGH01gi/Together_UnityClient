@@ -67,12 +67,12 @@ public class TheDetector : MonoBehaviour, IKiller
 
     private void UseAbility()
     {
-        ScanFX scanFX = Managers.Player._myDediPlayer.GetComponentInChildren<ScanFX>();
+        /*ScanFX scanFX = Managers.Player._myDediPlayer.GetComponentInChildren<ScanFX>();
         if (scanFX != null)
         {
             scanFX.PassScanOriginProperties();
             scanFX.StartScan(1);
-        }
+        }*/
         //Use Ability
         //Detect survivors
         //Send packet
