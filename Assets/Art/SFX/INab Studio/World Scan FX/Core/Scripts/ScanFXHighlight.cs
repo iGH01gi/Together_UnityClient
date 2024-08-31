@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Text;
+using Google.Protobuf.Protocol;
 using UnityEngine;
 using UnityEngine.Events;
 
@@ -141,7 +142,7 @@ namespace INab.WorldScanFX
             }
             else
             {
-                //TODO: OnHit 패킷 보내기
+                CDS_DetectedPlayers 
             }
 
             enumerator = EffectEnumerator();
