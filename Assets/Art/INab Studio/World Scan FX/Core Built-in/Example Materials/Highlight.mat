@@ -127,7 +127,7 @@ Material:
     - _Cull: 2
     - _CullMode: 2
     - _CullModeForward: 2
-    - _CurrentScanValue: 0
+    - _CurrentScanValue: 0.134
     - _Cutoff: 0
     - _DepthOffsetEnable: 0
     - _Distance_Offset: -4.5
@@ -143,9 +143,9 @@ Material:
     - _FovMaskSmothness: 0
     - _HighlighValue: 1
     - _HighlightValue: 1
-    - _MaskHardness: 0.795
-    - _MaskPower: 1
-    - _MaskRadius: 30.51
+    - _MaskHardness: 1
+    - _MaskPower: 3
+    - _MaskRadius: 10
     - _Metallic: 0
     - _OcclusionStrength: 0
     - _OpaqueCullMode: 2
@@ -159,7 +159,7 @@ Material:
     - _RenderQueueType: 1
     - _RequireSplitLighting: 0
     - _Rim_Power: 0.88
-    - _Size: 8
+    - _Size: 4
     - _SizeAdjust: 0.28
     - _Smoothness: 0
     - _SrcBlend: 1
@@ -197,8 +197,8 @@ Material:
     - _BaseColor: {r: 0, g: 0.020182133, b: 1, a: 1}
     - _DoubleSidedConstants: {r: 1, g: 1, b: -1, a: 0}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
-    - _Forward: {r: -0.22324334, g: 0, b: 0.97476274, a: 0}
-    - _Origin: {r: 137.54517, g: 2.0791857, b: -48.038097, a: 0}
+    - _Forward: {r: 0, g: 0, b: 1, a: 0}
+    - _Origin: {r: 133.4, g: 2.9, b: -49.8, a: 0}
     - _Rim_Color: {r: 0.39215687, g: 0.8156863, b: 4, a: 1}
     - _Tiling: {r: 1, g: 1, b: 0, a: 0}
   m_BuildTextureStacks: []
