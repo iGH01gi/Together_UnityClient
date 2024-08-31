@@ -131,7 +131,7 @@ public class InventoryManager : MonoBehaviour
                 _address[itemID].ClearSlot();
                 _address.Remove(itemID);
                 _ownedItems.Remove(itemID);
-                _hotbar.HoldHotbarItem();
+                //_hotbar.HoldHotbarItem();  이건 아이템 각각이 개별로 처리하는 걸로...
             }
             else
             {
