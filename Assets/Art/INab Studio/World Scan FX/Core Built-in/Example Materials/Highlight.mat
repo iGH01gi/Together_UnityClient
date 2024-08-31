@@ -127,7 +127,7 @@ Material:
     - _Cull: 2
     - _CullMode: 2
     - _CullModeForward: 2
-    - _CurrentScanValue: 1
+    - _CurrentScanValue: 0
     - _Cutoff: 0
     - _DepthOffsetEnable: 0
     - _Distance_Offset: -4.5
@@ -197,8 +197,8 @@ Material:
     - _BaseColor: {r: 0, g: 0.020182133, b: 1, a: 1}
     - _DoubleSidedConstants: {r: 1, g: 1, b: -1, a: 0}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
-    - _Forward: {r: -0.9982589, g: 0, b: -0.058985233, a: 0}
-    - _Origin: {r: 136.9295, g: 2.0197911, b: -55.35993, a: 0}
+    - _Forward: {r: -0.22324334, g: 0, b: 0.97476274, a: 0}
+    - _Origin: {r: 137.54517, g: 2.0791857, b: -48.038097, a: 0}
     - _Rim_Color: {r: 0.39215687, g: 0.8156863, b: 4, a: 1}
     - _Tiling: {r: 1, g: 1, b: 0, a: 0}
   m_BuildTextureStacks: []

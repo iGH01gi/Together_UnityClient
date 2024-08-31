@@ -142,7 +142,10 @@ namespace INab.WorldScanFX
             }
             else
             {
-                CDS_DetectedPlayers 
+                CDS_DetectedPlayer detectedPlayer = new CDS_DetectedPlayer();
+                detectedPlayer.DetectedPlayerId = Managers.Player._myDediPlayerId;
+                detectedPlayer.MyDediplayerId = detectedPlayer.DetectedPlayerId;
+                Managers.Network._dedicatedServerSession.Send(detectedPlayer);
             }
 
             enumerator = EffectEnumerator();

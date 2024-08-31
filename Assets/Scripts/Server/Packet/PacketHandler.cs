@@ -825,10 +825,14 @@ public class PacketHandler
 
         Debug.Log("DSC_DetectedPlayerHandler");
 
-        int killerPlayerId = detectedPlayerPacket.PlayerId;
+        int killerPlayerId = detectedPlayerPacket.KillerId;
         int detectedPlayerId = detectedPlayerPacket.DetectedPlayerId;
-        
-        Managers.Killer.UseSkill(detectedPlayerId, 1);
+
+        if (killerPlayerId != Managers.Player._myDediPlayerId)
+        {
+            Managers.Killer.UseSkill(detectedPlayerId, killerPlayerId);
+        }
+    }
 
     //데디케이티드서버로부터 승자가 정해졌다는 정보를 받았을때의 처리
     public static void DSC_EndGameHandler(PacketSession session, IMessage packet)
