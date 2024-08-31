@@ -15,6 +15,8 @@ public class InventoryManager : MonoBehaviour
     public Dictionary<int,int> _ownedItems = new Dictionary<int, int>(); //key: 아이템Id, value: 아이템 개수
     public Dictionary<int,InventorySlot> _address = new Dictionary<int, InventorySlot>();
 
+    private List<int> _exceptionHoldHotbarItemId = new List<int>{ 0, 3, 4 }; //holdHotbarItem 예외 아이템Id 리스트 (아이템 자체적으로 holdHotbarItem을 호출하는 아이템들의 id)
+
     public void Init()
     {
         _totalPoint = 0;
@@ -116,6 +118,7 @@ public class InventoryManager : MonoBehaviour
         }
     }
     #endregion
+
     
     /// <summary>
     /// 아이템을 인벤토리에서 1개 제거함
@@ -131,7 +134,12 @@ public class InventoryManager : MonoBehaviour
                 _address[itemID].ClearSlot();
                 _address.Remove(itemID);
                 _ownedItems.Remove(itemID);
-                //_hotbar.HoldHotbarItem();  이건 아이템 각각이 개별로 처리하는 걸로...
+
+                //_exceptionHoldHotbarItemId에 포함되어 있지 않은 아이템이라면 holdHotbarItem 호출
+                if (!_exceptionHoldHotbarItemId.Contains(itemID))
+                {
+                    _hotbar.HoldHotbarItem();
+                }
             }
             else
             {

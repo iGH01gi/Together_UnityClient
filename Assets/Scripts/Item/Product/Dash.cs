@@ -48,6 +48,9 @@ public class Dash : MonoBehaviour, IItem
                     Managers.Player._otherDediPlayers[PlayerID].GetComponent<OtherDediPlayer>().ToggleFollowGhost(true);
                 }
 
+                //아이템 들고있는 상태 업뎃
+                Managers.Inventory._hotbar.HoldHotbarItem();
+
                 //대시가 끝났으므로 대시오브젝트 삭제
                 Destroy(gameObject);
             }
@@ -124,9 +127,6 @@ public class Dash : MonoBehaviour, IItem
 
         //대시 시작(update문에서 대시 수행)
         _isDashing = true;
-
-        //아이템 들고있는 상태 업뎃
-        Managers.Inventory._hotbar.HoldHotbarItem();
 
         return true;
     }

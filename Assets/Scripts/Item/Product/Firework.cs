@@ -80,9 +80,6 @@ public class Firework : MonoBehaviour,IItem
             }
         }
 
-        //아이템 들고있는 상태 업뎃
-        Managers.Inventory._hotbar.HoldHotbarItem();
-
         //5초후 폭죽 오브젝트 삭제
         StartCoroutine(DestroyAfterSeconds(5f));
         return true;

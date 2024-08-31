@@ -19,6 +19,8 @@ public class Invisible : MonoBehaviour, IItem
     private GameObject _player;
     private GameObject _rootM; //투명 처리를 위해서 껐다 킬 오브젝트
     private float _animationSeconds = 0.7f;
+    private bool _isInvisibleNow = false;
+    private Coroutine _currentPlayingCoroutine;
 
     public void Init(int itemId, int playerId, string englishName)
     {
@@ -35,64 +37,78 @@ public class Invisible : MonoBehaviour, IItem
     
     public bool Use(IMessage recvPacket = null)
     {
-        Managers.Player.GetAnimator(PlayerID).SetTriggerByString("Invisible");
-        Debug.Log("Item Invisible Use");
-
         if (PlayerID == Managers.Player._myDediPlayerId)
         {
-            //투명 아이템 사용 패킷 서버로 보내기
+            //이미 사용중인데 또 사용하려고 하면, 기존 코루틴 종료하고 코루틴 다시시작
+            if (_isInvisibleNow)
+            {
+                StopCoroutine(_currentPlayingCoroutine);
+                _rootM.SetActive(false);
+                _currentPlayingCoroutine = StartCoroutine(ToggleRootM());
+                return true;
+            }
+
+            //애니메이션 재생
+            Managers.Player.GetAnimator(PlayerID).SetTriggerByString("Invisible");
+
+            _player = Managers.Player._myDediPlayer;
+            _rootM = Util.FindChild(_player, "Root_M", true);
+
+            _currentPlayingCoroutine = StartCoroutine(ToggleRootM());
+            return true;
+        }
+        else
+        {
+            //이미 사용중인데 또 사용하려고 하면, 기존 코루틴 종료하고 코루틴 다시시작
+            if (_isInvisibleNow)
+            {
+                StopCoroutine(_currentPlayingCoroutine);
+                _rootM.SetActive(false);
+                _currentPlayingCoroutine = StartCoroutine(ToggleRootM());
+                return true;
+            }
+
+            //애니메이션 재생
+            Managers.Player.GetAnimator(PlayerID).SetTriggerByString("Invisible");
+
+            _player = Managers.Player.GetPlayerObject(PlayerID);
+            _rootM = Util.FindChild(_player, "Root_M", true);
+
+            _currentPlayingCoroutine = StartCoroutine(ToggleRootM());
+            return true;
+        }
+
+    }
+
+
+    IEnumerator ToggleRootM()
+    {
+        if (PlayerID == Managers.Player._myDediPlayerId)
+        {
+            // 투명 아이템 사용 패킷 서버로 보내기
             CDS_UseInvisibleItem cdsUseInvisibleItem = new CDS_UseInvisibleItem();
             cdsUseInvisibleItem.MyDediplayerId = PlayerID;
             cdsUseInvisibleItem.ItemId = ItemID;
             Managers.Network._dedicatedServerSession.Send(cdsUseInvisibleItem);
-
-            _player = Managers.Player._myDediPlayer;
-            _rootM = Util.FindChild(_player, "Root_M", true);
         }
-        else
+
+        if (_isInvisibleNow == false)
         {
-            _player = Managers.Player._otherDediPlayers[PlayerID];
-            _rootM = Util.FindChild(_player, "Root_M", true);
+            //_animationSeconds만큼 대기(애니메이션 재생시간)
+            yield return new WaitForSeconds(_animationSeconds);
         }
 
-        StartCoroutine(ToggleRootM(_rootM));
-        return true;
-    }
-
-    IEnumerator ToggleRootM(GameObject rootM)
-    {
-        //_animationSeconds만큼 대기(애니메이션 재생시간)
-        yield return new WaitForSeconds(_animationSeconds);
+        _isInvisibleNow = true;
 
         // Root_M을 비활성화
-        rootM.SetActive(false);
+        _rootM.SetActive(false);
         Debug.Log("Root_M has been turned off.");
 
         // 2초 대기
         yield return new WaitForSeconds(InvisibleSeconds);
 
-        //TODO:동일 현재 아이템이 아닌 playerID의 Invisible아이템이 존재한다면 rootM을 다시 활성화하지 않고 
-        GameObject itemRoot = GameObject.Find("@Item");
-        bool isUsingMoreInvisible = false; //해당 플레이어가 추가로 투명아이템을 사용했는지 여부
-        if (itemRoot != null)
-        {
-            foreach (Transform child in itemRoot.transform)
-            {
-                if (child.name == "Invisible" && child.GetComponent<Invisible>().PlayerID == PlayerID && !child.gameObject.Equals(gameObject))
-                {
-                    Debug.Log("Invisible item is ");
-                    isUsingMoreInvisible = true;
-                    break;
-                }
-            }
-        }
-
-        if (!isUsingMoreInvisible) //추가로 투명아이템을 사용하지 않았다면
-        {
-            // Root_M을 다시 활성화
-            rootM.SetActive(true);
-            Debug.Log("Root_M has been turned on.");
-        }
+        // Root_M을 활성화
+        _rootM.SetActive(true);
 
         //투명 끝났으므로 오브젝트 삭제
         Destroy(gameObject);

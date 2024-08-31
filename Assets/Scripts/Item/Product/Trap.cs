@@ -185,6 +185,9 @@ public class Trap : MonoBehaviour, IItem
 
         yield return new WaitForSeconds(animationSeconds);
 
+        //아이템 들고있는 상태 업뎃
+        Managers.Inventory._hotbar.HoldHotbarItem();
+
         //트랩 보이게 함
         gameObject.GetComponent<MeshRenderer>().enabled = true;
         gameObject.GetComponent<SphereCollider>().enabled = true;

@@ -15,10 +15,40 @@ public class InvisibleFactory : ItemFactory
     
     public override GameObject CreateItem(int playerId)
     {
-        GameObject invisibleGameObject = new GameObject("Invisible");
-        Invisible invisible = invisibleGameObject.AddComponent<Invisible>();
-        invisible.Init(FactoryId, playerId, FactoryEnglishName, InvisibleSeconds);
-        return invisibleGameObject;
+        if (playerId == Managers.Player._myDediPlayerId)
+        {
+            GameObject existedInvisibleGameObject = null;
+            Transform existedInvisibleTransform = Managers.Item._root.transform.Find($"Invisible{playerId}");
+            if (existedInvisibleTransform != null)
+            {
+                existedInvisibleGameObject = existedInvisibleTransform.gameObject;
+                return existedInvisibleGameObject;
+            }
+            else
+            {
+                GameObject invisibleGameObject = new GameObject($"Invisible{playerId}");
+                Invisible invisible = invisibleGameObject.AddComponent<Invisible>();
+                invisible.Init(FactoryId, playerId, FactoryEnglishName, InvisibleSeconds);
+                return invisibleGameObject;
+            }
+        }
+        else
+        {
+            GameObject existedInvisibleGameObject = null;
+            Transform existedInvisibleTransform = Managers.Item._root.transform.Find($"Invisible{playerId}");
+            if (existedInvisibleTransform != null)
+            {
+                existedInvisibleGameObject = existedInvisibleTransform.gameObject;
+                return existedInvisibleGameObject;
+            }
+            else
+            {
+                GameObject invisibleGameObject = new GameObject($"Invisible{playerId}");
+                Invisible invisible = invisibleGameObject.AddComponent<Invisible>();
+                invisible.Init(FactoryId, playerId, FactoryEnglishName, InvisibleSeconds);
+                return invisibleGameObject;
+            }
+        }
     }
 
     public override GameObject CreateOnHoldItem(int playerId)
