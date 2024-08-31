@@ -1011,7 +1011,7 @@ Transform:
   m_GameObject: {fileID: 927849883}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 3.5684245, y: 1.375, z: -0.50947857}
+  m_LocalPosition: {x: 133.4, y: 2.9, z: -49.8}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1092,25 +1092,25 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 927849883}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: f1503f1c11efcb44e8c80a7f8ce78719, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   updateScanMaterialProperties: 1
   scanMaterial: {fileID: 2100000, guid: cd158a52d8e83fc45a5e92d20a9667aa, type: 2}
-  scanOrigin: {fileID: 0}
+  scanOrigin: {fileID: 927849887}
   alwaysPassScanOriginPosition: 1
   alwaysPassScanOriginDirection: 1
   scanDuration: 3
   scansLeft: 0
   timeLeft: 0
   timePassed: 0
-  currentScanValueTesting: 0
+  currentScanValueTesting: 0.134
   scansNumberTesting: 1
-  _Size: 8
+  _Size: 4
   _SizeAdjust: 0.28
-  _OriginOffset: 2
+  _OriginOffset: 1
   _EdgeColor: {r: 0.39215687, g: 0.8156863, b: 4, a: 1}
   _EdgeHardness: 1
   _EdgePower: 10
@@ -1118,15 +1118,15 @@ MonoBehaviour:
   _HighlightColor: {r: 0.454902, g: 0.4980392, b: 1, a: 1}
   _HighlightPower: 3
   _HighlightMultiplier: 1
-  _MaskRadius: 30.51
-  _MaskHardness: 0.795
-  _MaskPower: 1
+  _MaskRadius: 10
+  _MaskHardness: 1
+  _MaskPower: 3
   _FovMaskEnabled: 0
   _FovMask: 0.199
   _FovMaskSmoothness: 0.08
   _OverlayType: 4
   _OverlayMultiplier: 1
-  _OverlayPower: 0.64
+  _OverlayPower: 0.65
   _OverlayColor: {r: 0, g: 0.2811131, b: 13.928809, a: 1}
   _ScreenTexture: {fileID: 0}
   _ScreenTextureTiling: 0

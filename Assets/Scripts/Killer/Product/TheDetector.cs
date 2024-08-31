@@ -52,22 +52,26 @@ public class TheDetector : MonoBehaviour, IKiller
         Assign();
     }
 
-    public void Use(int killerPlayerId)
+    public void Use(int PlayerId)
     {
-        if (killerPlayerId == Managers.Player._myDediPlayerId && CanUseSkill)
+        if (PlayerId == Managers.Player.GetKillerId())
         {
-            CanUseSkill = false;
-            Managers.Sound.Play("SonarPing");
-            CDS_UseDetectorSkill usePacket = new CDS_UseDetectorSkill();
-            usePacket.MyDediplayerId = Managers.Player._myDediPlayerId;
-            usePacket.KillerId = Id;
-            Managers.Network._dedicatedServerSession.Send(usePacket);
-            Managers.Game._myKillerSkill.UsedSkill(SkillCoolTimeSeconds);
-            StartCoroutine(UseAbility());
+            if(PlayerId == Managers.Player._myDediPlayerId && CanUseSkill)
+            {
+                CanUseSkill = false;
+                Managers.Sound.Play("SonarPing");
+                CDS_UseDetectorSkill usePacket = new CDS_UseDetectorSkill();
+                usePacket.MyDediplayerId = Managers.Player._myDediPlayerId;
+                usePacket.KillerId = Id;
+                Managers.Network._dedicatedServerSession.Send(usePacket);
+                Managers.Game._myKillerSkill.UsedSkill(SkillCoolTimeSeconds,0f);
+                StartCoroutine(UseAbility());
+            }
         }
-        else if (Managers.Player._myDediPlayerId != killerPlayerId)
+        else
         {
-            StartCoroutine(UseAbility());
+            
+            Managers.Sound.Play("Detected");
         }
     }
 

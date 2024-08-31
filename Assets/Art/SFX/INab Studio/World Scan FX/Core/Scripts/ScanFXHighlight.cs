@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Text;
+using Google.Protobuf.Protocol;
 using UnityEngine;
 using UnityEngine.Events;
 
@@ -141,7 +142,10 @@ namespace INab.WorldScanFX
             }
             else
             {
-                //TODO: OnHit 패킷 보내기
+                CDS_DetectedPlayer detectedPlayer = new CDS_DetectedPlayer();
+                detectedPlayer.DetectedPlayerId = Managers.Player._myDediPlayerId;
+                detectedPlayer.MyDediplayerId = detectedPlayer.DetectedPlayerId;
+                Managers.Network._dedicatedServerSession.Send(detectedPlayer);
             }
 
             enumerator = EffectEnumerator();

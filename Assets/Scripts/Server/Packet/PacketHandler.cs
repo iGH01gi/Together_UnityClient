@@ -816,6 +816,23 @@ public class PacketHandler
             Managers.Killer.UseSkill(killerPlayerId, skillId);
         }
     }
+    
+    //데디케이티드서버로부터 Detector가 감지한 생존자의 정보를 받았을 때의 처리
+    public static void DSC_DetectedPlayerHandler(PacketSession session, IMessage packet)
+    {
+        DSC_DetectedPlayer detectedPlayerPacket = packet as DSC_DetectedPlayer;
+        DedicatedServerSession dedicatedServerSession = session as DedicatedServerSession;
+
+        Debug.Log("DSC_DetectedPlayerHandler");
+
+        int killerPlayerId = detectedPlayerPacket.KillerId;
+        int detectedPlayerId = detectedPlayerPacket.DetectedPlayerId;
+
+        if (killerPlayerId != Managers.Player._myDediPlayerId)
+        {
+            Managers.Killer.UseSkill(detectedPlayerId, killerPlayerId);
+        }
+    }
 
     //데디케이티드서버로부터 승자가 정해졌다는 정보를 받았을때의 처리
     public static void DSC_EndGameHandler(PacketSession session, IMessage packet)

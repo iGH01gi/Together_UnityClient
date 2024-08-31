@@ -31,7 +31,7 @@ public class MyKillerSkill : MonoBehaviour
         }
         else
         {
-            IncreaseCoolTime(skillCoolTimeSeconds);
+            StartCoroutine(IncreaseCoolTime(skillCoolTimeSeconds));
         }
     }
 
@@ -51,7 +51,7 @@ public class MyKillerSkill : MonoBehaviour
         _inGameUI.SetSkillCurrentColor(false);
         _currentCoolTime = 0;
         _inGameUI.SetSkillMaxValue(skillCoolTimeSeconds);
-        _inGameUI.SetSkillCurrentValue(_currentCoolTime);
+        _inGameUI.SetSkillCurrentValue(0);
         while (_currentCoolTime < skillCoolTimeSeconds)
         {
             _currentCoolTime += Time.deltaTime;

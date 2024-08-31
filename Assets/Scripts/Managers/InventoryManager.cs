@@ -131,14 +131,14 @@ public class InventoryManager : MonoBehaviour
             _ownedItems[itemID]--;
             if(_ownedItems[itemID] == 0)
             {
-                _address[itemID].ClearSlot();
-                _address.Remove(itemID);
-                _ownedItems.Remove(itemID);
+                _address[itemID].ClearSlot(); //인벤토리 슬롯 비우기
+                _address.Remove(itemID); // 슬롯 주소 삭제
+                _ownedItems.Remove(itemID); //아이템 삭제
 
                 //_exceptionHoldHotbarItemId에 포함되어 있지 않은 아이템이라면 holdHotbarItem 호출
                 if (!_exceptionHoldHotbarItemId.Contains(itemID))
                 {
-                    _hotbar.HoldHotbarItem();
+                    _hotbar.HoldHotbarItem(); //손에 들고있는 프리팹 바꾸고 정보 뿌리기.
                 }
             }
             else
