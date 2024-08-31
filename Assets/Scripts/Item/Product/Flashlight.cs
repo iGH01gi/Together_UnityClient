@@ -242,6 +242,9 @@ public class Flashlight : MonoBehaviour, IItem
         anim.isFlashlight = false;
         anim.PlayAnim();
 
+        //아이템 들고있는 상태 업뎃
+        Managers.Inventory._hotbar.HoldHotbarItem();
+
         //파괴
         Object.Destroy(gameObject);
     }
