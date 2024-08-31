@@ -830,7 +830,7 @@ public class PacketHandler
 
         if (killerPlayerId != Managers.Player._myDediPlayerId)
         {
-            Managers.Killer.UseSkill(detectedPlayerId, killerPlayerId);
+            Managers.Sound.Play("Detected");
         }
     }
 

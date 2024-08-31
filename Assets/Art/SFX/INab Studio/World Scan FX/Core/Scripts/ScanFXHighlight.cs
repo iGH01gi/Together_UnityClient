@@ -124,28 +124,11 @@ namespace INab.WorldScanFX
             if(highlightEvent != null) highlightEvent.Invoke();
 
             alreadyScanned = true;
-
-            //Play Detector detected sound effect
-            if (Managers.Player.IsMyDediPlayerKiller())
-            {
-                Managers.Sound.Play("FoundSurvivor");
-            }
-            else
-            {
-                Managers.Sound.Play("Detected");
-            }
             
             // If the effect is playing, stop coroutine
             if (effectIsPlaying == true)
             {
                 if (enumerator != null) StopCoroutine(enumerator);
-            }
-            else
-            {
-                CDS_DetectedPlayer detectedPlayer = new CDS_DetectedPlayer();
-                detectedPlayer.DetectedPlayerId = Managers.Player._myDediPlayerId;
-                detectedPlayer.MyDediplayerId = detectedPlayer.DetectedPlayerId;
-                Managers.Network._dedicatedServerSession.Send(detectedPlayer);
             }
 
             enumerator = EffectEnumerator();

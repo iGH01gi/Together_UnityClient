@@ -6,6 +6,7 @@ using INab.WorldScanFX.Builtin;
 using TMPro;
 using UnityEngine;
 using UnityEngine.Rendering.PostProcessing;
+using UnityEngine.UI;
 
 public class TheDetector : MonoBehaviour, IKiller
 {
@@ -56,6 +57,8 @@ public class TheDetector : MonoBehaviour, IKiller
     {
         if (PlayerId == Managers.Player.GetKillerId())
         {
+            _scanFX.PassScanOriginProperties();
+            _scanFX.StartScan(1);
             if(PlayerId == Managers.Player._myDediPlayerId && CanUseSkill)
             {
                 CanUseSkill = false;
@@ -68,11 +71,6 @@ public class TheDetector : MonoBehaviour, IKiller
                 StartCoroutine(UseAbility());
             }
         }
-        else
-        {
-            
-            Managers.Sound.Play("Detected");
-        }
     }
 
     public void BaseAttack()
@@ -82,8 +80,6 @@ public class TheDetector : MonoBehaviour, IKiller
 
     IEnumerator UseAbility()
     {
-        _scanFX.PassScanOriginProperties();
-        _scanFX.StartScan(1);
         yield return new WaitForSeconds(SkillCoolTimeSeconds);
         CanUseSkill = true;
         Managers.Sound.Play("SkillReady");
@@ -103,6 +99,15 @@ public class TheDetector : MonoBehaviour, IKiller
             //Canvas 설정
             _canvas = temp.AddComponent<Canvas>();
             _canvas.name = "DetectorCanvas";
+            _canvas.sortingOrder = 10;
+            _canvas.renderMode = RenderMode.ScreenSpaceOverlay;
+            _canvas.additionalShaderChannels |= AdditionalCanvasShaderChannels.Normal;
+            _canvas.additionalShaderChannels |= AdditionalCanvasShaderChannels.TexCoord1;
+            _canvas.additionalShaderChannels |= AdditionalCanvasShaderChannels.Tangent;
+            CanvasScaler canvasScaler = temp.AddComponent<CanvasScaler>();
+            canvasScaler.uiScaleMode = CanvasScaler.ScaleMode.ConstantPixelSize;
+            temp.AddComponent<GraphicRaycaster>();
+
         }
 
         foreach(GameObject survivor in Managers.Player._otherDediPlayers.Values)
@@ -111,20 +116,22 @@ public class TheDetector : MonoBehaviour, IKiller
             if (cur != null)
             {
                 cur.FindRenderersInChildren();
-                
-                //커스텀 UI 설정
-                CustomUIHighlight customUIHighlight = survivor.GetComponentInChildren<CustomUIHighlight>();
-                if (customUIHighlight != null && isKiller)
+                if (isKiller)
                 {
-                    GameObject uiObject = Managers.Resource.Instantiate("WorldScan/HighlightUI", _canvas.transform);
-                    customUIHighlight.uiComponent = uiObject;
-                    customUIHighlight.uiText = uiObject.GetComponentInChildren<TMP_Text>();
-                    customUIHighlight.uiComponent.SetActive(false);
-                    customUIHighlight.playerTransform = transform;
-                    customUIHighlight.playerCamera = _mainCamera;
-                    customUIHighlight.enabled = true;
+                    //커스텀 UI 설정
+                    CustomUIHighlight customUIHighlight = survivor.GetComponentInChildren<CustomUIHighlight>();
+                    if (customUIHighlight != null)
+                    {
+                        GameObject uiObject = Managers.Resource.Instantiate("WorldScan/HighlightUI", _canvas.transform);
+                        customUIHighlight.uiComponent = uiObject;
+                        customUIHighlight.uiText = uiObject.GetComponentInChildren<TextMeshProUGUI>();
+                        customUIHighlight.playerTransform = transform;
+                        customUIHighlight.playerCamera = _mainCamera;
+                        customUIHighlight.enabled = true;
+                        cur.highlightEvent.AddListener(customUIHighlight.StartEffect);
+                    }
                 }
-                
+
                 cur.enabled = true;
                 highlightObjects.Add(cur);
             }

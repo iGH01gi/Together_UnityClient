@@ -1,4 +1,5 @@
 using System.Collections;
+using Google.Protobuf.Protocol;
 using TMPro;
 using UnityEngine;
 
@@ -10,7 +11,7 @@ namespace INab.WorldScanFX
         // Reference to the UI component to be highlighted
         public GameObject uiComponent;
         // Reference to the TextMeshPro component of the UI
-        public TMP_Text uiText;
+        public TextMeshProUGUI uiText;
         // Duration of the highlight effect
         public float highlightDuration = 3f;
         // Duration of scaling animation
@@ -36,8 +37,8 @@ namespace INab.WorldScanFX
 
         private void Start()
         {
-            // this is executed in TheDetector.cs
-            //uiComponent.SetActive(false);
+            // Deactivate the UI component initially
+            uiComponent.SetActive(false);
         }
 
         // Method to start the highlight effect
@@ -50,11 +51,21 @@ namespace INab.WorldScanFX
             }
             else
             {
+                if (Managers.Player.IsMyDediPlayerKiller())
+                {
+                    //Play Detector detected sound effect
+                    Managers.Sound.Play("FoundSurvivor");
+
+                    // Send detected packet to server
+                    CDS_DetectedPlayer detectedPlayer = new CDS_DetectedPlayer();
+                    detectedPlayer.DetectedPlayerId = GetComponentInParent<OtherDediPlayer>().PlayerId;
+                    detectedPlayer.MyDediplayerId = detectedPlayer.DetectedPlayerId;
+                    Managers.Network._dedicatedServerSession.Send(detectedPlayer);
+                }
                 // Activate the effect
                 isEffectActive = true;
                 uiComponent.SetActive(true);
                 timeLeft = highlightDuration;
-                
                 // Start scaling animation
                 StartCoroutine(ScaleUI(true));
             }

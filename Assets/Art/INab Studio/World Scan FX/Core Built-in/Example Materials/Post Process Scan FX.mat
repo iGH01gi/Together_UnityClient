@@ -100,7 +100,7 @@ Material:
     - _Addint: 0.196
     - _Blend: 1
     - _BumpScale: 1
-    - _CurrentScanValue: 0.134
+    - _CurrentScanValue: 0
     - _Cutoff: 0.5
     - _DepthHardness: 0.9
     - _DepthMaskAmount: 0.1
@@ -138,9 +138,9 @@ Material:
     - _Intensity: 1
     - _Mask: 0.3
     - _MaskAmount: 0.5
-    - _MaskHardness: 1
-    - _MaskPower: 3
-    - _MaskRadius: 10
+    - _MaskHardness: 0.795
+    - _MaskPower: 1
+    - _MaskRadius: 30.51
     - _Metallic: 0
     - _Mode: 0
     - _MultiplyBlend: 0
@@ -149,10 +149,10 @@ Material:
     - _NormalsPower: 1
     - _OVERLAY_: 0
     - _OcclusionStrength: 1
-    - _OriginOffset: 1
+    - _OriginOffset: 2
     - _Overlay: 3
     - _OverlayMultiplier: 1
-    - _OverlayPower: 0.65
+    - _OverlayPower: 0.64
     - _Parallax: 0.02
     - _Power: 1
     - _Power1: 10
@@ -165,7 +165,7 @@ Material:
     - _ScanTiling: 2
     - _ScreenTextureTiling: 0
     - _ShowMask: 0
-    - _Size: 4
+    - _Size: 8
     - _Size1: 0
     - _SizeAdjust: 0.28
     - _Smoothness: 1
@@ -196,11 +196,11 @@ Material:
     - _Direction: {r: 1, g: 0, b: 0, a: 0}
     - _EdgeColor: {r: 0.39215687, g: 0.8156863, b: 4, a: 1}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
-    - _Forward: {r: 0, g: 0, b: 1, a: 0}
+    - _Forward: {r: -0.89270055, g: 0, b: -0.45065033, a: 0}
     - _GridColor: {r: 0, g: 0, b: 0, a: 1}
     - _HighlightColor: {r: 0.454902, g: 0.4980392, b: 1, a: 1}
     - _Offset: {r: 0, g: 0, b: 0, a: 0}
-    - _Origin: {r: 133.4, g: 2.9, b: -49.8, a: 0}
+    - _Origin: {r: 135.33458, g: 2.2143366, b: -47.443897, a: 0}
     - _OverlayColor: {r: 0, g: 0.2811131, b: 13.928809, a: 1}
     - _ScanColour: {r: 0, g: 0.7681248, b: 1, a: 1}
     - _ScanOrigin: {r: 2.24, g: 0, b: 0.5, a: 0}
