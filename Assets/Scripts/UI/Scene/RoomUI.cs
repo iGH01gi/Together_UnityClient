@@ -33,8 +33,8 @@ public class RoomUI : UI_scene
         _startReadyButton = transform.Find("StartReadyButton").GetComponent<UI_Button>();
         PanelOne = transform.Find("PlayersPanel").GetChild(0);
         PanelTwo = transform.Find("PlayersPanel").GetChild(1);
-        PanelOne.GetComponent<VerticalLayoutGroup>().spacing = Screen.height / 36;
-        PanelTwo.GetComponent<VerticalLayoutGroup>().spacing = Screen.height / 36;
+        PanelOne.GetComponent<VerticalLayoutGroup>().spacing = Screen.height / 180;
+        PanelTwo.GetComponent<VerticalLayoutGroup>().spacing = Screen.height / 180;
         
         //각각의 패널들에서 PlayerInRoom을 가지고 와서 _playerTiles에 저장
         foreach (Transform child in PanelOne)

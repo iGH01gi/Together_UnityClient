@@ -16,8 +16,8 @@ public class UI_subitem : MonoBehaviour
     {
         if (description == null)
         {
-            go.GetComponent<LocalizeStringEvent>().StringReference = null;
             go.GetComponent<TMP_Text>().text = "";
+            return;
         }
         go.GetComponent<LocalizeStringEvent>().StringReference
             .SetReference("StringTable", description);

@@ -32,7 +32,6 @@ public class LobbyUI : UI_scene
     private void Awake()
     {
         InitButtons<Buttons>(gameObject);
-        
         pageText = transform.Find("PageNum").GetComponent<TMP_Text>();
         leftPageButton = transform.Find("LeftPageButton").GetComponent<UI_Button>();
         rightPageButton = transform.Find("RightPageButton").GetComponent<UI_Button>();
@@ -83,9 +82,9 @@ public class LobbyUI : UI_scene
         CheckForButtonActivation();
         ClearRoomListPanel();
         
-        for (int i = (currentPage-1)*roomsPerPage; i < Math.Min(currentPage*roomsPerPage,_gameRooms.Count); i++)
+        for(int i = 0; i < Mathf.Min(roomsPerPage,_gameRooms.Count-((currentPage-1)*roomsPerPage)); i++)
         {
-            transform.GetChild(i%roomsPerPage).GetComponent<Room_Info>().Init(_gameRooms[i]);
+            roomsPanel.GetChild(i).GetComponent<Room_Info>().Init(_gameRooms[(roomsPerPage*(currentPage-1))+i]);;
         }
     }
 
