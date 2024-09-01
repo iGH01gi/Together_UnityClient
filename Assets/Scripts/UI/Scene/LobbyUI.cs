@@ -37,7 +37,7 @@ public class LobbyUI : UI_scene
         leftPageButton = transform.Find("LeftPageButton").GetComponent<UI_Button>();
         rightPageButton = transform.Find("RightPageButton").GetComponent<UI_Button>();
         roomsPanel = transform.Find("RoomsPanel");
-        roomsPanel.GetComponent<VerticalLayoutGroup>().spacing = Screen.height / 36;
+        roomsPanel.GetComponent<VerticalLayoutGroup>().spacing = Screen.height / 120;
         roomsPanel.GetComponent<VerticalLayoutGroup>().padding.top = Screen.height / 180;
         UIPacketHandler.RoomListSendPacket();
     }

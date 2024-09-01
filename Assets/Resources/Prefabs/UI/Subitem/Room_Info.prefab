@@ -65,7 +65,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: '[Room Name]'
+  m_text: 
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 7d88809194be01c41aa20d836413cddb, type: 2}
   m_sharedMaterial: {fileID: 4059618201379708813, guid: 7d88809194be01c41aa20d836413cddb, type: 2}
@@ -92,7 +92,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 100
+  m_fontSize: 24
   m_fontSizeBase: 24
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -186,7 +186,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5761905934465671559}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
   m_Name: 
@@ -274,7 +274,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: '[Count]'
+  m_text: 
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 7d88809194be01c41aa20d836413cddb, type: 2}
   m_sharedMaterial: {fileID: 4059618201379708813, guid: 7d88809194be01c41aa20d836413cddb, type: 2}
@@ -301,7 +301,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 100
+  m_fontSize: 24
   m_fontSizeBase: 24
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -501,7 +501,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7045614775725182669}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 86710e43de46f6f4bac7c8e50813a599, type: 3}
   m_Name: 
@@ -598,11 +598,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6920492050228745144, guid: 55c3bda54ee364b4c9e38460ffc7c99c, type: 3}
       propertyPath: m_text
-      value: '[Room Status]'
+      value: 
       objectReference: {fileID: 0}
     - target: {fileID: 6920492050228745144, guid: 55c3bda54ee364b4c9e38460ffc7c99c, type: 3}
       propertyPath: m_fontSize
-      value: 100
+      value: 24
       objectReference: {fileID: 0}
     - target: {fileID: 6920492050228745144, guid: 55c3bda54ee364b4c9e38460ffc7c99c, type: 3}
       propertyPath: m_fontSizeMax

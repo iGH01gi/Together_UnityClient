@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.Localization.Components;
 
@@ -13,6 +14,11 @@ public class UI_subitem : MonoBehaviour
     /// </Summary>
     protected void BindLocalizedString(GameObject go, string description)
     {
+        if (description == null)
+        {
+            go.GetComponent<LocalizeStringEvent>().StringReference = null;
+            go.GetComponent<TMP_Text>().text = "";
+        }
         go.GetComponent<LocalizeStringEvent>().StringReference
             .SetReference("StringTable", description);
     }

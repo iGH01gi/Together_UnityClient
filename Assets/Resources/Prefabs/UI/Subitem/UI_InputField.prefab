@@ -178,17 +178,17 @@ MonoBehaviour:
   m_VerticalScrollbarEventHandler: {fileID: 0}
   m_LayoutGroup: {fileID: 0}
   m_ScrollSensitivity: 1
-  m_ContentType: 0
-  m_InputType: 0
+  m_ContentType: 9
+  m_InputType: 2
   m_AsteriskChar: 42
   m_KeyboardType: 0
   m_LineType: 0
   m_HideMobileInput: 0
   m_HideSoftKeyboard: 0
-  m_CharacterValidation: 0
+  m_CharacterValidation: 4
   m_RegexValue: 
   m_GlobalPointSize: 14
-  m_CharacterLimit: 20
+  m_CharacterLimit: 12
   m_OnEndEdit:
     m_PersistentCalls:
       m_Calls: []
@@ -384,6 +384,7 @@ GameObject:
   m_Component:
   - component: {fileID: 9024398051647527376}
   - component: {fileID: 5839783868790846972}
+  - component: {fileID: 8061082219786440669}
   m_Layer: 5
   m_Name: UI_InputField
   m_TagString: Untagged
@@ -420,6 +421,36 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3693752384465450237}
   m_CullTransparentMesh: 1
+--- !u!114 &8061082219786440669
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3693752384465450237}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 1, g: 1, b: 1, a: 0.40392157}
+  m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
+  m_Maskable: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_Sprite: {fileID: 21300000, guid: 040c880d45e3bce4a8d8ea152e01e130, type: 3}
+  m_Type: 0
+  m_PreserveAspect: 0
+  m_FillCenter: 1
+  m_FillMethod: 4
+  m_FillAmount: 1
+  m_FillClockwise: 1
+  m_FillOrigin: 0
+  m_UseSpriteMesh: 0
+  m_PixelsPerUnitMultiplier: 1
 --- !u!1001 &5254997683412140337
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -575,7 +606,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5856558000202554168, guid: 55c3bda54ee364b4c9e38460ffc7c99c, type: 3}
       propertyPath: m_AnchorMax.x
-      value: 0.32
+      value: 0.35
       objectReference: {fileID: 0}
     - target: {fileID: 5856558000202554168, guid: 55c3bda54ee364b4c9e38460ffc7c99c, type: 3}
       propertyPath: m_AnchorMax.y
@@ -583,7 +614,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5856558000202554168, guid: 55c3bda54ee364b4c9e38460ffc7c99c, type: 3}
       propertyPath: m_AnchorMin.x
-      value: 0
+      value: 0.03
       objectReference: {fileID: 0}
     - target: {fileID: 5856558000202554168, guid: 55c3bda54ee364b4c9e38460ffc7c99c, type: 3}
       propertyPath: m_AnchorMin.y
@@ -647,11 +678,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6920492050228745144, guid: 55c3bda54ee364b4c9e38460ffc7c99c, type: 3}
       propertyPath: m_fontSize
-      value: 70.85
+      value: 47.2
       objectReference: {fileID: 0}
     - target: {fileID: 6920492050228745144, guid: 55c3bda54ee364b4c9e38460ffc7c99c, type: 3}
       propertyPath: m_fontSizeMax
-      value: 100
+      value: 150
       objectReference: {fileID: 0}
     - target: {fileID: 6920492050228745144, guid: 55c3bda54ee364b4c9e38460ffc7c99c, type: 3}
       propertyPath: m_fontSizeBase

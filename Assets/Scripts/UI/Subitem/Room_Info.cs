@@ -60,6 +60,6 @@ public class Room_Info : UI_subitem
         _roomName.text = "";
         _count.text = "";
         _lockIcon.enabled = false;
-        _roomStatus.SetString("");
+        _roomStatus.SetString(null) ;
     }
 }
