@@ -12,7 +12,7 @@ public class EffectsManager : MonoBehaviour
     /// </summary>
     public void Start()
     {
-        flashlightStartCoroutineIsRunning = false;
+        _eyesClosed = false;
         Managers.Effects = this;
         PostProcessVolume[] postProcessVolumes = GameObject.Find("PPVolumes").GetComponentsInChildren<PostProcessVolume>();
         foreach (PostProcessVolume postProcessVolume in postProcessVolumes)
@@ -60,15 +60,15 @@ public class EffectsManager : MonoBehaviour
     /// </summary>
 
     //만약 손전등 효과가 이미 실행중이면 다시 실행하면 안됨.
-    private bool flashlightStartCoroutineIsRunning;
+    bool _eyesClosed;
     public void FlashlightPPPlay()
     {
         //check if coroutine is already running
-        if (flashlightStartCoroutineIsRunning)
+        if (_eyesClosed)
         {
             return;
         }
-        
+
         PostProcessVolume cur = _postProcessVolumes["FlashlightPP"];
         Vignette vignette;
         //Bloom bloom;
@@ -86,7 +86,7 @@ public class EffectsManager : MonoBehaviour
         }*/
         
         cur.weight = 1;
-        flashlightStartCoroutineIsRunning = true;
+        _eyesClosed = true;
         //StartCoroutine(FlashlightStartCoroutine(vignette, bloom));
         StartCoroutine(FlashlightStartCoroutine(vignette));
     }
@@ -96,6 +96,7 @@ public class EffectsManager : MonoBehaviour
     /// </summary>
     public void FlashlightPPStop()
     {
+        _eyesClosed = false;
         PostProcessVolume cur = _postProcessVolumes["FlashlightPP"];
         Vignette vignette;
         
@@ -124,7 +125,7 @@ public class EffectsManager : MonoBehaviour
         float currentTime=0;
         while (currentTime <= DetectedEffectDuration)
         {
-            depth.focusDistance.value = DetectedMaxDepthOfField * Mathf.Cos(2*Mathf.PI * (currentTime / DetectedEffectDuration));
+            depth.focusDistance.value = DetectedMaxDepthOfField-(DetectedMaxDepthOfField * Mathf.Sin(Mathf.PI * (currentTime / DetectedEffectDuration)));
             currentTime+=Time.deltaTime;
             yield return null;
         }
@@ -132,63 +133,35 @@ public class EffectsManager : MonoBehaviour
     }
 
     ///////// FlashlightPPPlay's Coroutine /////////
-    
-    /*//밝은 효과
-    private float bloomIntensityDuration = 0.5f;
-    private float bloomIntensityMax = 15f;*/
 
-    //처음 살짝 눈 감을 때 
-    private float vignetteFirstCloseIntensity = 0.7f;
-    private float vignetteFirstCloseDuration = 0.4f;
-    private float vignetteFirstOpenDuration = 0.9f;
-    
-    //완전히 눈 감을 때
-    private float vignetteSecondCloseIntensity = 2f; //also used in FlashlightPPStop
-    private float vignetteSecondCloseDuration = 2f;
+    private float vignetteCloseIntensity = 0.31f; //also used in FlashlightPPStop
+    private float vignetteCloseDuration = 0.8f;
 
-    IEnumerator FlashlightStartCoroutine(Vignette vignette/*, Bloom bloom*/)
+    IEnumerator FlashlightStartCoroutine(Vignette vignette)
     {
         float currentTime=0;
-        //while (currentTime < Mathf.Max(bloomIntensityDuration,vignetteSecondCloseDuration))
-        while (currentTime <vignetteSecondCloseDuration)
+        while (currentTime < vignetteCloseDuration)
         {
-            /*if (currentTime <=bloomIntensityDuration)
-            {
-                bloom.intensity.value = Mathf.Lerp(0, bloomIntensityMax, currentTime / bloomIntensityDuration);
-            }*/
-            
-            if (currentTime < vignetteFirstCloseDuration)
-            {
-                vignette.intensity.value = Mathf.Lerp(0, vignetteFirstCloseIntensity, currentTime / vignetteFirstCloseDuration);
-            }
-            else if (currentTime < vignetteFirstOpenDuration)
-            {
-                vignette.intensity.value = Mathf.Lerp(vignetteFirstCloseIntensity, 0, (currentTime - vignetteFirstCloseDuration) / vignetteFirstOpenDuration);
-            }
-            else if (currentTime < vignetteSecondCloseDuration)
-            {
-                vignette.intensity.value = Mathf.Lerp(0, vignetteSecondCloseIntensity, (currentTime - vignetteFirstCloseDuration - vignetteFirstOpenDuration) / vignetteSecondCloseDuration);
-            }
+            vignette.intensity.value =  vignetteCloseIntensity * Mathf.Sin(Mathf.PI/2 * (currentTime / vignetteCloseDuration));
             currentTime+=Time.deltaTime;
             yield return null;
         }
-        flashlightStartCoroutineIsRunning = false;
     }
     
     ///////// FlashlightPPStop's Coroutine /////////
     
-    private float flashlightStopDuration = 0.5f;
+    private float flashlightStopDuration = 0.8f;
     
     IEnumerator FlashlightStopCoroutine (Vignette vignette)
     {
-        if (flashlightStartCoroutineIsRunning)
-        {
-            yield break;
-        }
         float currentTime=0;
-        while (currentTime < flashlightStopDuration)
+        while (currentTime < vignetteCloseDuration)
         {
-            vignette.intensity.value = Mathf.Lerp(vignetteSecondCloseIntensity, 0, currentTime / flashlightStopDuration);
+            if (_eyesClosed)
+            {
+                yield break;
+            }
+            vignette.intensity.value =  vignetteCloseIntensity - (vignetteCloseIntensity* Mathf.Sin(Mathf.PI/2 * (currentTime / vignetteCloseDuration)));
             currentTime+=Time.deltaTime;
             yield return null;
         }

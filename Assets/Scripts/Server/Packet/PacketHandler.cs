@@ -828,7 +828,7 @@ public class PacketHandler
         int killerPlayerId = detectedPlayerPacket.KillerId;
         int detectedPlayerId = detectedPlayerPacket.DetectedPlayerId;
 
-        if (killerPlayerId != Managers.Player._myDediPlayerId)
+        if (detectedPlayerId == Managers.Player._myDediPlayerId)
         {
             Managers.Sound.Play("Detected");
             Managers.Effects.DetectedPPPlay();
