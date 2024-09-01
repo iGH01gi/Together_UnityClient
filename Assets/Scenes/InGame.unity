@@ -256,7 +256,7 @@ MonoBehaviour:
   sharedProfile: {fileID: 11400000, guid: 573b0f99358055240918f11a02fdaecb, type: 2}
   isGlobal: 1
   blendDistance: 0
-  weight: 1
+  weight: 0
   priority: 2
 --- !u!1001 &92029533
 PrefabInstance:
@@ -1183,7 +1183,7 @@ MonoBehaviour:
   scansLeft: 0
   timeLeft: 0
   timePassed: 0
-  currentScanValueTesting: 0.721
+  currentScanValueTesting: 0.607
   scansNumberTesting: 1
   _Size: 3
   _SizeAdjust: 0
@@ -1319,6 +1319,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1137663080}
+  - component: {fileID: 1137663081}
   m_Layer: 0
   m_Name: PPVolumes
   m_TagString: Untagged
@@ -1344,6 +1345,18 @@ Transform:
   - {fileID: 963273364}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1137663081
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1137663079}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 81de8f0a02076ea42b1aef6609c5149f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1185017893
 GameObject:
   m_ObjectHideFlags: 0

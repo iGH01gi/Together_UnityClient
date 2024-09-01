@@ -10,8 +10,10 @@ public class EffectsManager : MonoBehaviour
     /// <summary>
     /// Effects Manager의 Init. InGameScene으로 전환 후 호출할 것.
     /// </summary>
-    public void Init()
+    public void Start()
     {
+        flashlightStartCoroutineIsRunning = false;
+        Managers.Effects = this;
         PostProcessVolume[] postProcessVolumes = GameObject.Find("PPVolumes").GetComponentsInChildren<PostProcessVolume>();
         foreach (PostProcessVolume postProcessVolume in postProcessVolumes)
         {
@@ -56,9 +58,9 @@ public class EffectsManager : MonoBehaviour
     /// <summary>
     /// 손전등에 당했을 때 효과. 푸는건 따로 있음.
     /// </summary>
-    
+
     //만약 손전등 효과가 이미 실행중이면 다시 실행하면 안됨.
-    bool flashlightStartCoroutineIsRunning = false;
+    private bool flashlightStartCoroutineIsRunning;
     public void FlashlightPPPlay()
     {
         //check if coroutine is already running
@@ -69,7 +71,7 @@ public class EffectsManager : MonoBehaviour
         
         PostProcessVolume cur = _postProcessVolumes["FlashlightPP"];
         Vignette vignette;
-        Bloom bloom;
+        //Bloom bloom;
         
         
         if (!cur.profile.TryGetSettings(out vignette))
@@ -77,15 +79,16 @@ public class EffectsManager : MonoBehaviour
             Debug.LogError("Vignette settings not found in the PostProcessVolume.");
             return;
         }
-        if (!cur.profile.TryGetSettings(out bloom))
+        /*if (!cur.profile.TryGetSettings(out bloom))
         {
             Debug.LogError("Bloom settings not found in the PostProcessVolume.");
             return;
-        }
+        }*/
         
         cur.weight = 1;
         flashlightStartCoroutineIsRunning = true;
-        StartCoroutine(FlashlightStartCoroutine(vignette, bloom));
+        //StartCoroutine(FlashlightStartCoroutine(vignette, bloom));
+        StartCoroutine(FlashlightStartCoroutine(vignette));
     }
     
     /// <summary>
@@ -95,6 +98,7 @@ public class EffectsManager : MonoBehaviour
     {
         PostProcessVolume cur = _postProcessVolumes["FlashlightPP"];
         Vignette vignette;
+        
         if (!cur.profile.TryGetSettings(out vignette))
         {
             Debug.LogError("Vignette settings not found in the PostProcessVolume.");
@@ -113,14 +117,14 @@ public class EffectsManager : MonoBehaviour
     
     ///////// DetectedPP's Coroutine /////////
     float DetectedEffectDuration = 2.5f;
-    float DetectedMaxDepthOfField = 4.5f;
+    float DetectedMaxDepthOfField = 5f;
 
     IEnumerator DetectedPPCoroutine(DepthOfField depth)
     {
         float currentTime=0;
-        while (currentTime < DetectedEffectDuration)
+        while (currentTime <= DetectedEffectDuration)
         {
-            depth.focusDistance.value = Mathf.Cos(Mathf.PI*(DetectedMaxDepthOfField * currentTime / DetectedMaxDepthOfField));
+            depth.focusDistance.value = DetectedMaxDepthOfField * Mathf.Cos(2*Mathf.PI * (currentTime / DetectedEffectDuration));
             currentTime+=Time.deltaTime;
             yield return null;
         }
@@ -129,28 +133,29 @@ public class EffectsManager : MonoBehaviour
 
     ///////// FlashlightPPPlay's Coroutine /////////
     
-    //밝은 효과
+    /*//밝은 효과
     private float bloomIntensityDuration = 0.5f;
-    private float bloomIntensityMax = 12f;
+    private float bloomIntensityMax = 15f;*/
 
     //처음 살짝 눈 감을 때 
-    private float vignetteFirstCloseIntensity = 0.22f;
-    private float vignetteFirstCloseDuration = 0.3f;
-    private float vignetteFirstOpenDuration = 0.7f;
+    private float vignetteFirstCloseIntensity = 0.7f;
+    private float vignetteFirstCloseDuration = 0.4f;
+    private float vignetteFirstOpenDuration = 0.9f;
     
     //완전히 눈 감을 때
-    private float vignetteSecondCloseIntensity = 0.6f; //also used in FlashlightPPStop
-    private float vignetteSecondCloseDuration = 1.2f;
+    private float vignetteSecondCloseIntensity = 2f; //also used in FlashlightPPStop
+    private float vignetteSecondCloseDuration = 2f;
 
-    IEnumerator FlashlightStartCoroutine(Vignette vignette, Bloom bloom)
+    IEnumerator FlashlightStartCoroutine(Vignette vignette/*, Bloom bloom*/)
     {
         float currentTime=0;
-        while (currentTime < Mathf.Max(bloomIntensityDuration,vignetteSecondCloseDuration))
+        //while (currentTime < Mathf.Max(bloomIntensityDuration,vignetteSecondCloseDuration))
+        while (currentTime <vignetteSecondCloseDuration)
         {
-            if (currentTime < bloomIntensityDuration)
+            /*if (currentTime <=bloomIntensityDuration)
             {
                 bloom.intensity.value = Mathf.Lerp(0, bloomIntensityMax, currentTime / bloomIntensityDuration);
-            }
+            }*/
             
             if (currentTime < vignetteFirstCloseDuration)
             {

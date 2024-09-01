@@ -100,7 +100,7 @@ Material:
     - _Addint: 0.196
     - _Blend: 1
     - _BumpScale: 1
-    - _CurrentScanValue: 0.721
+    - _CurrentScanValue: 0.607
     - _Cutoff: 0.5
     - _DepthHardness: 0.9
     - _DepthMaskAmount: 0.1
@@ -114,7 +114,7 @@ Material:
     - _EdgeDetectionMultiplier: 1
     - _EdgeHardness: 1
     - _EdgeMultiplier: 1
-    - _EdgePower: 10
+    - _EdgePower: 5
     - _EdgeSmoothness: 1
     - _EyeSpaceDepth: 0.1
     - _Float0: 1
@@ -134,13 +134,13 @@ Material:
     - _GuideStrength: 0
     - _GuideTiling: 1
     - _HighlightMultiplier: 1
-    - _HighlightPower: 3
+    - _HighlightPower: 4
     - _Intensity: 1
     - _Mask: 0.3
     - _MaskAmount: 0.5
-    - _MaskHardness: 0.795
-    - _MaskPower: 1
-    - _MaskRadius: 30.51
+    - _MaskHardness: 1
+    - _MaskPower: 3
+    - _MaskRadius: 10
     - _Metallic: 0
     - _Mode: 0
     - _MultiplyBlend: 0
@@ -149,10 +149,10 @@ Material:
     - _NormalsPower: 1
     - _OVERLAY_: 0
     - _OcclusionStrength: 1
-    - _OriginOffset: 2
+    - _OriginOffset: 1
     - _Overlay: 3
     - _OverlayMultiplier: 1
-    - _OverlayPower: 0.64
+    - _OverlayPower: 0.65
     - _Parallax: 0.02
     - _Power: 1
     - _Power1: 10
@@ -165,9 +165,9 @@ Material:
     - _ScanTiling: 2
     - _ScreenTextureTiling: 0
     - _ShowMask: 0
-    - _Size: 8
+    - _Size: 3
     - _Size1: 0
-    - _SizeAdjust: 0.28
+    - _SizeAdjust: 0
     - _Smoothness: 1
     - _SmoothnessTextureChannel: 0
     - _Smothness: 0.049

@@ -36,7 +36,7 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: Highlight
+  m_Name: Highlight (original)
   m_Shader: {fileID: -6465566751694194690, guid: 0cccec1e7a352a2409c572244dc68793, type: 3}
   m_Parent: {fileID: 0}
   m_ModifiedSerializedProperties: 0
@@ -127,7 +127,7 @@ Material:
     - _Cull: 2
     - _CullMode: 2
     - _CullModeForward: 2
-    - _CurrentScanValue: 0.721
+    - _CurrentScanValue: 0.607
     - _Cutoff: 0
     - _DepthOffsetEnable: 0
     - _Distance_Offset: -4.5
@@ -143,9 +143,9 @@ Material:
     - _FovMaskSmothness: 0
     - _HighlighValue: 1
     - _HighlightValue: 1
-    - _MaskHardness: 0.795
-    - _MaskPower: 1
-    - _MaskRadius: 30.51
+    - _MaskHardness: 1
+    - _MaskPower: 3
+    - _MaskRadius: 10
     - _Metallic: 0
     - _OcclusionStrength: 0
     - _OpaqueCullMode: 2
@@ -159,8 +159,8 @@ Material:
     - _RenderQueueType: 1
     - _RequireSplitLighting: 0
     - _Rim_Power: 0.88
-    - _Size: 8
-    - _SizeAdjust: 0.28
+    - _Size: 3
+    - _SizeAdjust: 0
     - _Smoothness: 0
     - _SrcBlend: 1
     - _StencilRef: 0

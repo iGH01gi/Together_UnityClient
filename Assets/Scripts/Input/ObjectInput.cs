@@ -235,9 +235,10 @@ public class ObjectInput : MonoBehaviour
             yield return new WaitForSeconds(blindDuration);
 
             //실명에 걸린 상태 해제
-            Managers.Effects.FlashlightPPStop();
             myDediPlayer._playerStatus._isFlashed = false;
-            //TODO: 내 시야 복구
+            Debug.Log("플래시 이제 풀림!!");
+            Managers.Effects.FlashlightPPStop();
+
         }
         else
         {
