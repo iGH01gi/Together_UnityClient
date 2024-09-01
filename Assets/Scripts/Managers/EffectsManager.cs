@@ -106,7 +106,6 @@ public class EffectsManager : MonoBehaviour
             return;
         }
         StartCoroutine(FlashlightStopCoroutine(vignette));
-        cur.weight = 0;
     }
 
     public void Clear()
@@ -150,7 +149,7 @@ public class EffectsManager : MonoBehaviour
     
     ///////// FlashlightPPStop's Coroutine /////////
     
-    private float flashlightStopDuration = 0.8f;
+    private float flashlightStopDuration = 1.5f;
     
     IEnumerator FlashlightStopCoroutine (Vignette vignette)
     {
@@ -161,10 +160,11 @@ public class EffectsManager : MonoBehaviour
             {
                 yield break;
             }
-            vignette.intensity.value =  vignetteCloseIntensity - (vignetteCloseIntensity* Mathf.Sin(Mathf.PI/2 * (currentTime / vignetteCloseDuration)));
+            vignette.intensity.value =  (vignetteCloseIntensity* Mathf.Sin(Mathf.PI/2+(Mathf.PI/2 * (currentTime / vignetteCloseDuration))));
             currentTime+=Time.deltaTime;
             yield return null;
         }
+        _postProcessVolumes["FlashlightPP"].weight = 0;
     }
     #endregion
 }

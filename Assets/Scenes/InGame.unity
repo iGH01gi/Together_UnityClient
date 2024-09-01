@@ -1177,8 +1177,8 @@ MonoBehaviour:
   updateScanMaterialProperties: 1
   scanMaterial: {fileID: 2100000, guid: cd158a52d8e83fc45a5e92d20a9667aa, type: 2}
   scanOrigin: {fileID: 927849887}
-  alwaysPassScanOriginPosition: 1
-  alwaysPassScanOriginDirection: 1
+  alwaysPassScanOriginPosition: 0
+  alwaysPassScanOriginDirection: 0
   scanDuration: 3
   scansLeft: 0
   timeLeft: 0
