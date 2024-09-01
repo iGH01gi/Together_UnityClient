@@ -19,7 +19,7 @@ namespace INab.WorldScanFX
         // Offset on the Y-axis for the UI component
         public float offsetY = 1f;
         // Adjustment factor for scale based on distance
-        public float scaleAdjustment = 10;
+        public float scaleAdjustment = 5;
 
         // Reference to the player's transform
         public Transform playerTransform;
@@ -29,7 +29,7 @@ namespace INab.WorldScanFX
         // Remaining time for the highlight effect
         private float timeLeft = 0;
         // Current scale of the UI component
-        private float currentScale = 1;
+        private float currentScale = 0.3f;
         // Flag to indicate if scaling animation is in progress
         private bool isCurrentlyScaling = false;
         // Flag to indicate if the highlight effect is active
@@ -53,7 +53,7 @@ namespace INab.WorldScanFX
             {
                 if (Managers.Player.IsMyDediPlayerKiller())
                 {
-                    //Play Detector detected sound effect
+                    //Play Detector detected effects
                     Managers.Sound.Play("FoundSurvivor");
 
                     // Send detected packet to server

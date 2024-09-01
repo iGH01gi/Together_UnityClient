@@ -29,6 +29,7 @@ public class Managers : MonoBehaviour
     KillerManager _killer = new KillerManager();
     SteamManager _steam = new SteamManager();
     InventoryManager _inventory = new InventoryManager();
+    EffectsManager _effects = new EffectsManager();
     
     
     public static  ResourceManager Resource { get { return Instance._resource;} }
@@ -52,7 +53,7 @@ public class Managers : MonoBehaviour
     public static SteamManager Steam { get { return Instance._steam; } }
     
     public static InventoryManager Inventory { get { return Instance._inventory; } }
-
+    public static EffectsManager Effects { get { return Instance._effects; } }
 
     void Start()
     {
@@ -111,6 +112,7 @@ public class Managers : MonoBehaviour
         Inventory.Clear();
         Item.Clear();
         Game.Clear();
+        Effects.Clear();
     }
 
     private void OnApplicationQuit()

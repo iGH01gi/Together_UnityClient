@@ -199,15 +199,18 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 8944336655422409498, guid: f6d148d888ffbf54b9afe9936dfaec1f, type: 3}
       insertIndex: -1
       addedObject: {fileID: 1221041502}
+    - targetCorrespondingSourceObject: {fileID: 8944336655422409498, guid: f6d148d888ffbf54b9afe9936dfaec1f, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1221041503}
   m_SourcePrefab: {fileID: 100100000, guid: f6d148d888ffbf54b9afe9936dfaec1f, type: 3}
 --- !u!1 &1221041500 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 8944336655422409498, guid: f6d148d888ffbf54b9afe9936dfaec1f, type: 3}
   m_PrefabInstance: {fileID: 1221041499}
   m_PrefabAsset: {fileID: 0}
---- !u!20 &1221041501 stripped
-Camera:
-  m_CorrespondingSourceObject: {fileID: 8944336655422409496, guid: f6d148d888ffbf54b9afe9936dfaec1f, type: 3}
+--- !u!4 &1221041501 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 8944336655422409503, guid: f6d148d888ffbf54b9afe9936dfaec1f, type: 3}
   m_PrefabInstance: {fileID: 1221041499}
   m_PrefabAsset: {fileID: 0}
 --- !u!114 &1221041502
@@ -219,63 +222,74 @@ MonoBehaviour:
   m_GameObject: {fileID: 1221041500}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f1503f1c11efcb44e8c80a7f8ce78719, type: 3}
+  m_Script: {fileID: 11500000, guid: 948f4100a11a5c24981795d21301da5c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  updateScanMaterialProperties: 1
-  scanMaterial: {fileID: 2100000, guid: f05ebf721846b814c8ab8ed29f788c86, type: 2}
-  scanOrigin: {fileID: 1865451789}
-  alwaysPassScanOriginPosition: 1
-  alwaysPassScanOriginDirection: 1
-  scanDuration: 5
-  scansLeft: 0
-  timeLeft: 0
-  timePassed: 0
-  currentScanValueTesting: 0.167
-  scansNumberTesting: 3
-  _Size: 8
-  _SizeAdjust: 0
-  _OriginOffset: 2
-  _EdgeColor: {r: 0.09803922, g: 0.2039216, b: 1, a: 1}
-  _EdgeHardness: 0.8
-  _EdgePower: 10
-  _EdgeMultiplier: 1
-  _HighlightColor: {r: 0.454902, g: 0.4980392, b: 1, a: 1}
-  _HighlightPower: 3
-  _HighlightMultiplier: 0.8
-  _MaskRadius: 50
-  _MaskHardness: 0.5
-  _MaskPower: 1
-  _FovMaskEnabled: 0
-  _FovMask: 0.5
-  _FovMaskSmoothness: 0.2
-  _OverlayType: 0
-  _OverlayMultiplier: 1
-  _OverlayPower: 1
-  _OverlayColor: {r: 1, g: 1, b: 1, a: 1}
-  _ScreenTexture: {fileID: 0}
-  _ScreenTextureTiling: 50
-  _Frequency: 1
-  _Ratio: 0.5
-  _Thickness: 1
-  _NormalsOffset: 0.1
-  _NormalsHardness: 0
-  _NormalsPower: 1
-  _DepthThreshold: 1
-  _DepthHardness: 0.9
-  _DepthPower: 5
-  _EdgeDetectionMultiplier: 1
-  _GridMultiplier: 1
-  useCustomHighlight: 0
-  DistanceOffset: 0
-  MaskRadiusOffset: 0
-  FovOffset: 0
-  highlightObjects: []
-  useScanOverlayOnMaterials: 0
-  highlightMaterials: []
-  useWorldScanMaterials: 0
-  worldScanMaterials: []
-  currentCamera: {fileID: 1221041501}
+  volumeTrigger: {fileID: 1221041501}
+  volumeLayer:
+    serializedVersion: 2
+    m_Bits: 247
+  stopNaNPropagation: 1
+  finalBlitToCameraTarget: 0
+  antialiasingMode: 0
+  temporalAntialiasing:
+    jitterSpread: 0.75
+    sharpness: 0.25
+    stationaryBlending: 0.95
+    motionBlending: 0.85
+  subpixelMorphologicalAntialiasing:
+    quality: 2
+  fastApproximateAntialiasing:
+    fastMode: 0
+    keepAlpha: 0
+  fog:
+    enabled: 1
+    excludeSkybox: 1
+  debugLayer:
+    lightMeter:
+      width: 512
+      height: 256
+      showCurves: 1
+    histogram:
+      width: 512
+      height: 256
+      channel: 3
+    waveform:
+      exposure: 0.12
+      height: 256
+    vectorscope:
+      size: 256
+      exposure: 0.12
+    overlaySettings:
+      linearDepth: 0
+      motionColorIntensity: 4
+      motionGridSize: 64
+      colorBlindnessType: 0
+      colorBlindnessStrength: 1
+  m_Resources: {fileID: 11400000, guid: d82512f9c8e5d4a4d938b575d47f88d4, type: 2}
+  m_ShowToolkit: 1
+  m_ShowCustomSorter: 1
+  breakBeforeColorGrading: 0
+  m_BeforeTransparentBundles: []
+  m_BeforeStackBundles: []
+  m_AfterStackBundles: []
+--- !u!114 &1221041503
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1221041500}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8b9a305e18de0c04dbd257a21cd47087, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sharedProfile: {fileID: 11400000, guid: 573b0f99358055240918f11a02fdaecb, type: 2}
+  isGlobal: 1
+  blendDistance: 0
+  weight: 1
+  priority: 0
 --- !u!1001 &1402827283
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -406,11 +420,6 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 64dce48905ffd9b4293e595fa6941544, type: 3}
---- !u!4 &1865451789 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 3893294197879345259, guid: 64dce48905ffd9b4293e595fa6941544, type: 3}
-  m_PrefabInstance: {fileID: 1762682258}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &2114283753834967212
 GameObject:
   m_ObjectHideFlags: 0

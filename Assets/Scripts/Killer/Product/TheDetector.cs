@@ -57,8 +57,6 @@ public class TheDetector : MonoBehaviour, IKiller
     {
         if (PlayerId == Managers.Player.GetKillerId())
         {
-            _scanFX.PassScanOriginProperties();
-            _scanFX.StartScan(1);
             if(PlayerId == Managers.Player._myDediPlayerId && CanUseSkill)
             {
                 CanUseSkill = false;
@@ -80,6 +78,8 @@ public class TheDetector : MonoBehaviour, IKiller
 
     IEnumerator UseAbility()
     {
+        _scanFX.PassScanOriginProperties();
+        _scanFX.StartScan(1);
         yield return new WaitForSeconds(SkillCoolTimeSeconds);
         CanUseSkill = true;
         Managers.Sound.Play("SkillReady");
@@ -87,6 +87,7 @@ public class TheDetector : MonoBehaviour, IKiller
 
     private void Assign()
     {
+        Managers.Effects.DetectorPPEnable();
         bool isKiller = Managers.Player.IsMyDediPlayerKiller();
         _mainCamera = Camera.main;
         
@@ -157,6 +158,7 @@ public class TheDetector : MonoBehaviour, IKiller
             _detectorCamera.enabled = true;
         }
     }
+    
     public void UnAssign()
     {
         //감지된 플레이어 카메라 삭제

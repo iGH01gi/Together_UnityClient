@@ -229,13 +229,13 @@ public class ObjectInput : MonoBehaviour
             //현재 플래시에 맞았다고 표시
             Debug.Log("내 시야 막힘 플래시맞아서!!!!!!!!!!!!!!!");
             myDediPlayer._playerStatus._isFlashed = true;
-            //TODO: 내 시야 가리기
+            Managers.Effects.FlashlightPPPlay();
 
             //실명시간만큼 기다림
             yield return new WaitForSeconds(blindDuration);
 
             //실명에 걸린 상태 해제
-            Debug.Log("내 시야 풀림@@@@@@@@@@@@@@@@");
+            Managers.Effects.FlashlightPPStop();
             myDediPlayer._playerStatus._isFlashed = false;
             //TODO: 내 시야 복구
         }

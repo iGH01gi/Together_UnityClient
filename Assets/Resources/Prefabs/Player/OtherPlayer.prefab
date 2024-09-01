@@ -1360,7 +1360,7 @@ MonoBehaviour:
   highlightDuration: 3
   scaleDuration: 0.5
   offsetY: 1
-  scaleAdjustment: 10
+  scaleAdjustment: 5
   playerTransform: {fileID: 0}
   playerCamera: {fileID: 0}
 --- !u!4 &3443851821599222615 stripped

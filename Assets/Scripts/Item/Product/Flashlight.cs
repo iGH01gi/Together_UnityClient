@@ -31,46 +31,46 @@ public class Flashlight : MonoBehaviour, IItem
         {
             if (PlayerID == Managers.Player._myDediPlayerId)
             {
-                //ºû°ú µ¿ÀÏÇÑ ±æÀÌÀÇ ·¹ÀÌ Ç¥½Ã
+                //ë¹›ê³¼ ë™ì¼í•œ ê¸¸ì´ì˜ ë ˆì´ í‘œì‹œ
                 Debug.DrawRay(_flashLightSource.transform.position,
                     _flashLightSource.transform.forward * FlashlightDistance, Color.red, 0.1f);
 
-                // ÇöÀç È¸ÀüÀ» °¡Á®¿É´Ï´Ù.
+                // í˜„ì¬ íšŒì „ì„ ê°€ì ¸ì˜µë‹ˆë‹¤.
                 Quaternion currentRotation = _flashLightSource.transform.rotation;
 
-                // ÇöÀç È¸ÀüÀÇ Euler °¢µµ¸¦ °¡Á®¿É´Ï´Ù.
+                // í˜„ì¬ íšŒì „ì˜ Euler ê°ë„ë¥¼ ê°€ì ¸ì˜µë‹ˆë‹¤.
                 Vector3 eulerAngles = currentRotation.eulerAngles;
 
-                // XÃà È¸Àü°ªÀ» _movementInput._rotationX·Î ¼³Á¤ÇÕ´Ï´Ù.
+                // Xì¶• íšŒì „ê°’ì„ _movementInput._rotationXë¡œ ì„¤ì •í•©ë‹ˆë‹¤.
                 float newXRotation = _movementInput._rotationX;
 
-                // »õ·Î¿î È¸Àü °ªÀ» Àû¿ëÇÕ´Ï´Ù.
+                // ìƒˆë¡œìš´ íšŒì „ ê°’ì„ ì ìš©í•©ë‹ˆë‹¤.
                 Quaternion newRotation = Quaternion.Euler(newXRotation, eulerAngles.y, eulerAngles.z);
                 _flashLightSource.transform.rotation = newRotation;
             }
             else
             {
-                //ºû°ú µ¿ÀÏÇÑ ±æÀÌÀÇ ·¹ÀÌ Ç¥½Ã
+                //ë¹›ê³¼ ë™ì¼í•œ ê¸¸ì´ì˜ ë ˆì´ í‘œì‹œ
                 Debug.DrawRay(_flashLightSource.transform.position,
                     _flashLightSource.transform.forward * FlashlightDistance, Color.red, 0.1f);
 
-                //È¸Àü ¸ñÇ¥ Ä«¸Ş¶ó À§Ä¡¸¦ °¡Á®¿È
+                //íšŒì „ ëª©í‘œ ì¹´ë©”ë¼ ìœ„ì¹˜ë¥¼ ê°€ì ¸ì˜´
                 Quaternion targetRotation = _otherDediPlayer._cameraWorldRotation;
 
-                // ÇöÀç È¸ÀüÀ» °¡Á®¿É´Ï´Ù.
+                // í˜„ì¬ íšŒì „ì„ ê°€ì ¸ì˜µë‹ˆë‹¤.
                 Quaternion currentRotation = _flashLightSource.transform.rotation;
 
-                // ÇöÀç È¸ÀüÀÇ Euler °¢µµ¸¦ °¡Á®¿É´Ï´Ù.
+                // í˜„ì¬ íšŒì „ì˜ Euler ê°ë„ë¥¼ ê°€ì ¸ì˜µë‹ˆë‹¤.
                 Vector3 eulerAngles = currentRotation.eulerAngles;
 
-                // XÃà È¸Àü°ªÀ» _movementInput._rotationX·Î ¼³Á¤ÇÕ´Ï´Ù.
+                // Xì¶• íšŒì „ê°’ì„ _movementInput._rotationXë¡œ ì„¤ì •í•©ë‹ˆë‹¤.
                 float newXRotation = targetRotation.eulerAngles.x;
 
-                // »õ·Î¿î È¸Àü ºÎµå·´°Ô °ªÀ» Àû¿ëÇÕ´Ï´Ù.
+                // ìƒˆë¡œìš´ íšŒì „ ë¶€ë“œëŸ½ê²Œ ê°’ì„ ì ìš©í•©ë‹ˆë‹¤.
                 Quaternion newRotation = Quaternion.Euler(newXRotation, eulerAngles.y, eulerAngles.z);
                 _light.transform.rotation = Quaternion.Slerp(currentRotation, newRotation, Time.deltaTime * 40f);
 
-                // Slerp·Î ÀÌµ¿ÇÑ ÈÄ, ÀÏÁ¤ÇÑ ÀÛÀº °¢µµ Â÷ÀÌ ÀÌÇÏÀÏ °æ¿ì ÃÖÁ¾ÀûÀ¸·Î newRotationÀ» È®Á¤ÀûÀ¸·Î ¼³Á¤
+                // Slerpë¡œ ì´ë™í•œ í›„, ì¼ì •í•œ ì‘ì€ ê°ë„ ì°¨ì´ ì´í•˜ì¼ ê²½ìš° ìµœì¢…ì ìœ¼ë¡œ newRotationì„ í™•ì •ì ìœ¼ë¡œ ì„¤ì •
                 if (Quaternion.Angle(_light.transform.rotation, newRotation) < 0.1f)
                 {
                     _light.transform.rotation = newRotation;
@@ -102,7 +102,7 @@ public class Flashlight : MonoBehaviour, IItem
 
         if (PlayerID == Managers.Player._myDediPlayerId)
         {
-            //ÀÌ¹Ì »ç¿ëÁßÀÎµ¥ ¶Ç »ç¿ëÇÏ·Á°í ÇÏ¸é, ±âÁ¸ ÄÚ·çÆ¾ Á¾·áÇÏ°í ÄÚ·çÆ¾ ´Ù½Ã½ÃÀÛ
+            //ì´ë¯¸ ì‚¬ìš©ì¤‘ì¸ë° ë˜ ì‚¬ìš©í•˜ë ¤ê³  í•˜ë©´, ê¸°ì¡´ ì½”ë£¨í‹´ ì¢…ë£Œí•˜ê³  ì½”ë£¨í‹´ ë‹¤ì‹œì‹œì‘
             if (_isLightOn)
             {
                 StopCoroutine(_currentPlayingCoroutine);
@@ -119,26 +119,26 @@ public class Flashlight : MonoBehaviour, IItem
                 GameObject lightGameObject = Util.FindChild(_flashLightSource, "Light", true);
                 if (lightGameObject != null)
                 {
-                    //¾Ö´Ï¸ŞÀÌ¼Ç Å´
+                    //ì• ë‹ˆë©”ì´ì…˜ í‚´
                     PlayerAnimController anim = Managers.Player.GetAnimator(PlayerID);
                     anim.isFlashlight = true;
                     anim.PlayAnim();
 
-                    //¶óÀÌÆ® Å´
+                    //ë¼ì´íŠ¸ í‚´
                     _light = lightGameObject.GetComponent<Light>();
                     _light.enabled = true;
                     _light.range = FlashlightDistance; 
                     _light.spotAngle = FlashlightAngle;
 
-                    //ºÒ Å´
+                    //ë¶ˆ í‚´
                     _movementInput = Managers.Player._myDediPlayer.GetComponent<MovementInput>();
                     _isLightOn = true;
 
-                    //ºû È¿°ú Å´
+                    //ë¹› íš¨ê³¼ í‚´
                     _lightEffectMeshRenderer = Util.FindChild(lightGameObject, "LightEffect").gameObject.GetComponent<MeshRenderer>();
                     _lightEffectMeshRenderer.enabled = true;
 
-                    //ÀÏÁ¤ ½Ã°£ ÈÄ ºÒ ²û
+                    //ì¼ì • ì‹œê°„ í›„ ë¶ˆ ë”
                     _currentPlayingCoroutine = StartCoroutine(LightOffAfterSeconds(FlashlightAvailableTime));
 
                     
@@ -156,7 +156,7 @@ public class Flashlight : MonoBehaviour, IItem
         }
         else
         {
-            //ÀÌ¹Ì »ç¿ëÁßÀÎµ¥ ¶Ç »ç¿ëÇÏ·Á°í ÇÏ¸é, ±âÁ¸ ÄÚ·çÆ¾ Á¾·áÇÏ°í ÄÚ·çÆ¾ ´Ù½Ã½ÃÀÛ
+            //ì´ë¯¸ ì‚¬ìš©ì¤‘ì¸ë° ë˜ ì‚¬ìš©í•˜ë ¤ê³  í•˜ë©´, ê¸°ì¡´ ì½”ë£¨í‹´ ì¢…ë£Œí•˜ê³  ì½”ë£¨í‹´ ë‹¤ì‹œì‹œì‘
             if (_isLightOn)
             {
                 StopCoroutine(_currentPlayingCoroutine);
@@ -175,26 +175,26 @@ public class Flashlight : MonoBehaviour, IItem
                 GameObject lightGameObject = Util.FindChild(_flashLightSource, "Light", true);
                 if (lightGameObject != null)
                 {
-                    //¾Ö´Ï¸ŞÀÌ¼Ç Å´
+                    //ì• ë‹ˆë©”ì´ì…˜ í‚´
                     PlayerAnimController anim = Managers.Player.GetAnimator(PlayerID);
                     anim.isFlashlight = true;
                     anim.PlayAnim();
 
-                    //¶óÀÌÆ® Å´
+                    //ë¼ì´íŠ¸ í‚´
                     _light = lightGameObject.GetComponent<Light>();
                     _light.enabled = true;
                     _light.range = FlashlightDistance;
                     _light.spotAngle = FlashlightAngle;
 
-                    //ºÒ Å´
+                    //ë¶ˆ í‚´
                     _movementInput = Managers.Player._otherDediPlayers[PlayerID].GetComponent<MovementInput>();
                     _isLightOn = true;
 
-                    //ºû È¿°ú Å´
+                    //ë¹› íš¨ê³¼ í‚´
                     _lightEffectMeshRenderer = Util.FindChild(lightGameObject, "LightEffect").gameObject.GetComponent<MeshRenderer>();
                     _lightEffectMeshRenderer.enabled = true;
 
-                    //ÀÏÁ¤ ½Ã°£ ÈÄ ºÒ ²û
+                    //ì¼ì • ì‹œê°„ í›„ ë¶ˆ ë”
                     _currentPlayingCoroutine = StartCoroutine(LightOffAfterSeconds(FlashlightAvailableTime));
 
                 }
@@ -218,7 +218,7 @@ public class Flashlight : MonoBehaviour, IItem
     {
         if (PlayerID == Managers.Player._myDediPlayerId)
         {
-            //ÇÃ·¹ÀÌ¾î°¡ »ç¿ëÇÑ ¾ÆÀÌÅÛÀ» ¼­¹ö·Î Àü¼Û(¾ÆÀÌÅÛ »ç¿ë ÆĞÅ¶ Àü¼Û)
+            //í”Œë ˆì´ì–´ê°€ ì‚¬ìš©í•œ ì•„ì´í…œì„ ì„œë²„ë¡œ ì „ì†¡(ì•„ì´í…œ ì‚¬ìš© íŒ¨í‚· ì „ì†¡)
             CDS_UseFlashlightItem useFlashlightItemPacket = new CDS_UseFlashlightItem()
             {
                 MyDediplayerId = PlayerID,
@@ -231,21 +231,21 @@ public class Flashlight : MonoBehaviour, IItem
         
         _isLightOn = false;
 
-        //¶óÀÌÆ® ²û
+        //ë¼ì´íŠ¸ ë”
         _light.enabled = false;
 
-        //ºû È¿°ú ²û
+        //ë¹› íš¨ê³¼ ë”
         _lightEffectMeshRenderer.enabled = false;
 
-        //¾Ö´Ï¸ŞÀÌ¼Ç ²û
+        //ì• ë‹ˆë©”ì´ì…˜ ë”
         PlayerAnimController anim = Managers.Player.GetAnimator(PlayerID);
         anim.isFlashlight = false;
         anim.PlayAnim();
 
-        //¾ÆÀÌÅÛ µé°íÀÖ´Â »óÅÂ ¾÷µ«
+        //ì•„ì´í…œ ë“¤ê³ ìˆëŠ” ìƒíƒœ ì—…ëƒ
         Managers.Inventory._hotbar.HoldHotbarItem();
 
-        //ÆÄ±«
+        //íŒŒê´´
         Object.Destroy(gameObject);
     }
 
