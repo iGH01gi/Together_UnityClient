@@ -12,7 +12,7 @@ public class PlayerDeadUI : UI_scene
         LobbyButton,
         ObserveButton
     }
-    void Start()
+    void Awake()
     {
         InitButtons<Buttons>(gameObject);
     }
