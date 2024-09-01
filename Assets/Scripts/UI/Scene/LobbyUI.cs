@@ -33,10 +33,10 @@ public class LobbyUI : UI_scene
     {
         InitButtons<Buttons>(gameObject);
         
-        pageText = transform.GetChild(2).GetComponent<TMP_Text>();
-        leftPageButton = transform.GetChild(1).GetComponent<UI_Button>();
-        rightPageButton = transform.GetChild(3).GetComponent<UI_Button>();
-        roomsPanel = transform.GetChild(6);
+        pageText = transform.Find("PageNum").GetComponent<TMP_Text>();
+        leftPageButton = transform.Find("LeftPageButton").GetComponent<UI_Button>();
+        rightPageButton = transform.Find("RightPageButton").GetComponent<UI_Button>();
+        roomsPanel = transform.Find("RoomsPanel");
         roomsPanel.GetComponent<VerticalLayoutGroup>().spacing = Screen.height / 36;
         roomsPanel.GetComponent<VerticalLayoutGroup>().padding.top = Screen.height / 180;
         UIPacketHandler.RoomListSendPacket();
@@ -82,10 +82,10 @@ public class LobbyUI : UI_scene
         DisplayPageNumber();
         CheckForButtonActivation();
         ClearRoomListPanel();
+        
         for (int i = (currentPage-1)*roomsPerPage; i < Math.Min(currentPage*roomsPerPage,_gameRooms.Count); i++)
         {
-            GameObject currentRoom = Managers.Resource.Instantiate("UI/Subitem/Room_Info", roomsPanel);
-            currentRoom.GetComponent<Room_Info>().Init(_gameRooms[i]);
+            transform.GetChild(i%roomsPerPage).GetComponent<Room_Info>().Init(_gameRooms[i]);
         }
     }
 
@@ -112,9 +112,9 @@ public class LobbyUI : UI_scene
     //모든 룸 UI들을 삭제
     void ClearRoomListPanel()
     {
-        foreach (Transform child in roomsPanel)
+        foreach (Room_Info child in roomsPanel.GetComponentsInChildren<Room_Info>())
         {
-            GameObject.Destroy(child.gameObject);
+            child.Clear();
         }
     }
 }

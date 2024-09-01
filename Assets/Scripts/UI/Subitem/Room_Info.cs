@@ -1,31 +1,43 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Room_Info : UI_subitem
 {
     public GameRoom myroom { get; set; }
 
+    private TMP_Text _roomName;
+    private TMP_Text _count;
+    private Image _lockIcon;
+    private UI_Text _roomStatus;
+
+    private void Start()
+    {
+        _roomName = transform.Find("RoomName").GetComponent<TMP_Text>();
+        _count = transform.Find("Count").GetComponent<TMP_Text>();
+        _lockIcon = transform.Find("LockIcon").GetComponent<Image>();
+        _roomStatus = transform.Find("RoomStatus").GetComponent<UI_Text>();
+        Clear();
+    }
+
     public void Init(GameRoom gameRoom)
     {
         myroom = gameRoom;
-        transform.GetChild(0).GetComponent<TMP_Text>().text = gameRoom.Info.Title;
-        transform.GetChild(1).GetComponent<TMP_Text>().text =
-            (gameRoom.Info.CurrentCount + "/" + gameRoom.Info.MaxCount);
+        _roomName.GetComponent<TMP_Text>().text = gameRoom.Info.Title;
+        _count.GetComponent<TMP_Text>().text = (gameRoom.Info.CurrentCount + "/" + gameRoom.Info.MaxCount);
         if (gameRoom.Info.IsPlaying)
         {
-            transform.GetChild(2).GetComponent<UI_Text>().SetString("InGameStatus");
+            _roomStatus.GetComponent<UI_Text>().SetString("InGameStatus");
         }
         else
         {
-            transform.GetChild(2).GetComponent<UI_Text>().SetString("WaitingStatus");
+            _roomStatus.GetComponent<UI_Text>().SetString("WaitingStatus");
         }
         
-        if (!gameRoom.Info.IsPrivate)
-        {
-            Destroy(transform.GetChild(3).gameObject);
-        }
+        _lockIcon.GetComponent<Image>().enabled = gameRoom.Info.IsPrivate;
         transform.GetComponent<UI_Button>().SetOnClick(EnterRoomUI);
     }
 
@@ -41,5 +53,13 @@ public class Room_Info : UI_subitem
             UIPacketHandler.WaitForPacket();
             Managers.Room.RequestEnterRoom(myroom.Info.RoomId,"",Managers.Player._myRoomPlayer.Name);
         }
+    }
+
+    public void Clear()
+    {
+        _roomName.text = "";
+        _count.text = "";
+        _lockIcon.enabled = false;
+        _roomStatus.SetString("");
     }
 }
