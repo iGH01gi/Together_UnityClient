@@ -1,7 +1,7 @@
 # 유니티 클라이언트
 Together게임의 유니티로 제작한 클라이언트 부분 코드 (저작권 문제로 에셋 등 리소스는 제외한 버전)
 
-### 영상 링크 : Together 유튜브 바로가기
+### 영상 링크 : [Together 유튜브 바로가기](https://www.youtube.com/watch?v=I5oIDU53050)
 
 # Together
 ![포폴썸네일](https://github.com/user-attachments/assets/a3cad82a-9fe1-49d3-8bb6-cd04d368fa79)
