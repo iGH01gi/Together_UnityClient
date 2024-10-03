@@ -55,8 +55,11 @@ public class DataManager
         fileNames[Define.SaveFiles.Control] = "ControlSettings.json";
         fileNames[Define.SaveFiles.KeyBinding] = "OverrideBindings.json";
         
+        //json load로 기존 설정 불러오기
         _playerData = new PlayerData();
         _playerData = Managers.Data.LoadFromJson<PlayerData>(Define.SaveFiles.Player, _playerData);
+        
+        //기존 설정 적용하기
         Screen.fullScreen = _playerData.isFullScreen;
         Screen.SetResolution(_playerData.MyResolution.width,_playerData.MyResolution.height,_playerData.isFullScreen);
         DisplaySettings.SetQualityLevel(_playerData.DisplayQuality);
