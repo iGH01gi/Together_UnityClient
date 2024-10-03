@@ -67,18 +67,22 @@ public class DataManager
 
     public void SaveToJson(Define.SaveFiles fileType, string data)
     {
+        //TODO: change from local to DB
         File.WriteAllText(GetFilePath(fileType), data);
     }
 
     public void SaveToJson<T>(Define.SaveFiles fileType, T data)
     {
+        //TODO: change from local to DB
         File.WriteAllText(GetFilePath(fileType),JsonUtility.ToJson(data));
     }
 
     public string LoadFromJson(Define.SaveFiles fileType)
     {
+        //TODO: change from local to DB
         if (File.Exists(GetFilePath(fileType)))
         {
+            //TODO: change from local to DB
             return File.ReadAllText(GetFilePath(fileType));
         }
         else
@@ -91,6 +95,7 @@ public class DataManager
     {
         if (File.Exists(GetFilePath(fileType)))
         {
+            //TODO: change from local to DB
             string str = File.ReadAllText(GetFilePath(fileType));
             return JsonUtility.FromJson<T>(str);
         }
