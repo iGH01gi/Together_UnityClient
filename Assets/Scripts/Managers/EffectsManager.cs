@@ -107,6 +107,24 @@ public class EffectsManager : MonoBehaviour
         }
         StartCoroutine(FlashlightStopCoroutine(vignette));
     }
+    
+    /*
+    /// <summary>
+    /// Dash 아이템 효과 재생
+    /// </summary>
+    public void DashPPPlay(float duration)
+    {
+        
+        PostProcessVolume cur = _postProcessVolumes["DashPP"];
+        LensDistortion lensDistortion;
+        if (!cur.profile.TryGetSettings(out lensDistortion))
+        {
+            Debug.LogError("DepthOfField settings not found in the PostProcessVolume.");
+            return;
+        }
+        cur.weight = 1;
+        StartCoroutine(DashPPCoroutine(lensDistortion,duration));
+    }*/
 
     public void Clear()
     {
@@ -166,5 +184,22 @@ public class EffectsManager : MonoBehaviour
         }
         _postProcessVolumes["FlashlightPP"].weight = 0;
     }
+    
+    /*
+    ///////// DashPP's Coroutine /////////
+    
+    IEnumerator DashPPCoroutine (LensDistortion lensDistortion, float duration)
+    {
+        float currentTime=0;
+        float maxDistortion = 0.5f;
+        float duration = 0.5f;
+        while (currentTime < duration)
+        {
+            lensDistortion.intensity.value = maxDistortion * Mathf.Sin(Mathf.PI/2 * (currentTime / duration));
+            currentTime+=Time.deltaTime;
+            yield return null;
+        }
+        _postProcessVolumes["DashPP"].weight = 0;
+    }*/
     #endregion
 }

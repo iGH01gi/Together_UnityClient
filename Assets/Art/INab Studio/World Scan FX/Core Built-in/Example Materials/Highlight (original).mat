@@ -127,7 +127,7 @@ Material:
     - _Cull: 2
     - _CullMode: 2
     - _CullModeForward: 2
-    - _CurrentScanValue: 0.607
+    - _CurrentScanValue: 0.994
     - _Cutoff: 0
     - _DepthOffsetEnable: 0
     - _Distance_Offset: -4.5
@@ -143,7 +143,7 @@ Material:
     - _FovMaskSmothness: 0
     - _HighlighValue: 1
     - _HighlightValue: 1
-    - _MaskHardness: 1
+    - _MaskHardness: 0.95
     - _MaskPower: 3
     - _MaskRadius: 10
     - _Metallic: 0

@@ -100,7 +100,7 @@ Material:
     - _Addint: 0.196
     - _Blend: 1
     - _BumpScale: 1
-    - _CurrentScanValue: 0.607
+    - _CurrentScanValue: 0.994
     - _Cutoff: 0.5
     - _DepthHardness: 0.9
     - _DepthMaskAmount: 0.1
@@ -138,7 +138,7 @@ Material:
     - _Intensity: 1
     - _Mask: 0.3
     - _MaskAmount: 0.5
-    - _MaskHardness: 1
+    - _MaskHardness: 0.95
     - _MaskPower: 3
     - _MaskRadius: 10
     - _Metallic: 0
