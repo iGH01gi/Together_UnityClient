@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Google.Protobuf.Protocol;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -112,6 +113,54 @@ public class DataManager
     
     public void SavePlayerData()
     {
+        //설정 저장버튼 누른거니까 서버한테 패킷 보내기
+        CS_SetSetting packet = new CS_SetSetting();
+        packet.SteamId = Managers.Steam._steamId;
+        packet.InstanceId = 0; //임시값
+        packet.MouseSensitivity = _playerData.MouseSensitivity;
+        packet.IsFullScreen = _playerData.isFullScreen;
+        packet.DisplayQuality = (int)_playerData.DisplayQuality;
+        packet.Width = _playerData.MyResolution.width;
+        packet.Height = _playerData.MyResolution.height;
+
+        Managers.Network._roomSession.Send(packet);
+
+        //로컬에 json으로 저장
         SaveToJson<PlayerData>(Define.SaveFiles.Player,_playerData);
+    }
+
+    //서버에 저장된 설정을 불러와서 적용
+    public void ApplyServerSavedSetting(SC_GetSetting packet)
+    {
+        bool isSettingExist = packet.IsSettingExist;
+
+        if (isSettingExist)
+        {
+            ulong steamId = packet.SteamId;
+            int instanceId = packet.InstanceId; //내 생각엔 이걸 저장하는게 아닌듯. 
+            float mouseSensitivity = packet.MouseSensitivity;
+            bool isFullScreen = packet.IsFullScreen;
+            int displayQuality = packet.DisplayQuality;
+            int width = packet.Width;
+            int height = packet.Height;
+
+            //instanceId를 _playerData의 currentLocale에 적용
+            _playerData.MouseSensitivity = mouseSensitivity;
+            _playerData.isFullScreen = isFullScreen;
+            _playerData.DisplayQuality = (Define.DisplayQuality)displayQuality;
+            _playerData.MyResolution.width = width;
+            _playerData.MyResolution.height = height;
+
+            SaveToJson<PlayerData>(Define.SaveFiles.Player, _playerData); //이건 json으로 저장하는거. 아직 설정 적용한건 아님.
+
+            //설정 적용
+            Screen.fullScreen = isFullScreen;
+            Screen.SetResolution(width, height, isFullScreen);
+            DisplaySettings.SetQualityLevel((Define.DisplayQuality)displayQuality);
+        }
+        else //세팅이 없다면 이미 있는 세팅 그냥 그대로 씀
+        {
+            return;
+        }
     }
 }

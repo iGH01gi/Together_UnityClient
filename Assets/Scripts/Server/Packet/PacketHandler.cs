@@ -850,4 +850,20 @@ public class PacketHandler
         Managers.UI.LoadScenePanel(Define.SceneUIType.WinnerUI);
         Managers.UI.GetComponentInSceneUI<WinnerUI>().SetWinner(winnerPlayerId,winnerPlayerName);
     }
+
+
+
+
+    //룸서버로부터 세팅정보를 받았을때 처리(저장된 세팅정보가 없을수도 있음)
+    public static void SC_GetSettingHandler(PacketSession session, IMessage packet)
+    {
+        SC_GetSetting getSettingPacket = packet as SC_GetSetting;
+        ServerSession roomSession = session as ServerSession;
+
+        Debug.Log("SC_GetSettingHandler");
+
+        //세팅정보를 받아서 처리(정보가 있을경우에 json으로 저장하고 적용시키기)
+        Managers.Data.ApplyServerSavedSetting(getSettingPacket);
+
+    }
 }

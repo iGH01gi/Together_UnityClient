@@ -31,6 +31,8 @@ public class PlayerManager
         _myRoomPlayer = new MyRoomPlayer();
         if(_syncMoveController == null)
             _syncMoveController = new SyncMoveController();
+
+        _myRoomPlayer.Name = Managers.Steam._steamName;
     }
     
     public void Clear()

@@ -17,8 +17,8 @@ public class NetworkManager
     public void Init()
     {
         //ec2 룸서버 켜놨을때
-        //IPAddress ipAddr = IPAddress.Parse("3.37.243.26");
-        
+        //IPAddress ipAddr = IPAddress.Parse("52.79.153.236");
+
         //로컬 개발 환경일때
         IPAddress ipAddr = IPAddress.Parse("127.0.0.1");
         

@@ -91,6 +91,7 @@ public class Managers : MonoBehaviour
             _instance._sound.Init();
             _instance._data.Init();
             _instance._pool.Init();
+            _instance._steam.Init();//네트워크 매니저보다 먼저 실행되어야 함.
             _instance._network.Init();
             _instance._player.Init();
             _instance._ui.Init();
@@ -99,7 +100,7 @@ public class Managers : MonoBehaviour
             _instance._game.Init();
             _instance._item.Init();
             _instance._killer.Init();
-            _instance._steam.Init();
+            
         }
     }
     
