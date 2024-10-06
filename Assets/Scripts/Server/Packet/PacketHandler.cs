@@ -288,7 +288,7 @@ public class PacketHandler
         Debug.Log("DSC_DayTimerSyncHandler");
 
         float currentServerTimer = dayTimerSyncPacket.CurrentServerTimer; 
-        float estimatedCurrentServerTimer = currentServerTimer - Managers.Time.GetEstimatedLatency(); //현재 서버 타이머 시간(예측)
+        float estimatedCurrentServerTimer = currentServerTimer + Managers.Time.GetEstimatedLatency(); //현재 서버 타이머 시간(예측)
         
         if (!Managers.UI.SceneUI.name.Equals(Define.SceneUIType.ObserveUI.ToString()))
         {
@@ -384,7 +384,7 @@ public class PacketHandler
         Debug.Log("DSC_NightTimerSyncHandler");
 
         float currentServerTimer = nightTimerSyncPacket.CurrentServerTimer;
-        float estimatedCurrentServerTimer = currentServerTimer - Managers.Time.GetEstimatedLatency(); //현재 서버 타이머 시간(예측)
+        float estimatedCurrentServerTimer = currentServerTimer + Managers.Time.GetEstimatedLatency(); //현재 서버 타이머 시간(예측)
         if (!Managers.UI.SceneUI.name.Equals(Define.SceneUIType.ObserveUI.ToString()))
         {
             Managers.Game._clientTimer.CompareTimerValue(estimatedCurrentServerTimer); //클라이언트 타이머 시간 동기화
