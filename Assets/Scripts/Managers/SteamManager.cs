@@ -7,6 +7,8 @@ public class SteamManager : MonoBehaviour
 {
     public static GameObject root;
     public bool _isSteamInitialized = false;
+    public ulong _steamId;
+    public string _steamName;
 
     private Callback<GameRichPresenceJoinRequested_t> lobbyInviteCallback;
 
@@ -27,6 +29,9 @@ public class SteamManager : MonoBehaviour
 
             //내 스팀 이름 가져와서 저장
             SetName();
+
+            //steamId 가져와서 저장
+            SetSteamId();
 
             // 게임 초대 수락시 호출되는 콜백 함수
             lobbyInviteCallback = Callback<GameRichPresenceJoinRequested_t>.Create(OnGameRoomJoinRequested);
@@ -134,8 +139,14 @@ public class SteamManager : MonoBehaviour
     {
         string steamUserName = SteamFriends.GetPersonaName();
         Debug.Log("My Steam Name: " + steamUserName);
+    }
 
-        //이름 저장
-        Managers.Player._myRoomPlayer.Name = steamUserName;
+    /// <summary>
+    /// steamId를 가져와서 저장
+    /// </summary>
+    private void SetSteamId()
+    {
+        _steamId = SteamUser.GetSteamID().m_SteamID;
+        Debug.Log($"steamid: {_steamId}");
     }
 }

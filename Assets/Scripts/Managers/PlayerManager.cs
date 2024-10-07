@@ -31,6 +31,8 @@ public class PlayerManager
         _myRoomPlayer = new MyRoomPlayer();
         if(_syncMoveController == null)
             _syncMoveController = new SyncMoveController();
+
+        _myRoomPlayer.Name = Managers.Steam._steamName;
     }
     
     public void Clear()
@@ -196,9 +198,8 @@ public class PlayerManager
                 Managers.Game.IsNotKiller(); //킬러가 아닐 시 처리
             }
 
-            //킬러 콜라이더만 쓰도록 생존자용 콜라이더 끄기
-            Managers.Player._myDediPlayer.transform.Find("PlayerTrigger").GetComponent<CapsuleCollider>().enabled = false;
-            Managers.Player._myDediPlayer.transform.Find("SurvivorTrigger").GetComponent<CapsuleCollider>().enabled = false;
+            Managers.Player._myDediPlayer.transform.Find("PlayerTrigger").GetComponent<CapsuleCollider>().enabled = true;
+            Managers.Player._myDediPlayer.transform.Find("SurvivorTrigger").GetComponent<CapsuleCollider>().enabled = true;
         }
 
         callback?.Invoke();

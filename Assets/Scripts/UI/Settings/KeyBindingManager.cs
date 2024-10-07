@@ -60,12 +60,12 @@ public class KeyBindingManager : MonoBehaviour
         
         foreach (KeyValuePair<string,Tuple<int, InputBinding>> current in _keyBindings)
         {
-            GameObject go = Managers.Resource.Instantiate("UI/Setting/KeyBindingSelection", transform);
+            GameObject go = Managers.Resource.Instantiate("UI/Subitem/KeyBindingSelection", transform);
             go.name = current.Key;
             go.transform.GetChild(0).GetComponent<LocalizeStringEvent>().StringReference
                 .SetReference("StringTable", current.Key);
             go.transform.GetChild(1).GetComponent<Button>().onClick.AddListener(() => ChangeKeySetting(go.transform.GetChild(1).gameObject,current));
-            go.transform.GetChild(1).GetChild(0).GetComponent<TextMeshProUGUI>().text =
+            go.transform.GetChild(1).GetComponentInChildren<TMP_Text>().text =
                 current.Value.Item2.ToDisplayString();
         }
     }
@@ -102,7 +102,7 @@ public class KeyBindingManager : MonoBehaviour
         if (successful)
         {
             _keyBindings[current.Key] = Tuple.Create(current.Value.Item1,newBinding);
-            button.transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = newBinding.ToDisplayString();
+            button.transform.GetChild(0).GetComponentInChildren<TMP_Text>().text = newBinding.ToDisplayString();
         }
         
         action.Enable();

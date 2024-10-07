@@ -72,6 +72,8 @@ public abstract class Session
     public void Start(Socket socket)
     {
         _socket = socket;
+        //네이글 알고리즘을 끔
+        _socket.NoDelay = true;
 
         _recvArgs.Completed += new EventHandler<SocketAsyncEventArgs>(OnRecvCompleted);
         _sendArgs.Completed += new EventHandler<SocketAsyncEventArgs>(OnSendCompleted);

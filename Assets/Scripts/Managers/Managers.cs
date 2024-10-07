@@ -29,6 +29,7 @@ public class Managers : MonoBehaviour
     KillerManager _killer = new KillerManager();
     SteamManager _steam = new SteamManager();
     InventoryManager _inventory = new InventoryManager();
+    EffectsManager _effects = new EffectsManager();
     
     
     public static  ResourceManager Resource { get { return Instance._resource;} }
@@ -52,7 +53,9 @@ public class Managers : MonoBehaviour
     public static SteamManager Steam { get { return Instance._steam; } }
     
     public static InventoryManager Inventory { get { return Instance._inventory; } }
-
+    public static EffectsManager Effects { get { return Instance._effects; }
+        set { Instance._effects = value; }
+    }
 
     void Start()
     {
@@ -88,6 +91,7 @@ public class Managers : MonoBehaviour
             _instance._sound.Init();
             _instance._data.Init();
             _instance._pool.Init();
+            _instance._steam.Init();//네트워크 매니저보다 먼저 실행되어야 함.
             _instance._network.Init();
             _instance._player.Init();
             _instance._ui.Init();
@@ -96,7 +100,7 @@ public class Managers : MonoBehaviour
             _instance._game.Init();
             _instance._item.Init();
             _instance._killer.Init();
-            _instance._steam.Init();
+            
         }
     }
     

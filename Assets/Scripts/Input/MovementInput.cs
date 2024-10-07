@@ -57,7 +57,7 @@ public class MovementInput : MonoBehaviour
         _camera = _prefab.transform.GetChild(0);
         _player = _prefab.transform.GetChild(1);
         _velocity = new Vector3(0f,0f,0f);
-        Managers.Job.Push(SendMove); //20초 마다 보냄
+        Managers.Job.Push(SendMove); //50ms 마다 보냄 (초당 20번)
     }
     
     void Update()

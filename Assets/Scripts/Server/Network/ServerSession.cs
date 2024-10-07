@@ -38,6 +38,11 @@ public class ServerSession : PacketSession
                 PacketQueue.Instance.Push(s, i, m);
             };
         }
+
+        //steamId를 통해서 설정정보를 요청(저장된 설정 정보가 없을수도 있음)
+        CS_GetSetting getSetting = new CS_GetSetting();
+        getSetting.SteamId = Managers.Steam._steamId;
+        Send(getSetting);
     }
 
     public override void OnDisconnected(EndPoint endPoint)

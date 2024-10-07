@@ -14,7 +14,7 @@ public class UIUtils
     {
         foreach (var current in classToBind.GetType().GetFields().ToList())
         {
-            GameObject go = Managers.Resource.Instantiate("UI/Localized/UISlider", transform);
+            GameObject go = Managers.Resource.Instantiate("UI/Subitem/UI_Slider", transform);
             go.name = current.Name;
             go.transform.GetChild(0).GetComponent<LocalizeStringEvent>().StringReference
                 .SetReference("StringTable", current.Name);
@@ -31,7 +31,7 @@ public class UIUtils
     public static void BindFieldToUISlider<T>(T classToBind, string fieldName, Action<GameObject> OnSliderValueChanged,
         Transform transform)
     {
-        GameObject go = Managers.Resource.Instantiate("UI/Localized/UISlider", transform);
+        GameObject go = Managers.Resource.Instantiate("UI/Subitem/UI_Slider", transform);
         go.name = fieldName;
         go.transform.GetChild(0).GetComponent<LocalizeStringEvent>().StringReference
             .SetReference("StringTable", fieldName);
@@ -47,7 +47,7 @@ public class UIUtils
     public static void BindFieldToUIToggle<T>(T classToBind, string fieldName, Action<GameObject> OnToggleValueChanged,
         Transform transform)
     {
-        GameObject go = Managers.Resource.Instantiate("UI/Localized/UIToggle", transform);
+        GameObject go = Managers.Resource.Instantiate("UI/Subitem/UI_Toggle", transform);
         go.name = fieldName;
         go.transform.GetChild(0).GetComponent<LocalizeStringEvent>().StringReference
             .SetReference("StringTable", fieldName);
@@ -62,7 +62,7 @@ public class UIUtils
     public static void BindFieldToUIDropdown<T>(T classToBind, string fieldName, Action<TMP_Dropdown> OnToggleValueChanged,
         Transform transform, List<string> dropdownMenus)
     {
-        GameObject go = Managers.Resource.Instantiate("UI/Localized/UIDropDown", transform);
+        GameObject go = Managers.Resource.Instantiate("UI/Subitem/UI_DropDown", transform);
         go.name = fieldName;
         TMP_Dropdown dropdown = go.transform.GetChild(1).GetComponent<TMP_Dropdown>();
         go.transform.GetChild(0).GetComponent<LocalizeStringEvent>().StringReference
@@ -86,7 +86,7 @@ public class UIUtils
 
     public static GameObject BindUIButtonWithText(string buttonName, Action OnButtonPress, Transform transform)
     {
-        GameObject go = Managers.Resource.Instantiate("UI/Localized/UIButton", transform);
+        GameObject go = Managers.Resource.Instantiate("UI/Subitem/UI_Button", transform);
         go.name = buttonName;
         go.transform.GetChild(0).GetComponent<LocalizeStringEvent>().StringReference
             .SetReference("StringTable", buttonName);

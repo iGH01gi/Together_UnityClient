@@ -13,7 +13,7 @@ public class MainMenuUI : UI_scene
         Settings,
         EndGame
     }
-    private void Start()
+    private void Awake()
     {
         InitButtons<Buttons>(transform.GetChild(0).gameObject,true);
     }

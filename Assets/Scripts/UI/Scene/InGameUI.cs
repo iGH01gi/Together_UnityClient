@@ -18,7 +18,7 @@ public class InGameUI : UI_scene
     public GameObject _hotbar;
     
     public bool _isInventoryOpen;
-    private void Start()
+    private void Awake()
     {
         Managers.UI.LoadPopupPanel<WairForSecondsPopup>(true,false); //3초 카운트 다운
         _timer = transform.Find("Timer").gameObject;
